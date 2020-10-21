@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C++知识补充</title>
-    <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
-<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
-<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>virtual表示虚函数，没关系</li>
-<li>-&gt; std::string称为后置返回类型</li>
-<li>auto是占位符（C++11新增用法）</li>
-</ul>
-<p>作用：解决模板中函数返回值类型不确定的问题</p>
-]]></content>
-      <tags>
-        <tag>c++基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>beginner</title>
     <url>/2020/09/07/beginner/</url>
     <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
@@ -87,6 +67,109 @@
 
 <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://github.com/Moji99/googleCTF2020-BEGINNER" target="_blank" rel="noopener">https://github.com/Moji99/googleCTF2020-BEGINNER</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>C++知识补充</title>
+    <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
+<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
+<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>virtual表示虚函数，没关系</li>
+<li>-&gt; std::string称为后置返回类型</li>
+<li>auto是占位符（C++11新增用法）</li>
+</ul>
+<p>作用：解决模板中函数返回值类型不确定的问题</p>
+]]></content>
+      <tags>
+        <tag>c++基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>datalab</title>
+    <url>/2020/07/23/datalab/</url>
+    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
+<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
+<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
+<p>太大了，用移位</p>
+<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
+<ul>
+<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
+<li>除了最大值，-1也有同样的情况</li>
+</ul>
+<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
+<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
+<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
+<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
+<p>-x = ~x + 1</p>
+<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
+<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
+<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
+<p>判断x是否非零：!!x</p>
+<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
+<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
+<ul>
+<li>符号相反，如果y为正数，为1</li>
+<li>符号相同，相减 &gt; 0为1</li>
+<li>两数相等（异或实现），返回1</li>
+</ul>
+<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
+<p>正负零的符号位都是0</p>
+<p>取反与1&amp;，正负再&amp;</p>
+<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
+<p>特殊情况</p>
+<ul>
+<li>0 : 1</li>
+<li>1 : 1</li>
+</ul>
+<p>正数：最高位1的位置 + 1（符号位）</p>
+<p>负数：求反码，同正数</p>
+<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
+<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
+<p>特殊情况</p>
+<ul>
+<li>NaN：直接将参数返回回去</li>
+<li>区别规格化数和非规格化数</li>
+</ul>
+<p>单精度浮点内部</p>
+<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p>NaN</p>
+<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p>正负无穷</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
+<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
+<p>情况：</p>
+<ul>
+<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
+</li>
+<li><p>如果大于31，大了，直接返回0x80000000u</p>
+</li>
+<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
+<ul>
+<li>E &lt; 23，说明后面还有小数部分</li>
+<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
+</ul>
+<p>最后，根据符号位，返回对应符号的frac</p>
+</li>
+</ul>
+<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
+<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
+<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
+<p>E = x;</p>
+<p>0 | bios + E | 23个0</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
+<hr>
+<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
+]]></content>
+      <tags>
+        <tag>csapp</tag>
+      </tags>
   </entry>
   <entry>
     <title>bomblab</title>
@@ -212,89 +295,6 @@
 <p>9?&gt;567</p>
 <p>4 3 2 1 6 5</p>
 <p><img src="/2020/07/24/bomblab/image-20200724040224131.png" alt="image-20200724040224131"></p>
-]]></content>
-      <tags>
-        <tag>csapp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>datalab</title>
-    <url>/2020/07/23/datalab/</url>
-    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
 ]]></content>
       <tags>
         <tag>csapp</tag>
