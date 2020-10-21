@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>datalab | winter - 像初雪一样自由洒落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.bitXor用～（取补）和&amp;实现异或操作  2.tmin两字节补码的最小数 0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个 1000 0000 0000 0000 0000 0000 0000 0000 &#x3D;&#x3D; 0x80000000  太大了，用移位 3.isTmax如果x是最大值，返回1，否则返回0  最大值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="datalab">
+<meta property="og:url" content="http://yoursite.com/2020/07/23/datalab/index.html">
+<meta property="og:site_name" content="winter - 像初雪一样自由洒落">
+<meta property="og:description" content="1.bitXor用～（取补）和&amp;实现异或操作  2.tmin两字节补码的最小数 0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个 1000 0000 0000 0000 0000 0000 0000 0000 &#x3D;&#x3D; 0x80000000  太大了，用移位 3.isTmax如果x是最大值，返回1，否则返回0  最大值">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/image-20200720182358141.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/image-20200720214424119.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/image-20200720214532080.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/23/datalab/image-20200720222037585.png">
+<meta property="article:published_time" content="2020-07-23T10:52:52.000Z">
+<meta property="article:modified_time" content="2020-07-25T17:21:06.026Z">
+<meta property="article:author" content="winter">
+<meta property="article:tag" content="csapp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/23/datalab/image-20200720182358141.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="winter - 像初雪一样自由洒落" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">winter - 像初雪一样自由洒落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-datalab" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2020-07-23T10:52:52.000Z" itemprop="datePublished">2020-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      datalab
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
+<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
+<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
+<p>太大了，用移位</p>
+<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
+<ul>
+<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
+<li>除了最大值，-1也有同样的情况</li>
+</ul>
+<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
+<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
+<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
+<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
+<p>-x = ~x + 1</p>
+<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
+<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
+<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
+<p>判断x是否非零：!!x</p>
+<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
+<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
+<ul>
+<li>符号相反，如果y为正数，为1</li>
+<li>符号相同，相减 &gt; 0为1</li>
+<li>两数相等（异或实现），返回1</li>
+</ul>
+<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
+<p>正负零的符号位都是0</p>
+<p>取反与1&amp;，正负再&amp;</p>
+<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
+<p>特殊情况</p>
+<ul>
+<li>0 : 1</li>
+<li>1 : 1</li>
+</ul>
+<p>正数：最高位1的位置 + 1（符号位）</p>
+<p>负数：求反码，同正数</p>
+<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
+<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
+<p>特殊情况</p>
+<ul>
+<li>NaN：直接将参数返回回去</li>
+<li>区别规格化数和非规格化数</li>
+</ul>
+<p>单精度浮点内部</p>
+<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p>NaN</p>
+<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p>正负无穷</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
+<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
+<p>情况：</p>
+<ul>
+<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
+</li>
+<li><p>如果大于31，大了，直接返回0x80000000u</p>
+</li>
+<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
+<ul>
+<li>E &lt; 23，说明后面还有小数部分</li>
+<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
+</ul>
+<p>最后，根据符号位，返回对应符号的frac</p>
+</li>
+</ul>
+<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
+<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
+<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
+<p>E = x;</p>
+<p>0 | bios + E | 23个0</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
+<hr>
+<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/23/datalab/" data-id="ckgjmguaz0007agv92g1cg1x2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../24/bomblab/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          bomblab
+        
+      </div>
+    </a>
+  
+  
+    <a href="../winter/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">winter</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" rel="tag">c++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/v8/" rel="tag">v8</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">c++基础</a> <a href="../../../../tags/csapp/" style="font-size: 20px;">csapp</a> <a href="../../../../tags/v8/" style="font-size: 10px;">v8</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../10/22/ret2usr-1/">ret2usr</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">v8环境搭建</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">C++知识补充</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/07/beginner/">beginner</a>
+          </li>
+        
+          <li>
+            <a href="../../24/bomblab/">bomblab</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 winter<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
