@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C++知识补充</title>
+    <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
+<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
+<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>virtual表示虚函数，没关系</li>
+<li>-&gt; std::string称为后置返回类型</li>
+<li>auto是占位符（C++11新增用法）</li>
+</ul>
+<p>作用：解决模板中函数返回值类型不确定的问题</p>
+]]></content>
+      <tags>
+        <tag>c++基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>beginner</title>
+    <url>/2020/09/07/beginner/</url>
+    <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
+
+<p>ELF二进制文件，64位，x86-64架构，LSB说明是小端的（MSB是大端的）</p>
+<h4 id="执行文件"><a href="#执行文件" class="headerlink" title="执行文件"></a>执行文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ .&#x2F;a.out </span><br><span class="line">Flag: winter</span><br><span class="line">FAILURE</span><br></pre></td></tr></table></figure>
+
+<p>一个输入点，判断对错</p>
+<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/beginner/image-20200905153614666.png" alt="image-20200905153614666"></p>
+<p>给定的字符串里面有CTF{，很可能是flag的一部分</p>
+<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/beginner/image-20200905160629829.png" alt="image-20200905160629829"></p>
+<p><code>__isoc99_scanf(&quot;%15s&quot;, &amp;v5);</code>规定了最多输入15个字符，flag很有可能就是15个。</p>
+<p><img src="/2020/09/07/beginner/image-20200905160714290.png" alt="image-20200905160714290"></p>
+<h4 id="simd指令"><a href="#simd指令" class="headerlink" title="simd指令"></a>simd指令</h4><p>全称single instruction multiple data，即单指令多数据运算</p>
+<p>其目的就在于帮助CPU实现数据并行，提高运算效率。</p>
+<h5 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h5><p>选取源寄存器的任意字节重新排布到目的寄存器。</p>
+<p>通俗来讲：就是将原来寄存器里面字节排列，按你的要求打乱顺序，最后将打乱顺序的存入目的寄存器</p>
+<p>网上可以搜到它的伪代码描述</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char a[16]; &#x2F;&#x2F; input a</span><br><span class="line">　　char b[16]; &#x2F;&#x2F; input b</span><br><span class="line">　　char r[16]; &#x2F;&#x2F; output r</span><br><span class="line"> </span><br><span class="line">　　for (i&#x3D;0; i &lt; 16; i++)</span><br><span class="line">   　　r[i] &#x3D; (b[i] &lt; 0) ? 0 : a[b[i] % 16];</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html" target="_blank" rel="noopener">https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html</a></p>
+<p><img src="/2020/09/07/beginner/image-20200905162233511.png" alt="image-20200905162233511"></p>
+<p><code>13 12 10 08 04 15 03 14 09 11 05 01 07 06 02</code></p>
+<p>假设我们输入的值存放在a[16]数组里面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">索引:  1     2     3     4     5     6     7     8     9     10     11     12     13     14     15 </span><br><span class="line">目的：a[13] a[12] a[10] a[08] a[04] a[15] a[03] a[14] a[09] a[11]  a[05]  a[01]  a[07]   a[06]  a[02]</span><br></pre></td></tr></table></figure>
+
+<h5 id="add32"><a href="#add32" class="headerlink" title="add32"></a>add32</h5><p>每32位（4个字节）做整形加法运算，但是进位不会从一个4字节的包传输到另一个：</p>
+<p><img src="/2020/09/07/beginner/image-20200905162639108.png" alt="image-20200905162639108"></p>
+<h5 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h5><p>做异或操作</p>
+<p><img src="/2020/09/07/beginner/image-20200905162718446.png" alt="image-20200905162718446"></p>
+<p>因为程序是小端的，所以实际要倒过来，可以通过右键array变过来。</p>
+<p><img src="/2020/09/07/beginner/image-20200906230824340.png" alt="image-20200906230824340"></p>
+<h4 id="拼凑flag"><a href="#拼凑flag" class="headerlink" title="拼凑flag"></a>拼凑flag</h4><p>假设前四个字符就是CTF{，我们根据以上规则进行实验。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br></pre></td></tr></table></figure>
+
+<p>根据shuffle的规则，打乱顺序后的字符串如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[2] a[6] a[7] a[1] a[5] a[11] a[9] a[14] a[3] a[15] a[4] a[8] a[10] a[12] a[13] a[0]</span><br><span class="line"> 0    1    2    3    4    5     6    7     8    9     10   11   12    13    14    15</span><br></pre></td></tr></table></figure>
+
+<p>所以，一开始我们知道第三个（也就是a[3]）是’{‘。</p>
+<p>a[3]被放在了索引8的位置，我们继续计算add和xor，就可以得到a[8]了，因为操作后的要和之前的一样。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x7B + ADD[8] &#x3D; 0x7B + 0x37 &#x3D; 0xB2</span><br><span class="line">0xB2 ^ XOR[8] &#x3D; 0xB2 ^ 0xD4 &#x3D; 0x66 &#x3D;&gt; flag[8] &#x3D; &#39;f&#39;</span><br><span class="line">CTF&#123; _ _ _ _ f _ _ _ _ _ &#125;\0</span><br></pre></td></tr></table></figure>
+
+<p>所以，就有了</p>
+<p><code>3 =&gt; 8 =&gt; 11 =&gt; 5 =&gt; 4 =&gt; 10 =&gt; 12 =&gt; 13 =&gt; 14 =&gt; 7</code>，依次类推出来所有的flag</p>
+<p>但是，这里还有注意的是进位。</p>
+<p>11 =&gt; 5</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x4D + ADD[5] &#x3D; 0x4D + 0xDE &#x3D; 0x12B</span><br><span class="line">0x2B ^ XOR[5] &#x3D; 0x2B ^ 0x1A &#x3D; 0x31 &#x3D;&gt; flag[5] &#x3D; &#39;1&#39;</span><br><span class="line">CTF&#123; _ 1 _ _ f _ _ M _ _ &#125;\0</span><br></pre></td></tr></table></figure>
+
+<p>这里发生了进位，需要将进位添加到add[6]里面去</p>
+<p>其他的也一样。</p>
+<p><img src="/2020/09/07/beginner/image-20200906235018243.png" alt="image-20200906235018243"></p>
+<p>出现单个数字的，说明进位到了什么索引。</p>
+<p>分别add[6]、add[7]、add[8]都发生了进位，但是add[6]加上进位是在第六位计算之前，所以没事。add[8]是add[7]进位，add[7]在四字节分割中是第二个四字节的末尾，所以他的进位无法添加到下一个有效字节，不用管它。</p>
+<p>所以，最后只有add[7]在结束后都需要重新计算。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[14] + ADD[7] &#x3D; 0x7D + 0xFF &#x3D; 0x17C</span><br><span class="line">0x7C ^ XOR[7] &#x3D; 0x7C ^ 0x38 &#x3D; 0x44 &#x3D;&gt; flag[7] &#x3D; &#39;D&#39;</span><br><span class="line">CTF&#123; S 1 M D f 0 r M 3 ! &#125;\0</span><br></pre></td></tr></table></figure>
+
+<p>由于a[7]变了，相应的a[2]也会变</p>
+<p>add[1]有进位（0x4d + 0xbe == 0x10b），add[2]=0xae</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[7] + ADD[7] &#x3D; 0x44 + 0xae &#x3D; 0xf2</span><br><span class="line">0x7C ^ XOR[7] &#x3D; 0xf2 ^ 0xb4 &#x3D; 0x46 &#x3D;&gt; flag[7] &#x3D; &#39;F&#39;</span><br><span class="line">CTF&#123; S 1 M D f 0 r M 3 ! &#125;\0</span><br></pre></td></tr></table></figure>
+
+<p>我们知道前面三个，这个也算是验证吧。</p>
+<p>exp如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import binascii</span><br><span class="line">flag &#x3D; [&#39;C&#39;,&#39;T&#39;,&#39;F&#39;,&#39;&#123;&#39;,0,0,0,0,0,0,0,0,0,0,0,&#39;\0&#39;]</span><br><span class="line"></span><br><span class="line">add &#x3D; [0xEF, 0xBE, 0xAD, 0xDE, 0xAD, 0xDE, 0xE1, 0xFE, 0x37,0x13, 0x37, 0x13, 0x66, 0x74, 0x63, 0x67]</span><br><span class="line">xor &#x3D; [0x76, 0x58, 0xB4, 0x49, 0x8D, 0x1A, 0x5F, 0x38, 0xD4,0x23, 0xF8, 0x34, 0xEB, 0x86, 0xF9, 0xAA]</span><br><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br><span class="line">index &#x3D; [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]</span><br><span class="line">start &#x3D; 3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def bianli(number):</span><br><span class="line">	for i in range(16):#0-15</span><br><span class="line">		if(shuffle[i] &#x3D;&#x3D; number):</span><br><span class="line">			return i</span><br><span class="line">for i in range(14):</span><br><span class="line">	h &#x3D;  binascii.b2a_hex(flag[start])</span><br><span class="line">	start &#x3D; bianli(start)</span><br><span class="line">	a &#x3D; chr(((eval(&quot;0x&quot;+h) +add[start])&amp;0xff)^xor[start])</span><br><span class="line">	if(((eval(&quot;0x&quot;+h) +add[start])&amp;0xff00)!&#x3D;0):</span><br><span class="line">		if((start+1)%4 !&#x3D; 0):</span><br><span class="line">			print(start+1)</span><br><span class="line">			add[start+1]+&#x3D;(eval(&quot;0x&quot;+h) +add[start])&gt;&gt;8</span><br><span class="line">	print(&quot;number:&quot;,start)</span><br><span class="line">	print(&quot;\nsymbol:&quot;,a)</span><br><span class="line">	flag[start]&#x3D;a	</span><br><span class="line">	if(i&#x3D;&#x3D;9):</span><br><span class="line">		start &#x3D; 15</span><br><span class="line">	if(i&#x3D;&#x3D;11):</span><br><span class="line">		start &#x3D; 14</span><br><span class="line"></span><br><span class="line">flag[2]&#x3D;&#39;F&#39;#flag[2]通过重新计算就是&#39;F&#39;,由于a[7]变了</span><br><span class="line"></span><br><span class="line">print(&quot;add:&quot;)</span><br><span class="line">for i in range(15):</span><br><span class="line">	print(hex(add[i]))</span><br><span class="line"></span><br><span class="line">print(&quot;flag:&quot;,flag)</span><br></pre></td></tr></table></figure>
+
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://github.com/Moji99/googleCTF2020-BEGINNER" target="_blank" rel="noopener">https://github.com/Moji99/googleCTF2020-BEGINNER</a></p>
+]]></content>
+      <tags>
+        <tag>reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>datalab</title>
     <url>/2020/07/23/datalab/</url>
     <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
@@ -84,74 +175,96 @@
       </tags>
   </entry>
   <entry>
-    <title>beginner</title>
-    <url>/2020/09/07/beginner/</url>
-    <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
+    <title>ret2usr</title>
+    <url>/2020/10/22/ret2usr/</url>
+    <content><![CDATA[<p>适合人群：内核基础为0</p>
+<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
+<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
+<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
+<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
+<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
+<p>（3）n：拷贝数据的长度（字节）</p>
+<blockquote>
+<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
+</blockquote>
+<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
 
-<p>ELF二进制文件，64位，x86-64架构，LSB说明是小端的（MSB是大端的）</p>
-<h4 id="执行文件"><a href="#执行文件" class="headerlink" title="执行文件"></a>执行文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ .&#x2F;a.out </span><br><span class="line">Flag: winter</span><br><span class="line">FAILURE</span><br></pre></td></tr></table></figure>
+<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
+<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
+$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
+<p>但是直接执行，地址都是0x0，需要root权限。</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p>方法：修改suid</p>
+<p>（1）创建一个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
 
-<p>一个输入点，判断对错</p>
-<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/beginner/image-20200905153614666.png" alt="image-20200905153614666"></p>
-<p>给定的字符串里面有CTF{，很可能是flag的一部分</p>
-<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/beginner/image-20200905160629829.png" alt="image-20200905160629829"></p>
-<p><code>__isoc99_scanf(&quot;%15s&quot;, &amp;v5);</code>规定了最多输入15个字符，flag很有可能就是15个。</p>
-<p><img src="/2020/09/07/beginner/image-20200905160714290.png" alt="image-20200905160714290"></p>
-<h4 id="simd指令"><a href="#simd指令" class="headerlink" title="simd指令"></a>simd指令</h4><p>全称single instruction multiple data，即单指令多数据运算</p>
-<p>其目的就在于帮助CPU实现数据并行，提高运算效率。</p>
-<h5 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h5><p>选取源寄存器的任意字节重新排布到目的寄存器。</p>
-<p>通俗来讲：就是将原来寄存器里面字节排列，按你的要求打乱顺序，最后将打乱顺序的存入目的寄存器</p>
-<p>网上可以搜到它的伪代码描述</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char a[16]; &#x2F;&#x2F; input a</span><br><span class="line">　　char b[16]; &#x2F;&#x2F; input b</span><br><span class="line">　　char r[16]; &#x2F;&#x2F; output r</span><br><span class="line"> </span><br><span class="line">　　for (i&#x3D;0; i &lt; 16; i++)</span><br><span class="line">   　　r[i] &#x3D; (b[i] &lt; 0) ? 0 : a[b[i] % 16];</span><br></pre></td></tr></table></figure>
+<p>（2）解压initramfs.cpio文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
 
-<p><a href="https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html" target="_blank" rel="noopener">https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html</a></p>
-<p><img src="/2020/09/07/beginner/image-20200905162233511.png" alt="image-20200905162233511"></p>
-<p><code>13 12 10 08 04 15 03 14 09 11 05 01 07 06 02</code></p>
-<p>假设我们输入的值存放在a[16]数组里面</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">索引:  1     2     3     4     5     6     7     8     9     10     11     12     13     14     15 </span><br><span class="line">目的：a[13] a[12] a[10] a[08] a[04] a[15] a[03] a[14] a[09] a[11]  a[05]  a[01]  a[07]   a[06]  a[02]</span><br></pre></td></tr></table></figure>
+<p>（3）修改suid</p>
+<p>进入etc/init.d/rcS，将1000修改为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
 
-<h5 id="add32"><a href="#add32" class="headerlink" title="add32"></a>add32</h5><p>每32位（4个字节）做整形加法运算，但是进位不会从一个4字节的包传输到另一个：</p>
-<p><img src="/2020/09/07/beginner/image-20200905162639108.png" alt="image-20200905162639108"></p>
-<h5 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h5><p>做异或操作</p>
-<p><img src="/2020/09/07/beginner/image-20200905162718446.png" alt="image-20200905162718446"></p>
-<p>因为程序是小端的，所以实际要倒过来，可以通过右键array变过来。</p>
-<p><img src="/2020/09/07/beginner/image-20200906230824340.png" alt="image-20200906230824340"></p>
-<h4 id="拼凑flag"><a href="#拼凑flag" class="headerlink" title="拼凑flag"></a>拼凑flag</h4><p>假设前四个字符就是CTF{，我们根据以上规则进行实验。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p>（4）重新打包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
 
-<p>根据shuffle的规则，打乱顺序后的字符串如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[2] a[6] a[7] a[1] a[5] a[11] a[9] a[14] a[3] a[15] a[4] a[8] a[10] a[12] a[13] a[0]</span><br><span class="line"> 0    1    2    3    4    5     6    7     8    9     10   11   12    13    14    15</span><br></pre></td></tr></table></figure>
+<p>（5）再次执行两条命令即可</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p>已经是root权限了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
+<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
+<blockquote>
+<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
+<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
+</blockquote>
+<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
 
-<p>所以，一开始我们知道第三个（也就是a[3]）是’{‘。</p>
-<p>a[3]被放在了索引8的位置，我们继续计算add和xor，就可以得到a[8]了，因为操作后的要和之前的一样。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x7B + ADD[8] &#x3D; 0x7B + 0x37 &#x3D; 0xB2</span><br><span class="line">0xB2 ^ XOR[8] &#x3D; 0xB2 ^ 0xD4 &#x3D; 0x66 &#x3D;&gt; flag[8] &#x3D; &#39;f&#39;</span><br><span class="line">CTF&#123; _ _ _ _ f _ _ _ _ _ &#125;\0</span><br></pre></td></tr></table></figure>
+<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
+<p>0x7ffd958d7e08</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p>（2）执行<code>./startvm.sh</code></p>
+<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
+<p>（4）远程连接，<code>target remote :1234</code></p>
+<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p>（6）在原来的窗口，执行exp</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p>（7）接着，就可以正常调试了</p>
+<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
 
-<p>所以，就有了</p>
-<p><code>3 =&gt; 8 =&gt; 11 =&gt; 5 =&gt; 4 =&gt; 10 =&gt; 12 =&gt; 13 =&gt; 14 =&gt; 7</code>，依次类推出来所有的flag</p>
-<p>但是，这里还有注意的是进位。</p>
-<p>11 =&gt; 5</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0x4D + ADD[5] &#x3D; 0x4D + 0xDE &#x3D; 0x12B</span><br><span class="line">0x2B ^ XOR[5] &#x3D; 0x2B ^ 0x1A &#x3D; 0x31 &#x3D;&gt; flag[5] &#x3D; &#39;1&#39;</span><br><span class="line">CTF&#123; _ 1 _ _ f _ _ M _ _ &#125;\0</span><br></pre></td></tr></table></figure>
+<p>（2）将initramfs.cpio解压到myimage文件夹</p>
+<p>（3）将exp移入myimage文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
 
-<p>这里发生了进位，需要将进位添加到add[6]里面去</p>
-<p>其他的也一样。</p>
-<p><img src="/2020/09/07/beginner/image-20200906235018243.png" alt="image-20200906235018243"></p>
-<p>出现单个数字的，说明进位到了什么索引。</p>
-<p>分别add[6]、add[7]、add[8]都发生了进位，但是add[6]加上进位是在第六位计算之前，所以没事。add[8]是add[7]进位，add[7]在四字节分割中是第二个四字节的末尾，所以他的进位无法添加到下一个有效字节，不用管它。</p>
-<p>所以，最后只有add[7]在结束后都需要重新计算。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[14] + ADD[7] &#x3D; 0x7D + 0xFF &#x3D; 0x17C</span><br><span class="line">0x7C ^ XOR[7] &#x3D; 0x7C ^ 0x38 &#x3D; 0x44 &#x3D;&gt; flag[7] &#x3D; &#39;D&#39;</span><br><span class="line">CTF&#123; S 1 M D f 0 r M 3 ! &#125;\0</span><br></pre></td></tr></table></figure>
-
-<p>由于a[7]变了，相应的a[2]也会变</p>
-<p>add[1]有进位（0x4d + 0xbe == 0x10b），add[2]=0xae</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a[7] + ADD[7] &#x3D; 0x44 + 0xae &#x3D; 0xf2</span><br><span class="line">0x7C ^ XOR[7] &#x3D; 0xf2 ^ 0xb4 &#x3D; 0x46 &#x3D;&gt; flag[7] &#x3D; &#39;F&#39;</span><br><span class="line">CTF&#123; S 1 M D f 0 r M 3 ! &#125;\0</span><br></pre></td></tr></table></figure>
-
-<p>我们知道前面三个，这个也算是验证吧。</p>
-<p>exp如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import binascii</span><br><span class="line">flag &#x3D; [&#39;C&#39;,&#39;T&#39;,&#39;F&#39;,&#39;&#123;&#39;,0,0,0,0,0,0,0,0,0,0,0,&#39;\0&#39;]</span><br><span class="line"></span><br><span class="line">add &#x3D; [0xEF, 0xBE, 0xAD, 0xDE, 0xAD, 0xDE, 0xE1, 0xFE, 0x37,0x13, 0x37, 0x13, 0x66, 0x74, 0x63, 0x67]</span><br><span class="line">xor &#x3D; [0x76, 0x58, 0xB4, 0x49, 0x8D, 0x1A, 0x5F, 0x38, 0xD4,0x23, 0xF8, 0x34, 0xEB, 0x86, 0xF9, 0xAA]</span><br><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br><span class="line">index &#x3D; [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]</span><br><span class="line">start &#x3D; 3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def bianli(number):</span><br><span class="line">	for i in range(16):#0-15</span><br><span class="line">		if(shuffle[i] &#x3D;&#x3D; number):</span><br><span class="line">			return i</span><br><span class="line">for i in range(14):</span><br><span class="line">	h &#x3D;  binascii.b2a_hex(flag[start])</span><br><span class="line">	start &#x3D; bianli(start)</span><br><span class="line">	a &#x3D; chr(((eval(&quot;0x&quot;+h) +add[start])&amp;0xff)^xor[start])</span><br><span class="line">	if(((eval(&quot;0x&quot;+h) +add[start])&amp;0xff00)!&#x3D;0):</span><br><span class="line">		if((start+1)%4 !&#x3D; 0):</span><br><span class="line">			print(start+1)</span><br><span class="line">			add[start+1]+&#x3D;(eval(&quot;0x&quot;+h) +add[start])&gt;&gt;8</span><br><span class="line">	print(&quot;number:&quot;,start)</span><br><span class="line">	print(&quot;\nsymbol:&quot;,a)</span><br><span class="line">	flag[start]&#x3D;a	</span><br><span class="line">	if(i&#x3D;&#x3D;9):</span><br><span class="line">		start &#x3D; 15</span><br><span class="line">	if(i&#x3D;&#x3D;11):</span><br><span class="line">		start &#x3D; 14</span><br><span class="line"></span><br><span class="line">flag[2]&#x3D;&#39;F&#39;#flag[2]通过重新计算就是&#39;F&#39;,由于a[7]变了</span><br><span class="line"></span><br><span class="line">print(&quot;add:&quot;)</span><br><span class="line">for i in range(15):</span><br><span class="line">	print(hex(add[i]))</span><br><span class="line"></span><br><span class="line">print(&quot;flag:&quot;,flag)</span><br></pre></td></tr></table></figure>
-
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://github.com/Moji99/googleCTF2020-BEGINNER" target="_blank" rel="noopener">https://github.com/Moji99/googleCTF2020-BEGINNER</a></p>
+<p>（4）重新打包，执行./startvm.sh</p>
+<p>exp已在/目录下了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
+<p>一开始的0x88，指的是初始化的时候。</p>
+<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
+<p>开始的时候（内核加载模块）：调用init_module</p>
+<p>中间的时候：</p>
+<p>我们调用ioctl调用了sub_0函数</p>
+<p>ioctl的参数就是sub_0的参数</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
+<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
+<p>结束的时候：cleanup_module</p>
 ]]></content>
       <tags>
-        <tag>reverse</tag>
+        <tag>kernel pwn</tag>
       </tags>
   </entry>
   <entry>
@@ -318,119 +431,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++知识补充</title>
-    <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
-<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
-<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>virtual表示虚函数，没关系</li>
-<li>-&gt; std::string称为后置返回类型</li>
-<li>auto是占位符（C++11新增用法）</li>
-</ul>
-<p>作用：解决模板中函数返回值类型不确定的问题</p>
-]]></content>
-      <tags>
-        <tag>c++基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
-    <content><![CDATA[<p>适合人群：内核基础为0</p>
-<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
-<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
-<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
-<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
-<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
-<p>（3）n：拷贝数据的长度（字节）</p>
-<blockquote>
-<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
-</blockquote>
-<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
-
-<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
-<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
-$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
-<p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
-<p>方法：修改suid</p>
-<p>（1）创建一个文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
-
-<p>（2）解压initramfs.cpio文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改suid</p>
-<p>进入etc/init.d/rcS，将1000修改为0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
-<p>（4）重新打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
-
-<p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
-<p>已经是root权限了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
-<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
-<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
-<blockquote>
-<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
-<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
-</blockquote>
-<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
-
-<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
-<p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
-<p>（2）执行<code>./startvm.sh</code></p>
-<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
-<p>（4）远程连接，<code>target remote :1234</code></p>
-<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
-<p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
-<p>（7）接着，就可以正常调试了</p>
-<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
-
-<p>（2）将initramfs.cpio解压到myimage文件夹</p>
-<p>（3）将exp移入myimage文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（4）重新打包，执行./startvm.sh</p>
-<p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
-<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
-<p>一开始的0x88，指的是初始化的时候。</p>
-<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
-<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
-<p>开始的时候（内核加载模块）：调用init_module</p>
-<p>中间的时候：</p>
-<p>我们调用ioctl调用了sub_0函数</p>
-<p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
-<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
-<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
-<p>结束的时候：cleanup_module</p>
-]]></content>
-      <tags>
-        <tag>kernel pwn</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>v8环境搭建</title>
     <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
@@ -510,13 +510,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       <tags>
         <tag>v8</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-]]></content>
   </entry>
   <entry>
     <title>固件iot基础</title>
@@ -918,5 +911,12 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       <tags>
         <tag>v8</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+]]></content>
   </entry>
 </search>
