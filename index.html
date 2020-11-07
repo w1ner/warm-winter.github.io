@@ -141,6 +141,161 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/11/07/常忘基础知识/" >常忘基础知识</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-11-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h3 id="64位传参"><a href="#64位传参" class="headerlink" title="64位传参"></a>64位传参</h3><p>参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</p>
+<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/u=465806655,3876495324&fm=26&gp=0.jpg" alt="点击查看源网页"></p>
+<h3 id="查看内存命令"><a href="#查看内存命令" class="headerlink" title="查看内存命令"></a>查看内存命令</h3><p>用gdb查看内存</p>
+<p>格式: x /nfu</p>
+<p>说明<br> x 是 examine 的缩写</p>
+<p><strong>n表示要显示的内存单元的个数</strong></p>
+<p><strong>f表示显示方式, 可取如下值</strong><br> x 按十六进制格式显示变量。<br> d 按十进制格式显示变量。<br> u 按十进制格式显示无符号整型。<br> o 按八进制格式显示变量。<br> t 按二进制格式显示变量。<br> a 按十六进制格式显示变量。<br> i 指令地址格式<br> c 按字符格式显示变量。<br> f 按浮点数格式显示变量。</p>
+<p><strong>u表示一个地址单元的长度</strong><br> b表示单字节，<br> h表示双字节，<br> w表示四字节，<br> g表示八字节</p>
+<h3 id="修改pwngdb或者peda"><a href="#修改pwngdb或者peda" class="headerlink" title="修改pwngdb或者peda"></a>修改pwngdb或者peda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gedit &#x2F;.gdbinit</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="python函数函数"><a href="#python函数函数" class="headerlink" title="python函数函数"></a>python函数函数</h3><h5 id="数字和字符串转换"><a href="#数字和字符串转换" class="headerlink" title="数字和字符串转换"></a>数字和字符串转换</h5><p>chr(x )         将一个整数转换为一个字符   </p>
+<p>ord(x )         将一个字符转换为它的整数值   </p>
+<h5 id="查看变量类型"><a href="#查看变量类型" class="headerlink" title="查看变量类型"></a>查看变量类型</h5><p>type()函数</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>ascii码的字符打印出来 printf “\037”</p>
+<p>用字符的ascii码执行程序：printf “\023\342” | ./可执行文件</p>
+<h3 id="追踪"><a href="#追踪" class="headerlink" title="追踪"></a>追踪</h3><p>ltrace ./可执行文件</p>
+<h3 id="gdb使用peda和pwngdb"><a href="#gdb使用peda和pwngdb" class="headerlink" title="gdb使用peda和pwngdb"></a>gdb使用peda和pwngdb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gedit ~&#x2F;.gdbinit</span><br><span class="line">&#x2F;&#x2F;peda</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">&#x2F;&#x2F;v8 gdb</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br><span class="line">&#x2F;&#x2F;pwngdb</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="linux初始化root密码"><a href="#linux初始化root密码" class="headerlink" title="linux初始化root密码"></a>linux初始化root密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201015164326447.png" alt="image-20201015164326447"></p>
+<h3 id="ubuntu-安装pip"><a href="#ubuntu-安装pip" class="headerlink" title="ubuntu 安装pip"></a>ubuntu 安装pip</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 更新系统包</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line"><span class="comment"># 2. 安装Pip</span></span><br><span class="line">sudo apt-get install python-pip</span><br><span class="line"><span class="comment"># 3. 检查 pip 是否安装成功</span></span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成指定数目字符串"><a href="#生成指定数目字符串" class="headerlink" title="生成指定数目字符串"></a>生成指定数目字符串</h3><p>cyclic 100</p>
+<h3 id="检测机制"><a href="#检测机制" class="headerlink" title="检测机制"></a>检测机制</h3><h4 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h4><p>不能覆盖got表</p>
+<p>malloc、realloc、free函数在开始时会查看对应的hook变量是否为空，不为空则调用变量中的地址，寻找malloc_hook、realloc_hook、free_hook</p>
+<h3 id="各种bin"><a href="#各种bin" class="headerlink" title="各种bin"></a>各种bin</h3><h4 id="fastbin"><a href="#fastbin" class="headerlink" title="fastbin"></a>fastbin</h4><blockquote>
+<p>0x20 - 0x80</p>
+<p>后进先出</p>
+</blockquote>
+<p>使用单链表对空闲堆块进行连接</p>
+<p>只有bk</p>
+<p>单向链表</p>
+<h4 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h4><blockquote>
+<p>0x20 - 0x400(1024)</p>
+<p>先进先出</p>
+</blockquote>
+<p>bk和fd</p>
+<p>双向链表</p>
+<h4 id="larage-bin"><a href="#larage-bin" class="headerlink" title="larage bin"></a>larage bin</h4><blockquote>
+<p>大于0x400</p>
+</blockquote>
+<p>bk和fd、找到下一个和他大小不同的堆块</p>
+<p>根据large bin的大小，用fd_nextsize和bk_nextsize按大小排序连接</p>
+<p>利用：实现任意地址写堆地址</p>
+<h4 id="unsortedbin"><a href="#unsortedbin" class="headerlink" title="unsortedbin"></a>unsortedbin</h4><p>双向链表</p>
+<blockquote>
+<p>chunk被释放后，如果大小不再fastbin内，会先放到unsortedbin中</p>
+<p>在申请内存的时候，如果大小布什fastbin大小的内存，并且在smallbin中没有找到合适的chunk，就会从unsortedbin中查找。</p>
+</blockquote>
+<h3 id="堆里用"><a href="#堆里用" class="headerlink" title="堆里用"></a>堆里用</h3><h4 id="篡改size域"><a href="#篡改size域" class="headerlink" title="篡改size域"></a>篡改size域</h4><p>chunk extend =&gt; chunk overlap</p>
+<h4 id="篡改prev-size域和prev-in-use域"><a href="#篡改prev-size域和prev-in-use域" class="headerlink" title="篡改prev_size域和prev_in_use域"></a>篡改prev_size域和prev_in_use域</h4><h5 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h5><p>attack：</p>
+<p>FD = target - 12</p>
+<p>BK = target - 8</p>
+<p>target = target -12</p>
+<h5 id="house-of-einherjar"><a href="#house-of-einherjar" class="headerlink" title="house of einherjar"></a>house of einherjar</h5><p>类似unlink、后向合并检查不严</p>
+<h4 id="篡改fd指针"><a href="#篡改fd指针" class="headerlink" title="篡改fd指针"></a>篡改fd指针</h4><h5 id="fastbin-attack"><a href="#fastbin-attack" class="headerlink" title="fastbin attack"></a>fastbin attack</h5><p>就是fd控制，那么它指向的地址（要被认为是一个chunk，可以通过size域的检查）</p>
+<h5 id="tcache-attack"><a href="#tcache-attack" class="headerlink" title="tcache attack"></a>tcache attack</h5><p>2.27里面加入的，更快</p>
+<p>但是从堆块去内存的时候，没有对size进行检查（不知道地址是否合法）</p>
+<p>attack：</p>
+<h6 id="篡改fd指针-1"><a href="#篡改fd指针-1" class="headerlink" title="篡改fd指针"></a>篡改fd指针</h6><h6 id="tcache-struct-attack"><a href="#tcache-struct-attack" class="headerlink" title="tcache struct attack"></a>tcache struct attack</h6><p>tcache_struct:</p>
+<ul>
+<li>tcache_count;</li>
+<li>tcache_entry;</li>
+</ul>
+<p>attack：篡改tcache_entry-&gt;任意地址分配</p>
+<h5 id="chunk-overlap"><a href="#chunk-overlap" class="headerlink" title="chunk overlap"></a>chunk overlap</h5><h4 id="篡改bk指针"><a href="#篡改bk指针" class="headerlink" title="篡改bk指针"></a>篡改bk指针</h4><h5 id="unsorted-bin-attack"><a href="#unsorted-bin-attack" class="headerlink" title="unsorted bin attack"></a>unsorted bin attack</h5><p>向地址里面写入libc</p>
+<p>bk = target - 0x10（64位）</p>
+<p>不良影响：unsortedbin被污染，用它分配内存可能有错</p>
+<h3 id="脚本参数"><a href="#脚本参数" class="headerlink" title="脚本参数"></a>脚本参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">context.log_level&#x3D;&quot;debug&quot;</span><br><span class="line">libc&#x3D;ELF(&quot;&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="接受字符串"><a href="#接受字符串" class="headerlink" title="接受字符串"></a>接受字符串</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(&quot;\x7f&quot;)[-6:]</span><br></pre></td></tr></table></figure>
+
+<h3 id="libc"><a href="#libc" class="headerlink" title="libc"></a>libc</h3><p>在64位下是0x7f开头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libc&#x3D;ELF(&quot;&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so&quot;)</span><br><span class="line">system&#x3D;libc_base+libc.symbols[&quot;system&quot;]</span><br><span class="line">bin_sh&#x3D;libc_base+libc.search(&quot;&#x2F;bin&#x2F;sh&quot;).next()</span><br></pre></td></tr></table></figure>
+
+<h3 id="寄存器参数"><a href="#寄存器参数" class="headerlink" title="寄存器参数"></a>寄存器参数</h3><p>%rdi, %rsi, %rdx, %rcx, %r8, %r9 </p>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>进入容器的几种方法：<br>    1、exec<br>      通过docker ps 查看需要进入的容器pid<br>      执行<br>        docker exec -it 246f35c432de /bin/bash<br>      退出容器，不会关闭容器，一般使用这个方法。<br>    2、attach<br>      通过docker ps 查看需要进入的容器pid<br>      docker attach pid<br>      退出容器会关闭容器，不推荐</p>
+<p>Docker进入容器的几种方法：<a href="https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf</a></p>
+<h3 id="pwn出题环境"><a href="#pwn出题环境" class="headerlink" title="pwn出题环境"></a>pwn出题环境</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+<h3 id="DynELF"><a href="#DynELF" class="headerlink" title="DynELF"></a>DynELF</h3><p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p &#x3D; process(&#39;.&#x2F;xxx&#39;)</span><br><span class="line">def leak(address):</span><br><span class="line">  #各种预处理</span><br><span class="line">  payload &#x3D; &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;</span><br><span class="line">  p.send(payload)</span><br><span class="line">  #各种处理</span><br><span class="line">  data &#x3D; p.recv(4)</span><br><span class="line">  log.debug(&quot;%#x &#x3D;&gt; %s&quot; % (address, (data or &#39;&#39;).encode(&#39;hex&#39;)))</span><br><span class="line">  return data</span><br><span class="line">d &#x3D; DynELF(leak, elf&#x3D;ELF(&quot;.&#x2F;xxx&quot;))      #初始化DynELF模块 </span><br><span class="line">systemAddress &#x3D; d.lookup(&#39;system&#39;, &#39;libc&#39;)  #在libc文件中搜索system函数的地址</span><br></pre></td></tr></table></figure>
+
+<p>addr就是可以泄漏内存的地址</p>
+<p>比如说write函数和put函数的输出参数</p>
+<h3 id="setbuf"><a href="#setbuf" class="headerlink" title="setbuf"></a>setbuf</h3><p>由于程序本身没有进行 setbuf 操作，所以在执行输入输出操作的时候会申请缓冲区。</p>
+<h3 id="global-max-fast"><a href="#global-max-fast" class="headerlink" title="global max fast"></a>global max fast</h3><p>global max fast是决定使用fast bin管理的chunk的最大值</p>
+<p>使用：</p>
+<p>改写global max fast后，处理特定大小的chunk，进而可以在arena往后的任意地址写入一个堆地址</p>
+
+	
+	</div>
+  <a type="button" href="/2020/11/07/常忘基础知识/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2020/11/07/pwn出题环境搭建/" >pwn出题环境搭建</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-11-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
+</blockquote>
+<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
+<ul>
+<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
+<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
+<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+
+	
+	</div>
+  <a type="button" href="/2020/11/07/pwn出题环境搭建/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/10/23/chrome-study-by-v8-oob/" >chrome study by v8 oob</a>
 		</h3>
 		</div>
@@ -1110,137 +1265,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/07/23/datalab/" >datalab</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-07-23  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
-
-	
-	</div>
-  <a type="button" href="/2020/07/23/datalab/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/07/23/winter/" >winter</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-07-23  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-
-	
-	</div>
-  <a type="button" href="/2020/07/23/winter/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1250,6 +1274,16 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		<div class="pagination">
 
    
+    
+           <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+        
+
+        <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+ 
+       <a href="/page/2/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
+        
+
+  
 </div>
 
   		</center>
@@ -1282,6 +1316,8 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		
 			<li><a href="/categories/mips-pwn/">mips pwn<span>1</span></a></li>
 		
+			<li><a href="/categories/pwn/">pwn<span>2</span></a></li>
+		
 		</ul>
 	</div>
 
@@ -1291,17 +1327,21 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/iot/">iot<span>2</span></a></li>
-		
 			<li><a href="/tags/v8/">v8<span>2</span></a></li>
 		
 			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
 		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
 			<li><a href="/tags/reverse/">reverse<span>1</span></a></li>
 		
+			<li><a href="/tags/环境/">环境<span>1</span></a></li>
+		
+			<li><a href="/tags/iot/">iot<span>2</span></a></li>
+		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
 		 
 		</ul>
@@ -1315,6 +1355,14 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2020/11/07/常忘基础知识/" ><i class="fa fa-file-o"></i>常忘基础知识</a>
+      </li>
+    
+      <li>
+        <a href="/2020/11/07/pwn出题环境搭建/" ><i class="fa fa-file-o"></i>pwn出题环境搭建</a>
+      </li>
+    
+      <li>
         <a href="/2020/10/23/chrome-study-by-v8-oob/" ><i class="fa fa-file-o"></i>chrome study by v8 oob</a>
       </li>
     
@@ -1324,14 +1372,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
     
       <li>
         <a href="/2020/10/22/固件iot基础/" ><i class="fa fa-file-o"></i>固件iot基础</a>
-      </li>
-    
-      <li>
-        <a href="/2020/10/22/ret2usr/" ><i class="fa fa-file-o"></i>ret2usr</a>
-      </li>
-    
-      <li>
-        <a href="/2020/10/11/v8环境搭建/" ><i class="fa fa-file-o"></i>v8环境搭建</a>
       </li>
     
   </ul>
