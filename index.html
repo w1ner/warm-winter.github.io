@@ -181,6 +181,40 @@ var _hmt = _hmt || [];
 <h3 id="生成指定数目字符串"><a href="#生成指定数目字符串" class="headerlink" title="生成指定数目字符串"></a>生成指定数目字符串</h3><p>cyclic 100</p>
 <h3 id="检测机制"><a href="#检测机制" class="headerlink" title="检测机制"></a>检测机制</h3><h4 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h4><p>不能覆盖got表</p>
 <p>malloc、realloc、free函数在开始时会查看对应的hook变量是否为空，不为空则调用变量中的地址，寻找malloc_hook、realloc_hook、free_hook</p>
+<h4 id="泄漏cannary"><a href="#泄漏cannary" class="headerlink" title="泄漏cannary"></a>泄漏cannary</h4><blockquote>
+<p>Canary设计为以字节”\x00”结尾，本意是为了保证Canary可以截断字符串。</p>
+</blockquote>
+<p>因为存在栈溢出，所以可以覆盖地位的’\x00’，让canary随着前面的数据一起输出。</p>
+<p>内存存放情况：</p>
+<table>
+<thead>
+<tr>
+<th>局部变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>canary</td>
+</tr>
+<tr>
+<td>ebp</td>
+</tr>
+<tr>
+<td>返回地址</td>
+</tr>
+<tr>
+<td>参数</td>
+</tr>
+</tbody></table>
+<p>所以，有canary的栈题。</p>
+<p>如果数据是[rbp - n]</p>
+<ul>
+<li>第一次泄漏填充的长度就是rbp - 0x8（canary）+ 1（覆盖那个‘\x00’）</li>
+<li>第二次填充的长度rbp - 0x8 + canary</li>
+</ul>
+<h4 id="partial-write绕过pie"><a href="#partial-write绕过pie" class="headerlink" title="partial write绕过pie"></a>partial write绕过pie</h4><blockquote>
+<p>partial  write就是利用了PIE技术的缺陷。我们知道，内存是以页载入机制，如果开启PIE保护的话，只能影响到单个内存页，一个内存页大小为0x1000，那么就意味着不管地址怎么变，某一条指令的后三位十六进制数的地址是始终不变的。因此我们可以通过覆盖地址的后几位来可以控制程序的流程。</p>
+</blockquote>
+<p>由于地址的后3位一样，所以覆盖的话至少需要4位，那么倒数第四位就需要爆破，爆破范围在0到0xf</p>
 <h3 id="各种bin"><a href="#各种bin" class="headerlink" title="各种bin"></a>各种bin</h3><h4 id="fastbin"><a href="#fastbin" class="headerlink" title="fastbin"></a>fastbin</h4><blockquote>
 <p>0x20 - 0x80</p>
 <p>后进先出</p>
@@ -224,11 +258,22 @@ var _hmt = _hmt || [];
 <h5 id="chunk-overlap"><a href="#chunk-overlap" class="headerlink" title="chunk overlap"></a>chunk overlap</h5><h4 id="篡改bk指针"><a href="#篡改bk指针" class="headerlink" title="篡改bk指针"></a>篡改bk指针</h4><h5 id="unsorted-bin-attack"><a href="#unsorted-bin-attack" class="headerlink" title="unsorted bin attack"></a>unsorted bin attack</h5><p>向地址里面写入libc</p>
 <p>bk = target - 0x10（64位）</p>
 <p>不良影响：unsortedbin被污染，用它分配内存可能有错</p>
-<h3 id="脚本参数"><a href="#脚本参数" class="headerlink" title="脚本参数"></a>脚本参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">context.log_level&#x3D;&quot;debug&quot;</span><br><span class="line">libc&#x3D;ELF(&quot;&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so&quot;)</span><br></pre></td></tr></table></figure>
-
 <h3 id="libc"><a href="#libc" class="headerlink" title="libc"></a>libc</h3><p>在64位下是0x7f开头</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libc&#x3D;ELF(&quot;&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so&quot;)</span><br><span class="line">system&#x3D;libc_base+libc.symbols[&quot;system&quot;]</span><br><span class="line">bin_sh&#x3D;libc_base+libc.search(&quot;&#x2F;bin&#x2F;sh&quot;).next()</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>如果题目中给出了libc文件，用ida打开，搜索字符串，搜索version![image-20201108030310873](C:\Users\YCNN\Desktop\ctf 2020\ctf wiki刷题\ctf wiki的刷题笔记\image-20201108030310873.png)</p>
+</li>
+<li><p>如果题目没有给出libc文件，需要一个个尝试</p>
+<ul>
+<li><p>堆的话试试UAF啥的</p>
+<p>​    要么2.23、要么2.27、2.31就喷他</p>
+</li>
+<li><p>栈溢出那就leak一下就行了</p>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="寄存器参数"><a href="#寄存器参数" class="headerlink" title="寄存器参数"></a>寄存器参数</h3><p>%rdi, %rsi, %rdx, %rcx, %r8, %r9 </p>
 <h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>进入容器的几种方法：<br>    1、exec<br>      通过docker ps 查看需要进入的容器pid<br>      执行<br>        docker exec -it 246f35c432de /bin/bash<br>      退出容器，不会关闭容器，一般使用这个方法。<br>    2、attach<br>      通过docker ps 查看需要进入的容器pid<br>      docker attach pid<br>      退出容器会关闭容器，不推荐</p>
 <p>Docker进入容器的几种方法：<a href="https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf</a></p>
@@ -245,7 +290,7 @@ var _hmt = _hmt || [];
 <h3 id="markdown的页内跳转"><a href="#markdown的页内跳转" class="headerlink" title="markdown的页内跳转"></a>markdown的页内跳转</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 先定义一个锚(id)</span><br><span class="line">	&lt;span id=<span class="string">"jump"</span>&gt;Hello World&lt;/span&gt;</span><br><span class="line"></span><br><span class="line"> <span class="number">2.</span> 然后使用markdown的语法:</span><br><span class="line">	[<span class="meta">XXXX</span>](<span class="meta">#jump)</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="exp脚本"><a href="#exp脚本" class="headerlink" title="exp脚本"></a>exp脚本</h3><p>开头</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="elf和libc区别"><a href="#elf和libc区别" class="headerlink" title="elf和libc区别"></a>elf和libc区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc &#x3D; ELF(&#39;.&#x2F;libc-2.23.so&#39;)</span><br><span class="line">elf &#x3D; ELF(&#39;onetime&#39;)</span><br></pre></td></tr></table></figure>
 
@@ -263,32 +308,18 @@ var _hmt = _hmt || [];
 <p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192144499.png" alt="image-20201109192144499"></p>
 <p>got表地址在0x602000 - 0x602060</p>
 <p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192315003.png" alt="image-20201109192315003"></p>
-<p>canary</p>
-<table>
-<thead>
-<tr>
-<th>局部变量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>canary</td>
-</tr>
-<tr>
-<td>ebp</td>
-</tr>
-<tr>
-<td>返回地址</td>
-</tr>
-<tr>
-<td>参数</td>
-</tr>
-</tbody></table>
-<p>所以，有canary的栈题。</p>
-<p>如果数据是[rbp - n]</p>
 <ul>
-<li>第一次泄漏填充的长度就是rbp - 0x8（canary）+ 1（覆盖那个‘\x00’）</li>
-<li>第二次填充的长度rbp - 0x8 + canary</li>
+<li><strong>.got</strong></li>
 </ul>
+<p>GOT（Global Offset Table）全局偏移表。这是「链接器」为「外部符号」填充的实际偏移表。</p>
+<ul>
+<li><strong>.plt</strong></li>
+</ul>
+<p>PLT（Procedure Linkage Table）程序链接表。它有两个功能，要么在 <code>.got.plt</code> 节中拿到地址，并跳转。要么当 <code>.got.plt</code> 没有所需地址的时，触发「链接器」去找到所需地址</p>
+<ul>
+<li><strong>.got.plt</strong></li>
+</ul>
+<p>这个是 GOT 专门为 PLT 专门准备的节。说白了，<strong>.got.plt 中的值是 GOT 的一部分</strong>。它包含上述  PLT 表所需地址（已经找到的和需要去触发的）</p>
 
 	
 	</div>
@@ -1372,21 +1403,21 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/v8/">v8<span>2</span></a></li>
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
 		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+			<li><a href="/tags/v8/">v8<span>2</span></a></li>
 		
 			<li><a href="/tags/iot/">iot<span>2</span></a></li>
 		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
-		
 			<li><a href="/tags/环境/">环境<span>1</span></a></li>
 		
-			<li><a href="/tags/基础知识/">基础知识<span>1</span></a></li>
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
 			<li><a href="/tags/reverse/">reverse<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>1</span></a></li>
 		
 		 
 		</ul>
