@@ -347,6 +347,11 @@ var _hmt = _hmt || [];
 <h4 id="tcache-posioning"><a href="#tcache-posioning" class="headerlink" title="tcache posioning"></a>tcache posioning</h4><p>通过覆盖 tcache 中的 next，不需要伪造任何 chunk 结构即可实现 malloc 到任何地址。</p>
 <p>可以看出 <code>tcache posioning</code> 这种方法和 fastbin attack 类似，但因为没有 size 的限制有了更大的利用范围。</p>
 <h4 id="tcache-dup"><a href="#tcache-dup" class="headerlink" title="tcache dup"></a>tcache dup</h4><p>可以对同一个 chunk 多次 free</p>
+<h3 id="查看ubuntu版本"><a href="#查看ubuntu版本" class="headerlink" title="查看ubuntu版本"></a>查看ubuntu版本</h3><ol>
+<li>cat /proc/version</li>
+<li>uname -a</li>
+<li>lsb_release -a</li>
+</ol>
 	  
 	</div>
 
