@@ -6,13 +6,17 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>c++基础 | winter - 像初雪一样自由洒落</title>
+  <title>一些陌生函数详解 | winter - 像初雪一样自由洒落</title>
   <meta name="author" content="winter">
+  
+  <meta name="description" content="__read_chk名称__read_chk-从文件描述符读取，并进行缓冲区溢出检查
+概要12#include &amp;lt;unistd.h&amp;gt;ssize_t __read_chk(int *fd*, void * *buf*, size_t *nbytes*, size_t *buflen*);
+">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="一些陌生函数详解"/>
   <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
 
   
@@ -113,169 +117,120 @@ var _hmt = _hmt || [];
   	<div class="content">
     	 
 
-<!-- title -->
-<div class="page-header">
-  <h1 class="archive-title-tag"><i class="fa fa-archive"></i> c++基础</h1>
-</div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
 	
-
-	  <div id="top_search"></div>
-
-	  <div class="archive">
-		
-		
-		
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2020">2020<b class="caret"></b></h4>
-			<ul id="2020" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2020-10-10 </span> &raquo;
-		
-		   <span class="title"><a href="/2020/10/10/C++知识补充/" >C++知识补充</a></span>
-		
-		</li>			
-		
-		</ul>
+		<div class="page-header">
+			<h1> 一些陌生函数详解</h1>
 		</div>
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
 	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
 
 
-		
-			
-	<div class="widget">
-		<h4>Categories</h4>
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="/categories/advanced-pwn/">advanced pwn<span>1</span></a></li>
-		
-			<li><a href="/categories/chrome/">chrome<span>1</span></a></li>
-		
-			<li><a href="/categories/iot/">iot<span>2</span></a></li>
-		
-			<li><a href="/categories/pwn/">pwn<span>8</span></a></li>
-		
-			<li><a href="/categories/reverse/">reverse<span>1</span></a></li>
-		
-			<li><a href="/categories/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/categories/算法/">算法<span>2</span></a></li>
-		
-		</ul>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="read-chk"><a href="#read-chk" class="headerlink" title="__read_chk"></a>__read_chk</h1><h2 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h2><p>__read_chk-从文件描述符读取，并进行缓冲区溢出检查</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t __read_chk(int *fd*, void * *buf*, size_t *nbytes*, size_t *buflen*);</span><br></pre></td></tr></table></figure>
+
+<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>接口<code>__read_chk（）的</code>功能应与接口<code>read（）相同</code>，只是 <code>__read_chk（）</code>在计算结果之前应检查缓冲区溢出。如果预计会发生溢出，则该函数应中止并且调用它的程序应退出。</p>
+<p>参数<code>*buflen*</code>指定缓冲区<code>*buf*</code>的大小 。如果<code>*nbytes*</code>超过 <code>*buflen*</code>，该函数将中止，并且调用它的程序将退出。</p>
+<p>所述<code>__read_chk（）</code>函数不在源标准; 它仅在二进制标准中。</p>
+<p><a href="http://refspecs.linux-foundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/" target="_blank" rel="noopener">Linux标准基础核心规范4.1</a></p>
+<hr>
+	  
 	</div>
 
-		
-			
-	<div class="widget">
-		<h4>Tag Cloud</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
-		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
-		
-			<li><a href="/tags/祥云杯-2020/">祥云杯 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>2</span></a></li>
-		
-			<li><a href="/tags/hitctf-2020/">hitctf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/buu刷题/">buu刷题<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>1</span></a></li>
-		
-		 
-		</ul>
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/01/15/蓝桥杯基础练习/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/01/14//" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
 	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
 
 
+	</div> <!-- col-md-9/col-md-12 -->
 		
-			
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/2021/01/15/蓝桥杯基础练习/" ><i class="fa fa-file-o"></i>蓝桥杯基础练习</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/14/一些陌生函数详解/" ><i class="fa fa-file-o"></i>一些陌生函数详解</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/14//" ><i class="fa fa-file-o"></i></a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/09/pwnable-tw记录/" ><i class="fa fa-file-o"></i>pwnable.tw记录</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/09/蓝桥杯入门训练/" ><i class="fa fa-file-o"></i>蓝桥杯入门训练</a>
-      </li>
-    
-  </ul>
-</div>
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-01-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+    </ul>
+	</div>
 		
-			
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/hexo-theme-freemind" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/kristopolous/BOOTSTRA.386" title="BOOTSTRA.386's Github repository." target="_blank"]);">BOOTSTRA.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank"]);">Freemind.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/blackshow" title="My Github account." target="_blank"]);">My Github</a></li>
-	
-	</ul>
-</div>
 
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
 
+	</div>
 		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
 
+</div><!-- row -->
 
 
 
