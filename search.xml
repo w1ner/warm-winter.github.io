@@ -95,6 +95,17 @@
       </tags>
   </entry>
   <entry>
+    <title>HITCTF 2020复现</title>
+    <url>/2020/12/24/HITCTF-2020%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>hitctf 2020</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>bomblab</title>
     <url>/2020/07/24/bomblab/</url>
     <content><![CDATA[<p>总共六个阶段</p>
@@ -221,17 +232,6 @@
 ]]></content>
       <tags>
         <tag>csapp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HITCTF 2020复现</title>
-    <url>/2020/12/24/HITCTF-2020%E5%A4%8D%E7%8E%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>hitctf 2020</tag>
       </tags>
   </entry>
   <entry>
@@ -367,29 +367,6 @@
       </categories>
       <tags>
         <tag>buu刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pwn出题环境搭建</title>
-    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
-</blockquote>
-<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
-<ul>
-<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
-<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
-<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
-<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
-</ul>
-<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
-<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>出题环境</tag>
       </tags>
   </entry>
   <entry>
@@ -662,6 +639,130 @@
       </tags>
   </entry>
   <entry>
+    <title>pwn出题环境搭建</title>
+    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
+</blockquote>
+<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
+<ul>
+<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
+<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
+<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>出题环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ret2usr</title>
+    <url>/2020/10/22/ret2usr/</url>
+    <content><![CDATA[<p>适合人群：内核基础为0</p>
+<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
+<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
+<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
+<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
+<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
+<p>（3）n：拷贝数据的长度（字节）</p>
+<blockquote>
+<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
+</blockquote>
+<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
+
+<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
+<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
+$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
+<p>但是直接执行，地址都是0x0，需要root权限。</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p>方法：修改suid</p>
+<p>（1）创建一个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
+
+<p>（2）解压initramfs.cpio文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改suid</p>
+<p>进入etc/init.d/rcS，将1000修改为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p>（4）重新打包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
+
+<p>（5）再次执行两条命令即可</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p>已经是root权限了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
+<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F; # grep prepare_kernel_cred  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a620 T prepare_kernel_cred</span><br><span class="line">ffffffff81b72650 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81b89b07 r __kstrtab_prepare_kernel_cred</span><br><span class="line">&#x2F; # grep commit_creds  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a250 T commit_creds</span><br><span class="line">ffffffff81b69b00 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81b89b43 r __kstrtab_commit_creds</span><br><span class="line">&#x2F; # cat &#x2F;proc&#x2F;modules </span><br><span class="line">rootme 1616 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">.&#x2F;sys&#x2F;module&#x2F;rootme</span><br><span class="line">.&#x2F;proc&#x2F;rootme</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
+<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
+</blockquote>
+<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
+
+<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
+<p>0x7ffd958d7e08</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p>（2）执行<code>./startvm.sh</code></p>
+<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
+<p>（4）远程连接，<code>target remote :1234</code></p>
+<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p>（6）在原来的窗口，执行exp</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p>（7）接着，就可以正常调试了</p>
+<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br><span class="line">cd myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（2）将initramfs.cpio解压到myimage文件夹</p>
+<p>find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<p>（3）将exp移入myimage文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新打包，执行./startvm.sh</p>
+<p>exp已在/目录下了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
+<p>一开始的0x88，指的是初始化的时候。</p>
+<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
+<p>开始的时候（内核加载模块）：调用init_module</p>
+<p>中间的时候：</p>
+<p>我们调用ioctl调用了sub_0函数</p>
+<p>ioctl的参数就是sub_0的参数</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
+<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
+<p>结束的时候：cleanup_module</p>
+]]></content>
+      <categories>
+        <category>advanced pwn</category>
+      </categories>
+      <tags>
+        <tag>kernel pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>datalab</title>
     <url>/2020/07/23/datalab/</url>
     <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
@@ -779,105 +880,11 @@
       </tags>
   </entry>
   <entry>
-    <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
-    <content><![CDATA[<p>适合人群：内核基础为0</p>
-<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
-<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
-<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
-<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
-<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
-<p>（3）n：拷贝数据的长度（字节）</p>
-<blockquote>
-<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
-</blockquote>
-<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
-
-<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
-<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
-$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
-<p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
-<p>方法：修改suid</p>
-<p>（1）创建一个文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
-
-<p>（2）解压initramfs.cpio文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改suid</p>
-<p>进入etc/init.d/rcS，将1000修改为0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
-<p>（4）重新打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
-
-<p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
-<p>已经是root权限了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
-<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
-<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F; # grep prepare_kernel_cred  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a620 T prepare_kernel_cred</span><br><span class="line">ffffffff81b72650 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81b89b07 r __kstrtab_prepare_kernel_cred</span><br><span class="line">&#x2F; # grep commit_creds  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a250 T commit_creds</span><br><span class="line">ffffffff81b69b00 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81b89b43 r __kstrtab_commit_creds</span><br><span class="line">&#x2F; # cat &#x2F;proc&#x2F;modules </span><br><span class="line">rootme 1616 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">.&#x2F;sys&#x2F;module&#x2F;rootme</span><br><span class="line">.&#x2F;proc&#x2F;rootme</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
-<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
-</blockquote>
-<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
-
-<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
-<p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
-<p>（2）执行<code>./startvm.sh</code></p>
-<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
-<p>（4）远程连接，<code>target remote :1234</code></p>
-<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
-<p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
-<p>（7）接着，就可以正常调试了</p>
-<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br><span class="line">cd myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（2）将initramfs.cpio解压到myimage文件夹</p>
-<p>find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<p>（3）将exp移入myimage文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（4）重新打包，执行./startvm.sh</p>
-<p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
-<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
-<p>一开始的0x88，指的是初始化的时候。</p>
-<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
-<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
-<p>开始的时候（内核加载模块）：调用init_module</p>
-<p>中间的时候：</p>
-<p>我们调用ioctl调用了sub_0函数</p>
-<p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
-<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
-<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
-<p>结束的时候：cleanup_module</p>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
 ]]></content>
-      <categories>
-        <category>advanced pwn</category>
-      </categories>
-      <tags>
-        <tag>kernel pwn</tag>
-      </tags>
   </entry>
   <entry>
     <title>v8环境搭建</title>
@@ -1154,18 +1161,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       <tags>
         <tag>基础练习</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2021/01/14/%C2%96/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>pwnable.tw记录</title>
@@ -1716,83 +1711,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
-    <title>蓝桥杯入门训练</title>
-    <url>/2021/01/09/%C2%96%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%85%A5%E9%97%A8%E8%AE%AD%E7%BB%83/</url>
-    <content><![CDATA[<blockquote>
-<p>入门训练：<a href="http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463" target="_blank" rel="noopener">http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463</a></p>
-</blockquote>
-<h2 id="Fibonacci数列"><a href="#Fibonacci数列" class="headerlink" title="Fibonacci数列"></a>Fibonacci数列</h2><blockquote>
-<p>Fibonacci数列加上求余%</p>
-<p>使用递归会超时，故大数组+循环</p>
-</blockquote>
-<h3 id="提交格式"><a href="#提交格式" class="headerlink" title="提交格式"></a>提交格式</h3><ul>
-<li>不需要package，需要import</li>
-<li>修改类名为Main</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);<span class="comment">//输入类</span></span><br><span class="line">		<span class="keyword">int</span> [] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000001</span>];<span class="comment">//申请大数组</span></span><br><span class="line">		<span class="keyword">int</span> num = scan.nextInt();<span class="comment">//输入</span></span><br><span class="line">		</span><br><span class="line">		arr[<span class="number">1</span>] = <span class="number">1</span>;<span class="comment">//初始条件</span></span><br><span class="line">		arr[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=num;i++) &#123;</span><br><span class="line">			arr[i] = (arr[i-<span class="number">1</span>] + arr[i-<span class="number">2</span>])%<span class="number">10007</span>;<span class="comment">//循环计算每一项</span></span><br><span class="line"><span class="comment">//			System.out.print("arr[i]"+arr[i]);</span></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">		System.out.print(arr[num]);<span class="comment">//输出结果</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里数组从1开始是有效的</p>
-<h2 id="圆的面积"><a href="#圆的面积" class="headerlink" title="圆的面积"></a>圆的面积</h2><blockquote>
-<p>pi * (r ^ 2)</p>
-<ol>
-<li>学习保留位数的输出</li>
-<li>使用默认的Math类</li>
-</ol>
-</blockquote>
-<h3 id="保留位数"><a href="#保留位数" class="headerlink" title="保留位数"></a>保留位数</h3><p>printf函数</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.printf(<span class="string">"%.7f"</span>,result);</span><br></pre></td></tr></table></figure>
-
-<h3 id="PI"><a href="#PI" class="headerlink" title="PI"></a>PI</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.PI</span><br></pre></td></tr></table></figure>
-
-<h3 id="幂次"><a href="#幂次" class="headerlink" title="幂次"></a>幂次</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.pow(<span class="number">2</span>, <span class="number">3</span>);[底数，幂次]</span><br></pre></td></tr></table></figure>
-
-<p>答案：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">circle_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> r = scan.nextInt();</span><br><span class="line">		<span class="keyword">double</span> result = Math.PI * r * r;</span><br><span class="line">		System.out.printf(<span class="string">"%.7f"</span>,result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="序列求和"><a href="#序列求和" class="headerlink" title="序列求和"></a>序列求和</h2><blockquote>
-<p>1+2+3+…+n = n * (n-1) /2</p>
-<ol>
-<li>学会简化给定的信息</li>
-<li>注意数据规模，适当将int用long替代</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Seq_second_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">long</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();<span class="comment">//输入</span></span><br><span class="line">		<span class="keyword">long</span> result = n * (n+<span class="number">1</span>) / <span class="number">2</span>;<span class="comment">//简化的式子</span></span><br><span class="line">		System.out.print(result);<span class="comment">//输出</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="A-B问题"><a href="#A-B问题" class="headerlink" title="A+B问题"></a>A+B问题</h2><blockquote>
-<p>好像反着了，无所谓了，</p>
-<p>很简单，但是之前的输入的进化不能同时用，不然new 两个Scanner对象出来，有点问题</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Plus_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"><span class="comment">//		int a = new Scanner(System.in).nextInt();</span></span><br><span class="line"><span class="comment">//		int b = new Scanner(System.in).nextInt();</span></span><br><span class="line">		<span class="keyword">int</span> a = scan.nextInt();</span><br><span class="line">		<span class="keyword">int</span> b = scan.nextInt();</span><br><span class="line">		System.out.print(a+b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="useful信息"><a href="#useful信息" class="headerlink" title="useful信息"></a>useful信息</h2><h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
-<li>打印main+alt+/：main开头</li>
-<li>ctrl+shift+o：自动引包</li>
-<li>alt+shift+x：自动执行</li>
-</ol>
-<h3 id="输入的进化"><a href="#输入的进化" class="headerlink" title="输入的进化"></a>输入的进化</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>蓝桥杯</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>祥云杯 2020</title>
-    <url>/2020/12/24/%E7%A5%A5%E4%BA%91%E6%9D%AF-2020/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>祥云杯 2020</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>固件iot基础</title>
     <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
@@ -1925,6 +1843,83 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </categories>
       <tags>
         <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>蓝桥杯入门训练</title>
+    <url>/2021/01/09/%C2%96%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%85%A5%E9%97%A8%E8%AE%AD%E7%BB%83/</url>
+    <content><![CDATA[<blockquote>
+<p>入门训练：<a href="http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463" target="_blank" rel="noopener">http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463</a></p>
+</blockquote>
+<h2 id="Fibonacci数列"><a href="#Fibonacci数列" class="headerlink" title="Fibonacci数列"></a>Fibonacci数列</h2><blockquote>
+<p>Fibonacci数列加上求余%</p>
+<p>使用递归会超时，故大数组+循环</p>
+</blockquote>
+<h3 id="提交格式"><a href="#提交格式" class="headerlink" title="提交格式"></a>提交格式</h3><ul>
+<li>不需要package，需要import</li>
+<li>修改类名为Main</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);<span class="comment">//输入类</span></span><br><span class="line">		<span class="keyword">int</span> [] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000001</span>];<span class="comment">//申请大数组</span></span><br><span class="line">		<span class="keyword">int</span> num = scan.nextInt();<span class="comment">//输入</span></span><br><span class="line">		</span><br><span class="line">		arr[<span class="number">1</span>] = <span class="number">1</span>;<span class="comment">//初始条件</span></span><br><span class="line">		arr[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=num;i++) &#123;</span><br><span class="line">			arr[i] = (arr[i-<span class="number">1</span>] + arr[i-<span class="number">2</span>])%<span class="number">10007</span>;<span class="comment">//循环计算每一项</span></span><br><span class="line"><span class="comment">//			System.out.print("arr[i]"+arr[i]);</span></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">		System.out.print(arr[num]);<span class="comment">//输出结果</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里数组从1开始是有效的</p>
+<h2 id="圆的面积"><a href="#圆的面积" class="headerlink" title="圆的面积"></a>圆的面积</h2><blockquote>
+<p>pi * (r ^ 2)</p>
+<ol>
+<li>学习保留位数的输出</li>
+<li>使用默认的Math类</li>
+</ol>
+</blockquote>
+<h3 id="保留位数"><a href="#保留位数" class="headerlink" title="保留位数"></a>保留位数</h3><p>printf函数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.printf(<span class="string">"%.7f"</span>,result);</span><br></pre></td></tr></table></figure>
+
+<h3 id="PI"><a href="#PI" class="headerlink" title="PI"></a>PI</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.PI</span><br></pre></td></tr></table></figure>
+
+<h3 id="幂次"><a href="#幂次" class="headerlink" title="幂次"></a>幂次</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Math.pow(<span class="number">2</span>, <span class="number">3</span>);[底数，幂次]</span><br></pre></td></tr></table></figure>
+
+<p>答案：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">circle_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> r = scan.nextInt();</span><br><span class="line">		<span class="keyword">double</span> result = Math.PI * r * r;</span><br><span class="line">		System.out.printf(<span class="string">"%.7f"</span>,result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列求和"><a href="#序列求和" class="headerlink" title="序列求和"></a>序列求和</h2><blockquote>
+<p>1+2+3+…+n = n * (n-1) /2</p>
+<ol>
+<li>学会简化给定的信息</li>
+<li>注意数据规模，适当将int用long替代</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Seq_second_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">long</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();<span class="comment">//输入</span></span><br><span class="line">		<span class="keyword">long</span> result = n * (n+<span class="number">1</span>) / <span class="number">2</span>;<span class="comment">//简化的式子</span></span><br><span class="line">		System.out.print(result);<span class="comment">//输出</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="A-B问题"><a href="#A-B问题" class="headerlink" title="A+B问题"></a>A+B问题</h2><blockquote>
+<p>好像反着了，无所谓了，</p>
+<p>很简单，但是之前的输入的进化不能同时用，不然new 两个Scanner对象出来，有点问题</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Plus_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"><span class="comment">//		int a = new Scanner(System.in).nextInt();</span></span><br><span class="line"><span class="comment">//		int b = new Scanner(System.in).nextInt();</span></span><br><span class="line">		<span class="keyword">int</span> a = scan.nextInt();</span><br><span class="line">		<span class="keyword">int</span> b = scan.nextInt();</span><br><span class="line">		System.out.print(a+b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useful信息"><a href="#useful信息" class="headerlink" title="useful信息"></a>useful信息</h2><h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
+<li>打印main+alt+/：main开头</li>
+<li>ctrl+shift+o：自动引包</li>
+<li>alt+shift+x：自动执行</li>
+</ol>
+<h3 id="输入的进化"><a href="#输入的进化" class="headerlink" title="输入的进化"></a>输入的进化</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>蓝桥杯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>祥云杯 2020</title>
+    <url>/2020/12/24/%E7%A5%A5%E4%BA%91%E6%9D%AF-2020/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>祥云杯 2020</tag>
       </tags>
   </entry>
   <entry>
