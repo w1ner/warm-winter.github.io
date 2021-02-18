@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>编译debug版本的glibc | winter - 像初雪一样自由洒落</title>
+  <meta name="author" content="winter">
+  
+  <meta name="description" content="使用情况
+通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc
+CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc
+
+下载glibc源码123git clone git:&amp;#x">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="编译debug版本的glibc"/>
+  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 编译debug版本的glibc</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
+<li>通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc</li>
+<li>CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc</li>
+</ol>
+<h2 id="下载glibc源码"><a href="#下载glibc源码" class="headerlink" title="下载glibc源码"></a>下载glibc源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git </span><br><span class="line">cd glibc</span><br><span class="line">git checkout glibc-2.27</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译glibc源码"><a href="#编译glibc源码" class="headerlink" title="编译glibc源码"></a>编译glibc源码</h2><h3 id="编译64位"><a href="#编译64位" class="headerlink" title="编译64位"></a>编译64位</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.27 --enable-debug&#x3D;yes</span><br><span class="line">make -j4</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用该libc运行其他已编译的程序"><a href="#使用该libc运行其他已编译的程序" class="headerlink" title="使用该libc运行其他已编译的程序"></a>使用该libc运行其他已编译的程序</h2><h3 id="替换二进制文件的编译器路径"><a href="#替换二进制文件的编译器路径" class="headerlink" title="替换二进制文件的编译器路径"></a>替换二进制文件的编译器路径</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#change_ld.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_ld</span><span class="params">(binary, ld,output)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> binary <span class="keyword">or</span> <span class="keyword">not</span> ld <span class="keyword">or</span> <span class="keyword">not</span> output:</span><br><span class="line">	log.failure(<span class="string">"Try 'python change_ld.py -h for more information.'"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line">    binary = ELF(binary)</span><br><span class="line">    <span class="keyword">for</span> segment <span class="keyword">in</span> binary.segments:</span><br><span class="line">        <span class="keyword">if</span> segment.header[<span class="string">'p_type'</span>] == <span class="string">'PT_INTERP'</span>:</span><br><span class="line">            size = segment.header[<span class="string">'p_memsz'</span>]</span><br><span class="line">            addr = segment.header[<span class="string">'p_paddr'</span>]</span><br><span class="line">            data = segment.data()</span><br><span class="line">            <span class="keyword">if</span> size &lt;= len(ld):</span><br><span class="line">                log.failure(<span class="string">"Failed to change PT_INTERP from &#123;&#125; to &#123;&#125;"</span>.format(data, ld))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            binary.write(addr,<span class="string">"/lib64/ld-glibc-&#123;&#125;"</span>.format(ld).ljust(size,<span class="string">'\0'</span>))</span><br><span class="line">         </span><br><span class="line">            <span class="keyword">if</span> os.access(output, os.F_OK): </span><br><span class="line">                os.remove(output)</span><br><span class="line">            binary.save(output)    </span><br><span class="line">            os.chmod(output, <span class="number">0b111000000</span>) <span class="comment">#rwx------</span></span><br><span class="line">    success(<span class="string">"PT_INTERP has changed from &#123;&#125; to &#123;&#125;. Using temp file &#123;&#125;"</span>.format(data, ld, output)) </span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">'Force to use assigned new ld.so by changing the binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-b'</span>,dest=<span class="string">"binary"</span>,help=<span class="string">'input binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-l'</span>,dest=<span class="string">"ld"</span>,help=<span class="string">'ld.so version'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-o'</span>,dest=<span class="string">"output"</span>,help=<span class="string">'outputfile'</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">change_ld(args.binary,args.ld,args.output)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s &#x2F;usr&#x2F;local&#x2F;glibc-2.27&#x2F;lib&#x2F;ld-2.27.so &#x2F;lib64&#x2F;ld-glibc-2.27</span><br><span class="line">python change_ld.py -b 二进制文件 -l 2.27 -o 输出文件名</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_tear </span><br><span class="line">tcache_tear: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br><span class="line"></span><br><span class="line">#成功</span><br><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_debug </span><br><span class="line">tcache_debug: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-glibc-2.27, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io = process([<span class="string">'./tcache_tear'</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.27/lib/libc-2.27.so"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>主要参考《CTF竞赛权威指南（pwn篇）》5.1.3中内容</p>
+<p>在做2.27的pwn题，tcache的机制总是失败，double free，，，这样修改后就可以用了。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/01/30/漏洞基础知识/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-02-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 winter
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
