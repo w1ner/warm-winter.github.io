@@ -6,13 +6,19 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>pwnable.tw | winter - 像初雪一样自由洒落</title>
+  <title>pwn题环境 | winter - 像初雪一样自由洒落</title>
   <meta name="author" content="winter">
+  
+  <meta name="description" content="呃，，，总是弄炸环境，，，，还忘记快照，，，，
+
+1.pwngdb123git clone https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;pwndbg&amp;#x2F;pwndbgcd pwndbg.&amp;#x2F;setup.sh
+
+2.pip1sudo apt install pyt">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="pwn题环境"/>
   <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
 
   
@@ -113,175 +119,127 @@ var _hmt = _hmt || [];
   	<div class="content">
     	 
 
-<!-- title -->
-<div class="page-header">
-  <h1 class="archive-title-tag"><i class="fa fa-archive"></i> pwnable.tw</h1>
-</div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
 	
-
-	  <div id="top_search"></div>
-
-	  <div class="archive">
-		
-		
-		
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2021">2021<b class="caret"></b></h4>
-			<ul id="2021" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2021-01-09 </span> &raquo;
-		
-		   <span class="title"><a href="/2021/01/09/pwnable-tw记录-前八题/" >pwnable.tw记录(前八题)</a></span>
-		
-		</li>			
-		
-		</ul>
+		<div class="page-header">
+			<h1> pwn题环境</h1>
 		</div>
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
 	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
 
 
-		
-			
-	<div class="widget">
-		<h4>Categories</h4>
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="/categories/advanced-pwn/">advanced pwn<span>1</span></a></li>
-		
-			<li><a href="/categories/chrome/">chrome<span>1</span></a></li>
-		
-			<li><a href="/categories/iot/">iot<span>2</span></a></li>
-		
-			<li><a href="/categories/pwn/">pwn<span>9</span></a></li>
-		
-			<li><a href="/categories/reverse/">reverse<span>1</span></a></li>
-		
-			<li><a href="/categories/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/categories/基础知识/">基础知识<span>2</span></a></li>
-		
-			<li><a href="/categories/算法/">算法<span>2</span></a></li>
-		
-		</ul>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <blockquote>
+<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
+</blockquote>
+<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
+</blockquote>
+<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
+
+	  
 	</div>
 
-		
-			
-	<div class="widget">
-		<h4>Tag Cloud</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>2</span></a></li>
-		
-			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
-		
-			<li><a href="/tags/buu刷题/">buu刷题<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/陌生函数/">陌生函数<span>1</span></a></li>
-		
-			<li><a href="/tags/hitctf-2020/">hitctf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/祥云杯-2020/">祥云杯 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>1</span></a></li>
-		
-		 
-		</ul>
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/02/18/编译debug版本的glibc/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
 	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
 
 
+	</div> <!-- col-md-9/col-md-12 -->
 		
-			
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/2021/02/18/pwn题环境/" ><i class="fa fa-file-o"></i>pwn题环境</a>
-      </li>
-    
-      <li>
-        <a href="/2021/02/18/编译debug版本的glibc/" ><i class="fa fa-file-o"></i>编译debug版本的glibc</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/30/漏洞基础知识/" ><i class="fa fa-file-o"></i>漏洞基础知识</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/30/git/" ><i class="fa fa-file-o"></i>git</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/15/蓝桥杯基础练习/" ><i class="fa fa-file-o"></i>蓝桥杯基础练习</a>
-      </li>
-    
-  </ul>
-</div>
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-02-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>9</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
+    </ul>
+	</div>
 		
-			
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/hexo-theme-freemind" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/kristopolous/BOOTSTRA.386" title="BOOTSTRA.386's Github repository." target="_blank"]);">BOOTSTRA.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank"]);">Freemind.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/blackshow" title="My Github account." target="_blank"]);">My Github</a></li>
-	
-	</ul>
-</div>
 
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
 
+	</div>
 		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
 
+</div><!-- row -->
 
 
 
