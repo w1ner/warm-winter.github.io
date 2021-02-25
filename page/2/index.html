@@ -141,6 +141,33 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/12/24/HITCTF-2020复现/" >HITCTF 2020复现</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-12-24  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		
+	
+	</div>
+  <a type="button" href="/2020/12/24/HITCTF-2020复现/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/11/20/buu刷题笔记/" >buu刷题笔记</a>
 		</h3>
 		</div>
@@ -541,7 +568,7 @@ var _hmt = _hmt || [];
 <h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>ascii码的字符打印出来 printf “\037”</p>
 <p>用字符的ascii码执行程序：printf “\023\342” | ./可执行文件</p>
 <h3 id="追踪"><a href="#追踪" class="headerlink" title="追踪"></a>追踪</h3><p>ltrace ./可执行文件</p>
-<h3 id="gdb使用peda和pwngdb"><a href="#gdb使用peda和pwngdb" class="headerlink" title="gdb使用peda和pwngdb"></a>gdb使用peda和pwngdb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gedit ~&#x2F;.gdbinit</span><br><span class="line">&#x2F;&#x2F;peda</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">&#x2F;&#x2F;v8 gdb</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br><span class="line">&#x2F;&#x2F;pwngdb</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br><span class="line">&#x2F;&#x2F;gef</span><br><span class="line">source ~&#x2F;.gef-54e93efd89ec59e5d178fbbeda1fed890098d18d.py</span><br></pre></td></tr></table></figure>
+<h3 id="gdb使用peda和pwngdb"><a href="#gdb使用peda和pwngdb" class="headerlink" title="gdb使用peda和pwngdb"></a>gdb使用peda和pwngdb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">gedit ~&#x2F;.gdbinit</span><br><span class="line">&#x2F;&#x2F;peda</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">&#x2F;&#x2F;v8 gdb</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br><span class="line">&#x2F;&#x2F;pwngdb</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br><span class="line">&#x2F;&#x2F;gef</span><br><span class="line">source ~&#x2F;.gef-54e93efd89ec59e5d178fbbeda1fed890098d18d.py</span><br><span class="line">&#x2F;&#x2F;Pwngdb</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">source ~&#x2F;Pwngdb&#x2F;pwngdb.py</span><br><span class="line">source ~&#x2F;Pwngdb&#x2F;angelheap&#x2F;gdbinit.py</span><br><span class="line"></span><br><span class="line">define hook-run</span><br><span class="line">python</span><br><span class="line">import angelheap</span><br><span class="line">angelheap.init_angelheap()</span><br><span class="line">end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
 <h3 id="linux初始化root密码"><a href="#linux初始化root密码" class="headerlink" title="linux初始化root密码"></a>linux初始化root密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd</span><br></pre></td></tr></table></figure>
 
@@ -1496,45 +1523,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/10/10/C++知识补充/" >C++知识补充</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-10-10  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
-<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
-<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>virtual表示虚函数，没关系</li>
-<li>-&gt; std::string称为后置返回类型</li>
-<li>auto是占位符（C++11新增用法）</li>
-</ul>
-<p>作用：解决模板中函数返回值类型不确定的问题</p>
-
-	
-	</div>
-  <a type="button" href="/2020/10/10/C++知识补充/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1588,7 +1576,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		
 			<li><a href="/categories/iot/">iot<span>2</span></a></li>
 		
-			<li><a href="/categories/pwn/">pwn<span>9</span></a></li>
+			<li><a href="/categories/pwn/">pwn<span>10</span></a></li>
 		
 			<li><a href="/categories/reverse/">reverse<span>1</span></a></li>
 		
@@ -1607,39 +1595,39 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/陌生函数/">陌生函数<span>1</span></a></li>
-		
-			<li><a href="/tags/hitctf-2020/">hitctf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>2</span></a></li>
-		
 			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/祥云杯-2020/">祥云杯 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>1</span></a></li>
 		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/陌生函数/">陌生函数<span>1</span></a></li>
 		
 			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+		
 			<li><a href="/tags/buu刷题/">buu刷题<span>1</span></a></li>
+		
+			<li><a href="/tags/祥云杯-2020/">祥云杯 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+		
+			<li><a href="/tags/hitctf-2020/">hitctf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>2</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
 			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -1651,6 +1639,10 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/02/25/pwnable-tw-9-16题/" ><i class="fa fa-file-o"></i>pwnable.tw(9-16题)</a>
+      </li>
     
       <li>
         <a href="/2021/02/18/pwn题环境/" ><i class="fa fa-file-o"></i>pwn题环境</a>
@@ -1666,10 +1658,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
     
       <li>
         <a href="/2021/01/30/git/" ><i class="fa fa-file-o"></i>git</a>
-      </li>
-    
-      <li>
-        <a href="/2021/01/15/蓝桥杯基础练习/" ><i class="fa fa-file-o"></i>蓝桥杯基础练习</a>
       </li>
     
   </ul>
