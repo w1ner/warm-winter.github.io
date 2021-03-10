@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>leetcode刷题（入门） | winter - 像初雪一样自由洒落</title>
+  <meta name="author" content="winter">
+  
+  <meta name="description" content="跟着bilibili视频：Leetcode力扣 1-300题视频讲解合集｜手画图解版+代码【持续更新ing】来先简单学习
+更新中。。。
+
+1 两数之和
+两种方法：暴力法和哈希表
+
+暴力法
+直接用常数创建数组
+
+1return new int[] &amp;#123;i,j&amp;#125;;
+
+哈希表创建1Map">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="leetcode刷题（入门）"/>
+  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> leetcode刷题（入门）</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <blockquote>
+<p>跟着bilibili视频：<a href="https://www.bilibili.com/video/BV1xa411A76q?p=6" target="_blank" rel="noopener">Leetcode力扣 1-300题视频讲解合集｜手画图解版+代码【持续更新ing】</a>来先简单学习</p>
+<p>更新中。。。</p>
+</blockquote>
+<h2 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1 两数之和"></a>1 两数之和</h2><blockquote>
+<p>两种方法：暴力法和哈希表</p>
+</blockquote>
+<h3 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h3><blockquote>
+<p>直接用常数创建数组</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;i,j&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer,Integer&gt; hashtable = <span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashtable.put(nums[i],i);</span><br></pre></td></tr></table></figure>
+
+<h4 id="包含某一个键"><a href="#包含某一个键" class="headerlink" title="包含某一个键"></a>包含某一个键</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashtable.containsKey(target - nums[i])</span><br></pre></td></tr></table></figure>
+
+<h4 id="得到值"><a href="#得到值" class="headerlink" title="得到值"></a>得到值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashtable.containsKey(target - nums[i])</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2 两数相加"></a>2 两数相加</h2><h3 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h3><blockquote>
+<p>注意点：</p>
+<ol>
+<li>返回链表的指针不能动，，，要创建一个current指针来紧随当前运行的情况<code>cur = res</code></li>
+<li>最后返回的是<code>res.next</code>，因为一开始的值是空。</li>
+</ol>
+</blockquote>
+<h3 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h3><blockquote>
+<p>稍微，，，，尤其是最后有点点难理解</p>
+</blockquote>
+<p>主要思路是让两个链表的一直加，如果有个链表没有了，就创建val为0的node。</p>
+<p>结束条件：<code>l1.next != null || l2.next != null || next !=0</code></p>
+<p>最后返回的是res</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(l1.next != <span class="keyword">null</span> || l2.next != <span class="keyword">null</span> || next !=<span class="number">0</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span>(l1.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">		l1 = l1.next;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		l1 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(l2.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">		l2 = l2.next;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		l2 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	l1.val += next;</span><br><span class="line">	res.next = addTwoNumbers(l1, l2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还行吧，，，大概的意思就理解。。。。<del>哭哭</del></p>
+<h2 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20 有效的括号"></a>20 有效的括号</h2><blockquote>
+<p>思路：将字符串通过函数<code>toCharArray（）</code>变成数组，然后将左括号入栈，右边进行匹配，失败直接返回，成功继续，，，一直看最后的栈是否空即可。</p>
+<p>注意：根据题目已知“”空串返回true，所以一开始可以直接判断字符串长度是否为0。</p>
+</blockquote>
+<h3 id="增强for循环"><a href="#增强for循环" class="headerlink" title="增强for循环"></a>增强for循环</h3><blockquote>
+<p>从字符数组总依次取出字符</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">char</span> ch : s.toCharArray()) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="？：返回"><a href="#？：返回" class="headerlink" title="？：返回"></a>？：返回</h3><blockquote>
+<p>感觉和很有意思</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> stack.isEmpty()?<span class="keyword">true</span>:<span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21 合并两个有序链表"></a>21 合并两个有序链表</h2><blockquote>
+<p>有了第二题的铺垫，，，，easy</p>
+</blockquote>
+<h3 id="迭代法-1"><a href="#迭代法-1" class="headerlink" title="迭代法"></a>迭代法</h3><p>直接链入剩余的链表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(l1 == <span class="keyword">null</span>) &#123;</span><br><span class="line">	cur.next = l2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>赋值的两种方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 创建一个新的node</span></span><br><span class="line">cur.next = <span class="keyword">new</span> ListNode(l2.val);</span><br><span class="line"><span class="comment">//2.将l2赋值，只有节点，不是链表</span></span><br><span class="line">cur.next = l2;</span><br></pre></td></tr></table></figure>
+
+<h3 id="递归法-1"><a href="#递归法-1" class="headerlink" title="递归法"></a>递归法</h3><blockquote>
+<p>高级，需要好好理解。</p>
+<p>递归首先要确认结束条件</p>
+<p>接下来结果的链入interesting!</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//		if(l1 == null) &#123;</span></span><br><span class="line"><span class="comment">//			return l2;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//		if(l2 == null) &#123;</span></span><br><span class="line"><span class="comment">//			return l1;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line">		<span class="keyword">if</span>(l1 == <span class="keyword">null</span> || l2 == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> l1 == <span class="keyword">null</span> ? l2 : l1;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(l1.val &lt;= l2.val) &#123;</span><br><span class="line">			l1.next = mergeTwoLists(l1.next, l2);</span><br><span class="line">			<span class="keyword">return</span> l1;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			l2.next = mergeTwoLists(l1, l2.next);</span><br><span class="line">			<span class="keyword">return</span> l2;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="22-括号生成"><a href="#22-括号生成" class="headerlink" title="22 括号生成"></a>22 括号生成</h2><h3 id="搁置-暴力法"><a href="#搁置-暴力法" class="headerlink" title="[搁置]暴力法"></a>[搁置]暴力法</h3><blockquote>
+<p>[搁置]的都稍后来做，，，先学算法吧。。。。</p>
+</blockquote>
+<h3 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h3><blockquote>
+<p>emmm，这个是蓝桥杯里经常用的方法，，，，但是这里对有效括号的判断很有意思：</p>
+<ol>
+<li>如果左括号小于n，就可以继续增加左括号</li>
+<li><strong>如果每时刻右括号的数量小于左括号的数量，就是有效的</strong></li>
+<li>当满足上述条件并且括号数量对了的时候，就可以添加进来了。</li>
+</ol>
+</blockquote>
+<h4 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h4><h5 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> StringBuilder()</span><br></pre></td></tr></table></figure>
+
+<h5 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder cur;</span><br></pre></td></tr></table></figure>
+
+<h5 id="转String"><a href="#转String" class="headerlink" title="转String"></a>转String</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cur.toString()</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除指定位置元素"><a href="#删除指定位置元素" class="headerlink" title="删除指定位置元素"></a>删除指定位置元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cur.deleteCharAt(cur.length()-<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/03/08/蓝桥杯算法训练/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-03-10 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/算法/">算法<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 winter
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
