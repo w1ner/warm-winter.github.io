@@ -847,35 +847,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ida flair</title>
-    <url>/2021/03/12/ida-flair/</url>
-    <content><![CDATA[<h1 id="ida-flair"><a href="#ida-flair" class="headerlink" title="ida flair"></a>ida flair</h1><blockquote>
-<p>功能：恢复<strong>静态编译</strong> <strong>去符号</strong> 得库函数名</p>
-<p>以pwnable.tw得3×17题为例</p>
-</blockquote>
-<p>是静态的</p>
-<p><img src="/2021/03/12/ida-flair/image-20210312123918829.png" alt="image-20210312123918829"></p>
-<p>也去了符号表，，，</p>
-<p>所以可以用ida flair这个功能</p>
-<h3 id="1-下载sig"><a href="#1-下载sig" class="headerlink" title="1. 下载sig"></a>1. 下载sig</h3><p><a href="https://github.com/push0ebp/sig-database" target="_blank" rel="noopener">sig-database</a></p>
-<h3 id="2-拷贝"><a href="#2-拷贝" class="headerlink" title="2. 拷贝"></a>2. 拷贝</h3><p>下载文件 =&gt;    libc6    =&gt;    16.04    =&gt;    amd64    =&gt;    选中所有的文件    =&gt;    拷贝到ida目录/sig/pc下面</p>
-<h3 id="3-加载"><a href="#3-加载" class="headerlink" title="3.加载"></a>3.加载</h3><p>在打开文件的ida下选择：file    -&gt;    load file    -&gt;    filter signature file    =&gt;    ctrl+f 找到对应的文件即可</p>
-<p><img src="/2021/03/12/ida-flair/image-20210312124712543.png" alt="image-20210312124712543"></p>
-<h3 id="4-查看"><a href="#4-查看" class="headerlink" title="4.查看"></a>4.查看</h3><p>shift + f5即可查看应用的结果，，，可以看到第一个查到了56个函数，，，</p>
-<p><img src="/2021/03/12/ida-flair/image-20210312125241686.png" alt="image-20210312125241686"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.csdn.net/u013043103/article/details/109389236?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=1328642.8119.16155163068355197&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control" target="_blank" rel="noopener">使用IDA flair恢复静态编译去符号的库函数名</a></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><blockquote>
-<p>虽然这次效果不怎么样，，，，，该识别的main函数等都没有识别出来，，，但是成功了，，，，多加些可能效果更好，，，</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>ida</category>
-      </categories>
-      <tags>
-        <tag>flair</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>embedded(未完成)</title>
     <url>/2020/10/22/embedded/</url>
     <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
@@ -907,6 +878,35 @@
       </categories>
       <tags>
         <tag>mips pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ida flair</title>
+    <url>/2021/03/12/ida-flair/</url>
+    <content><![CDATA[<h1 id="ida-flair"><a href="#ida-flair" class="headerlink" title="ida flair"></a>ida flair</h1><blockquote>
+<p>功能：恢复<strong>静态编译</strong> <strong>去符号</strong> 得库函数名</p>
+<p>以pwnable.tw得3×17题为例</p>
+</blockquote>
+<p>是静态的</p>
+<p><img src="/2021/03/12/ida-flair/image-20210312123918829.png" alt="image-20210312123918829"></p>
+<p>也去了符号表，，，</p>
+<p>所以可以用ida flair这个功能</p>
+<h3 id="1-下载sig"><a href="#1-下载sig" class="headerlink" title="1. 下载sig"></a>1. 下载sig</h3><p><a href="https://github.com/push0ebp/sig-database" target="_blank" rel="noopener">sig-database</a></p>
+<h3 id="2-拷贝"><a href="#2-拷贝" class="headerlink" title="2. 拷贝"></a>2. 拷贝</h3><p>下载文件 =&gt;    libc6    =&gt;    16.04    =&gt;    amd64    =&gt;    选中所有的文件    =&gt;    拷贝到ida目录/sig/pc下面</p>
+<h3 id="3-加载"><a href="#3-加载" class="headerlink" title="3.加载"></a>3.加载</h3><p>在打开文件的ida下选择：file    -&gt;    load file    -&gt;    filter signature file    =&gt;    ctrl+f 找到对应的文件即可</p>
+<p><img src="/2021/03/12/ida-flair/image-20210312124712543.png" alt="image-20210312124712543"></p>
+<h3 id="4-查看"><a href="#4-查看" class="headerlink" title="4.查看"></a>4.查看</h3><p>shift + f5即可查看应用的结果，，，可以看到第一个查到了56个函数，，，</p>
+<p><img src="/2021/03/12/ida-flair/image-20210312125241686.png" alt="image-20210312125241686"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.csdn.net/u013043103/article/details/109389236?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=1328642.8119.16155163068355197&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control" target="_blank" rel="noopener">使用IDA flair恢复静态编译去符号的库函数名</a></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><blockquote>
+<p>虽然这次效果不怎么样，，，，，该识别的main函数等都没有识别出来，，，但是成功了，，，，多加些可能效果更好，，，</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>ida</category>
+      </categories>
+      <tags>
+        <tag>flair</tag>
       </tags>
   </entry>
   <entry>
@@ -1090,268 +1090,6 @@
       </categories>
       <tags>
         <tag>pwnable.tw</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pwn题环境</title>
-    <url>/2021/02/18/pwn%E9%A2%98%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<blockquote>
-<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
-</blockquote>
-<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
-</blockquote>
-<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-sublime"><a href="#5-sublime" class="headerlink" title="5.sublime"></a>5.sublime</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team&#x2F;sublime-text-3</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sublime-text-installer</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>基础知识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pwn出题环境搭建</title>
-    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
-</blockquote>
-<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
-<ul>
-<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
-<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
-<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
-<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
-</ul>
-<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
-<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
-<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">或者</span><br><span class="line">curl -sSL https:&#x2F;&#x2F;get.daocloud.io&#x2F;docker | sh</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>大一大二想要实习的同学</p>
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>出题环境</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
-    <content><![CDATA[<p>适合人群：内核基础为0</p>
-<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
-<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
-<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
-<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
-<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
-<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
-<p>（3）n：拷贝数据的长度（字节）</p>
-<blockquote>
-<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
-</blockquote>
-<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
-
-<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
-<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
-$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
-<p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
-<p>方法：修改suid</p>
-<p>（1）创建一个文件夹</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
-
-<p>（2）解压initramfs.cpio文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
-
-<p>（3）修改suid</p>
-<p>进入etc/init.d/rcS，将1000修改为0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
-<p>（4）重新打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
-
-<p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
-<p>已经是root权限了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
-<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
-<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F; # grep prepare_kernel_cred  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a620 T prepare_kernel_cred</span><br><span class="line">ffffffff81b72650 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81b89b07 r __kstrtab_prepare_kernel_cred</span><br><span class="line">&#x2F; # grep commit_creds  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a250 T commit_creds</span><br><span class="line">ffffffff81b69b00 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81b89b43 r __kstrtab_commit_creds</span><br><span class="line">&#x2F; # cat &#x2F;proc&#x2F;modules </span><br><span class="line">rootme 1616 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">.&#x2F;sys&#x2F;module&#x2F;rootme</span><br><span class="line">.&#x2F;proc&#x2F;rootme</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
-<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
-</blockquote>
-<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
-
-<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
-<p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
-<p>（2）执行<code>./startvm.sh</code></p>
-<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
-<p>（4）远程连接，<code>target remote :1234</code></p>
-<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
-<p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
-<p>（7）接着，就可以正常调试了</p>
-<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br><span class="line">cd myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（2）将initramfs.cpio解压到myimage文件夹</p>
-<p>find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
-<p>（3）将exp移入myimage文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>（4）重新打包，执行./startvm.sh</p>
-<p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
-<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
-<p>一开始的0x88，指的是初始化的时候。</p>
-<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
-<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
-<p>开始的时候（内核加载模块）：调用init_module</p>
-<p>中间的时候：</p>
-<p>我们调用ioctl调用了sub_0函数</p>
-<p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
-<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
-<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
-<p>结束的时候：cleanup_module</p>
-]]></content>
-      <categories>
-        <category>advanced pwn</category>
-      </categories>
-      <tags>
-        <tag>kernel pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>v8环境搭建</title>
-    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
-<p>这里就讲下自己搭环境的经过，，，</p>
-<hr>
-<p>使用的环境：ubuntu 18.04</p>
-<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
-<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
-<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
-<hr>
-<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
-<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
-</blockquote>
-<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
-<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
-<p>别的问题不大，注意的两点是：</p>
-<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
-<p>2.选择节点的时候，一定要选择有人的</p>
-<p>3.一定是root账户</p>
-<p>4.在/root目录下</p>
-<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
-<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
-
-<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
-
-<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
-
-<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
-<p>后面的步骤</p>
-<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
-
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
-
-<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
-<hr>
-<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
-<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
-<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
-<p>不需要代理啥的，真是舒服。</p>
-<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
-</blockquote>
-<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
-<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
-<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
-<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
-
-<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
-
-<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
-<p>下过来之后，是这样的。</p>
-<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
-<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>然后，浏览器就可以访问到了，点击下载即可。</p>
-<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
-<p>哇哇哇哇，感天动地，终于搞定了。</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
-
-<p>命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>v8的gdb也可以了</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>v8</category>
-      </categories>
-      <tags>
-        <tag>环境搭建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>winter</title>
-    <url>/2020/07/23/winter/</url>
-    <content><![CDATA[<p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>buu每日一题（2）</title>
-    <url>/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%882%EF%BC%89/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>buu刷题</tag>
       </tags>
   </entry>
   <entry>
@@ -1681,6 +1419,268 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </categories>
       <tags>
         <tag>pwnable.tw</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pwn出题环境搭建</title>
+    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
+</blockquote>
+<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
+<ul>
+<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
+<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
+<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">或者</span><br><span class="line">curl -sSL https:&#x2F;&#x2F;get.daocloud.io&#x2F;docker | sh</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>大一大二想要实习的同学</p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>出题环境</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pwn题环境</title>
+    <url>/2021/02/18/pwn%E9%A2%98%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<blockquote>
+<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
+</blockquote>
+<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
+</blockquote>
+<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-sublime"><a href="#5-sublime" class="headerlink" title="5.sublime"></a>5.sublime</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team&#x2F;sublime-text-3</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sublime-text-installer</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ret2usr</title>
+    <url>/2020/10/22/ret2usr/</url>
+    <content><![CDATA[<p>适合人群：内核基础为0</p>
+<h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
+<p><a href="https://xz.aliyun.com/t/7625#toc-10" target="_blank" rel="noopener">https://xz.aliyun.com/t/7625#toc-10</a></p>
+<h4 id="copy-from-user"><a href="#copy-from-user" class="headerlink" title="copy_from_user"></a>copy_from_user</h4><p>copy_from_user(void *to, const void __user *from, unsigned long n)</p>
+<p>（1）to：将数据拷贝到<strong>内核地址</strong> </p>
+<p>（2）from：需要拷贝数据的<strong>用户地址</strong></p>
+<p>（3）n：拷贝数据的长度（字节）</p>
+<blockquote>
+<p>也就是将form用户地址中的数据拷贝到to内核地址中去，拷贝长度是n</p>
+</blockquote>
+<h4 id="cpio解压和打包"><a href="#cpio解压和打包" class="headerlink" title="cpio解压和打包"></a>cpio解压和打包</h4><p>解压：cpio -idvm &lt; ../initramfs.cpio<br>打包：find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
+
+<p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
+<h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code>$ grep prepare_kernel_cred  /proc/kallsyms 
+$ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2usr/image-20200903105056015.png" alt="image-20200903105056015"></p>
+<p>但是直接执行，地址都是0x0，需要root权限。</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p>方法：修改suid</p>
+<p>（1）创建一个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
+
+<p>（2）解压initramfs.cpio文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cpio -idvm &lt; ..&#x2F;initramfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改suid</p>
+<p>进入etc/init.d/rcS，将1000修改为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/10/22/ret2usr/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p>（4）重新打包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
+
+<p>（5）再次执行两条命令即可</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p>已经是root权限了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
+<p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F; # grep prepare_kernel_cred  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a620 T prepare_kernel_cred</span><br><span class="line">ffffffff81b72650 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81b89b07 r __kstrtab_prepare_kernel_cred</span><br><span class="line">&#x2F; # grep commit_creds  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a250 T commit_creds</span><br><span class="line">ffffffff81b69b00 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81b89b43 r __kstrtab_commit_creds</span><br><span class="line">&#x2F; # cat &#x2F;proc&#x2F;modules </span><br><span class="line">rootme 1616 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">.&#x2F;sys&#x2F;module&#x2F;rootme</span><br><span class="line">.&#x2F;proc&#x2F;rootme</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>疑问解答：此时已经获得root权限了，不就可以直接cat /flag了？</p>
+<p>实际题目中，不会把真的flag放文件里给你，而是在远程环境了。但是本地的地址和远程的地址是一样的，所以，可以通过这种方法得到本地的用户权限，找到prepare_kernel_cred和commit_creds的地址，但是没有办法直接获得flag。</p>
+</blockquote>
+<h5 id="查找基地址"><a href="#查找基地址" class="headerlink" title="查找基地址"></a>查找基地址</h5><p>以root权限运行，参考上面（修改etc/init.d/rcS）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
+
+<h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
+<p>0x7ffd958d7e08</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p>（2）执行<code>./startvm.sh</code></p>
+<p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
+<p>（4）远程连接，<code>target remote :1234</code></p>
+<p>（5）下断点（ida里面的地址+基地址），继续执行</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p>（6）在原来的窗口，执行exp</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p>（7）接着，就可以正常调试了</p>
+<h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br><span class="line">cd myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（2）将initramfs.cpio解压到myimage文件夹</p>
+<p>find . | cpio -H newc -o &gt; ../initramfs.cpio</p>
+<p>（3）将exp移入myimage文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（4）重新打包，执行./startvm.sh</p>
+<p>exp已在/目录下了</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
+<p>一开始的0x88，指的是初始化的时候。</p>
+<p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
+<p><img src="/2020/10/22/ret2usr/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
+<p>开始的时候（内核加载模块）：调用init_module</p>
+<p>中间的时候：</p>
+<p>我们调用ioctl调用了sub_0函数</p>
+<p>ioctl的参数就是sub_0的参数</p>
+<p><img src="/2020/10/22/ret2usr/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
+<p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
+<p>结束的时候：cleanup_module</p>
+]]></content>
+      <categories>
+        <category>advanced pwn</category>
+      </categories>
+      <tags>
+        <tag>kernel pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>v8环境搭建</title>
+    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
+<p>这里就讲下自己搭环境的经过，，，</p>
+<hr>
+<p>使用的环境：ubuntu 18.04</p>
+<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
+<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
+<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
+<hr>
+<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
+<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
+</blockquote>
+<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
+<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
+<p>别的问题不大，注意的两点是：</p>
+<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
+<p>2.选择节点的时候，一定要选择有人的</p>
+<p>3.一定是root账户</p>
+<p>4.在/root目录下</p>
+<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
+<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
+
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
+
+<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
+<p>后面的步骤</p>
+<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
+
+<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
+<hr>
+<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
+<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
+<p>不需要代理啥的，真是舒服。</p>
+<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
+</blockquote>
+<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
+<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
+<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
+<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
+
+<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
+
+<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
+<p>下过来之后，是这样的。</p>
+<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
+<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>然后，浏览器就可以访问到了，点击下载即可。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
+<p>哇哇哇哇，感天动地，终于搞定了。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>v8的gdb也可以了</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>v8</category>
+      </categories>
+      <tags>
+        <tag>环境搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>winter</title>
+    <url>/2020/07/23/winter/</url>
+    <content><![CDATA[<p>who am i</p>
+<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>buu每日一题（2）</title>
+    <url>/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%882%EF%BC%89/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>buu刷题</tag>
       </tags>
   </entry>
   <entry>
@@ -2469,6 +2469,38 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 ]]></content>
   </entry>
   <entry>
+    <title>编译debug版本的glibc</title>
+    <url>/2021/02/18/%E7%BC%96%E8%AF%91debug%E7%89%88%E6%9C%AC%E7%9A%84glibc/</url>
+    <content><![CDATA[<h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
+<li>通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc</li>
+<li>CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc</li>
+</ol>
+<h2 id="下载glibc源码"><a href="#下载glibc源码" class="headerlink" title="下载glibc源码"></a>下载glibc源码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git </span><br><span class="line">cd glibc</span><br><span class="line">git checkout glibc-2.27</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译glibc源码"><a href="#编译glibc源码" class="headerlink" title="编译glibc源码"></a>编译glibc源码</h2><h3 id="编译64位"><a href="#编译64位" class="headerlink" title="编译64位"></a>编译64位</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.27 --enable-debug&#x3D;yes</span><br><span class="line">make -j4</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用该libc运行其他已编译的程序"><a href="#使用该libc运行其他已编译的程序" class="headerlink" title="使用该libc运行其他已编译的程序"></a>使用该libc运行其他已编译的程序</h2><h3 id="替换二进制文件的编译器路径"><a href="#替换二进制文件的编译器路径" class="headerlink" title="替换二进制文件的编译器路径"></a>替换二进制文件的编译器路径</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#change_ld.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_ld</span><span class="params">(binary, ld,output)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> binary <span class="keyword">or</span> <span class="keyword">not</span> ld <span class="keyword">or</span> <span class="keyword">not</span> output:</span><br><span class="line">	log.failure(<span class="string">"Try 'python change_ld.py -h for more information.'"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line">    binary = ELF(binary)</span><br><span class="line">    <span class="keyword">for</span> segment <span class="keyword">in</span> binary.segments:</span><br><span class="line">        <span class="keyword">if</span> segment.header[<span class="string">'p_type'</span>] == <span class="string">'PT_INTERP'</span>:</span><br><span class="line">            size = segment.header[<span class="string">'p_memsz'</span>]</span><br><span class="line">            addr = segment.header[<span class="string">'p_paddr'</span>]</span><br><span class="line">            data = segment.data()</span><br><span class="line">            <span class="keyword">if</span> size &lt;= len(ld):</span><br><span class="line">                log.failure(<span class="string">"Failed to change PT_INTERP from &#123;&#125; to &#123;&#125;"</span>.format(data, ld))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            binary.write(addr,<span class="string">"/lib64/ld-glibc-&#123;&#125;"</span>.format(ld).ljust(size,<span class="string">'\0'</span>))</span><br><span class="line">         </span><br><span class="line">            <span class="keyword">if</span> os.access(output, os.F_OK): </span><br><span class="line">                os.remove(output)</span><br><span class="line">            binary.save(output)    </span><br><span class="line">            os.chmod(output, <span class="number">0b111000000</span>) <span class="comment">#rwx------</span></span><br><span class="line">    success(<span class="string">"PT_INTERP has changed from &#123;&#125; to &#123;&#125;. Using temp file &#123;&#125;"</span>.format(data, ld, output)) </span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">'Force to use assigned new ld.so by changing the binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-b'</span>,dest=<span class="string">"binary"</span>,help=<span class="string">'input binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-l'</span>,dest=<span class="string">"ld"</span>,help=<span class="string">'ld.so version'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-o'</span>,dest=<span class="string">"output"</span>,help=<span class="string">'outputfile'</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">change_ld(args.binary,args.ld,args.output)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ln -s &#x2F;usr&#x2F;local&#x2F;glibc-2.27&#x2F;lib&#x2F;ld-2.27.so &#x2F;lib64&#x2F;ld-glibc-2.27</span><br><span class="line">python change_ld.py -b 二进制文件 -l 2.27 -o 输出文件名</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_tear </span><br><span class="line">tcache_tear: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br><span class="line"></span><br><span class="line">#成功</span><br><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_debug </span><br><span class="line">tcache_debug: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-glibc-2.27, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">io = process([<span class="string">'./tcache_tear'</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.27/lib/libc-2.27.so"</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>主要参考《CTF竞赛权威指南（pwn篇）》5.1.3中内容</p>
+<p>在做2.27的pwn题，tcache的机制总是失败，double free，，，这样修改后就可以用了。</p>
+<h2 id="glibc下载"><a href="#glibc下载" class="headerlink" title="glibc下载"></a>glibc下载</h2><p><a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/</a></p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>基础知识</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>牛客网-算法篇</title>
     <url>/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/</url>
     <content><![CDATA[<h2 id="NC4判断链表中是否有环"><a href="#NC4判断链表中是否有环" class="headerlink" title="NC4判断链表中是否有环"></a>NC4判断链表中是否有环</h2><blockquote>
@@ -2802,38 +2834,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
       </categories>
       <tags>
         <tag>牛客网</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>编译debug版本的glibc</title>
-    <url>/2021/02/18/%E7%BC%96%E8%AF%91debug%E7%89%88%E6%9C%AC%E7%9A%84glibc/</url>
-    <content><![CDATA[<h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
-<li>通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc</li>
-<li>CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc</li>
-</ol>
-<h2 id="下载glibc源码"><a href="#下载glibc源码" class="headerlink" title="下载glibc源码"></a>下载glibc源码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git </span><br><span class="line">cd glibc</span><br><span class="line">git checkout glibc-2.27</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译glibc源码"><a href="#编译glibc源码" class="headerlink" title="编译glibc源码"></a>编译glibc源码</h2><h3 id="编译64位"><a href="#编译64位" class="headerlink" title="编译64位"></a>编译64位</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.27 --enable-debug&#x3D;yes</span><br><span class="line">make -j4</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用该libc运行其他已编译的程序"><a href="#使用该libc运行其他已编译的程序" class="headerlink" title="使用该libc运行其他已编译的程序"></a>使用该libc运行其他已编译的程序</h2><h3 id="替换二进制文件的编译器路径"><a href="#替换二进制文件的编译器路径" class="headerlink" title="替换二进制文件的编译器路径"></a>替换二进制文件的编译器路径</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#change_ld.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_ld</span><span class="params">(binary, ld,output)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> binary <span class="keyword">or</span> <span class="keyword">not</span> ld <span class="keyword">or</span> <span class="keyword">not</span> output:</span><br><span class="line">	log.failure(<span class="string">"Try 'python change_ld.py -h for more information.'"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line">    binary = ELF(binary)</span><br><span class="line">    <span class="keyword">for</span> segment <span class="keyword">in</span> binary.segments:</span><br><span class="line">        <span class="keyword">if</span> segment.header[<span class="string">'p_type'</span>] == <span class="string">'PT_INTERP'</span>:</span><br><span class="line">            size = segment.header[<span class="string">'p_memsz'</span>]</span><br><span class="line">            addr = segment.header[<span class="string">'p_paddr'</span>]</span><br><span class="line">            data = segment.data()</span><br><span class="line">            <span class="keyword">if</span> size &lt;= len(ld):</span><br><span class="line">                log.failure(<span class="string">"Failed to change PT_INTERP from &#123;&#125; to &#123;&#125;"</span>.format(data, ld))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            binary.write(addr,<span class="string">"/lib64/ld-glibc-&#123;&#125;"</span>.format(ld).ljust(size,<span class="string">'\0'</span>))</span><br><span class="line">         </span><br><span class="line">            <span class="keyword">if</span> os.access(output, os.F_OK): </span><br><span class="line">                os.remove(output)</span><br><span class="line">            binary.save(output)    </span><br><span class="line">            os.chmod(output, <span class="number">0b111000000</span>) <span class="comment">#rwx------</span></span><br><span class="line">    success(<span class="string">"PT_INTERP has changed from &#123;&#125; to &#123;&#125;. Using temp file &#123;&#125;"</span>.format(data, ld, output)) </span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">'Force to use assigned new ld.so by changing the binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-b'</span>,dest=<span class="string">"binary"</span>,help=<span class="string">'input binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-l'</span>,dest=<span class="string">"ld"</span>,help=<span class="string">'ld.so version'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-o'</span>,dest=<span class="string">"output"</span>,help=<span class="string">'outputfile'</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">change_ld(args.binary,args.ld,args.output)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ln -s &#x2F;usr&#x2F;local&#x2F;glibc-2.27&#x2F;lib&#x2F;ld-2.27.so &#x2F;lib64&#x2F;ld-glibc-2.27</span><br><span class="line">python change_ld.py -b 二进制文件 -l 2.27 -o 输出文件名</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_tear </span><br><span class="line">tcache_tear: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br><span class="line"></span><br><span class="line">#成功</span><br><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_debug </span><br><span class="line">tcache_debug: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-glibc-2.27, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">io = process([<span class="string">'./tcache_tear'</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.27/lib/libc-2.27.so"</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>主要参考《CTF竞赛权威指南（pwn篇）》5.1.3中内容</p>
-<p>在做2.27的pwn题，tcache的机制总是失败，double free，，，这样修改后就可以用了。</p>
-<h2 id="glibc下载"><a href="#glibc下载" class="headerlink" title="glibc下载"></a>glibc下载</h2><p><a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/</a></p>
-]]></content>
-      <categories>
-        <category>pwn</category>
-      </categories>
-      <tags>
-        <tag>基础知识</tag>
       </tags>
   </entry>
   <entry>
