@@ -141,6 +141,268 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/11/07/常忘基础知识/" >常忘基础知识</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-11-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo -e &quot;\033[?25l&quot;  隐藏光标</span><br><span class="line">echo -e &quot;\033[?25h&quot; 显示光标</span><br></pre></td></tr></table></figure>
+
+<h3 id="LibcSearcher"><a href="#LibcSearcher" class="headerlink" title="LibcSearcher"></a>LibcSearcher</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">python setup.py develop	&#x2F;&#x2F;使用root</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">obj = LibcSearcher(<span class="string">"read"</span>,addr)					<span class="comment">#已经泄漏的函数地址</span></span><br><span class="line">libc_base = addr - obj.dump(<span class="string">'read'</span>)</span><br><span class="line">system_addr = obj.dump(<span class="string">"system"</span>) + libc_base		<span class="comment">#计算其他地址</span></span><br><span class="line">print(<span class="string">"system:"</span>+hex(system_addr))</span><br><span class="line">binsh_addr = obj.dump(<span class="string">"str_bin_sh"</span>) + libc_base</span><br><span class="line">print(<span class="string">"binsh_addr:"</span>+hex(binsh_addr))</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ret2csu"><a href="#ret2csu" class="headerlink" title="ret2csu"></a>ret2csu</h3><p>#因为是edi，而binsh在libc里面的地址是0x7f开头的八位，所以不能直接用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">com_gadget</span><span class="params">(part1, part2, jmp2, arg1 = <span class="number">0x0</span>, arg2 = <span class="number">0x0</span>, arg3 = <span class="number">0x0</span>)</span>:</span></span><br><span class="line">	payload  = p64(part1)			<span class="comment"># part1 entry pop_rbx_rbp_r12_r13_r14_r15_ret</span></span><br><span class="line">	payload += p64(<span class="number">0x0</span>)			<span class="comment"># rbx must be 0x0</span></span><br><span class="line">	payload += p64(<span class="number">0x1</span>)			<span class="comment"># rbp must be 0x1</span></span><br><span class="line">	payload += p64(jmp2)			<span class="comment"># r12 jump to</span></span><br><span class="line">	payload += p64(arg3)			<span class="comment"># r13  -&gt; rdx    arg3</span></span><br><span class="line">	payload += p64(arg2)			<span class="comment"># r14  -&gt; rsi    arg2</span></span><br><span class="line">	payload += p64(arg1)			<span class="comment"># r15d -&gt; edi    arg1</span></span><br><span class="line">	payload += p64(part2)			<span class="comment"># part2 entry will call [r12+rbx*0x8]</span></span><br><span class="line">	payload += <span class="string">'A'</span> * <span class="number">56</span>			<span class="comment"># junk 6*8+8=56</span></span><br><span class="line">	<span class="keyword">return</span> payload</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="64位传参"><a href="#64位传参" class="headerlink" title="64位传参"></a>64位传参</h3><p>参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</p>
+<h3 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h3><p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/u=465806655,3876495324&fm=26&gp=0.jpg" alt="点击查看源网页"></p>
+<h3 id="查看内存命令"><a href="#查看内存命令" class="headerlink" title="查看内存命令"></a>查看内存命令</h3><p>用gdb查看内存</p>
+<p>格式: x /nfu</p>
+<p>说明<br> x 是 examine 的缩写</p>
+<p><strong>n表示要显示的内存单元的个数</strong></p>
+<p><strong>f表示显示方式, 可取如下值</strong><br> x 按十六进制格式显示变量。<br> d 按十进制格式显示变量。<br> u 按十进制格式显示无符号整型。<br> o 按八进制格式显示变量。<br> t 按二进制格式显示变量。<br> a 按十六进制格式显示变量。<br> i 指令地址格式<br> c 按字符格式显示变量。<br> f 按浮点数格式显示变量。</p>
+<p><strong>u表示一个地址单元的长度</strong><br> b表示单字节，<br> h表示双字节，<br> w表示四字节，<br> g表示八字节</p>
+<h3 id="修改pwngdb或者peda"><a href="#修改pwngdb或者peda" class="headerlink" title="修改pwngdb或者peda"></a>修改pwngdb或者peda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gedit &#x2F;.gdbinit</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="python函数函数"><a href="#python函数函数" class="headerlink" title="python函数函数"></a>python函数函数</h3><h5 id="数字和字符串转换"><a href="#数字和字符串转换" class="headerlink" title="数字和字符串转换"></a>数字和字符串转换</h5><p>chr(x )         将一个整数转换为一个字符   </p>
+<p>ord(x )         将一个字符转换为它的整数值   </p>
+<h5 id="查看变量类型"><a href="#查看变量类型" class="headerlink" title="查看变量类型"></a>查看变量类型</h5><p>type()函数</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p>ascii码的字符打印出来 printf “\037”</p>
+<p>用字符的ascii码执行程序：printf “\023\342” | ./可执行文件</p>
+<h3 id="追踪"><a href="#追踪" class="headerlink" title="追踪"></a>追踪</h3><p>ltrace ./可执行文件</p>
+<h3 id="gdb使用peda和pwngdb"><a href="#gdb使用peda和pwngdb" class="headerlink" title="gdb使用peda和pwngdb"></a>gdb使用peda和pwngdb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">gedit ~&#x2F;.gdbinit</span><br><span class="line">&#x2F;&#x2F;peda</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">&#x2F;&#x2F;v8 gdb</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br><span class="line">&#x2F;&#x2F;pwngdb</span><br><span class="line">source &#x2F;home&#x2F;winter&#x2F;pwndbg&#x2F;gdbinit.py</span><br><span class="line">&#x2F;&#x2F;gef</span><br><span class="line">source ~&#x2F;.gef-54e93efd89ec59e5d178fbbeda1fed890098d18d.py</span><br><span class="line">&#x2F;&#x2F;Pwngdb</span><br><span class="line">source ~&#x2F;peda&#x2F;peda.py</span><br><span class="line">source ~&#x2F;Pwngdb&#x2F;pwngdb.py</span><br><span class="line">source ~&#x2F;Pwngdb&#x2F;angelheap&#x2F;gdbinit.py</span><br><span class="line"></span><br><span class="line">define hook-run</span><br><span class="line">python</span><br><span class="line">import angelheap</span><br><span class="line">angelheap.init_angelheap()</span><br><span class="line">end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="linux初始化root密码"><a href="#linux初始化root密码" class="headerlink" title="linux初始化root密码"></a>linux初始化root密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201015164326447.png" alt="image-20201015164326447"></p>
+<h3 id="ubuntu-安装pip"><a href="#ubuntu-安装pip" class="headerlink" title="ubuntu 安装pip"></a>ubuntu 安装pip</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 更新系统包</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br><span class="line"><span class="comment"># 2. 安装Pip</span></span><br><span class="line">sudo apt-get install python-pip</span><br><span class="line"><span class="comment"># 3. 检查 pip 是否安装成功</span></span><br><span class="line">pip -V</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成指定数目字符串"><a href="#生成指定数目字符串" class="headerlink" title="生成指定数目字符串"></a>生成指定数目字符串</h3><p>cyclic 100</p>
+<h3 id="检测机制"><a href="#检测机制" class="headerlink" title="检测机制"></a>检测机制</h3><h4 id="Full-RELRO"><a href="#Full-RELRO" class="headerlink" title="Full RELRO"></a>Full RELRO</h4><p>不能覆盖got表</p>
+<p>malloc、realloc、free函数在开始时会查看对应的hook变量是否为空，不为空则调用变量中的地址，寻找malloc_hook、realloc_hook、free_hook</p>
+<h4 id="泄漏cannary"><a href="#泄漏cannary" class="headerlink" title="泄漏cannary"></a>泄漏cannary</h4><blockquote>
+<p>Canary设计为以字节”\x00”结尾，本意是为了保证Canary可以截断字符串。</p>
+</blockquote>
+<p>因为存在栈溢出，所以可以覆盖地位的’\x00’，让canary随着前面的数据一起输出。</p>
+<p>内存存放情况：</p>
+<table>
+<thead>
+<tr>
+<th>局部变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>canary</td>
+</tr>
+<tr>
+<td>ebp</td>
+</tr>
+<tr>
+<td>返回地址</td>
+</tr>
+<tr>
+<td>参数</td>
+</tr>
+</tbody></table>
+<p>所以，有canary的栈题。</p>
+<p>如果数据是[rbp - n]</p>
+<ul>
+<li>第一次泄漏填充的长度就是rbp - 0x8（canary）+ 1（覆盖那个‘\x00’）</li>
+<li>第二次填充的长度rbp - 0x8 + canary</li>
+</ul>
+<h4 id="partial-write绕过pie"><a href="#partial-write绕过pie" class="headerlink" title="partial write绕过pie"></a>partial write绕过pie</h4><blockquote>
+<p>partial  write就是利用了PIE技术的缺陷。我们知道，内存是以页载入机制，如果开启PIE保护的话，只能影响到单个内存页，一个内存页大小为0x1000，那么就意味着不管地址怎么变，某一条指令的后三位十六进制数的地址是始终不变的。因此我们可以通过覆盖地址的后几位来可以控制程序的流程。</p>
+</blockquote>
+<p>由于地址的后3位一样，所以覆盖的话至少需要4位，那么倒数第四位就需要爆破，爆破范围在0到0xf</p>
+<h3 id="各种bin"><a href="#各种bin" class="headerlink" title="各种bin"></a>各种bin</h3><h4 id="fastbin"><a href="#fastbin" class="headerlink" title="fastbin"></a>fastbin</h4><blockquote>
+<p>0x20 - 0x80</p>
+<p>后进先出</p>
+</blockquote>
+<p>使用单链表对空闲堆块进行连接</p>
+<p>只有bk</p>
+<p>单向链表</p>
+<h4 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h4><blockquote>
+<p>0x20 - 0x400(1024)</p>
+<p>先进先出</p>
+</blockquote>
+<p>bk和fd</p>
+<p>双向链表</p>
+<h4 id="larage-bin"><a href="#larage-bin" class="headerlink" title="larage bin"></a>larage bin</h4><blockquote>
+<p>大于0x400</p>
+</blockquote>
+<p>bk和fd、找到下一个和他大小不同的堆块</p>
+<p>根据large bin的大小，用fd_nextsize和bk_nextsize按大小排序连接</p>
+<p>利用：实现任意地址写堆地址</p>
+<h4 id="unsortedbin"><a href="#unsortedbin" class="headerlink" title="unsortedbin"></a>unsortedbin</h4><p>双向链表</p>
+<blockquote>
+<p>chunk被释放后，如果大小不再fastbin内，会先放到unsortedbin中</p>
+<p>在申请内存的时候，如果大小不是fastbin大小的内存，并且在smallbin中没有找到合适的chunk，就会从unsortedbin中查找。</p>
+</blockquote>
+<h3 id="堆里用"><a href="#堆里用" class="headerlink" title="堆里用"></a>堆里用</h3><h4 id="篡改size域"><a href="#篡改size域" class="headerlink" title="篡改size域"></a>篡改size域</h4><p>chunk extend =&gt; chunk overlap</p>
+<h4 id="篡改prev-size域和prev-in-use域"><a href="#篡改prev-size域和prev-in-use域" class="headerlink" title="篡改prev_size域和prev_in_use域"></a>篡改prev_size域和prev_in_use域</h4><h5 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h5><p>attack：</p>
+<p>FD = target - 12</p>
+<p>BK = target - 8</p>
+<p>target = target -12</p>
+<h5 id="house-of-einherjar"><a href="#house-of-einherjar" class="headerlink" title="house of einherjar"></a>house of einherjar</h5><p>类似unlink、后向合并检查不严</p>
+<h4 id="篡改fd指针"><a href="#篡改fd指针" class="headerlink" title="篡改fd指针"></a>篡改fd指针</h4><h5 id="fastbin-attack"><a href="#fastbin-attack" class="headerlink" title="fastbin attack"></a>fastbin attack</h5><p>就是fd控制，那么它指向的地址（要被认为是一个chunk，可以通过size域的检查）</p>
+<h5 id="tcache-attack"><a href="#tcache-attack" class="headerlink" title="tcache attack"></a>tcache attack</h5><p>2.27里面加入的，更快</p>
+<p>但是从堆块去内存的时候，没有对size进行检查（不知道地址是否合法）</p>
+<p>attack：</p>
+<h6 id="篡改fd指针-1"><a href="#篡改fd指针-1" class="headerlink" title="篡改fd指针"></a>篡改fd指针</h6><h6 id="tcache-struct-attack"><a href="#tcache-struct-attack" class="headerlink" title="tcache struct attack"></a>tcache struct attack</h6><p>tcache_struct:</p>
+<ul>
+<li>tcache_count;</li>
+<li>tcache_entry;</li>
+</ul>
+<p>attack：篡改tcache_entry-&gt;任意地址分配</p>
+<h5 id="chunk-overlap"><a href="#chunk-overlap" class="headerlink" title="chunk overlap"></a>chunk overlap</h5><h4 id="篡改bk指针"><a href="#篡改bk指针" class="headerlink" title="篡改bk指针"></a>篡改bk指针</h4><h5 id="unsorted-bin-attack"><a href="#unsorted-bin-attack" class="headerlink" title="unsorted bin attack"></a>unsorted bin attack</h5><p>向地址里面写入libc</p>
+<p>bk = target - 0x10（64位）</p>
+<p>不良影响：unsortedbin被污染，用它分配内存可能有错</p>
+<h3 id="libc"><a href="#libc" class="headerlink" title="libc"></a>libc</h3><p>在64位下是0x7f开头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">libc&#x3D;ELF(&quot;&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so&quot;)</span><br><span class="line">system&#x3D;libc_base+libc.symbols[&quot;system&quot;]</span><br><span class="line">bin_sh&#x3D;libc_base+libc.search(&quot;&#x2F;bin&#x2F;sh&quot;).next()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果题目中给出了libc文件，用ida打开，搜索字符串，搜索version![image-20201108030310873](C:\Users\YCNN\Desktop\ctf 2020\ctf wiki刷题\ctf wiki的刷题笔记\image-20201108030310873.png)</p>
+</li>
+<li><p>如果题目没有给出libc文件，需要一个个尝试</p>
+<ul>
+<li><p>堆的话试试UAF啥的</p>
+<p>​    要么2.23、要么2.27、2.31就喷他</p>
+</li>
+<li><p>栈溢出那就leak一下就行了</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="题目给定"><a href="#题目给定" class="headerlink" title="题目给定"></a>题目给定</h4><p><strong>查看版本</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings libc.so | grep GNU</span><br></pre></td></tr></table></figure>
+
+<p>查看该版本与本地是否相同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">diff libc.so &#x2F;lib&#x2F;x86..&#x2F;libc-2.27.so</span><br></pre></td></tr></table></figure>
+
+<p><code>Binary files libc-2.27.so and /lib/x86_64-linux-gnu/libc-2.27.so differ</code></p>
+<p>表示该libc与本地环境不同，故调试的时候，需要加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io &#x3D; process([&#39;.&#x2F;bin&#39;],env&#x3D;&#123;&quot;LD_PRELOAD&quot;:&quot;.&#x2F;libc-2.23.so&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>来加载，其中[‘./bin’]替换为你需要调试的二进制文件名，”./libc-2.23.so”替换成你需要加载的目标libc，这样本地调试就可以通过目标libc进行了。</p>
+<h3 id="寄存器参数"><a href="#寄存器参数" class="headerlink" title="寄存器参数"></a>寄存器参数</h3><p>%rdi, %rsi, %rdx, %rcx, %r8, %r9 </p>
+<h3 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h3><p>进入容器的几种方法：<br>    1、exec<br>      通过docker ps 查看需要进入的容器pid<br>      执行<br>        docker exec -it 246f35c432de /bin/bash<br>      退出容器，不会关闭容器，一般使用这个方法。<br>    2、attach<br>      通过docker ps 查看需要进入的容器pid<br>      docker attach pid<br>      退出容器会关闭容器，不推荐</p>
+<p>Docker进入容器的几种方法：<a href="https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">https://blog.csdn.net/czy_6837/article/details/84325166?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf</a></p>
+<h3 id="pwn出题环境"><a href="#pwn出题环境" class="headerlink" title="pwn出题环境"></a>pwn出题环境</h3><p><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+<h3 id="DynELF"><a href="#DynELF" class="headerlink" title="DynELF"></a>DynELF</h3><p>DynELF是pwntools中专门用来应对无libc情况的漏洞利用模块，其基本代码框架如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">p &#x3D; process(&#39;.&#x2F;xxx&#39;)</span><br><span class="line">def leak(address):</span><br><span class="line">  #各种预处理</span><br><span class="line">  payload &#x3D; &quot;xxxxxxxx&quot; + address + &quot;xxxxxxxx&quot;</span><br><span class="line">  p.send(payload)</span><br><span class="line">  #各种处理</span><br><span class="line">  data &#x3D; p.recv(4)</span><br><span class="line">  log.debug(&quot;%#x &#x3D;&gt; %s&quot; % (address, (data or &#39;&#39;).encode(&#39;hex&#39;)))</span><br><span class="line">  return data</span><br><span class="line">d &#x3D; DynELF(leak, elf&#x3D;ELF(&quot;.&#x2F;xxx&quot;))      #初始化DynELF模块 </span><br><span class="line">systemAddress &#x3D; d.lookup(&#39;system&#39;, &#39;libc&#39;)  #在libc文件中搜索system函数的地址</span><br></pre></td></tr></table></figure>
+
+<p>addr就是可以泄漏内存的地址</p>
+<p>比如说write函数和put函数的输出参数</p>
+<h3 id="setbuf"><a href="#setbuf" class="headerlink" title="setbuf"></a>setbuf</h3><p>由于程序本身没有进行 setbuf 操作，所以在执行输入输出操作的时候会申请缓冲区。</p>
+<h3 id="global-max-fast"><a href="#global-max-fast" class="headerlink" title="global max fast"></a>global max fast</h3><p>global max fast是决定使用fast bin管理的chunk的最大值</p>
+<p>使用：</p>
+<p>改写global max fast后，处理特定大小的chunk，进而可以在arena往后的任意地址写入一个堆地址</p>
+<h3 id="markdown的页内跳转"><a href="#markdown的页内跳转" class="headerlink" title="markdown的页内跳转"></a>markdown的页内跳转</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 先定义一个锚(id)</span><br><span class="line">	&lt;span id=<span class="string">"jump"</span>&gt;Hello World&lt;/span&gt;</span><br><span class="line"></span><br><span class="line"> <span class="number">2.</span> 然后使用markdown的语法:</span><br><span class="line">	[<span class="meta">XXXX</span>](<span class="meta">#jump)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="exp脚本"><a href="#exp脚本" class="headerlink" title="exp脚本"></a>exp脚本</h3><p>开头</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="elf和libc区别"><a href="#elf和libc区别" class="headerlink" title="elf和libc区别"></a>elf和libc区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc &#x3D; ELF(&#39;.&#x2F;libc-2.23.so&#39;)</span><br><span class="line">elf &#x3D; ELF(&#39;onetime&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>got和plt是程序的，也就是ELF(‘./程序’)</p>
+<p>symbols是libc的，也就是ELF(‘./libc文件’)</p>
+<h4 id="接收字符串"><a href="#接收字符串" class="headerlink" title="接收字符串"></a>接收字符串</h4><h5 id="canary"><a href="#canary" class="headerlink" title="canary"></a>canary</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(&quot;\x7f&quot;)[-6:]</span><br><span class="line">canary &#x3D; &#39;\x00&#39; + p.recv(7)#这个是栈溢出泄漏的canary</span><br></pre></td></tr></table></figure>
+
+<h5 id="show得到的"><a href="#show得到的" class="headerlink" title="show得到的"></a>show得到的</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show()</span><br><span class="line">p.recvuntil(<span class="string">"data:"</span>)</span><br><span class="line">libc_base = u64(p.recv(<span class="number">6</span>) + <span class="string">'\x00\x00'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="sh"><a href="#sh" class="headerlink" title="sh"></a>sh</h3><p>system(‘sh’)也可以得到shell</p>
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192504900.png" alt="image-20201109192504900"></p>
+<h3 id="plt表和got表"><a href="#plt表和got表" class="headerlink" title="plt表和got表"></a>plt表和got表</h3><p>注意plt表可执行不可写，got表可写不可读：</p>
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192029254.png" alt="image-20201109192029254"></p>
+<p>ptl表的地址：0x400620 - 0x4006C0附近</p>
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192144499.png" alt="image-20201109192144499"></p>
+<p>got表地址在0x602000 - 0x602060</p>
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/image-20201109192315003.png" alt="image-20201109192315003"></p>
+<ul>
+<li><strong>.got</strong></li>
+</ul>
+<p>GOT（Global Offset Table）全局偏移表。这是「链接器」为「外部符号」填充的实际偏移表。</p>
+<ul>
+<li><strong>.plt</strong></li>
+</ul>
+<p>PLT（Procedure Linkage Table）程序链接表。它有两个功能，要么在 <code>.got.plt</code> 节中拿到地址，并跳转。要么当 <code>.got.plt</code> 没有所需地址的时，触发「链接器」去找到所需地址</p>
+<ul>
+<li><strong>.got.plt</strong></li>
+</ul>
+<p>这个是 GOT 专门为 PLT 专门准备的节。说白了，<strong>.got.plt 中的值是 GOT 的一部分</strong>。它包含上述  PLT 表所需地址（已经找到的和需要去触发的）</p>
+<h3 id="one-gadget"><a href="#one-gadget" class="headerlink" title="one_gadget"></a>one_gadget</h3><p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201111224023665.png" alt="image-20201111224023665"></p>
+<p>原因：ruby的版本问题，源里的太旧了，用官网源的</p>
+<p>解决方法：卸载掉本地的ruby、去官网添加最新版源</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#卸载ruby</span></span><br><span class="line">$ sudo apt-get remove ruby</span><br><span class="line"><span class="comment">#https://www.ruby-lang.org/en/downloads/ 下载安装包</span></span><br><span class="line"><span class="comment">#解压，安装</span></span><br><span class="line">$ $ ./configure</span><br><span class="line">$ make</span><br><span class="line">$ sudo make install</span><br><span class="line"><span class="comment">#安装one_gadget</span></span><br><span class="line">$ sudo gem install one_gadget</span><br></pre></td></tr></table></figure>
+
+<h3 id="可控内存"><a href="#可控内存" class="headerlink" title="可控内存"></a>可控内存</h3><ul>
+<li>bss段：进程按页分配内存，分配给 bss 段的内存大小至少一个页 (4k，0x1000) 大小。一般 bss 段的内容用不了这么多的空间，并且 bss 段分配的内存页拥有读写权限。</li>
+<li>heap：需要泄漏堆地址</li>
+</ul>
+<h3 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pwntools提供的</span></span><br><span class="line">payload = asm(shellcraft.sh())</span><br><span class="line"></span><br><span class="line"><span class="comment">#21字节的shellcode</span></span><br><span class="line">shellcode_x86 = <span class="string">"\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73"</span></span><br><span class="line">shellcode_x86 += <span class="string">"\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0"</span></span><br><span class="line">shellcode_x86 += <span class="string">"\x0b\xcd\x80"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ljust"><a href="#ljust" class="headerlink" title="ljust"></a>ljust</h3><p>前面是大小，后面是填充的字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload.ljust(0x100+0x8, &quot;a&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>~/ctf-challenges/pwn/stackoverflow/stackprivot/X-CTF Quals 2016 - b0verfl0w</p>
+<h3 id="更新源和软件"><a href="#更新源和软件" class="headerlink" title="更新源和软件"></a>更新源和软件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update      #更新源</span><br><span class="line">sudo apt-get upgrade     #更新软件</span><br></pre></td></tr></table></figure>
+
+<h3 id="main-arena-offset"><a href="#main-arena-offset" class="headerlink" title="main_arena_offset"></a>main_arena_offset</h3><p>使用如下工具：</p>
+<p><a href="https://github.com/Coldwave96/LibcOffset" target="_blank" rel="noopener">https://github.com/Coldwave96/LibcOffset</a></p>
+<p><img src="/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201119001634875.png" alt="image-20201119001634875"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libc_base &#x3D; main_arena - main_arena_offset</span><br></pre></td></tr></table></figure>
+
+<h3 id="offset-unsortedbin-main-arena"><a href="#offset-unsortedbin-main-arena" class="headerlink" title="offset_unsortedbin_main_arena"></a>offset_unsortedbin_main_arena</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">context.binary = <span class="string">"./babyheap_0ctf_2017"</span><span class="comment">#要指定</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">offset_bin_main_arena</span><span class="params">(idx)</span>:</span></span><br><span class="line">    word_bytes = context.word_size / <span class="number">8</span></span><br><span class="line">    offset = <span class="number">4</span>  <span class="comment"># lock</span></span><br><span class="line">    offset += <span class="number">4</span>  <span class="comment"># flags</span></span><br><span class="line">    offset += word_bytes * <span class="number">10</span>  <span class="comment"># offset fastbin</span></span><br><span class="line">    offset += word_bytes * <span class="number">2</span>  <span class="comment"># top,last_remainder</span></span><br><span class="line">    offset += idx * <span class="number">2</span> * word_bytes  <span class="comment"># idx</span></span><br><span class="line">    offset -= word_bytes * <span class="number">2</span>  <span class="comment"># bin overlap</span></span><br><span class="line">    <span class="keyword">return</span> offset</span><br><span class="line">offset_unsortedbin_main_arena = offset_bin_main_arena(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main_arena &#x3D; unsortedbin_addr - offset_unsortedbin_main_arena</span><br></pre></td></tr></table></figure>
+
+<h3 id="allocate"><a href="#allocate" class="headerlink" title="allocate"></a>allocate</h3><h4 id="calloc"><a href="#calloc" class="headerlink" title="calloc"></a>calloc</h4><p>calloc同malloc类似只是会将申请到的堆块内容清0。所以常规的unsorted bin信息泄露的方式不可行。需要使用堆溢出进行配合</p>
+<h3 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h3><h4 id="malloc-hook"><a href="#malloc-hook" class="headerlink" title="malloc_hook"></a>malloc_hook</h4><p>最常见也是最容易的一种堆利用方法。<br>malloc函数会首先检查malloc_hook的值，若不为0则会调用他。若我们能通过内存写入malloc_hook即可实现任意地址跳转<br>通过fastbin_attack攻击malloc_hook。</p>
+<p>fastbin在分配时并不检查对齐情况，将fastbin的fd设置为__malloc_hook-0x23，触发fastbin attack分配得到malloc_hook上方内存空间，向malloc_hook进行写入one_gadget得到权限。</p>
+<h4 id="realloc-hook"><a href="#realloc-hook" class="headerlink" title="realloc_hook"></a>realloc_hook</h4><p>一种很巧妙的利用方法。有些情况下<strong>one_gadget</strong>因为环境原因全部都不可用，这时可以通过<strong>realloc_hook</strong>来<strong>调整堆栈环境</strong>使one_gadget可用。<br>realloc函数在函数起始会检查realloc_hook的值是否为0，不为0则跳转至realloc_hook指向地址。<br>realloc_hook同malloc_hook相邻，故可通过fastbin attack一同修改两个值。</p>
+<h4 id="free-hook"><a href="#free-hook" class="headerlink" title="free_hook"></a>free_hook</h4><p>同malloc_hook类似，在调用free函数时会先检验free_hook的值。<br>但是free_hook上方都是0字节。不能直接通过fastbin_attack进行攻击，可以通过修改top<br>free_hook上方，之后申请内存至free_hook修改为system地址。<br>fastbin数组在top chunk指针上方。可以通过free fastbin chunk修改fastbin数组的值使的fastbin attack可以实现。 存在限制要求堆的地址以0x56开头</p>
+<p><a href="https://bbs.pediy.com/thread-246786.htm#msg_header_h1_0" target="_blank" rel="noopener">https://bbs.pediy.com/thread-246786.htm#msg_header_h1_0</a></p>
+<p>###　tcache attack</p>
+<h4 id="内存申请："><a href="#内存申请：" class="headerlink" title="内存申请："></a>内存申请：</h4><p>在内存分配的 malloc 函数中有多处，会将内存块移入 tcache 中。</p>
+<p>（1）首先，申请的内存块符合 fastbin 大小时并且在 fastbin 内找到可用的空闲块时，会把该 fastbin 链上的其他内存块放入 tcache 中。</p>
+<p>（2）其次，申请的内存块符合 smallbin 大小时并且在 smallbin 内找到可用的空闲块时，会把该 smallbin 链上的其他内存块放入 tcache 中。</p>
+<p>（3）当在 unsorted bin 链上循环处理时，当找到大小合适的链时，并不直接返回，而是先放到 tcache 中，继续处理。</p>
+<h4 id="tcache-取出"><a href="#tcache-取出" class="headerlink" title="tcache 取出"></a>tcache 取出</h4><p>在内存申请的开始部分，首先会判断申请大小块，在 tcache 是否存在，如果存在就直接从 tcache 中摘取，否则再使用_int_malloc 分配。</p>
+<h4 id="tcache-posioning"><a href="#tcache-posioning" class="headerlink" title="tcache posioning"></a>tcache posioning</h4><p>通过覆盖 tcache 中的 next，不需要伪造任何 chunk 结构即可实现 malloc 到任何地址。</p>
+<p>可以看出 <code>tcache posioning</code> 这种方法和 fastbin attack 类似，但因为没有 size 的限制有了更大的利用范围。</p>
+<h4 id="tcache-dup"><a href="#tcache-dup" class="headerlink" title="tcache dup"></a>tcache dup</h4><p>可以对同一个 chunk 多次 free</p>
+<h3 id="查看ubuntu版本"><a href="#查看ubuntu版本" class="headerlink" title="查看ubuntu版本"></a>查看ubuntu版本</h3><ol>
+<li>cat /proc/version</li>
+<li>uname -a</li>
+<li>lsb_release -a</li>
+</ol>
+<h3 id="ropgadget"><a href="#ropgadget" class="headerlink" title="ropgadget"></a>ropgadget</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary rop -- ropchain		#静态寻找rop链</span><br><span class="line"></span><br><span class="line">ROPgadget --binary ret2libc1 --string &#39;&#x2F;bin&#x2F;sh&#39;		#寻找binsh字符串</span><br><span class="line"></span><br><span class="line">ROPgadget --binary calc --only &quot;pop|ret&quot; | grep &quot;ebx&quot;	#寻找指定寄存器</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/11/07/常忘基础知识/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/11/07/pwn出题环境搭建/" >pwn出题环境搭建</a>
 		</h3>
 		</div>
@@ -1168,108 +1430,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2020/07/23/datalab/" >datalab</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-07-23  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
-<h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
-<p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
-<p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
-<p>太大了，用移位</p>
-<h4 id="3-isTmax"><a href="#3-isTmax" class="headerlink" title="3.isTmax"></a>3.isTmax</h4><p>如果x是最大值，返回1，否则返回0</p>
-<ul>
-<li>最大值，符号位是0，其他是1，所以+1后，符号位是1，其他是0，相异或，全1,全1的反是0，0取非是1（判断是否是-1的方法）</li>
-<li>除了最大值，-1也有同样的情况</li>
-</ul>
-<p>排除：+1后，最大值是变成另一个数，而-1是0，根据这个排除掉-1</p>
-<h4 id="4-allOddBits"><a href="#4-allOddBits" class="headerlink" title="4.allOddBits"></a>4.allOddBits</h4><p>如果奇数位都是1，返回1，否则，返回0</p>
-<p>让x与0xAAAAAAAA相与，如果奇数位都是1，结果是0xAAAAAAAA，再异或就是0了，否则就非0</p>
-<h4 id="5-negate"><a href="#5-negate" class="headerlink" title="5.negate"></a>5.negate</h4><p>实现取反</p>
-<p>-x = ~x + 1</p>
-<h4 id="6-isAsciiDigit"><a href="#6-isAsciiDigit" class="headerlink" title="6.isAsciiDigit"></a>6.isAsciiDigit</h4><p>如果 0x30 &lt;= x &lt;= 0x39 ，返回1，否则，返回0</p>
-<p>将x与两数相减（x - y ==  x + （～y + 1） ），判断符号位（通过右移），第一个为正，第二个为负</p>
-<h4 id="7-conditional"><a href="#7-conditional" class="headerlink" title="7.conditional"></a>7.conditional</h4><p>有三个参数，x、y、z，如果x非0，返回y，否则，返回z</p>
-<p>判断x是否非零：!!x</p>
-<p>返回一个数：变成1，然后～x + 1变成-1（全1），然后相与</p>
-<h4 id="8-isLessOrEqual"><a href="#8-isLessOrEqual" class="headerlink" title="8.isLessOrEqual"></a>8.isLessOrEqual</h4><p>三种情况</p>
-<ul>
-<li>符号相反，如果y为正数，为1</li>
-<li>符号相同，相减 &gt; 0为1</li>
-<li>两数相等（异或实现），返回1</li>
-</ul>
-<h4 id="9-logicalNeg"><a href="#9-logicalNeg" class="headerlink" title="9.logicalNeg"></a>9.logicalNeg</h4><p>实现取非运算，零返回1，其他返回0</p>
-<p>正负零的符号位都是0</p>
-<p>取反与1&amp;，正负再&amp;</p>
-<h4 id="10-howManyBits"><a href="#10-howManyBits" class="headerlink" title="10.howManyBits"></a>10.howManyBits</h4><p>求共有多少位，最高位+1</p>
-<p>特殊情况</p>
-<ul>
-<li>0 : 1</li>
-<li>1 : 1</li>
-</ul>
-<p>正数：最高位1的位置 + 1（符号位）</p>
-<p>负数：求反码，同正数</p>
-<p>具体采用二分，32分成16，看高位16是否为0，非0，说明至少有16 + 1（前面的数）+ 1 （符号位），接着再8、4、2、1下去</p>
-<h4 id="11-floatScale2"><a href="#11-floatScale2" class="headerlink" title="11.floatScale2"></a>11.floatScale2</h4><p>实现乘2功能。（内部使用的单精度浮点型）</p>
-<p>特殊情况</p>
-<ul>
-<li>NaN：直接将参数返回回去</li>
-<li>区别规格化数和非规格化数</li>
-</ul>
-<p>单精度浮点内部</p>
-<p><img src="/2020/07/23/datalab/image-20200720214424119.png" alt="image-20200720214424119"></p>
-<p>NaN</p>
-<p><img src="/2020/07/23/datalab/image-20200720214532080.png" alt="image-20200720214532080"></p>
-<p>正负无穷</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C11.png" alt="11"></p>
-<h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
-<p>情况：</p>
-<ul>
-<li><p>指数部分为为负，说明一定是零点几，直接返0</p>
-</li>
-<li><p>如果大于31，大了，直接返回0x80000000u</p>
-</li>
-<li><p>在里面，先让尾数部分加上默认的1，然后看指数是否能把所有的尾数变整</p>
-<ul>
-<li>E &lt; 23，说明后面还有小数部分</li>
-<li>E &gt; 23，说明尾数都完整整数，还可以继续乘2^(E-23)</li>
-</ul>
-<p>最后，根据符号位，返回对应符号的frac</p>
-</li>
-</ul>
-<h4 id="13-floatPower2"><a href="#13-floatPower2" class="headerlink" title="13.floatPower2"></a>13.floatPower2</h4><p>2^x（x是参数），求该值float的机器数</p>
-<p>分别判断0和无穷大的情况，然后将阶码左移23位即可。</p>
-<p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
-<p>E = x;</p>
-<p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/datalab/D:%5Cwinter-blog%5Csource_posts%5Cdatalab%5C13.2.png" alt="13.2"></p>
-<hr>
-<p><img src="/2020/07/23/datalab/image-20200720222037585.png" alt="image-20200720222037585"></p>
-
-	
-	</div>
-  <a type="button" href="/2020/07/23/datalab/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1344,43 +1504,43 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
 			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
 			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
 		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
-		
 			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
 		
 			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
 		
 			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
 		
-			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
+			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+		
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -1392,6 +1552,10 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/04/18/page/" ><i class="fa fa-file-o"></i>page</a>
+      </li>
     
       <li>
         <a href="/2021/04/18/算法之数据结构篇/" ><i class="fa fa-file-o"></i>算法之数据结构篇</a>
@@ -1407,10 +1571,6 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
     
       <li>
         <a href="/2021/03/29/buu每日一题（2）/" ><i class="fa fa-file-o"></i>buu每日一题（2）</a>
-      </li>
-    
-      <li>
-        <a href="/2021/03/19/团体程序设计天梯赛-练习集/" ><i class="fa fa-file-o"></i>团体程序设计天梯赛-练习集</a>
       </li>
     
   </ul>
