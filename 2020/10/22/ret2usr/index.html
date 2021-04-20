@@ -305,6 +305,12 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
 	<!-- toc -->
 	<div class="meta-widget">
 	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#知识学习"><span class="toc-article-text">知识学习</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#copy-from-user"><span class="toc-article-text">copy_from_user</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#cpio解压和打包"><span class="toc-article-text">cpio解压和打包</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#环境搭建"><span class="toc-article-text">环境搭建</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#实践"><span class="toc-article-text">实践</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#ret2usr（level1）"><span class="toc-article-text">ret2usr（level1）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#查找prepare-kernel-cred和commit-creds的地址"><span class="toc-article-text">查找prepare_kernel_cred和commit_creds的地址</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#查找基地址"><span class="toc-article-text">查找基地址</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#调试内核"><span class="toc-article-text">调试内核</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#执行exp步骤"><span class="toc-article-text">执行exp步骤</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#疑惑的0x88和0x80"><span class="toc-article-text">疑惑的0x88和0x80</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#程序执行流程"><span class="toc-article-text">程序执行流程</span></a></li></ol></li></ol></li></ol></li></ol>
+		</div>
+	
 	</div>
 	
     <hr>
