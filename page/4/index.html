@@ -141,6 +141,52 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/10/10/C++知识补充/" >C++知识补充</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-10-10  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
+<p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
+<p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>virtual表示虚函数，没关系</li>
+<li>-&gt; std::string称为后置返回类型</li>
+<li>auto是占位符（C++11新增用法）</li>
+</ul>
+<p>作用：解决模板中函数返回值类型不确定的问题</p>
+<h2 id="read-chk"><a href="#read-chk" class="headerlink" title="__read_chk"></a>__read_chk</h2><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>__read_chk-从文件描述符读取，并进行缓冲区溢出检查</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t __read_chk(int *fd*, void * *buf*, size_t *nbytes*, size_t *buflen*);</span><br></pre></td></tr></table></figure>
+
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>接口<code>__read_chk（）的</code>功能应与接口<code>read（）相同</code>，只是 <code>__read_chk（）</code>在计算结果之前应检查缓冲区溢出。如果预计会发生溢出，则该函数应中止并且调用它的程序应退出。</p>
+<p>参数<code>*buflen*</code>指定缓冲区<code>*buf*</code>的大小 。如果<code>*nbytes*</code>超过 <code>*buflen*</code>，该函数将中止，并且调用它的程序将退出。</p>
+<p>所述<code>__read_chk（）</code>函数不在源标准; 它仅在二进制标准中。</p>
+<p><a href="http://refspecs.linux-foundation.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/" target="_blank" rel="noopener">Linux标准基础核心规范4.1</a></p>
+
+	
+	</div>
+  <a type="button" href="/2020/10/10/C++知识补充/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/09/07/beginner/" >beginner</a>
 		</h3>
 		</div>
@@ -553,7 +599,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/advanced-pwn/">advanced pwn<span>1</span></a></li>
 		
-			<li><a href="/categories/buu/">buu<span>2</span></a></li>
+			<li><a href="/categories/buu/">buu<span>4</span></a></li>
 		
 			<li><a href="/categories/chrome/">chrome<span>1</span></a></li>
 		
@@ -580,48 +626,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
 			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
 		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
 		
 			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
-		
-			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
 			<li><a href="/tags/v8/">v8<span>1</span></a></li>
 		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
 		
 			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
+		
+			<li><a href="/tags/unlink/">unlink<span>1</span></a></li>
 		
 			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
 			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
-			<li><a href="/tags/unlink/">unlink<span>1</span></a></li>
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+		
+			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>21</span></a></li>
+		   <li><a href="/tags">...<span>23</span></a></li>
 		 
 		</ul>
 	</div>
@@ -632,6 +678,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/04/25/npuctf-2020-easyheap详解/" ><i class="fa fa-file-o"></i>npuctf_2020_easyheap详解</a>
+      </li>
     
       <li>
         <a href="/2021/04/24/hitcontraining-bamboobox/" ><i class="fa fa-file-o"></i>hitcontraining_bamboobox</a>
@@ -647,10 +697,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/04/18/算法之数据结构篇/" ><i class="fa fa-file-o"></i>算法之数据结构篇</a>
-      </li>
-    
-      <li>
-        <a href="/2021/04/18/西南科技大学2021届新生赛/" ><i class="fa fa-file-o"></i>西南科技大学2021届新生赛</a>
       </li>
     
   </ul>

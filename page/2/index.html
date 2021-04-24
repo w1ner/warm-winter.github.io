@@ -141,6 +141,41 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/03/11/快捷键/" >常用快捷键</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-03-11  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h2><p>繁体变简体：<code>ctrl + shift + f</code></p>
+<h2 id="ida"><a href="#ida" class="headerlink" title="ida"></a>ida</h2><ul>
+<li>定位地址：g</li>
+<li>重命名：n</li>
+<li>数据类型切换：d（db    =&gt;    dw    =&gt;    dd）</li>
+<li>字符转换：R</li>
+</ul>
+<h2 id="clion"><a href="#clion" class="headerlink" title="clion"></a>clion</h2><p>自动对齐：ctrl+alt+l</p>
+
+	
+	</div>
+  <a type="button" href="/2021/03/11/快捷键/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/03/10/leetcode刷题（入门）/" >leetcode刷题（入门）</a>
 		</h3>
 		</div>
@@ -1279,94 +1314,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/01/09/蓝桥杯入门训练/" >蓝桥杯入门训练</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-01-09  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>入门训练：<a href="http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463" target="_blank" rel="noopener">http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463</a></p>
-</blockquote>
-<h2 id="Fibonacci数列"><a href="#Fibonacci数列" class="headerlink" title="Fibonacci数列"></a>Fibonacci数列</h2><blockquote>
-<p>Fibonacci数列加上求余%</p>
-<p>使用递归会超时，故大数组+循环</p>
-</blockquote>
-<h3 id="提交格式"><a href="#提交格式" class="headerlink" title="提交格式"></a>提交格式</h3><ul>
-<li>不需要package，需要import</li>
-<li>修改类名为Main</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);<span class="comment">//输入类</span></span><br><span class="line">		<span class="keyword">int</span> [] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000001</span>];<span class="comment">//申请大数组</span></span><br><span class="line">		<span class="keyword">int</span> num = scan.nextInt();<span class="comment">//输入</span></span><br><span class="line">		</span><br><span class="line">		arr[<span class="number">1</span>] = <span class="number">1</span>;<span class="comment">//初始条件</span></span><br><span class="line">		arr[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=num;i++) &#123;</span><br><span class="line">			arr[i] = (arr[i-<span class="number">1</span>] + arr[i-<span class="number">2</span>])%<span class="number">10007</span>;<span class="comment">//循环计算每一项</span></span><br><span class="line"><span class="comment">//			System.out.print("arr[i]"+arr[i]);</span></span><br><span class="line">		&#125;</span><br><span class="line">        </span><br><span class="line">		System.out.print(arr[num]);<span class="comment">//输出结果</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里数组从1开始是有效的</p>
-<h2 id="圆的面积"><a href="#圆的面积" class="headerlink" title="圆的面积"></a>圆的面积</h2><blockquote>
-<p>pi * (r ^ 2)</p>
-<ol>
-<li>学习保留位数的输出</li>
-<li>使用默认的Math类</li>
-</ol>
-</blockquote>
-<h3 id="保留位数"><a href="#保留位数" class="headerlink" title="保留位数"></a>保留位数</h3><p>printf函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.printf(<span class="string">"%.7f"</span>,result);</span><br></pre></td></tr></table></figure>
-
-<h3 id="PI"><a href="#PI" class="headerlink" title="PI"></a>PI</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.PI</span><br></pre></td></tr></table></figure>
-
-<h3 id="幂次"><a href="#幂次" class="headerlink" title="幂次"></a>幂次</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.pow(<span class="number">2</span>, <span class="number">3</span>);[底数，幂次]</span><br></pre></td></tr></table></figure>
-
-<p>答案：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">circle_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> r = scan.nextInt();</span><br><span class="line">		<span class="keyword">double</span> result = Math.PI * r * r;</span><br><span class="line">		System.out.printf(<span class="string">"%.7f"</span>,result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="序列求和"><a href="#序列求和" class="headerlink" title="序列求和"></a>序列求和</h2><blockquote>
-<p>1+2+3+…+n = n * (n-1) /2</p>
-<ol>
-<li>学会简化给定的信息</li>
-<li>注意数据规模，适当将int用long替代</li>
-</ol>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Seq_second_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">long</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();<span class="comment">//输入</span></span><br><span class="line">		<span class="keyword">long</span> result = n * (n+<span class="number">1</span>) / <span class="number">2</span>;<span class="comment">//简化的式子</span></span><br><span class="line">		System.out.print(result);<span class="comment">//输出</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="A-B问题"><a href="#A-B问题" class="headerlink" title="A+B问题"></a>A+B问题</h2><blockquote>
-<p>好像反着了，无所谓了，</p>
-<p>很简单，但是之前的输入的进化不能同时用，不然new 两个Scanner对象出来，有点问题</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Plus_new_try</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"><span class="comment">//		int a = new Scanner(System.in).nextInt();</span></span><br><span class="line"><span class="comment">//		int b = new Scanner(System.in).nextInt();</span></span><br><span class="line">		<span class="keyword">int</span> a = scan.nextInt();</span><br><span class="line">		<span class="keyword">int</span> b = scan.nextInt();</span><br><span class="line">		System.out.print(a+b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="useful信息"><a href="#useful信息" class="headerlink" title="useful信息"></a>useful信息</h2><h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><ol>
-<li>打印main+alt+/：main开头</li>
-<li>ctrl+shift+o：自动引包</li>
-<li>alt+shift+x：自动执行</li>
-<li>打印syso+alt+/</li>
-<li>for补全：for+alt+/</li>
-<li>选中光标前面的后者后面的：shift+&lt;-(or -&gt;)</li>
-<li>表达式变</li>
-<li>函数的注释：alt+shift+j</li>
-<li>文件夹重命名：F2</li>
-</ol>
-<h3 id="输入的进化"><a href="#输入的进化" class="headerlink" title="输入的进化"></a>输入的进化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = <span class="keyword">new</span> Scanner(System.in).nextInt();</span><br></pre></td></tr></table></figure>
-
-
-	
-	</div>
-  <a type="button" href="/2021/01/09/蓝桥杯入门训练/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1416,7 +1363,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/advanced-pwn/">advanced pwn<span>1</span></a></li>
 		
-			<li><a href="/categories/buu/">buu<span>2</span></a></li>
+			<li><a href="/categories/buu/">buu<span>4</span></a></li>
 		
 			<li><a href="/categories/chrome/">chrome<span>1</span></a></li>
 		
@@ -1443,48 +1390,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
 		
 			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
 		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/unlink/">unlink<span>1</span></a></li>
-		
 			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
 		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
 		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
 		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
 			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
 		
 			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>21</span></a></li>
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+		
+			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
+		
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+		
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>23</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1495,6 +1442,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/04/25/npuctf-2020-easyheap详解/" ><i class="fa fa-file-o"></i>npuctf_2020_easyheap详解</a>
+      </li>
     
       <li>
         <a href="/2021/04/24/hitcontraining-bamboobox/" ><i class="fa fa-file-o"></i>hitcontraining_bamboobox</a>
@@ -1510,10 +1461,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/04/18/算法之数据结构篇/" ><i class="fa fa-file-o"></i>算法之数据结构篇</a>
-      </li>
-    
-      <li>
-        <a href="/2021/04/18/西南科技大学2021届新生赛/" ><i class="fa fa-file-o"></i>西南科技大学2021届新生赛</a>
       </li>
     
   </ul>
