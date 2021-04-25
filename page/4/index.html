@@ -141,6 +141,106 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2020/10/11/v8环境搭建/" >v8环境搭建</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-10-11  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
+<p>这里就讲下自己搭环境的经过，，，</p>
+<hr>
+<p>使用的环境：ubuntu 18.04</p>
+<h2 id="初次尝试：本地"><a href="#初次尝试：本地" class="headerlink" title="初次尝试：本地"></a>初次尝试：本地</h2><h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>主要参考的是这两篇博客：</p>
+<p><a href="https://eternalsakura13.com/2018/05/06/v8/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/05/06/v8/</a></p>
+<p><a href="https://bbs.pediy.com/thread-252812.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-252812.htm</a></p>
+<hr>
+<h3 id="vpn"><a href="#vpn" class="headerlink" title="vpn"></a>vpn</h3><blockquote>
+<p>我的本地代理，开了没用，不知道为什么，本机可以上google，但是虚拟机里怎么都不可以，，，然后，，选择在虚拟机里面使用vpn</p>
+</blockquote>
+<p>这个是我用的：<a href="https://neworld.date/user（简单好用而且不贵）" target="_blank" rel="noopener">https://neworld.date/user（简单好用而且不贵）</a></p>
+<p>linux的教程：<a href="https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）" target="_blank" rel="noopener">https://support.neworld.date/linux/（不要用自动配置，一次性的，后面出问题了，还是要上手动配置）</a></p>
+<p>别的问题不大，注意的两点是：</p>
+<p>1.要使用的时候，需要在命令前面加上<code>proxychains4</code></p>
+<p>2.选择节点的时候，一定要选择有人的</p>
+<p>3.一定是root账户</p>
+<p>4.在/root目录下</p>
+<p>执行命令 <code>proxychains4 curl myip.ipip.net</code> 。如果显示empty server类似的</p>
+<p>那就重新来一遍（建议：wmware弄个快照，，每次都重新配，心真的很累），，，我当时玄学，学校里的网不行（貌似是因为校园网不能翻外网），连了自己的热点就可以了。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install binutils python2.7 perl socat git build-essential gdb gdbserver</span><br></pre></td></tr></table></figure>
+
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="depot-tools"><a href="#depot-tools" class="headerlink" title="depot_tools"></a>depot_tools</h5><p>这个工具是用来得到v8源码的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<h5 id="ninja"><a href="#ninja" class="headerlink" title="ninja"></a>ninja</h5><p>这个工具是用来编译v8的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root$ cd ~</span><br><span class="line">(proxychains4 )git clone https:&#x2F;&#x2F;github.com&#x2F;ninja-build&#x2F;ninja.git</span><br><span class="line">cd ninja &amp;&amp; .&#x2F;configure.py --bootstrap &amp;&amp; cd ..</span><br><span class="line">echo &#39;export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;&#39; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>echo两句命令，主要是写入环境变量，后期fetch v8的时候，可能会说找不到fetch命令，可能就是环境变量没了，可以通过vim ~/.bashrc，查看最后面是否有下面这两句话，没有的话，加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;depot_tools&quot;</span><br><span class="line">export PATH&#x3D;$PATH:&quot;&#x2F;root&#x2F;ninja&quot;</span><br><span class="line">bash									&#x2F;&#x2F;载入环境变量</span><br></pre></td></tr></table></figure>
+
+<p>然后就是编译启动，我卡死在了v8，真的很慢，而且最后报错，，，出错，网上看了好多，也没解决，，，TAT</p>
+<p>后面的步骤</p>
+<h4 id="v8编译"><a href="#v8编译" class="headerlink" title="v8编译"></a>v8编译</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fetch v8 &amp;&amp; cd v8&amp;&amp; gclient sync</span><br><span class="line">$ tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">$ ninja -C out.gn&#x2F;x64.debug</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;d8</span><br><span class="line">$ .&#x2F;out&#x2F;x64.debug&#x2F;shell</span><br></pre></td></tr></table></figure>
+
+<p>初始尝试失败，，搞了好久都没出来，，，，但是网上大部分都是这种方法</p>
+<hr>
+<h2 id="二次尝试"><a href="#二次尝试" class="headerlink" title="二次尝试"></a>二次尝试</h2><h3 id="参考博客："><a href="#参考博客：" class="headerlink" title="参考博客："></a>参考博客：</h3><p><a href="https://eternalsakura13.com/2018/06/26/v8_environment/" target="_blank" rel="noopener">https://eternalsakura13.com/2018/06/26/v8_environment/</a></p>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><blockquote>
+<p>sakura为我们提供了第二种方法，我一开始试了下，但是谷歌云搞不来，没有信用卡啥的。但是后来只能尝试这个，所以找了下其他国外的云服务器。</p>
+<p>不需要代理啥的，真是舒服。</p>
+<p>知乎上的这篇给了较好的帮助：<a href="https://zhuanlan.zhihu.com/p/130402190" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/130402190</a></p>
+</blockquote>
+<p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
+<p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010130803778.png" alt="image-20201010130803778"></p>
+<p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201010131058668.png" alt="image-20201010131058668"></p>
+<h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
+
+<h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
+
+<p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201015161210557.png" alt="image-20201015161210557"></p>
+<p>下过来之后，是这样的。</p>
+<p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
+<h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>然后，浏览器就可以访问到了，点击下载即可。</p>
+<p><img src="/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-20201011095616016.png" alt="image-20201011095616016"></p>
+<p>哇哇哇哇，感天动地，终于搞定了。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="v8的gdb"><a href="#v8的gdb" class="headerlink" title="v8的gdb"></a>v8的gdb</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;tools</span><br><span class="line">mv gdbinit gdbinit_v8</span><br><span class="line">cp gdbinit_v8 ~&#x2F;.gdbinit_v8</span><br><span class="line">cd ~ </span><br><span class="line">vim .gdbinit</span><br><span class="line">#加入下面内容</span><br><span class="line">source ~&#x2F;.gdbinit_v8</span><br><span class="line">source ~&#x2F;v8&#x2F;v8&#x2F;tools&#x2F;gdb-v8-support.py</span><br></pre></td></tr></table></figure>
+
+<p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;</span><br><span class="line">将test.js放到该目录下</span><br><span class="line">gdb .&#x2F;d8</span><br><span class="line">gdb-peda$ set args --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">gdb-peda$ r</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: &#x2F;home&#x2F;winter&#x2F;v8&#x2F;v8&#x2F;out.gn&#x2F;x64.debug&#x2F;d8 --allow-natives-syntax .&#x2F;test.js</span><br><span class="line">[...]</span><br><span class="line">DebugPrint: 0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">pwndbg&gt; job 0x3847d864df19(这个地址根据第九行那里显示地址)</span><br><span class="line">0x3847d864df19: [JSArray]</span><br><span class="line"> - map: 0x27aca0f42d99 &lt;Map(PACKED_SMI_ELEMENTS)&gt; [FastProperties]</span><br><span class="line"> - prototype: 0x33ab2b711111 &lt;JSArray[0]&gt;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; [PACKED_SMI_ELEMENTS (COW)]</span><br><span class="line"> - length: 3</span><br><span class="line"> - properties: 0x27d6f1300c71 &lt;FixedArray[0]&gt; &#123;</span><br><span class="line">    #length: 0x1f78960401a9 &lt;AccessorInfo&gt; (const accessor descriptor)</span><br><span class="line"> &#125;</span><br><span class="line"> - elements: 0x3847d864de39 &lt;FixedArray[3]&gt; &#123;</span><br><span class="line">           0: 1</span><br><span class="line">           1: 2</span><br><span class="line">           2: 3</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>v8的gdb也可以了</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools&#x2F;dev&#x2F;gm.py x64.debug d8</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/10/11/v8环境搭建/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2020/10/10/C++知识补充/" >C++知识补充</a>
 		</h3>
 		</div>
@@ -599,7 +699,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/advanced-pwn/">advanced pwn<span>1</span></a></li>
 		
-			<li><a href="/categories/buu/">buu<span>4</span></a></li>
+			<li><a href="/categories/buu/">buu<span>5</span></a></li>
 		
 			<li><a href="/categories/chrome/">chrome<span>1</span></a></li>
 		
@@ -626,43 +726,43 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
 			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
-			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
 			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
-		
-			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
-		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/unlink/">unlink<span>1</span></a></li>
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
 		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
@@ -680,6 +780,10 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2021/04/25/axb-2019-heap详解/" ><i class="fa fa-file-o"></i>axb_2019_heap详解</a>
+      </li>
+    
+      <li>
         <a href="/2021/04/25/npuctf-2020-easyheap详解/" ><i class="fa fa-file-o"></i>npuctf_2020_easyheap详解</a>
       </li>
     
@@ -693,10 +797,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/04/19/0ctf-2017-babyheap/" ><i class="fa fa-file-o"></i>0ctf_2017_babyheap详解</a>
-      </li>
-    
-      <li>
-        <a href="/2021/04/18/算法之数据结构篇/" ><i class="fa fa-file-o"></i>算法之数据结构篇</a>
       </li>
     
   </ul>
