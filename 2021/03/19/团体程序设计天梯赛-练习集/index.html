@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>团体程序设计天梯赛-练习集 | winter - 像初雪一样自由洒落</title>
+  <meta name="author" content="winter">
+  
+  <meta name="description" content="链接：团体程序设计天梯赛-练习集
+L1-006 连续因子序列最长长度因为n的取值范围：
+
+又因为最长序列为2×3×。。。n，也就是n的阶乘。
+计算n的最长序列
+发现13!&amp;gt;n最大值，12!&amp;lt;n的最大值，，，，又因为1不算，，，也就是2×3×…13也就是最长为12位。。。
+12345678">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="团体程序设计天梯赛-练习集"/>
+  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 团体程序设计天梯赛-练习集</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>链接：<a href="https://pintia.cn/problem-sets/994805046380707840/problems/type/7" target="_blank" rel="noopener">团体程序设计天梯赛-练习集</a></p>
+<h2 id="L1-006-连续因子"><a href="#L1-006-连续因子" class="headerlink" title="L1-006 连续因子"></a>L1-006 连续因子</h2><h3 id="序列最长长度"><a href="#序列最长长度" class="headerlink" title="序列最长长度"></a>序列最长长度</h3><p>因为n的取值范围：</p>
+<p><img src="/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319111256733.png" alt="image-20210319111256733"></p>
+<p>又因为最长序列为2×3×。。。n，也就是n的阶乘。</p>
+<p>计算n的最长序列</p>
+<p>发现13!&gt;n最大值，12!&lt;n的最大值，，，，又因为1不算，，，也就是2×3×…13也就是最长为12位。。。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">13</span> ; ++i) &#123;</span><br><span class="line">        ans *= i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> pow2 = <span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">31</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;pow2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;结果</span><br><span class="line">13!:6227020800</span><br><span class="line">n的最大值:2147483648</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>枚举所有的</p>
+<ol>
+<li>首先长度最长为12，从12开始减（依次枚举所有长度len的乘积【从2开始，，，】）</li>
+<li>判断能否被n整除，如果可以的话，因为是从最大开始，这次就是最大值。</li>
+</ol>
+<h3 id="int取值范围"><a href="#int取值范围" class="headerlink" title="int取值范围"></a>int取值范围</h3><p>最大值：2^31-1</p>
+<p>所以本次，，，n可以取int，但是ans可能超过int最大值，所以需要long long</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">max</span> = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">12</span>; len &gt;= <span class="number">1</span> ; --len) &#123;<span class="comment">//最大长度为12，依次暴力所有的的长度情况</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> start = <span class="number">2</span>; start &lt;= <span class="built_in">max</span>; ++start) &#123;</span><br><span class="line">            ans = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; start + len; ++i) &#123;</span><br><span class="line">                ans *= i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(n % ans == <span class="number">0</span>)&#123;<span class="comment">//如果是合法的</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;len&lt;&lt;<span class="built_in">endl</span>&lt;&lt;start;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = start+<span class="number">1</span>; j &lt; start+len; ++j) &#123;</span><br><span class="line">                    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*"</span>&lt;&lt;j;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">1</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;n&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//如果是质数，，，因为最大也只是sqrt(n)，所以上面出不来结果，，，就手动加上来</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其实是比较简单的题，，，但是上次做的时候，没有时间，紧张，就没有认真看下去，结果，，，校赛就出了一道类似的，苦苦。</p>
+</blockquote>
+<h2 id="L1-007-念数字"><a href="#L1-007-念数字" class="headerlink" title="L1-007 念数字"></a>L1-007 念数字</h2><blockquote>
+<p>涉及字符串，，，使用java比较easy，，，</p>
+<p>主要就是用map来存储，输入直接用字符串，，，</p>
+</blockquote>
+<h3 id="java版本"><a href="#java版本" class="headerlink" title="java版本"></a>java版本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exercise;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex_7</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Map&lt;Character,String&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">		hashmap.put(<span class="string">'0'</span>, <span class="string">"ling"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'1'</span>, <span class="string">"yi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'2'</span>, <span class="string">"er"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'3'</span>, <span class="string">"san"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'4'</span>, <span class="string">"si"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'5'</span>, <span class="string">"wu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'6'</span>, <span class="string">"liu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'7'</span>, <span class="string">"qi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'8'</span>, <span class="string">"ba"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'9'</span>, <span class="string">"jiu"</span>);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s  = scan.next();</span><br><span class="line">		<span class="keyword">char</span>[] arr = s.toCharArray();</span><br><span class="line">		<span class="keyword">if</span>(s.length()==<span class="number">1</span>) &#123;</span><br><span class="line">			System.out.println(hashmap.get(arr[<span class="number">0</span>]));</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(hashmap.containsKey(arr[<span class="number">0</span>])) &#123;</span><br><span class="line">			System.out.print(hashmap.get(arr[<span class="number">0</span>])+<span class="string">" "</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.print(<span class="string">"fu "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		String ans=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(hashmap.containsKey(arr[i])) &#123;</span><br><span class="line">				ans += hashmap.get(arr[i])+<span class="string">" "</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		ans = ans.substring(<span class="number">0</span>,ans.length()-<span class="number">1</span>);</span><br><span class="line">		System.out.println(ans);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-版本"><a href="#c-版本" class="headerlink" title="c++版本"></a>c++版本</h3><blockquote>
+<p>思路总体一样的</p>
+<p>但看起来更简洁，，，<del>如果会写的话，，，TAT</del></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">char</span>,<span class="built_in">string</span>&gt; mmap;</span><br><span class="line">    mmap[<span class="string">'-'</span>] = <span class="string">"fu"</span>;</span><br><span class="line">    mmap[<span class="string">'0'</span>] = <span class="string">"ling"</span>;</span><br><span class="line">    mmap[<span class="string">'1'</span>] = <span class="string">"yi"</span>;</span><br><span class="line">    mmap[<span class="string">'2'</span>] = <span class="string">"er"</span>;</span><br><span class="line">    mmap[<span class="string">'3'</span>] = <span class="string">"san"</span>;</span><br><span class="line">    mmap[<span class="string">'4'</span>] = <span class="string">"si"</span>;</span><br><span class="line">    mmap[<span class="string">'5'</span>] = <span class="string">"wu"</span>;</span><br><span class="line">    mmap[<span class="string">'6'</span>] = <span class="string">"liu"</span>;</span><br><span class="line">    mmap[<span class="string">'7'</span>] = <span class="string">"qi"</span>;</span><br><span class="line">    mmap[<span class="string">'8'</span>] = <span class="string">"ba"</span>;</span><br><span class="line">    mmap[<span class="string">'9'</span>] = <span class="string">"jiu"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> s ;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; s.length()<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;mmap[s[i]]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;mmap[s[i]];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-008-求整数段和"><a href="#L1-008-求整数段和" class="headerlink" title="L1-008 求整数段和"></a>L1-008 求整数段和</h2><blockquote>
+<p><del>easy</del></p>
+</blockquote>
+<h3 id="每个数字占5个字符宽度"><a href="#每个数字占5个字符宽度" class="headerlink" title="每个数字占5个字符宽度"></a>每个数字占5个字符宽度</h3><p>使用格式化字符串 =&gt; <del>快乐</del></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span>  <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = a,len=<span class="number">1</span>; i &lt;= b ; ++i,len++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br><span class="line">        sum += i;</span><br><span class="line">        <span class="keyword">if</span>(len % <span class="number">5</span> ==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            len = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((b-a+<span class="number">1</span>)%<span class="number">5</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Sum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"\nSum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-009-N个数求和"><a href="#L1-009-N个数求和" class="headerlink" title="L1-009 N个数求和"></a>L1-009 N个数求和</h2><blockquote>
+<p>首先计算分数加法公式：</p>
+<p>![img](file:///C:\Users\YCNN\Documents\Tencent Files\1187691781\Image\C2C\9CFF06029FD196D5E19F7D9FF8F6B771.png)</p>
+<p>然后计算结果分子分母的最大公约数，然后相除，得到最简分数</p>
+<p>这里需要考虑的地方：</p>
+<ol>
+<li>分母小于0 =&gt; 把符号换到分子上去</li>
+<li>分子小于0，说明为0，为了方便后期的计算，将分母置为0，防止该数的影响</li>
+</ol>
+<p>最后，根据能否整除，输出不同的结果。</p>
+</blockquote>
+<h3 id="scanf输入"><a href="#scanf输入" class="headerlink" title="scanf输入"></a>scanf输入</h3><p>这里使用scanf输入，，因为知道两个数字中间一定有一个/，可以简化，，，不用特意接受字符’/‘</p>
+<h3 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h3><p>固定格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">beauty</span><span class="params">(<span class="keyword">int</span> &amp;a1,<span class="keyword">int</span> &amp;b1)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b1 &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        a1 = -a1;</span><br><span class="line">        b1 = -b1;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 == <span class="number">0</span>)&#123;</span><br><span class="line">        b1 = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> simple = gcd(<span class="built_in">abs</span>(a1),<span class="built_in">abs</span>(b1));</span><br><span class="line">        a1 /= simple;</span><br><span class="line">        b1 /= simple;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">int</span> a1,b1,a2,b2;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a1,&amp;b1);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a2,&amp;b2);</span><br><span class="line">        a1 = a1 * b2 + a2 * b1;</span><br><span class="line">        b1 = b1 * b2;</span><br><span class="line">        beauty(a1,b1);</span><br><span class="line">    &#125;</span><br><span class="line">    beauty(a1,b1);<span class="comment">//如果只有一个式子，不会进入循环，，，但是输入可能不是最简的</span></span><br><span class="line">    <span class="keyword">if</span>(b1 == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 &lt; b1)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1/b1&lt;&lt;<span class="string">" "</span>&lt;&lt;a1 % b1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-010-比较大小"><a href="#L1-010-比较大小" class="headerlink" title="L1-010 比较大小"></a>L1-010 比较大小</h2><blockquote>
+<p>只是对三个数排序，，，非常简单</p>
+</blockquote>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>头文件</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(arr,arr+<span class="number">3</span>);<span class="comment">//arr是数组名，3是arr的长度</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;arr[<span class="number">0</span>]&gt;&gt;arr[<span class="number">1</span>]&gt;&gt;arr[<span class="number">2</span>];</span><br><span class="line">    sort(arr,arr+<span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arr[<span class="number">0</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">1</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">2</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-011-A-B"><a href="#L1-011-A-B" class="headerlink" title="L1-011 A-B"></a>L1-011 A-B</h2><blockquote>
+<p><del>本来是用eclipse的replace做的，但是超时了，，，555</del></p>
+<p><img src="/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319201138492.png" alt="image-20210319201138492"></p>
+<p>正确的思路：</p>
+<p>遍历第二个字符串，用长度为256（ascii表长度）的数组记录又那些出现过的字符，最后再对第一个字符串遍历，根据数组是否出现过，，，。这里数组的存储的index就是字符串的ascii码【这点比较interesting】</p>
+</blockquote>
+<h3 id="c-输入一行"><a href="#c-输入一行" class="headerlink" title="c++输入一行"></a>c++输入一行</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getline(<span class="built_in">cin</span>,a);</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a,b;</span><br><span class="line">    <span class="keyword">int</span> mark[<span class="number">256</span>];</span><br><span class="line">    getline(<span class="built_in">cin</span>,a);</span><br><span class="line">    getline(<span class="built_in">cin</span>,b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length() ; ++i) &#123;</span><br><span class="line">        mark[b[i]] = <span class="number">1</span>;<span class="comment">//直接将字符串的ascii码作为数组下表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; a.length() ; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(mark[a[j]] == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;a[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-012-计算指数"><a href="#L1-012-计算指数" class="headerlink" title="L1-012 计算指数"></a>L1-012 计算指数</h2><blockquote>
+<p>pow（底数，幂次）的结果是double型的，，，，不知道为什么不能强转到int，，，</p>
+<p>就输出是f了</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"2^%d = %.f"</span>,n,<span class="built_in">pow</span>(<span class="number">2</span>,n));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2021/03/29/buu每日一题（3）/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2021/03/12/ida-flair/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2021-03-19 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/算法/">算法<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-006-连续因子"><span class="toc-article-text">L1-006 连续因子</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#序列最长长度"><span class="toc-article-text">序列最长长度</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#思路"><span class="toc-article-text">思路</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#int取值范围"><span class="toc-article-text">int取值范围</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-007-念数字"><span class="toc-article-text">L1-007 念数字</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#java版本"><span class="toc-article-text">java版本</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#c-版本"><span class="toc-article-text">c++版本</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-008-求整数段和"><span class="toc-article-text">L1-008 求整数段和</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#每个数字占5个字符宽度"><span class="toc-article-text">每个数字占5个字符宽度</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-009-N个数求和"><span class="toc-article-text">L1-009 N个数求和</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#scanf输入"><span class="toc-article-text">scanf输入</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#最大公约数"><span class="toc-article-text">最大公约数</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp-1"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-010-比较大小"><span class="toc-article-text">L1-010 比较大小</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#sort"><span class="toc-article-text">sort</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp-2"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-011-A-B"><span class="toc-article-text">L1-011 A-B</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#c-输入一行"><span class="toc-article-text">c++输入一行</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp-3"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#L1-012-计算指数"><span class="toc-article-text">L1-012 计算指数</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2021 winter
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
