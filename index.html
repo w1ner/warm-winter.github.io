@@ -179,12 +179,11 @@ var _hmt = _hmt || [];
 </li>
 <li><p>C99 </p>
 <ol>
-<li>C编程语言标准的过去版本。 它扩展了以前的版本（ C90 ）</li>
+<li>C编程语言标准的过去版本，扩展了版本 C90</li>
+<li>允许使用可变长度数组</li>
 </ol>
 </li>
-<li><p>允许使用可变长度数组</p>
-</li>
-<li><p>内核扩展模块 (modules)</p>
+<li><p>modules：内核扩展模块</p>
 </li>
 <li><p>bzImage: 压缩的kernel内存映像</p>
 </li>
@@ -204,6 +203,7 @@ var _hmt = _hmt || [];
 <li>标志寄存器 =&gt; EFLAGS寄存器</li>
 </ol>
 <p><strong>不同的保护级别</strong></p>
+<p>除了以上3点外，还有</p>
 <ol start="4">
 <li>堆栈段选择子 =&gt; SS寄存器</li>
 <li>堆栈指针 =&gt; SP寄存器</li>
@@ -212,9 +212,8 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>栈上保存了<code>trap frame</code>，用于恢复信息</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">void</span>* eip;                <span class="comment">// instruction pointer +0</span></span><br><span class="line">    <span class="keyword">uint32_t</span> cs;              <span class="comment">// code segment    +4</span></span><br><span class="line">    <span class="keyword">uint32_t</span> eflags;          <span class="comment">// CPU flags       +8</span></span><br><span class="line">    <span class="keyword">void</span>* esp;                <span class="comment">// stack pointer       +12</span></span><br><span class="line">    <span class="keyword">uint32_t</span> ss;              <span class="comment">// stack segment   +16</span></span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">void</span>* eip;                <span class="comment">// instruction pointer +0</span></span><br><span class="line">    <span class="keyword">uint32_t</span> cs;              <span class="comment">// code segment   	 +4</span></span><br><span class="line">    <span class="keyword">uint32_t</span> eflags;          <span class="comment">// CPU flags     		 +8</span></span><br><span class="line">    <span class="keyword">void</span>* esp;                <span class="comment">// stack pointer       +12</span></span><br><span class="line">    <span class="keyword">uint32_t</span> ss;              <span class="comment">// stack segment  	 +16</span></span><br><span class="line">&#125; __attribute__((packed));</span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="thread-info"><a href="#thread-info" class="headerlink" title="thread_info"></a>thread_info</h3><p>内核堆栈与thread_info结构共享4k / 8k的总大小</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> thread_union &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">thread_info</span> <span class="title">thread_info</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="built_in">stack</span>[THREAD_SIZE/<span class="keyword">sizeof</span>(<span class="keyword">long</span>)];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -226,13 +225,12 @@ var _hmt = _hmt || [];
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">restart_block</span> &#123;</span></span><br><span class="line">    <span class="keyword">long</span> (*fn)(struct restart_block *);</span><br></pre></td></tr></table></figure>
 
-<p>有一个fn的函数指针，控制指针，劫持EIP</p>
+<p>有一个fn的函数指针，控制该指针 =&gt; 劫持EIP</p>
 <h5 id="调用fn"><a href="#调用fn" class="headerlink" title="调用fn"></a>调用fn</h5><p>用户态调用fn</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE0(restart_syscall)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">restart_block</span> *<span class="title">restart</span> = &amp;<span class="title">current_thread_info</span>()-&gt;<span class="title">restart_block</span>;</span></span><br><span class="line">    <span class="keyword">return</span> restart-&gt;fn(restart);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syscall(SYS_restart_syscall);</span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mmap</span><span class="params">(<span class="keyword">void</span> *addr, <span class="keyword">size_t</span> length, <span class="keyword">int</span> prot, <span class="keyword">int</span> flags,<span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -250,7 +248,7 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <h3 id="memcpy"><a href="#memcpy" class="headerlink" title="memcpy"></a>memcpy</h3><blockquote>
-<p>从源<strong>source</strong>所指的内存地址的起始位置开始拷贝n个字节到目标<strong>destin</strong>所指的内存地址的起始位置中。</p>
+<p>从源source所指的内存地址的起始位置开始拷贝n个字节到目标<strong>destin</strong>所指的内存地址的起始位置中。</p>
 </blockquote>
 <h4 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> destin, <span class="keyword">void</span> source, <span class="keyword">unsigned</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
 
@@ -259,7 +257,7 @@ var _hmt = _hmt || [];
 <li>source– 指向要复制的数据源，类型强制转换为 void* 指针。</li>
 <li>n– 要被复制的字节数。</li>
 </ul>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>该函数返回一个指向目标存储区<strong>destin</strong>的指针。</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>该函数返回一个指向目标存储区destin的指针。</p>
 <h3 id="kptr-restrict"><a href="#kptr-restrict" class="headerlink" title="kptr_restrict"></a>kptr_restrict</h3><table>
 <thead>
 <tr>
@@ -370,15 +368,13 @@ var _hmt = _hmt || [];
 <li>零：返回到新创建的子进程。</li>
 <li>正值：返回父进程或调用者。该值包含新创建的子进程的进程ID 。</li>
 </ul>
-<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><blockquote>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><blockquote>
 <p>可以创建一个<code>start.sh</code>文件，拷贝下面的内容，其中需要修改path路径为存放文件的路径。</p>
 <p>也可以直接在命令行执行</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -kernel bzImage -s -append nokaslr -initrd initramfs.img -fsdev local,security_model&#x3D;passthrough,id&#x3D;fsdev-fs0,path&#x3D;&#x2F;home&#x2F;winter&#x2F;linkern  -device virtio-9p-pci,id&#x3D;fs0,fsdev&#x3D;fsdev-fs0,mount_tag&#x3D;rootme</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -s \</span><br><span class="line">-kernel bzImage \</span><br><span class="line">-append nokaslr \</span><br><span class="line">-initrd initramfs.img \</span><br><span class="line">-fsdev local,security_model&#x3D;passthrough,id&#x3D;fsdev-fs0,path&#x3D;&#x2F;home&#x2F;winter&#x2F;nullpoint&#x2F; \</span><br><span class="line">-device virtio-9p-pci,id&#x3D;fs0,fsdev&#x3D;fsdev-fs0,mount_tag&#x3D;rootme</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><blockquote>
 <p>调试方法</p>
@@ -447,7 +443,6 @@ var _hmt = _hmt || [];
 <h4 id="第五部分：执行qemu里的c程序"><a href="#第五部分：执行qemu里的c程序" class="headerlink" title="第五部分：执行qemu里的c程序"></a>第五部分：执行qemu里的c程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;test</span><br><span class="line">#程序讲断在write函数上</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2021/06/05/kernel-study/image-20210531151832106.png" alt="image-20210531151832106"></p>
-<hr>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>kernel 中有两个可以方便的改变权限的函数：</p>
 <ul>
 <li>int commit_creds(struct cred *new)</li>
@@ -461,8 +456,6 @@ var _hmt = _hmt || [];
 <p><img src="/2021/06/05/kernel-study/image-20210602220742358.png" alt="image-20210602220742358"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void* (*prepare_kernel_cred)(void*) KERNCALL &#x3D; (void*) 0xC10711F0;</span><br><span class="line">void* (*commit_creds)(void*) KERNCALL &#x3D; (void*) 0xC1070E80;</span><br></pre></td></tr></table></figure>
 
-
-
 <h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
 <li>执行下面函数，从而将权限提升为root</li>
 </ol>
@@ -471,7 +464,6 @@ var _hmt = _hmt || [];
 <ol start="2">
 <li>iret返回到用户模式</li>
 </ol>
-<hr>
 <h3 id="Bypass-SMEP"><a href="#Bypass-SMEP" class="headerlink" title="Bypass SMEP"></a>Bypass SMEP</h3><h4 id="绕过来由"><a href="#绕过来由" class="headerlink" title="绕过来由"></a>绕过来由</h4><p>smep是不允许处于内核态的时候执行用户态代码。</p>
 <ul>
 <li>之前如果没有开启smep，一般在提权成功后，在切换内核栈和用户栈时候，设置里面的寄存器值，使eip执行system(‘/bin/sh’)</li>
@@ -1935,45 +1927,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
+		
+			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+		
+			<li><a href="/tags/srop/">srop<span>1</span></a></li>
+		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
+		
+			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
 		
 			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
 		
-			<li><a href="/tags/srop/">srop<span>1</span></a></li>
+			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
 		
 			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
 			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
 		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/安装/">安装<span>1</span></a></li>
-		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
 		
 			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
 		
-			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
-			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
 			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
 		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
 		
 			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>31</span></a></li>
