@@ -165,15 +165,15 @@ var _hmt = _hmt || [];
 
 <p>64位程序，保护全开。</p>
 <h3 id="1-程序流程"><a href="#1-程序流程" class="headerlink" title="1.程序流程"></a>1.程序流程</h3><h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p>最开始有一个函数，进行初始化操作setvbuf，并且打开一个文件设备’/dev/urandom’，并且将文件描述符存储在了bss上0x202860的位置。</p>
-<p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609103625666.png" alt="image-20210609103625666"></p>
-<h4 id="fun-write函数"><a href="#fun-write函数" class="headerlink" title="fun_write函数"></a>fun_write函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609103827543.png" alt="image-20210609103827543"></p>
+<p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/2021-ciscn-pwn%E5%88%9D%E8%B5%9B%5Cimage-20210609103625666.png" alt="image-20210609103625666"></p>
+<h4 id="fun-write函数"><a href="#fun-write函数" class="headerlink" title="fun_write函数"></a>fun_write函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/2021-ciscn-pwn%E5%88%9D%E8%B5%9B%5Cimage-20210609103827543.png" alt="image-20210609103827543"></p>
 <ol>
 <li>请求输入偏移</li>
 <li>偏移存储在v0中</li>
 <li>从文件描述符0x202860中读取数据，存储到v2中</li>
 <li>将v2的值赋值给（0x202060+偏移）的地址</li>
 </ol>
-<h4 id="fun-read函数"><a href="#fun-read函数" class="headerlink" title="fun_read函数"></a>fun_read函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210609104021390.png" alt="image-20210609104021390"></p>
+<h4 id="fun-read函数"><a href="#fun-read函数" class="headerlink" title="fun_read函数"></a>fun_read函数</h4><p><img src="/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/2021-ciscn-pwn%E5%88%9D%E8%B5%9B%5Cimage-20210609104021390.png" alt="image-20210609104021390"></p>
 <p>与fun_write函数类似，只不过最后的赋值变成了，打印（0x202060+偏移）的内容。</p>
 <h3 id="2-漏洞利用"><a href="#2-漏洞利用" class="headerlink" title="2.漏洞利用"></a>2.漏洞利用</h3><p>函数fun_read和fun_write，都有函数</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span>(byte_202860,&amp;v2,<span class="number">8</span>)</span><br></pre></td></tr></table></figure>
