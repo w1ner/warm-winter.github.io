@@ -166,20 +166,20 @@ var _hmt = _hmt || [];
 </ul>
 <p>加密的宏观上：为了能让Bob安全的给Alice发送消息。</p>
 <p>首先Alice生成公钥和私钥（对应锁和钥匙），然后Alice将锁给Bob，那么Bob用锁给信息加密后，将加密后的东西还给Alice，Alice用钥匙解密即可拿到Bob的信息。但是其他人虽然能看到锁，但是无法解密，因为没有钥匙。</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210910190119327.png" alt="image-20210910190119327"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910190119327.png" alt="image-20210910190119327"></p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>模运算是单向运算</p>
 <p>有e容易求c，但是有c难求e</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190422813.png" alt="image-20210910190422813"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910190422813.png" alt="image-20210910190422813"></p>
 <p>加密解密过程：e和N是给大家都能看到，但是d是Alice持有的钥匙，只有Alice能计算的</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190457576.png" alt="image-20210910190457576"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910190457576.png" alt="image-20210910190457576"></p>
 <p>mod的模数e和余数c是互质的，所以上面吧m^e带入下面的c得到下面公式</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191513110.png" alt="image-20210910191513110"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910191513110.png" alt="image-20210910191513110"></p>
 <h3 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h3><p>定理</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190649163.png" alt="image-20210910190649163"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910190649163.png" alt="image-20210910190649163"></p>
 <p>所以建立式子</p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910190538216.png" alt="image-20210910190538216"></p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191715034.png" alt="image-20210910191715034"></p>
-<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/rsa%E7%AE%97%E6%B3%95%5Cimage-20210910191737898.png" alt="image-20210910191737898"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910190538216.png" alt="image-20210910190538216"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910191715034.png" alt="image-20210910191715034"></p>
+<p><img src="/2021/10/08/rsa%E7%AE%97%E6%B3%95/image-20210910191737898.png" alt="image-20210910191737898"></p>
 <p>所以，取两个质数，p*q=n</p>
 <p>其他人来说：已知n，但φ(n)难以求解</p>
 <p>拥有私钥p、q的人来说：p和q因为是质数很好求容易求得</p>
@@ -2533,45 +2533,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/安装/">安装<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/srop/">srop<span>1</span></a></li>
-		
-			<li><a href="/tags/《操作系统真相还原》/">《操作系统真相还原》<span>1</span></a></li>
-		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/book/">book<span>1</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
-		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
 			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
 		
-			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/《操作系统真相还原》/">《操作系统真相还原》<span>1</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
+		
+			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
 		
 			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
 		
-			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
+			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
 		
-			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
 		
-			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
+			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+		
+			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+		
+			<li><a href="/tags/srop/">srop<span>1</span></a></li>
+		
+			<li><a href="/tags/book/">book<span>1</span></a></li>
+		
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>34</span></a></li>
