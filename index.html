@@ -186,6 +186,19 @@ var _hmt = _hmt || [];
 <li>算法一道题</li>
 <li>英语学习0.5h</li>
 </ul>
+<hr>
+<p>10/21：</p>
+<p>算法leetcode117、</p>
+<h3 id="2021-10-23"><a href="#2021-10-23" class="headerlink" title="2021/10/23"></a>2021/10/23</h3><blockquote>
+<p>感觉最近没有学习的状态，反思：大学之前，因为不会玩吧，每天娱乐不如学习快乐；但是本科，接触了电视剧、吃好吃的等，感受到快乐后，就没当想要学习的时候，不自觉的想说，刷刷短视频更香，，，</p>
+<p>我自认为，已经掌握了学习的方法、技巧，但是缺少时间，要下苦功夫才能有一番成就呀，，，</p>
+<p>就很难受，</p>
+</blockquote>
+<p>今天刷b站，就看了很多视频，</p>
+<p>北大韦东奕：其实我很喜欢那种状态，把对现实生活的需求降到最低，专心自己喜欢的事情（<del>感觉我们班级也有类似的同学，衣服就那么两套换着穿，我就觉得，这样挺好（如果我是boy，我也会这样hhh）</del>）</p>
+<p>北大宣传片、清华录取通知书：这两所，真的是，梦校。不过最近想到另一件事情，我初中是一个不知名的学校，村级那种，然后第一考取了当地第二的高中，刚进高中，如梦如幻的感觉，对自己要求也不高，然后月考前20，就心起飞，不敢相信，然后，就沉浸喜悦那种，无法自拔。但自己现在总结出来一点是，其实每个学校都是一样的，排名什么的不重要，如果你知道该朝什么方向学习的时候，清北和其他大学没什么不同，最重要的，你要踏踏实实学习，认认真真把精力放在学习上。感觉现在自己很大问题是，只想要努力背后的成果，却没有踏踏实实的学到过程中应该收获的，以至于虽然去了nudt，我一直觉得，本科在摆烂，，，未来加油吧</p>
+<p>北大博士：这个告诉我，无论何时对生活充满希望和热情。他的话，因为学校的原因，没能去成理想的专业，就有点绝望吧，大学摆烂，但是现在反思不能这样。我的话，其实对网安抱有热情，但本科卷绩点，没有下功夫，网安成绩不好，实力不够，研究生去了cv，不是特别感兴趣的专业，而且以后考虑换这种，导致自己没有热情，我觉得也是不对的，这样下去，要废了。就，你不是想要体验人生嘛，虽然大气不是你热爱的，好好体验一下不好嘛，热爱它，做好它，无怨无悔。</p>
+<p>大概今天上午的感想，剩下的，交给时间，好好学习，</p>
 
 	
 	</div>
@@ -909,6 +922,21 @@ var _hmt = _hmt || [];
 
 <p>并查集</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; parent,<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(parent[index]!=index)&#123;</span><br><span class="line">            parent[index]=Find(parent,parent[index]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[index];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Union</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; parent,<span class="keyword">int</span> index1,<span class="keyword">int</span> index2)</span></span>&#123;</span><br><span class="line">        parent[Find(parent,index1)] = Find(parent,index2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findCircleNum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; isConnected)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> provinces = isConnected.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">parent</span><span class="params">(provinces)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;provinces;i++)&#123;</span><br><span class="line">            parent[i]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;provinces;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;provinces;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(isConnected[i][j]==<span class="number">1</span>)&#123;</span><br><span class="line">                    Union(parent,i,j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> circles=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;provinces;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(parent[i]==i)&#123;</span><br><span class="line">                circles++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> circles;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第-7-天-广度优先搜索-深度优先搜索-1"><a href="#第-7-天-广度优先搜索-深度优先搜索-1" class="headerlink" title="第 7 天 广度优先搜索 / 深度优先搜索"></a>第 7 天 广度优先搜索 / 深度优先搜索</h1><h3 id="117-填充每个节点的下一个右侧节点指针-II"><a href="#117-填充每个节点的下一个右侧节点指针-II" class="headerlink" title="117. 填充每个节点的下一个右侧节点指针 II"></a><a href="https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/" target="_blank" rel="noopener">117. 填充每个节点的下一个右侧节点指针 II</a></h3><blockquote>
+<p>广度优先</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">queue</span>&lt;Node*&gt; q;</span><br><span class="line">        q.push(root);</span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> n = q.<span class="built_in">size</span>();</span><br><span class="line">            Node *last = <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">                Node *f = q.front();</span><br><span class="line">                q.pop();</span><br><span class="line">                <span class="keyword">if</span> (f-&gt;left) &#123;</span><br><span class="line">                    q.push(f-&gt;left);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (f-&gt;right) &#123;</span><br><span class="line">                    q.push(f-&gt;right);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (i != <span class="number">1</span>) &#123;</span><br><span class="line">                    last-&gt;next = f;</span><br><span class="line">                &#125;</span><br><span class="line">                last = f;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用已经建立的next指针</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    Node* left;</span></span><br><span class="line"><span class="comment">    Node* right;</span></span><br><span class="line"><span class="comment">    Node* next;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node() : val(0), left(NULL), right(NULL), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val, Node* _left, Node* _right, Node* _next)</span></span><br><span class="line"><span class="comment">        : val(_val), left(_left), right(_right), next(_next) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">handle</span><span class="params">(Node* &amp;last,Node* &amp;p,Node* &amp;nextStart)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(last)&#123;</span><br><span class="line">            last-&gt;next=p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!nextStart)&#123;</span><br><span class="line">            nextStart=p;</span><br><span class="line">        &#125;</span><br><span class="line">        last=p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Node* start = root;</span><br><span class="line">        <span class="keyword">while</span>(start)&#123;</span><br><span class="line">            Node* last = <span class="literal">nullptr</span>,*nextStart = <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="keyword">for</span>(Node* p = start;p!=<span class="literal">nullptr</span>;p = p-&gt;next)&#123;</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;left)&#123;</span><br><span class="line">                    handle(last,p-&gt;left,nextStart);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;right)&#123;</span><br><span class="line">                    handle(last,p-&gt;right,nextStart);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            start = nextStart;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="572-另一棵树的子树"><a href="#572-另一棵树的子树" class="headerlink" title="572. 另一棵树的子树"></a><a href="https://leetcode-cn.com/problems/subtree-of-another-tree/" target="_blank" rel="noopener">572. 另一棵树的子树</a></h3><blockquote>
+<p>深度优先+暴力</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(TreeNode* root,TreeNode* subRoot)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root &amp;&amp; !subRoot) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>((root &amp;&amp; !subRoot) || (!root &amp;&amp; subRoot) || (root-&gt;val != subRoot-&gt;val))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> check(root-&gt;left,subRoot-&gt;left) &amp;&amp; check(root-&gt;right,subRoot-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(TreeNode* root,TreeNode* subRoot)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> check(root,subRoot) || dfs(root-&gt;left,subRoot) || dfs(root-&gt;right,subRoot);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isSubtree</span><span class="params">(TreeNode* root, TreeNode* subRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dfs(root,subRoot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 	
@@ -2357,45 +2385,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/srop/">srop<span>1</span></a></li>
+			<li><a href="/tags/leetcode/">leetcode<span>2</span></a></li>
 		
-			<li><a href="/tags/unsortedbin-attack/">unsortedbin attack<span>1</span></a></li>
-		
-			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
-		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
-		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
-		
-			<li><a href="/tags/flair/">flair<span>1</span></a></li>
-		
-			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
-		
-			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
-		
-			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
-		
-			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
-		
-			<li><a href="/tags/蓝桥杯/">蓝桥杯<span>4</span></a></li>
-		
-			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
-		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
-		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
-		
-			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
-		
-			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
 		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
+			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
 		
-			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
+			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
+		
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+		
+			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
+		
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/srop/">srop<span>1</span></a></li>
 		
 			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
+		
+			<li><a href="/tags/dasctf/">dasctf<span>1</span></a></li>
+		
+			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
+		
+			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+		
+			<li><a href="/tags/googlectf-2020/">googlectf 2020<span>1</span></a></li>
+		
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
+		
+			<li><a href="/tags/v8/">v8<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>35</span></a></li>
