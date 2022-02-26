@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="Chinese">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>牛客网-算法篇 | Shuwen&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
   <meta name="description" content="NC4判断链表中是否有环 这道题学到了很多，尤其是快慢指针的问题，第一次见到，有三种方法，，，，  解法1:快慢指针 貌似是个经典问题，使用快慢指针也是最简单的一种方法。 他的方法就是两个指针同时出发，慢指针一次走一步，快指针一次走两步，如果相遇的话就说明有环，否则说明没有环。  exp11234567891011121314151617181920212223242526&#x2F;** * Defini">
 <meta property="og:type" content="article">
 <meta property="og:title" content="牛客网-算法篇">
@@ -25,83 +38,178 @@
 <meta property="article:tag" content="牛客网">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/F616B722C8FF288FE7C88E6AF6A22025">
-  
-    <link rel="alternate" href="../../../../atom.xml" title="Shuwen&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="../../../../css/style.css">
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<link rel="canonical" href="http://yoursite.com/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="../../../../index.html" id="logo">Shuwen&#39;s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="../../../../index.html" id="subtitle">爱学习的书文</a>
-        </h2>
-      
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'Chinese'
+  };
+</script>
+
+  <title>牛客网-算法篇 | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="../../../../index.html">Home</a>
-        
-          <a class="main-nav-link" href="../../../../archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">爱学习的书文</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-牛客网-算法篇" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="" class="article-date">
-  <time datetime="2021-04-18T00:14:31.000Z" itemprop="datePublished">2021-04-18</time>
-</a>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-  <div class="article-category">
-    <a class="article-category-link" href="../../../../categories/%E7%AE%97%E6%B3%95/">算法</a>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      牛客网-算法篇
-    </h1>
-  
 
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="Chinese">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="winter">
+      <meta itemprop="description" content="生活 & 学习">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          牛客网-算法篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+
+              <time title="أُنشأ: 2021-04-18 08:14:31" itemprop="dateCreated datePublished" datetime="2021-04-18T08:14:31+08:00">2021-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-08-08 00:48:55" itemprop="dateModified" datetime="2021-08-08T00:48:55+08:00">2021-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
         <h2 id="NC4判断链表中是否有环"><a href="#NC4判断链表中是否有环" class="headerlink" title="NC4判断链表中是否有环"></a>NC4判断链表中是否有环</h2><blockquote>
 <p>这道题学到了很多，尤其是快慢指针的问题，第一次见到，有三种方法，，，，</p>
@@ -429,153 +537,199 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 求出a、b的最大公约数。</span></span><br><span class="line"><span class="comment">     * @param a int </span></span><br><span class="line"><span class="comment">     * @param b int </span></span><br><span class="line"><span class="comment">     * @return int</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span>(a%b==<span class="number">0</span>)<span class="keyword">return</span> b;</span><br><span class="line">        <span class="keyword">return</span> gcd(b,a%b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/" data-id="cl03m3oru0048bwjnhhsx88m0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag">牛客网</a></li></ul>
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag"># 牛客网</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/" rel="prev" title="buu每日一题（3）">
+      <i class="fa fa-chevron-left"></i> buu每日一题（3）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/18/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A62021%E5%B1%8A%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="next" title="西南科技大学2021届新生赛">
+      西南科技大学2021届新生赛 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NC4判断链表中是否有环"><span class="nav-number">1.</span> <span class="nav-text">NC4判断链表中是否有环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法1-快慢指针"><span class="nav-number">1.1.</span> <span class="nav-text">解法1:快慢指针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exp1"><span class="nav-number">1.1.1.</span> <span class="nav-text">exp1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法2-存放到集合"><span class="nav-number">1.2.</span> <span class="nav-text">解法2:存放到集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集合set"><span class="nav-number">1.2.1.</span> <span class="nav-text">集合set</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-是否包含某个元素"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1.是否包含某个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-添加元素"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.添加元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp2"><span class="nav-number">1.2.2.</span> <span class="nav-text">exp2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法3-逐个删除"><span class="nav-number">1.3.</span> <span class="nav-text">解法3:逐个删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exp3"><span class="nav-number">1.3.1.</span> <span class="nav-text">exp3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC7-股票（一次交易）"><span class="nav-number">2.</span> <span class="nav-text">NC7 股票（一次交易）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp"><span class="nav-number">2.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC13-二叉树的最大深度"><span class="nav-number">3.</span> <span class="nav-text">NC13 二叉树的最大深度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-1"><span class="nav-number">3.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC19-子数组的最大累加和的问题"><span class="nav-number">4.</span> <span class="nav-text">NC19 子数组的最大累加和的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC22-合并两个有序的数组"><span class="nav-number">5.</span> <span class="nav-text">NC22 合并两个有序的数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-2"><span class="nav-number">5.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC33-合并有序链表"><span class="nav-number">6.</span> <span class="nav-text">NC33 合并有序链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC38-螺旋矩阵"><span class="nav-number">7.</span> <span class="nav-text">NC38 螺旋矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vector"><span class="nav-number">7.1.</span> <span class="nav-text">vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化大小并赋值"><span class="nav-number">7.2.</span> <span class="nav-text">初始化大小并赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二维数组初始化："><span class="nav-number">7.2.1.</span> <span class="nav-text">二维数组初始化：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-3"><span class="nav-number">7.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC41-找到字符串的最长无重复字符子串"><span class="nav-number">8.</span> <span class="nav-text">NC41 找到字符串的最长无重复字符子串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快速读入方法"><span class="nav-number">8.1.</span> <span class="nav-text">快速读入方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">8.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-4"><span class="nav-number">8.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC45-实现二叉树先序，中序和后序遍历"><span class="nav-number">9.</span> <span class="nav-text">NC45 实现二叉树先序，中序和后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#树节点TreeNode"><span class="nav-number">9.1.</span> <span class="nav-text">树节点TreeNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先序、中序、后序遍历"><span class="nav-number">9.2.</span> <span class="nav-text">先序、中序、后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-5"><span class="nav-number">9.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC52括号序列"><span class="nav-number">10.</span> <span class="nav-text">NC52括号序列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法1：压栈和取栈"><span class="nav-number">10.1.</span> <span class="nav-text">解法1：压栈和取栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exp1-1"><span class="nav-number">10.1.1.</span> <span class="nav-text">exp1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法2：字符替换"><span class="nav-number">10.2.</span> <span class="nav-text">解法2：字符替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp"><span class="nav-number">10.3.</span> <span class="nav-text">my exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC55-最长公共前缀"><span class="nav-number">11.</span> <span class="nav-text">NC55 最长公共前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC57-反转数字"><span class="nav-number">12.</span> <span class="nav-text">NC57 反转数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-6"><span class="nav-number">12.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC65-斐波那契数列"><span class="nav-number">13.</span> <span class="nav-text">NC65 斐波那契数列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-7"><span class="nav-number">13.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC66-两个链表的第一个公共结点"><span class="nav-number">14.</span> <span class="nav-text">NC66 两个链表的第一个公共结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-8"><span class="nav-number">14.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC68-跳台阶"><span class="nav-number">15.</span> <span class="nav-text">NC68 跳台阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">15.1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp（递归）"><span class="nav-number">15.2.</span> <span class="nav-text">my exp（递归）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC73-数组中出现次数超过一半的数字"><span class="nav-number">16.</span> <span class="nav-text">NC73 数组中出现次数超过一半的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希法"><span class="nav-number">16.1.</span> <span class="nav-text">哈希法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序法"><span class="nav-number">16.2.</span> <span class="nav-text">排序法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#候选法"><span class="nav-number">16.3.</span> <span class="nav-text">候选法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp-1"><span class="nav-number">16.4.</span> <span class="nav-text">my exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC-76-用两个栈实现队列"><span class="nav-number">17.</span> <span class="nav-text">NC 76 用两个栈实现队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-1"><span class="nav-number">17.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-9"><span class="nav-number">17.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC78-反转链表"><span class="nav-number">18.</span> <span class="nav-text">NC78 反转链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-2"><span class="nav-number">18.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-10"><span class="nav-number">18.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC82-滑动窗口的最大值"><span class="nav-number">19.</span> <span class="nav-text">NC82 滑动窗口的最大值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按给定大小对数组初始化"><span class="nav-number">19.1.</span> <span class="nav-text">按给定大小对数组初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">19.2.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-11"><span class="nav-number">19.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC101-缺失数字"><span class="nav-number">20.</span> <span class="nav-text">NC101 缺失数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-12"><span class="nav-number">20.1.</span> <span class="nav-text">exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp-2"><span class="nav-number">20.2.</span> <span class="nav-text">my exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC103-反转字符串"><span class="nav-number">21.</span> <span class="nav-text">NC103 反转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC105-二分查找-II"><span class="nav-number">22.</span> <span class="nav-text">NC105 二分查找-II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-13"><span class="nav-number">22.1.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC107-寻找峰值"><span class="nav-number">23.</span> <span class="nav-text">NC107 寻找峰值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp-3"><span class="nav-number">23.1.</span> <span class="nav-text">my exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-14"><span class="nav-number">23.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC141-判断回文"><span class="nav-number">24.</span> <span class="nav-text">NC141 判断回文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#my-exp-4"><span class="nav-number">24.1.</span> <span class="nav-text">my exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#right-exp"><span class="nav-number">24.2.</span> <span class="nav-text">right exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC143-矩阵乘法"><span class="nav-number">25.</span> <span class="nav-text">NC143 矩阵乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二维矩阵初始化"><span class="nav-number">25.1.</span> <span class="nav-text">二维矩阵初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵乘法"><span class="nav-number">25.2.</span> <span class="nav-text">矩阵乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-15"><span class="nav-number">25.3.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NC151-最大公约数"><span class="nav-number">26.</span> <span class="nav-text">NC151 最大公约数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">winter</p>
+  <div class="site-description" itemprop="description">生活 & 学习</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">winter</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="../%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A62021%E5%B1%8A%E6%96%B0%E7%94%9F%E8%B5%9B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          西南科技大学2021届新生赛
-        
-      </div>
-    </a>
-  
-  
-    <a href="../../../03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">buu每日一题（3）</div>
-    </a>
-  
-</nav>
 
   
-</article>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/advanced-pwn/">advanced pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/blockchain/">blockchain</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/buu/">buu</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/chrome/">chrome</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/ida/">ida</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/iot/">iot</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/reverse/">reverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/v8/">v8</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%B8%93%E9%A2%98/">专题</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%88%86%E4%BA%AB/">分享</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%A4%8D%E7%8E%B0/">复现</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B7%A5%E5%85%B7/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">常用软件</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
-    </div>
-  </div>
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/book/" rel="tag">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/buu%E5%88%B7%E9%A2%98/" rel="tag">buu刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" rel="tag">c++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ciscn/" rel="tag">ciscn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/dasctf/" rel="tag">dasctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/double-free/" rel="tag">double free</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fastbin-attack/" rel="tag">fastbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/flair/" rel="tag">flair</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fmt/" rel="tag">fmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/googlectf-2020/" rel="tag">googlectf 2020</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-force/" rel="tag">house of force</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-orange/" rel="tag">house of orange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/kernel-pwn/" rel="tag">kernel pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mips-pwn/" rel="tag">mips pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/off-by-one/" rel="tag">off by one</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwnable-tw/" rel="tag">pwnable.tw</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/srop/" rel="tag">srop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unlink/" rel="tag">unlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unsortedbin-attack/" rel="tag">unsortedbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/v8/" rel="tag">v8</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" rel="tag">《操作系统真相还原》</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BA%BA%E7%94%9F/" rel="tag">人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" rel="tag">出题环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" rel="tag">基础练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" rel="tag">天梯赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%8E%A8%E5%85%8D/" rel="tag">推免</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" rel="tag">漏洞基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" rel="tag">蓝桥杯</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="tag">西南科技大学新生赛</a></li></ul>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="../../../../tags/book/" style="font-size: 10px;">book</a> <a href="../../../../tags/buu%E5%88%B7%E9%A2%98/" style="font-size: 20px;">buu刷题</a> <a href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">c++基础</a> <a href="../../../../tags/ciscn/" style="font-size: 10px;">ciscn</a> <a href="../../../../tags/csapp/" style="font-size: 13.33px;">csapp</a> <a href="../../../../tags/dasctf/" style="font-size: 10px;">dasctf</a> <a href="../../../../tags/double-free/" style="font-size: 10px;">double free</a> <a href="../../../../tags/fastbin-attack/" style="font-size: 10px;">fastbin attack</a> <a href="../../../../tags/flair/" style="font-size: 10px;">flair</a> <a href="../../../../tags/fmt/" style="font-size: 10px;">fmt</a> <a href="../../../../tags/git/" style="font-size: 10px;">git</a> <a href="../../../../tags/googlectf-2020/" style="font-size: 10px;">googlectf 2020</a> <a href="../../../../tags/house-of-force/" style="font-size: 13.33px;">house of force</a> <a href="../../../../tags/house-of-orange/" style="font-size: 10px;">house of orange</a> <a href="../../../../tags/kernel-pwn/" style="font-size: 13.33px;">kernel pwn</a> <a href="../../../../tags/leetcode/" style="font-size: 13.33px;">leetcode</a> <a href="../../../../tags/mips-pwn/" style="font-size: 10px;">mips pwn</a> <a href="../../../../tags/off-by-one/" style="font-size: 10px;">off by one</a> <a href="../../../../tags/pwn/" style="font-size: 10px;">pwn</a> <a href="../../../../tags/pwnable-tw/" style="font-size: 13.33px;">pwnable.tw</a> <a href="../../../../tags/srop/" style="font-size: 10px;">srop</a> <a href="../../../../tags/unlink/" style="font-size: 13.33px;">unlink</a> <a href="../../../../tags/unsortedbin-attack/" style="font-size: 10px;">unsortedbin attack</a> <a href="../../../../tags/v8/" style="font-size: 10px;">v8</a> <a href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" style="font-size: 10px;">《操作系统真相还原》</a> <a href="../../../../tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">出题环境</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 16.67px;">基础知识</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">基础练习</a> <a href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" style="font-size: 10px;">天梯赛</a> <a href="../../../../tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="../../../../tags/%E6%8E%A8%E5%85%8D/" style="font-size: 10px;">推免</a> <a href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">漏洞基础</a> <a href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" style="font-size: 10px;">牛客网</a> <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">环境搭建</a> <a href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" style="font-size: 20px;">蓝桥杯</a> <a href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" style="font-size: 10px;">西南科技大学新生赛</a>
-    </div>
-  </div>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li></ul>
-    </div>
-  </div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="../../../10/30/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生</a>
-          </li>
-        
-          <li>
-            <a href="../../../10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/">2021推免总结</a>
-          </li>
-        
-          <li>
-            <a href="../../../10/08/rsa%E7%AE%97%E6%B3%95/">rsa算法</a>
-          </li>
-        
-          <li>
-            <a href="../../../08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">leetcode之算法学习计划</a>
-          </li>
-        
-          <li>
-            <a href="../../../08/07/LearnBlockchainbyBuildingOne/">Learn Blockchain by Building One_book study</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2022 winter<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
-  
-    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
-
-  
-<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="../../../../js/script.js"></script>
-
-
-
-
-  </div>
 </body>
 </html>
