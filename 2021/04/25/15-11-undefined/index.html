@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="关于axb_2019_heap的详解 参考：buuctf  axb_2019_heap  程序流程 banner：存在格式化字符串漏洞，可以泄漏栈上的信息  add：根据idx创建size（大于0x80）大小的内容为content的块 块指针和块大小存放在一个全局变量note中  delete：释放的很干净，没有uaf  edit：存在off by one get_input(*((_QWORD">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/25/15-11-undefined/image-20210425142716133.png">
 <meta property="article:published_time" content="2021-04-25T07:11:27.000Z">
 <meta property="article:modified_time" content="2021-04-25T07:12:52.387Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="unlink">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/25/15-11-undefined/image-20210425142716133.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/04/25/15-11-undefined/">
 
@@ -246,7 +246,7 @@
 <h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="1-格式化字符串"><a href="#1-格式化字符串" class="headerlink" title="1.格式化字符串"></a>1.格式化字符串</h4><blockquote>
 <p>计算偏移：直接算或者用工具 =&gt; 得到偏移为7</p>
 </blockquote>
-<p><img src="/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png" alt="image-20210425142716133"></p>
+<p><img src="/2021/04/25/15-11-undefined/image-20210425142716133.png" alt="image-20210425142716133"></p>
 <blockquote>
 <p>执行到<code>printf(&amp;format);</code></p>
 </blockquote>

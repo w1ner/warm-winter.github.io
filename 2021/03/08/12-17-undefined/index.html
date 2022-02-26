@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="一些记录：看视频【蓝桥杯】2013年-2018年蓝桥杯历年省赛真题 Java C++ A组 B组 C组 emmm，参加完校赛，被完虐，，，感觉蓝桥杯的题太简单，，，，接下来换地方去学leetcode一段时间  2013-java-A 视频的总结   1 日历 Calendar API的使用  12345678Calendar calendar &#x3D; Calendar.getInstance();&#x2F;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304145315375.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210215133419619.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210218145738807.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304185430180.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304212011899.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210304145315375.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210215133419619.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210218145738807.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210304185430180.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210304212011899.png">
 <meta property="article:published_time" content="2021-03-08T04:17:39.000Z">
 <meta property="article:modified_time" content="2021-08-07T16:48:54.014Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="蓝桥杯">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304145315375.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/08/12-17-undefined/image-20210304145315375.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/03/08/12-17-undefined/">
 
@@ -222,7 +222,7 @@
 </blockquote>
 <h2 id="2013-java-A"><a href="#2013-java-A" class="headerlink" title="2013-java-A"></a>2013-java-A</h2><blockquote>
 <p>视频的总结</p>
-<p><img src="/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304145315375.png" alt="image-20210304145315375"></p>
+<p><img src="/2021/03/08/12-17-undefined/image-20210304145315375.png" alt="image-20210304145315375"></p>
 </blockquote>
 <h3 id="1-日历"><a href="#1-日历" class="headerlink" title="1 日历"></a>1 日历</h3><blockquote>
 <p>Calendar API的使用</p>
@@ -232,7 +232,7 @@
 <h3 id="2-从我做起振兴中华"><a href="#2-从我做起振兴中华" class="headerlink" title="2 从我做起振兴中华"></a>2 从我做起振兴中华</h3><blockquote>
 <p>递归的思路，学习</p>
 </blockquote>
-<p><img src="/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210215133419619.png" alt="image-20210215133419619"></p>
+<p><img src="/2021/03/08/12-17-undefined/image-20210215133419619.png" alt="image-20210215133419619"></p>
 <p>观察可得，走法要么走右，要么走下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i == <span class="number">4</span> || j == <span class="number">3</span>) <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//走到，成功</span></span><br><span class="line">	<span class="keyword">return</span> f(i+<span class="number">1</span>,j) + f(i,j+<span class="number">1</span>);<span class="comment">//下或右</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -261,7 +261,7 @@
 <li>根据特殊情况验证</li>
 </ol>
 <h3 id="6-逆波兰序"><a href="#6-逆波兰序" class="headerlink" title="6 逆波兰序"></a>6 逆波兰序</h3><p>没什么说的，，，</p>
-<h3 id="7-断号和连号"><a href="#7-断号和连号" class="headerlink" title="7 断号和连号"></a>7 断号和连号</h3><h4 id="每行数据长度不等的输入"><a href="#每行数据长度不等的输入" class="headerlink" title="每行数据长度不等的输入"></a>每行数据长度不等的输入</h4><p><img src="/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210218145738807.png" alt="image-20210218145738807"></p>
+<h3 id="7-断号和连号"><a href="#7-断号和连号" class="headerlink" title="7 断号和连号"></a>7 断号和连号</h3><h4 id="每行数据长度不等的输入"><a href="#每行数据长度不等的输入" class="headerlink" title="每行数据长度不等的输入"></a>每行数据长度不等的输入</h4><p><img src="/2021/03/08/12-17-undefined/image-20210218145738807.png" alt="image-20210218145738807"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">int</span> N = scan.nextInt();</span><br><span class="line">scan.nextLine();<span class="comment">//去掉'\n'</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">String line = scan.nextLine();</span><br><span class="line">String [] split = line.split(<span class="string">" "</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; split.length; j++) &#123;</span><br><span class="line">		list.add(Integer.parseInt(split[j]));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -312,7 +312,7 @@
 
 <p>注意：static方法必须在static类里面</p>
 <h4 id="5-堆排序"><a href="#5-堆排序" class="headerlink" title="5 堆排序"></a>5 堆排序</h4><p>emmm，填空题不能单靠简单的上下文，，，，保险起见，要学会自己构造例子看结果。</p>
-<h3 id="6-全排列"><a href="#6-全排列" class="headerlink" title="6 全排列"></a>6 全排列</h3><p><img src="/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304185430180.png" alt="image-20210304185430180"></p>
+<h3 id="6-全排列"><a href="#6-全排列" class="headerlink" title="6 全排列"></a>6 全排列</h3><p><img src="/2021/03/08/12-17-undefined/image-20210304185430180.png" alt="image-20210304185430180"></p>
 <p>给每个边和顶点编号。</p>
 <p>全排列+然后计算每个编的值</p>
 <h4 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==arr.length) &#123;</span><br><span class="line">		check();</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//已经确定k-1个了，所以从k开始</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=k;i&lt;arr.length;i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> t = arr[i];</span><br><span class="line">		arr[i] = arr[k];</span><br><span class="line">		arr[k] = t;</span><br><span class="line">		</span><br><span class="line">		f(k+<span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		t = arr[i];</span><br><span class="line">		arr[i] = arr[k];</span><br><span class="line">		arr[k] = t;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -341,7 +341,7 @@
 <li>mod运算不能交换</li>
 <li>斐波那契数列 比赛中 用迭代形式来做，不要用递归来做</li>
 </ol>
-<h4 id="迭代形式"><a href="#迭代形式" class="headerlink" title="迭代形式"></a>迭代形式</h4><p><img src="/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/image-20210304212011899.png" alt="image-20210304212011899"></p>
+<h4 id="迭代形式"><a href="#迭代形式" class="headerlink" title="迭代形式"></a>迭代形式</h4><p><img src="/2021/03/08/12-17-undefined/image-20210304212011899.png" alt="image-20210304212011899"></p>
 <h4 id="余数的性质"><a href="#余数的性质" class="headerlink" title="余数的性质"></a>余数的性质</h4><p><code>(A+B)%mod = (A%mod + B%mod)%mod</code></p>
 <p><code>(A*B)%mod = (A%mod * B%mod)%mod</code></p>
 <h2 id="2015-java-A"><a href="#2015-java-A" class="headerlink" title="2015-java-A"></a>2015-java-A</h2><blockquote>

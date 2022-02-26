@@ -27,20 +27,20 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="file文件12winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-lin">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905153614666.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905160629829.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905160714290.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905162233511.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905162639108.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905162718446.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200906230824340.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/07/beginner/image-20200906235018243.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905153614666.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905160629829.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905160714290.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905162233511.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905162639108.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905162718446.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200906230824340.png">
+<meta property="og:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200906235018243.png">
 <meta property="article:published_time" content="2020-09-07T02:04:10.000Z">
 <meta property="article:modified_time" content="2021-04-20T08:59:22.488Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="googlectf 2020">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/09/07/beginner/image-20200905153614666.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/07/10-04-undefined/image-20200905153614666.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/09/07/10-04-undefined/">
 
@@ -225,11 +225,11 @@
 <h4 id="执行文件"><a href="#执行文件" class="headerlink" title="执行文件"></a>执行文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ .&#x2F;a.out </span><br><span class="line">Flag: winter</span><br><span class="line">FAILURE</span><br></pre></td></tr></table></figure>
 
 <p>一个输入点，判断对错</p>
-<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/beginner/image-20200905153614666.png" alt="image-20200905153614666"></p>
+<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/10-04-undefined/image-20200905153614666.png" alt="image-20200905153614666"></p>
 <p>给定的字符串里面有CTF{，很可能是flag的一部分</p>
-<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/beginner/image-20200905160629829.png" alt="image-20200905160629829"></p>
+<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/10-04-undefined/image-20200905160629829.png" alt="image-20200905160629829"></p>
 <p><code>__isoc99_scanf(&quot;%15s&quot;, &amp;v5);</code>规定了最多输入15个字符，flag很有可能就是15个。</p>
-<p><img src="/2020/09/07/beginner/image-20200905160714290.png" alt="image-20200905160714290"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200905160714290.png" alt="image-20200905160714290"></p>
 <h4 id="simd指令"><a href="#simd指令" class="headerlink" title="simd指令"></a>simd指令</h4><p>全称single instruction multiple data，即单指令多数据运算</p>
 <p>其目的就在于帮助CPU实现数据并行，提高运算效率。</p>
 <h5 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h5><p>选取源寄存器的任意字节重新排布到目的寄存器。</p>
@@ -238,17 +238,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char a[16]; &#x2F;&#x2F; input a</span><br><span class="line">　　char b[16]; &#x2F;&#x2F; input b</span><br><span class="line">　　char r[16]; &#x2F;&#x2F; output r</span><br><span class="line"> </span><br><span class="line">　　for (i&#x3D;0; i &lt; 16; i++)</span><br><span class="line">   　　r[i] &#x3D; (b[i] &lt; 0) ? 0 : a[b[i] % 16];</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html" target="_blank" rel="noopener">https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html</a></p>
-<p><img src="/2020/09/07/beginner/image-20200905162233511.png" alt="image-20200905162233511"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200905162233511.png" alt="image-20200905162233511"></p>
 <p><code>13 12 10 08 04 15 03 14 09 11 05 01 07 06 02</code></p>
 <p>假设我们输入的值存放在a[16]数组里面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">索引:  1     2     3     4     5     6     7     8     9     10     11     12     13     14     15 </span><br><span class="line">目的：a[13] a[12] a[10] a[08] a[04] a[15] a[03] a[14] a[09] a[11]  a[05]  a[01]  a[07]   a[06]  a[02]</span><br></pre></td></tr></table></figure>
 
 <h5 id="add32"><a href="#add32" class="headerlink" title="add32"></a>add32</h5><p>每32位（4个字节）做整形加法运算，但是进位不会从一个4字节的包传输到另一个：</p>
-<p><img src="/2020/09/07/beginner/image-20200905162639108.png" alt="image-20200905162639108"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200905162639108.png" alt="image-20200905162639108"></p>
 <h5 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h5><p>做异或操作</p>
-<p><img src="/2020/09/07/beginner/image-20200905162718446.png" alt="image-20200905162718446"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200905162718446.png" alt="image-20200905162718446"></p>
 <p>因为程序是小端的，所以实际要倒过来，可以通过右键array变过来。</p>
-<p><img src="/2020/09/07/beginner/image-20200906230824340.png" alt="image-20200906230824340"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200906230824340.png" alt="image-20200906230824340"></p>
 <h4 id="拼凑flag"><a href="#拼凑flag" class="headerlink" title="拼凑flag"></a>拼凑flag</h4><p>假设前四个字符就是CTF{，我们根据以上规则进行实验。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br></pre></td></tr></table></figure>
 
@@ -267,7 +267,7 @@
 
 <p>这里发生了进位，需要将进位添加到add[6]里面去</p>
 <p>其他的也一样。</p>
-<p><img src="/2020/09/07/beginner/image-20200906235018243.png" alt="image-20200906235018243"></p>
+<p><img src="/2020/09/07/10-04-undefined/image-20200906235018243.png" alt="image-20200906235018243"></p>
 <p>出现单个数字的，说明进位到了什么索引。</p>
 <p>分别add[6]、add[7]、add[8]都发生了进位，但是add[6]加上进位是在第六位计算之前，所以没事。add[8]是add[7]进位，add[7]在四字节分割中是第二个四字节的末尾，所以他的进位无法添加到下一个有效字节，不用管它。</p>
 <p>所以，最后只有add[7]在结束后都需要重新计算。</p>

