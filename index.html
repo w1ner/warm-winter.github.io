@@ -236,11 +236,11 @@
 </ol>
 <p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/SAL%E4%BE%8B%E5%AD%90.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/SAL%E4%BE%8B%E5%AD%90.png"></p>
 <p> （ S = 0、A=0、L=0表示完美匹配）</p>
-<h3 id="2-具体公式"><a href="#2-具体公式" class="headerlink" title="2 具体公式"></a>2 具体公式</h3><h5 id="S-结构"><a href="#S-结构" class="headerlink" title="S - 结构"></a>S - 结构</h5><p>公式：$S = \frac{V(R<em>{mod})-V(R</em>{obs})}{0.5[V(R<em>{mod})+V(R</em>{obs})]}$</p>
+<h3 id="2-具体公式"><a href="#2-具体公式" class="headerlink" title="2 具体公式"></a>2 具体公式</h3><h5 id="S-结构"><a href="#S-结构" class="headerlink" title="S - 结构"></a>S - 结构</h5><p>公式：$S = \frac{V(R_{mod})-V(R_{obs})}{0.5[V(R_{mod})+V(R_{obs})]}$</p>
 <ol>
 <li><p>$V(R_{mod})$：预测场中所有降水体以体内<strong>总降水量为权重</strong>的$V_n$的加权平均</p>
 <ol>
-<li>公式：$V(R) = \frac{\sum^{m}<em>{n=1}R_nV_n}{\sum^m</em>{n=1}R_n}$<ol>
+<li>公式：$V(R) = \frac{\sum^{m}_{n=1}R_nV_n}{\sum^m_{n=1}R_n}$<ol>
 <li>$R_n$：降水体的总降水量</li>
 </ol>
 </li>
@@ -249,7 +249,7 @@
 <li><p>$V_n$：第n个降水体内的<strong>总降水量</strong>与<strong>最大降水量</strong>之<strong>比</strong></p>
 <p>😃降水量就是某一个降水体每个降水值的总和</p>
 <ol>
-<li><p>公式：$V<em>n = {\displaystyle \sum</em>{(i,j)\in R<em>n} {R</em>{i,j}/R^{max}_n} = R_n/R^{max}_n}$</p>
+<li><p>公式：$V_n = {\displaystyle \sum_{(i,j)\in R_n} {R_{i,j}/R^{max}_n} = R_n/R^{max}_n}$</p>
 <ol>
 <li><p>$R_{i,j}$：格点（i，j）处的降水</p>
 </li>
@@ -261,30 +261,30 @@
 </ol>
 </li>
 </ol>
-<h5 id="A-强度"><a href="#A-强度" class="headerlink" title="A - 强度"></a>A - 强度</h5><p>公式：$A = \frac {D(R<em>{mod}) - D(R</em>{obs})} {0.5[D(R<em>{mod}) + D(R</em>{obs})]}$</p>
+<h5 id="A-强度"><a href="#A-强度" class="headerlink" title="A - 强度"></a>A - 强度</h5><p>公式：$A = \frac {D(R_{mod}) - D(R_{obs})} {0.5[D(R_{mod}) + D(R_{obs})]}$</p>
 <ol>
-<li>$D(R) = \frac{1}{N} \displaystyle \sum<em>{(i,j)\in D}{R</em>{i,j}}$   →   $D(R)$为所取区域内非缺省格点降水的<strong>平均值</strong></li>
+<li>$D(R) = \frac{1}{N} \displaystyle \sum_{(i,j)\in D}{R_{i,j}}$   →   $D(R)$为所取区域内非缺省格点降水的<strong>平均值</strong></li>
 </ol>
 <h5 id="L-位置"><a href="#L-位置" class="headerlink" title="L - 位置"></a>L - 位置</h5><p>公式</p>
 <ol>
 <li><p>$L = L_1 + L_2$</p>
 <ol>
-<li><p>$L<em>1 = \frac{|x(R</em>{mod})-x(R_{obs})|}{d}$  →   L1为区域D实况与预报降水主体中心之间的距离</p>
+<li><p>$L_1 = \frac{|x(R_{mod})-x(R_{obs})|}{d}$  →   L1为区域D实况与预报降水主体中心之间的距离</p>
 <ol>
 <li>$x(R)$：表示所取区域D内降水主体的<strong>重心位置</strong></li>
 <li>$d$：区域D内最大距离</li>
 </ol>
 </li>
-<li><p>$L<em>2 = 2\cdot{\frac{r(R</em>{mod})-r(R_{obs})}{d}}$  →   L2为降水主体重心与降水场每个降水体重心之间的平均距离</p>
+<li><p>$L_2 = 2\cdot{\frac{r(R_{mod})-r(R_{obs})}{d}}$  →   L2为降水主体重心与降水场每个降水体重心之间的平均距离</p>
 <ol>
-<li><p>$r =  \frac{\sum ^{m}<em>{n=1}{R_n \cdot{|x-x_n|}}}{\sum^{m}</em>{n=1}R_n}$   </p>
+<li><p>$r =  \frac{\sum ^{m}_{n=1}{R_n \cdot{|x-x_n|}}}{\sum^{m}_{n=1}R_n}$   </p>
 <ol>
 <li>$m$ 表示降水体个数</li>
 <li>$r(R)$   表示各降水体重心与降水主体中心之间距离<strong>加权平均</strong>（权重是雨量）的权重</li>
 <li>降水体雨量越大 → 离降水主体重心越远 → r值越大 → 最大值为(1/2)d</li>
 </ol>
 </li>
-<li><p>$R<em>n = \displaystyle \sum</em>{(i,j)\in R<em>n}{R</em>{i,j}}$  →   区域内第n个降水体的降水量</p>
+<li><p>$R_n = \displaystyle \sum_{(i,j)\in R_n}{R_{i,j}}$  →   区域内第n个降水体的降水量</p>
 <p>😃降水体是一个小连续区域，就是它的总降水量</p>
 </li>
 </ol>
