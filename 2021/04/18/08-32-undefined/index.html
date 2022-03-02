@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/shuwen.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/shuwen.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 第二次选拔赛，，，，看这个成绩，，，，战况糟糕，，，只做出来了简单题，，， 秉持着什么比赛尽量复现一遍，，，，故今晚就干这个了。。。        ——2021.3.20 题解参考：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;discuss&#x2F;blogs?tagId&#x3D;140529 题目地址：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;12478  A 暗">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西南科技大学2021届新生赛">
+<meta property="og:url" content="http://yoursite.com/2021/04/18/08-32-undefined/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="前言 第二次选拔赛，，，，看这个成绩，，，，战况糟糕，，，只做出来了简单题，，， 秉持着什么比赛尽量复现一遍，，，，故今晚就干这个了。。。        ——2021.3.20 题解参考：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;discuss&#x2F;blogs?tagId&#x3D;140529 题目地址：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;12478  A 暗">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210321212749117.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210322142735301.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210322143100339.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210322143132384.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210323164718581.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210323164754408.png">
+<meta property="article:published_time" content="2021-04-18T00:32:52.000Z">
+<meta property="article:modified_time" content="2021-08-07T16:49:00.039Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="西南科技大学新生赛">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/18/08-32-undefined/image-20210321212749117.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/18/08-32-undefined/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>西南科技大学2021届新生赛 | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活 & 学习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/08-32-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          西南科技大学2021届新生赛
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-18 08:32:52" itemprop="dateCreated datePublished" datetime="2021-04-18T08:32:52+08:00">2021-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-08 00:49:00" itemprop="dateModified" datetime="2021-08-08T00:49:00+08:00">2021-08-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>第二次选拔赛，，，，看这个成绩，，，，战况糟糕，，，只做出来了简单题，，，</p>
+<p>秉持着什么比赛尽量复现一遍，，，，故今晚就干这个了。。。        ——2021.3.20</p>
+<p>题解参考：<a href="https://ac.nowcoder.com/acm/discuss/blogs?tagId=140529" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/discuss/blogs?tagId=140529</a></p>
+<p>题目地址：<a href="https://ac.nowcoder.com/acm/contest/12478" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/12478</a></p>
+</blockquote>
+<h2 id="A-暗号1"><a href="#A-暗号1" class="headerlink" title="A 暗号1"></a>A 暗号1</h2><blockquote>
+<p><del>wuwuwu,,,看着还行，，，就写出来容易超时，，，</del></p>
+</blockquote>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li>将字符串按照第一次出现的顺序替换【使得本质相同的字符串一样】</li>
+<li>利用map对字符串进行映射，<code>&lt;string,int&gt;</code>，使得键对应字符串，值对应出现的次数</li>
+<li>将map对应string的下标存入数组，最后的查询在区间内的下标个数即可。</li>
+</ol>
+<h3 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h3><ol>
+<li>内部实现哈希表（散列表），将关键码值映射到hash表中的一个位置来访问</li>
+<li>查找的时间复杂度位O（1）</li>
+<li>元素的排列顺序是无序的。</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;			//头文件</span></span></span><br><span class="line"><span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; id;		<span class="comment">//创建</span></span><br><span class="line">id[s] = ++tot;					   <span class="comment">//赋值</span></span><br></pre></td></tr></table></figure>
+<h3 id="upper-bound和lower-bound"><a href="#upper-bound和lower-bound" class="headerlink" title="upper_bound和lower_bound"></a>upper_bound和lower_bound</h3><p>功能：利用<code>二分查找</code>的方法在一个<code>排好序的数组</code>中进行查找的。</p>
+<p>特点：</p>
+<ol>
+<li>从begin到end-1的位置开始查找</li>
+<li>二分查找，有序数组</li>
+<li>返回找到数字的下标</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个小于或等于num</span></span><br><span class="line">lower_bound(<span class="built_in">begin</span>,<span class="built_in">end</span>,num);</span><br><span class="line"><span class="comment">//第一个小于num的数字</span></span><br><span class="line">upper_bound(<span class="built_in">begin</span>,<span class="built_in">end</span>,num);</span><br></pre></td></tr></table></figure>
+<h3 id="万能头文件"><a href="#万能头文件" class="headerlink" title="万能头文件"></a>万能头文件</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>包括了基本所有的头文件，，，方便使用。</p>
+<p><a href="https://blog.csdn.net/prime_lee/article/details/80489284" target="_blank" rel="noopener">具体查看里面都有什么头文件请查看</a></p>
+<h3 id="memset"><a href="#memset" class="headerlink" title="memset"></a>memset</h3><p>功能：初始化函数，将某一块内存中的内容全部设置为指定的值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;//emm</span></span></span><br><span class="line"><span class="built_in">memset</span>(vis,<span class="number">-1</span>,<span class="keyword">sizeof</span>(vis));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数：初始化数组</li>
+<li>第二个参数：赋的值</li>
+<li>第三个参数：大小</li>
+</ul>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> vis[<span class="number">30</span>];<span class="comment">//存放某一字符(下标) 对应 转换的字符[存的只是1234...]</span></span><br><span class="line"><span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt; id;<span class="comment">//存放某类字符串，，，是否出现过</span></span><br><span class="line"><span class="keyword">int</span> tot;<span class="comment">//存放出现过的字符类的数目</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span>;<span class="comment">//数组初始化，必须是const</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; e[N];<span class="comment">//存放的是，对应类字符串的下标</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">tran</span><span class="params">(<span class="built_in">string</span> s)</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="number">-1</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="keyword">int</span> len = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">-1</span>;<span class="comment">//从a开始轮到的字符</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[s[i] - <span class="string">'a'</span>] == <span class="number">-1</span>)&#123;<span class="comment">//该字符串还没转换</span></span><br><span class="line">            vis[s[i] - <span class="string">'a'</span>] = ++cnt;</span><br><span class="line">        &#125;</span><br><span class="line">        s[i] = vis[s[i] - <span class="string">'a'</span>] + <span class="string">'a'</span>;<span class="comment">//变成字符</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> id,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> upper_bound(e[id].<span class="built_in">begin</span>(),e[id].<span class="built_in">end</span>(),r) - lower_bound(e[id].<span class="built_in">begin</span>(),e[id].<span class="built_in">end</span>(),l);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,q;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n ; ++i) &#123;<span class="comment">//这里要从1开始，因为l和r是从1开始，用来计算的下标也应是从1开始的</span></span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">        s = tran(s);<span class="comment">//输入的字符串都进行转换</span></span><br><span class="line">        <span class="keyword">if</span>(!id[s])&#123;<span class="comment">//该类字符串没有出现过</span></span><br><span class="line">            id[s] = ++tot;</span><br><span class="line">        &#125;</span><br><span class="line">        e[id[s]].push_back(i);<span class="comment">//存入下标</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (q--)&#123;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">        <span class="keyword">int</span> l,r;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;l&gt;&gt;r;</span><br><span class="line">        s = tran(s);</span><br><span class="line">        <span class="keyword">if</span>(!id[s])&#123;<span class="comment">//这类字符串没有出现过</span></span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="built_in">get</span>(id[s],l,r)&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//通过大于区间 减去 小于 区间的，，，得到属于区间的个数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="B-暗号2"><a href="#B-暗号2" class="headerlink" title="B 暗号2"></a>B 暗号2</h2><blockquote>
+<p><del>当时看第二题，，，一看对其做hash，感觉还好，，，好吧，我对什么感觉都还好，，但是不会做TATATAT</del></p>
+</blockquote>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>使用动态规划dp来做，，，【只能说我看懂了， 能不能想到就难说了】</p>
+<ol>
+<li><code>dp[i][j]</code>表示<code>长度为i,bash值为j</code>的字符串有几个【第一个长度是len，21即可；第二个长度是p的最大值，100001即可】                                    初值：<code>dp[0][0] = 1</code></li>
+<li>对于长度为i的字符串，它是长度为i-1的字符串（令hash值为j【因为hash值对p求余，故hash值小于p】）加上一个字符<code>k∈[0,26)</code>得到的，故得到最终的hash值是<code>（j*base+k）%p</code></li>
+<li>长度为i的hash值如上，它的值是：<code>dp[i][v] = dp[i][v] + dp[i-1][j];</code>，</li>
+<li>最后，输出的结果是<code>dp[n][hashsum]</code></li>
+</ol>
+<h3 id="增强for循环"><a href="#增强for循环" class="headerlink" title="增强for循环"></a>增强for循环</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> i:s)</span><br></pre></td></tr></table></figure>
+<h3 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h3><p>功能：根据后面的值,来自己推测前面的类型是什么。</p>
+<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> dp[<span class="number">21</span>][<span class="number">100001</span>];       <span class="comment">//dp的数组</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> base,p,n;         <span class="comment">//最后都设为long long</span></span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;base&gt;&gt;p&gt;&gt;n&gt;&gt;s;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> hashsum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i:s) hashsum = (hashsum*base+i-<span class="string">'a'</span>)%p; <span class="comment">//求输入s的hash值</span></span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;               <span class="comment">//设初值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;              <span class="comment">//这个一致即可</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; p; ++j) &#123;           <span class="comment">//hash值最大不超过p</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">26</span>; ++k) &#123;      <span class="comment">//补上最后一位的字符</span></span><br><span class="line">                <span class="keyword">int</span> v = (j * base + k) % p;     <span class="comment">//计算hash</span></span><br><span class="line">                dp[i][v] += dp[i<span class="number">-1</span>][j];         <span class="comment">//计算个数</span></span><br><span class="line">                dp[i][v] %= mod;                <span class="comment">//求余</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;dp[n][hashsum]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="C-3-6数对"><a href="#C-3-6数对" class="headerlink" title="C 3.6数对"></a>C 3.6数对</h2><blockquote>
+<p>题目是比较简单的，，，，比赛的时候也做出来了。。。但是题解更有意思，，，，提供一种思路</p>
+</blockquote>
+<h3 id="我的exp"><a href="#我的exp" class="headerlink" title="我的exp"></a>我的exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;v)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> time=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; v.<span class="built_in">size</span>()<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; v.<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(v[i] == <span class="number">2</span>*v[j] || v[i]*<span class="number">2</span> == v[j])&#123;<span class="comment">//一步一步判断，，，比较慢</span></span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;time&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> n1;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n1;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">v</span><span class="params">(n1,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n1; ++j) &#123;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;v[j];</span><br><span class="line">        &#125;check(v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="题解【桶排】"><a href="#题解【桶排】" class="headerlink" title="题解【桶排】"></a>题解【桶排】</h3><h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><ol>
+<li>使用数组下标表示值，因为最大值才100，开辟一个101的数组空间即可</li>
+<li>输入一个数x，让a[x]++，让数组里面存储下标对应的个数</li>
+<li>最后ans是用循环+<code>a[i] * a[i*2]</code>得到的，因为多个值的话，其实就是乘积</li>
+</ol>
+<blockquote>
+<p>高级，，，这种方法又称作桶排。</p>
+<p><img src="/2021/04/18/08-32-undefined/image-20210321212749117.png" alt="image-20210321212749117"></p>
+</blockquote>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">101</span>];<span class="comment">//因为输入的数最大为100，用一个100大小的空间即可</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;<span class="comment">//测试数据的写法</span></span><br><span class="line">        <span class="keyword">int</span> n;<span class="comment">//数组长度</span></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="keyword">sizeof</span>(a));<span class="comment">//必须置0,避免影响其他轮数的计算</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;<span class="comment">//输入n组数据</span></span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            a[x]++;<span class="comment">//用下标表示数字，用数组表示有几个。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span> ; ++i) &#123;</span><br><span class="line">            ans += a[i] * a[i*<span class="number">2</span>];<span class="comment">//好想法。。。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="D-圆的交点"><a href="#D-圆的交点" class="headerlink" title="D 圆的交点"></a>D 圆的交点</h2><blockquote>
+<p><del>思维题，，哭哭，好嘛，我也想过，只不过没想明白</del>  orz~~</p>
+</blockquote>
+<h3 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h3><p>分为三种情况：</p>
+<ol>
+<li>相邻的交点</li>
+</ol>
+<p><img src="/2021/04/18/08-32-undefined/image-20210322142735301.png" alt="image-20210322142735301"></p>
+<p>两两相交，交点有两个</p>
+<p>组合方式计算：</p>
+<p>a.一排横着两两相交：a种</p>
+<p>b.共有b+1排</p>
+<p>故此情况为a*(b+1)</p>
+<p>同理，纵向两两相交：b种，共有a+1排</p>
+<p>故此情况共有交点:<code>2*[a*(b+1)+b*(a+1)]</code></p>
+<hr>
+<p>2.斜对面</p>
+<p><img src="/2021/04/18/08-32-undefined/image-20210322143100339.png" alt="image-20210322143100339"></p>
+<p>这种情况，交点都在圆心处，，</p>
+<hr>
+<ol>
+<li>相切</li>
+</ol>
+<p><img src="/2021/04/18/08-32-undefined/image-20210322143132384.png" alt="image-20210322143132384"></p>
+<p>交点也都在圆心处，，，</p>
+<p>所以，所有的圆心都是交点，也就是(a+1)*(b+1)，也就是所有圆的个数</p>
+<hr>
+<p>综上：所以最终答案为<code>2*[a*(b+1)+b*(a+1)]+(a+1)*(b+1)</code></p>
+<hr>
+<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-22.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> a,b;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;(<span class="number">2</span>*( a*(b+<span class="number">1</span>) + b*(a+<span class="number">1</span>) ) + (a+<span class="number">1</span>)*(b+<span class="number">1</span>))%mod&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="E-孪生质数"><a href="#E-孪生质数" class="headerlink" title="E 孪生质数"></a>E 孪生质数</h2><blockquote>
+<p><del>emm，这道题，，，，是真的搞不出来，虽然答案能算，但是超时，惨兮兮，涉及知识点盲区</del></p>
+<p>设计了筛法计算质数，快速幂还有逆元（就是a的逆，，，），一个个来说说。</p>
+</blockquote>
+<h3 id="筛法求质数"><a href="#筛法求质数" class="headerlink" title="筛法求质数"></a>筛法求质数</h3><blockquote>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1va4y1J7pb?from=search&amp;seid=11299170599845424315" target="_blank" rel="noopener">[Rocky]埃氏筛与欧拉筛-C++竞赛级入门第十四节</a></li>
+<li><a href="https://blog.csdn.net/qq_39763472/article/details/82428602" target="_blank" rel="noopener">欧拉筛法（线性筛）的学习理解</a></li>
+<li><a href="https://www.luogu.com.cn/blog/hahahage/ou-la-shai-fa" target="_blank" rel="noopener">欧拉筛法</a></li>
+</ul>
+</blockquote>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>普通的求质数方法：两层循环，通过判断该数能否被从1开始的任意数整除，如果可以的话，为合数；都不可的话，为质数；</p>
+<p>改进的普通筛法：已知2是质数，则令它与2，3，4…相乘得到的数都是合数，它的复杂度为O(NloglogN)</p>
+<p>欧拉筛法：又称线性筛，它的时间复杂度为O(n)，普通筛法有问题是，同样的一个数，如24，他既会被2筛，也会被3、4、6、8、12筛掉，不好，所以它改进为一个合数只被它最小的质因数筛掉。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e7</span>+<span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">bool</span> ok[N];<span class="comment">//用来进行筛选的数组</span></span><br><span class="line"><span class="keyword">int</span> prim[N];<span class="comment">//存有所有的质数</span></span><br><span class="line"><span class="keyword">int</span> pos=<span class="number">0</span>;<span class="comment">//代表当前质数的个数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; N;++i) &#123;<span class="comment">//质数是从2-N</span></span><br><span class="line">        <span class="keyword">if</span>(ok[i] == <span class="number">0</span>)&#123;<span class="comment">//0表示是质数</span></span><br><span class="line">            prim[pos++] = i;<span class="comment">//将该质数加入到prim数组中.</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//这里是为了将最小质因数为i的其他合数都进行标记</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; pos; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i*prim[j] &gt; N)<span class="comment">//超过范围</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            ok[i*prim[j]] = <span class="number">1</span>;<span class="comment">//标记</span></span><br><span class="line">            <span class="keyword">if</span>(i%prim[j] == <span class="number">0</span>)<span class="comment">//如果prim[j]刚好是i的最小质因数,所以其他时候,i不是最小质因数,prim[j]可以代替它,故退出</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p>求解a^b（以2^10为例），步骤如下：</p>
+<ol>
+<li>a = 2，b = 10（1010b【二进制表示】）</li>
+<li><code>2^10 = 2^(2^0*0 + 2^1*1 + 2^2*0 + 2^3*1</code></li>
+</ol>
+<p>下面的代码正是基于上面的思路：</p>
+<p>若a为2，b = 10(1010b)</p>
+<ol>
+<li><p>初始 a = 2,b = 1010b，ans = 1；</p>
+</li>
+<li><p>第一次循环，因为b最低位不为1，故a = a ^ 2，ans = 1；</p>
+<p>b右移，b = 101，继续循环</p>
+</li>
+<li><p>第二次循环，因为b = 101，最低位为1，故ans = a ^ 2，a = a^4</p>
+<p>b右移，b = 10，继续循环</p>
+</li>
+<li><p>第三次循环，因为b = 10，最低位不为1，故ans = a^2，a = a^8</p>
+<p>b右移，b = 1，继续循环</p>
+</li>
+<li><p>第四次循环，因为b = 1，最低位为1，故ans = a^2 * a^8 = a^10 , a=a^16</p>
+<p>b继续右移，b=0，循环结束</p>
+</li>
+</ol>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算a^b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qmod</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;<span class="comment">//首先判断b有没有</span></span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>)<span class="comment">//如果b低位为1</span></span><br><span class="line">            ans = ans*a%mod;<span class="comment">//在结果中加入</span></span><br><span class="line">        a = a*a%mod;<span class="comment">//a继续</span></span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;<span class="comment">//b继续右移</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="本题求解"><a href="#本题求解" class="headerlink" title="本题求解"></a>本题求解</h3><h3 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p>首先根据筛法求质数，将所有的质数保存在prim数组中</p>
+</li>
+<li><p>循环prim数组，找到所有的孪生质数，保存在a数组（向量）中</p>
+</li>
+<li><p>因为抽中的概率就是</p>
+<script type="math/tex; mode=display">
+{k} \over C{2 \atop n}</script><p>k表示的是孪生质数的对数</p>
+<p>化简为</p>
+<script type="math/tex; mode=display">
+2*k \over n * (n-1)</script></li>
+<li><p>根据vector，容易得到k</p>
+</li>
+<li><p>剩余1/(n*n-1)，要求mod，，，需要快速幂，然后按着公式直接计算即可得到结果</p>
+</li>
+</ol>
+<h3 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long<span class="comment">//为方便使用,将所有的int就是long long[好看又好用](注意:define后面不跟分号)</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e7</span>+<span class="number">1e3</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">bool</span> ok[N];<span class="comment">//用来进行筛选的数组</span></span><br><span class="line"><span class="keyword">int</span> prim[N];<span class="comment">//存有所有的质数</span></span><br><span class="line"><span class="keyword">int</span> pos=<span class="number">0</span>;<span class="comment">//代表当前质数的个数</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span> &gt;a ;<span class="comment">//存储所有的孪生质数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; N;++i) &#123;<span class="comment">//质数是从2-N</span></span><br><span class="line">        <span class="keyword">if</span>(ok[i] == <span class="number">0</span>)&#123;<span class="comment">//0表示是质数</span></span><br><span class="line">            prim[pos++] = i;<span class="comment">//将该质数加入到prim数组中.</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//这里是为了将最小质因数为i的其他合数都进行标记</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; pos; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i*prim[j] &gt; N)<span class="comment">//超过范围</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            ok[i*prim[j]] = <span class="number">1</span>;<span class="comment">//标记</span></span><br><span class="line">            <span class="keyword">if</span>(i%prim[j] == <span class="number">0</span>)<span class="comment">//如果prim[j]刚好是i的最小质因数,所以其他时候,i不是最小质因数,prim[j]可以代替它,故退出</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//孪生质数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pos; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(prim[i+<span class="number">1</span>] == prim[i]+<span class="number">2</span>)&#123;</span><br><span class="line">            a.push_back(prim[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//计算a^b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qmod</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>)</span><br><span class="line">            ans = ans*a%mod;</span><br><span class="line">        a = a*a%mod;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;<span class="comment">//必须要返回int,但是没int了,用siged代替,本质一样</span></span><br><span class="line">    init();<span class="comment">//初始化，计算所有孪生质数</span></span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="keyword">int</span> sum = (upper_bound(a.<span class="built_in">begin</span>(),a.<span class="built_in">end</span>(),n<span class="number">-2</span>) - a.<span class="built_in">begin</span>()) * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> ans = sum % mod * qmod(n*(n<span class="number">-1</span>) % mod,mod<span class="number">-2</span>) % mod;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="F-数字金字塔"><a href="#F-数字金字塔" class="headerlink" title="F 数字金字塔"></a>F 数字金字塔</h2><blockquote>
+<p>考试成功做出来了的简单题</p>
+<p>规律很好找，主要是大数麻烦，当时用java的BigInteger做出来的，，，</p>
+<p>思路巧妙地进行化简以及dp的思路</p>
+</blockquote>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><img src="/2021/04/18/08-32-undefined/image-20210323164718581.png" alt="image-20210323164718581"></p>
+<p>最后这步的化简是根据分数的取模得到的</p>
+<p><img src="/2021/04/18/08-32-undefined/image-20210323164754408.png" alt="image-20210323164754408"></p>
+<p><code>i层的和 = i-1层的和 + i*(2*i-1)</code></p>
+<h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">1e6</span>; ++i) &#123;</span><br><span class="line">        a[i] = (a[i<span class="number">-1</span>] + i*(<span class="number">2</span>*i<span class="number">-1</span>))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a[n]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="G-小凡做蛋糕"><a href="#G-小凡做蛋糕" class="headerlink" title="G 小凡做蛋糕"></a>G 小凡做蛋糕</h2>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果阅读本文需要付费，你是否愿意为此支付1元？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="Shuwen 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Shuwen 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Shuwen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/04/18/08-32-undefined/" title="西南科技大学2021届新生赛">http://yoursite.com/2021/04/18/08-32-undefined/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%A5%BF%E5%8D%97%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6%E6%96%B0%E7%94%9F%E8%B5%9B/" rel="tag"># 西南科技大学新生赛</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/18/08-14-undefined/" rel="prev" title="牛客网-算法篇">
+      <i class="fa fa-chevron-left"></i> 牛客网-算法篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/18/14-41-undefined/" rel="next" title="算法之数据结构篇">
+      算法之数据结构篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-暗号1"><span class="nav-number">2.</span> <span class="nav-text">A 暗号1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unordered-map"><span class="nav-number">2.2.</span> <span class="nav-text">unordered_map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#upper-bound和lower-bound"><span class="nav-number">2.3.</span> <span class="nav-text">upper_bound和lower_bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#万能头文件"><span class="nav-number">2.4.</span> <span class="nav-text">万能头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memset"><span class="nav-number">2.5.</span> <span class="nav-text">memset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp"><span class="nav-number">2.6.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-暗号2"><span class="nav-number">3.</span> <span class="nav-text">B 暗号2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-1"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增强for循环"><span class="nav-number">3.2.</span> <span class="nav-text">增强for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto"><span class="nav-number">3.3.</span> <span class="nav-text">auto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-1"><span class="nav-number">3.4.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-3-6数对"><span class="nav-number">4.</span> <span class="nav-text">C 3.6数对</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的exp"><span class="nav-number">4.1.</span> <span class="nav-text">我的exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解【桶排】"><span class="nav-number">4.2.</span> <span class="nav-text">题解【桶排】</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-2"><span class="nav-number">4.2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp-2"><span class="nav-number">4.2.2.</span> <span class="nav-text">exp</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D-圆的交点"><span class="nav-number">5.</span> <span class="nav-text">D 圆的交点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-3"><span class="nav-number">5.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-3"><span class="nav-number">5.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-孪生质数"><span class="nav-number">6.</span> <span class="nav-text">E 孪生质数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#筛法求质数"><span class="nav-number">6.1.</span> <span class="nav-text">筛法求质数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">6.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">6.1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速幂"><span class="nav-number">6.2.</span> <span class="nav-text">快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路-4"><span class="nav-number">6.2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">6.2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本题求解"><span class="nav-number">6.3.</span> <span class="nav-text">本题求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-5"><span class="nav-number">6.4.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-4"><span class="nav-number">6.5.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-数字金字塔"><span class="nav-number">7.</span> <span class="nav-text">F 数字金字塔</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路-6"><span class="nav-number">7.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp-5"><span class="nav-number">7.2.</span> <span class="nav-text">exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G-小凡做蛋糕"><span class="nav-number">8.</span> <span class="nav-text">G 小凡做蛋糕</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shuwen"
+      src="/images/shuwen.jpg">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">做有意思的事，有意思地做事</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/warm-winter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;warm-winter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://kaaass.net/" title="https:&#x2F;&#x2F;kaaass.net&#x2F;" rel="noopener" target="_blank">KAAAsS</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+		  本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

