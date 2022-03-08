@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/shuwen.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/shuwen.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="验证基础基础验证概念什么是验证？ 验证是将预测与相关观测结果进行比较的过程 验证是衡量预测的质量（相对其价值） （验证）对于许多方面，一个更合适的术语是“评价”  为什么要验证？ 监控模型性能 识别模型缺陷 -&gt; 帮助操作预测员了解模型的偏差，并选择在不同条件下使用的模型 改进决策、改善预测 选择模型或模型配置（模型是否有所改进？） 纠正模型缺陷 确定预测的弱点、优势、差异 -&gt; 帮助">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7th International Verification Methods Workshop">
+<meta property="og:url" content="http://yoursite.com/2022/03/08/21-43-undefined/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="验证基础基础验证概念什么是验证？ 验证是将预测与相关观测结果进行比较的过程 验证是衡量预测的质量（相对其价值） （验证）对于许多方面，一个更合适的术语是“评价”  为什么要验证？ 监控模型性能 识别模型缺陷 -&gt; 帮助操作预测员了解模型的偏差，并选择在不同条件下使用的模型 改进决策、改善预测 选择模型或模型配置（模型是否有所改进？） 纠正模型缺陷 确定预测的弱点、优势、差异 -&gt; 帮助">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E6%B0%B4%E5%9F%9F.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E8%88%AA%E7%A9%BA.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0%E5%9B%BE.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83%E5%9B%BE.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E5%88%86%E4%BD%8D%E6%95%B0%E5%9B%BE.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E7%AE%B1%E5%BD%A2%E5%9B%BE.png">
+<meta property="og:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E8%8C%8E%E5%8F%B6%E5%9B%BE.png">
+<meta property="article:published_time" content="2022-03-08T13:43:24.000Z">
+<meta property="article:modified_time" content="2022-03-08T13:45:08.219Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="Verification">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O.png">
+
+<link rel="canonical" href="http://yoursite.com/2022/03/08/21-43-undefined/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>7th International Verification Methods Workshop | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活 & 学习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/08/21-43-undefined/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7th International Verification Methods Workshop
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-08 21:43:24 / 修改时间：21:45:08" itemprop="dateCreated datePublished" datetime="2022-03-08T21:43:24+08:00">2022-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="验证基础"><a href="#验证基础" class="headerlink" title="验证基础"></a>验证基础</h1><h2 id="基础验证概念"><a href="#基础验证概念" class="headerlink" title="基础验证概念"></a>基础验证概念</h2><h3 id="什么是验证？"><a href="#什么是验证？" class="headerlink" title="什么是验证？"></a>什么是验证？</h3><ol>
+<li>验证是将<strong>预测</strong>与相关<strong>观测结果</strong>进行<strong>比较</strong>的过程</li>
+<li>验证是衡量预测的<strong>质量</strong>（相对其价值）</li>
+<li>（验证）对于许多方面，一个更合适的术语是“<strong>评价</strong>”</li>
+</ol>
+<h3 id="为什么要验证？"><a href="#为什么要验证？" class="headerlink" title="为什么要验证？"></a>为什么要验证？</h3><ol>
+<li><strong>监控</strong>模型<strong>性能</strong></li>
+<li><strong>识别</strong>模型<strong>缺陷</strong> -&gt; 帮助操作<strong>预测员</strong>了解模型的偏差，并选择在不同条件下使用的模型</li>
+<li>改进<strong>决策</strong>、改善<strong>预测</strong></li>
+<li><strong>选择</strong>模型或模型配置（模型是否有所改进？）</li>
+<li><strong>纠正</strong>模型<strong>缺陷</strong></li>
+<li>确定预测的<strong>弱点、优势、差异</strong> -&gt; 帮助“<strong>用户</strong>”解释预测（例如，“0度的温度预测到底意味着什么？”）</li>
+</ol>
+<h3 id="确定验证目标"><a href="#确定验证目标" class="headerlink" title="确定验证目标"></a>确定验证目标</h3><p>问题：</p>
+<ol>
+<li>该模型在哪些位置的性能最好？</li>
+<li>是否可以调节使得预测变得更好/更坏？</li>
+<li>概率预测是否得到了良好的校准（即，可靠）？</li>
+<li>天气预报是否正确地捕捉到了天气的自然变化？</li>
+</ol>
+<p>应该衡量哪些预测性能属性？</p>
+<h3 id="预测”好”"><a href="#预测”好”" class="headerlink" title="预测”好”"></a>预测”好”</h3><p>取决于两个方面：</p>
+<ol>
+<li><p>预测的<strong>质量</strong></p>
+</li>
+<li><p>用户及其对预测<strong>信息的应用</strong></p>
+<p>例子：</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O.png"></p>
+<p>许多验证方法都会说，这种预测没有任何技能，而且非常不准确。</p>
+<p>如果我是这个<strong>流域的水务经理</strong>，这是一个相当糟糕的预测。</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E6%B0%B4%E5%9F%9F.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E6%B0%B4%E5%9F%9F.png"></p>
+<p>如果我是一名<strong>航空交通战略规划者</strong>。。这可能是一个很好的预测</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E8%88%AA%E7%A9%BA.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/F_O_%E8%88%AA%E7%A9%BA.png"></p>
+<ol>
+<li><p>不同的<strong>用户</strong>对预测的好坏有不同的看法</p>
+</li>
+<li><p>不同的<strong>验证方法</strong>可以衡量<strong>不同类型的“好”</strong></p>
+</li>
+</ol>
+</li>
+<li><p>预测质量只是预测<strong>“好坏”的一个方面</strong></p>
+</li>
+<li><p>预测值与预测质量相关，但预测质量提高，某些方面的预测值可能下降</p>
+</li>
+</ol>
+<h3 id="开展验证研究的基本指南"><a href="#开展验证研究的基本指南" class="headerlink" title="开展验证研究的基本指南"></a>开展验证研究的基本指南</h3><ol>
+<li>考虑<strong>用户</strong>（谁感兴趣）</li>
+<li>用户最关心的是预测质量的哪些<strong>方面</strong>？</li>
+<li>确定代表正在被预测的事件的<strong>观测结果</strong>，</li>
+<li>确定可以提供感兴趣的问题的答案的<strong>多个验证属性</strong></li>
+<li>选择适当度量和表示感兴趣的属性的<strong>度量</strong>和<strong>图形</strong></li>
+<li>确定一个提供技能参考水平的<strong>比较标准</strong>（例如，持久性、气候学、旧模型）</li>
+</ol>
+<h2 id="预测和观测"><a href="#预测和观测" class="headerlink" title="预测和观测"></a>预测和观测</h2><h3 id="预测、观测的类型"><a href="#预测、观测的类型" class="headerlink" title="预测、观测的类型"></a>预测、观测的类型</h3><p>连续的</p>
+<ol>
+<li>温度</li>
+<li>雨量</li>
+<li>500mb高度</li>
+</ol>
+<p>分类</p>
+<pre><code>   1. 二分类
+       1. 雨与无雨
+       2. 强风与无强风
+       3. 夜间霜冻与无霜冻
+   2. 多分类
+       1. 云量类别
+       2. 降水类型（小雨、中雨、暴雨等）
+</code></pre><h3 id="匹配预测和观测结果"><a href="#匹配预测和观测结果" class="headerlink" title="匹配预测和观测结果"></a>匹配预测和观测结果</h3><ol>
+<li><p>点对点网格</p>
+<ol>
+<li><p>匹配obs到最近的网格点</p>
+</li>
+<li><p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9.png"></p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png"></p>
+<p>匹配雨量与最近的网格点，最近的点值为0，所以fcst = 0</p>
+</li>
+</ol>
+</li>
+<li><p>网格点对点</p>
+<ol>
+<li><p>插值？</p>
+</li>
+<li><p>取最大的价值吗？</p>
+</li>
+<li><p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9.png"></p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%BD%91%E6%A0%BC%E5%AF%B9%E7%82%B9%E4%BE%8B%E5%AD%90.png"></p>
+<p>将网格值插值到雨量的位置（粗略假设：每个网格点的权重相等）</p>
+<p>20 <em> 0.25 </em>3 = 15</p>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>不建议使用模型分析作为验证的“观测”</p>
+<p>因为：不独立！！</p>
+<p>非独立会影响什么？“更好的”的分数……（不具有代表性）</p>
+</blockquote>
+<h2 id="观测特征及其影响"><a href="#观测特征及其影响" class="headerlink" title="观测特征及其影响"></a>观测特征及其影响</h2><h3 id="观测并不完美！"><a href="#观测并不完美！" class="headerlink" title="观测并不完美！"></a>观测并不完美！</h3><p>观测误差 vs 可预测性和预测误差/不确定性</p>
+<p>相同参数的不同观测类型（手动或自动）可能会影响结果</p>
+<p>典型的仪表错误有：</p>
+<ul>
+<li>温度：+/- 0.1℃</li>
+<li>风速：速度相关误差，+/- 0.5m/s</li>
+<li>降水（仪表）：+/- 0.1mm（half tip），但高达50%</li>
+</ul>
+<p>其他问题：定位问题（例如，屏蔽/暴露）</p>
+<p>在某些情况下，“预测”误差与仪器的限制非常相似</p>
+<h3 id="观察误差的影响"><a href="#观察误差的影响" class="headerlink" title="观察误差的影响"></a>观察误差的影响</h3><p>观测误差增加了验证结果的不确定性</p>
+<p>对验证结果的影响</p>
+<ol>
+<li>RMSE - 高估</li>
+<li>传播 - 更多 obs 异常值使整体看起来分散不足</li>
+<li>可靠性 - 较差</li>
+<li>分辨率 - BS 分解更大，但 ROC 区域更差</li>
+<li>CRPS - 较差的平均值</li>
+</ol>
+<p>更多的样本可以有所帮助（结果的可靠性）</p>
+<h2 id="供验证的统计依据"><a href="#供验证的统计依据" class="headerlink" title="供验证的统计依据"></a>供验证的统计依据</h2><h3 id="验证的统计依据"><a href="#验证的统计依据" class="headerlink" title="验证的统计依据"></a>验证的统计依据</h3><p>任何验证活动都应从彻底检查预测和观测结果的<strong>统计特性</strong>开始。</p>
+<ol>
+<li><p>例如，许多工具都是基于正态性（高斯分布）的假设。这是否适用于有问题的数据集？</p>
+</li>
+<li><p>预测是否捕捉到了观测到的范围？</p>
+</li>
+<li>预测和观察到的分布是否匹配/一致？</li>
+<li>他们有相同的平均值，变化特征等吗？</li>
+</ol>
+<p>除了需要评估数据的特征之外</p>
+<p><strong>联合分布</strong>、<strong>边际分布</strong>和<strong>条件分布</strong>有助于理解预测验证的<strong>统计基础</strong></p>
+<ol>
+<li>这些分布可以与验证中使用的具体总结和性能度量有关</li>
+<li>对验证感兴趣的特定属性是由这些分布来衡量的</li>
+</ol>
+<h4 id="基本概率"><a href="#基本概率" class="headerlink" title="基本概率"></a>基本概率</h4><p>又称（边际概率）</p>
+<p>$p_x = p(X=x)$</p>
+<p>一个随机变量X将取值x的概率</p>
+<h4 id="联合概率"><a href="#联合概率" class="headerlink" title="联合概率"></a>联合概率</h4><p>$p_{x,y} = p(X=x,Y=y)$</p>
+<p>事件x和y同时发生的概率</p>
+<h4 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h4><p>$p_{x,y} = p(X=x|Y=y)$</p>
+<p>给定事件y为真（或发生）时，事件x为真（或发生）的概率</p>
+<hr>
+<p>验证可以表示为评价预测和观测的<strong>联合分布</strong>的过程，</p>
+<ol>
+<li>所有关于预测、观测及其关系的信息都用这种分布来表示</li>
+<li>联合分布可以被分解成两对条件分布和边际分布<ul>
+<li>$p(f,x) = p(F=f|X=x)p(X=x)$</li>
+<li>$p(f,x) = p(X=x|F=f)p(F=f)$</li>
+</ul>
+</li>
+</ol>
+<h3 id="分布的图形化表示"><a href="#分布的图形化表示" class="headerlink" title="分布的图形化表示"></a>分布的图形化表示</h3><p>联合分布</p>
+<ol>
+<li>散点图</li>
+<li>密度图</li>
+<li>三维直方图</li>
+<li>等高线图</li>
+</ol>
+<p>边际分布</p>
+<ol>
+<li><p>茎叶图 <a href="http://blog.sina.com.cn/s/blog_4da7fafa0100y9i3.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4da7fafa0100y9i3.html</a></p>
+</li>
+<li><p>直方图/柱状图</p>
+</li>
+<li><p>方框图</p>
+</li>
+<li><p>累积分布图</p>
+</li>
+<li><p>分位数-分位数图/Q-Q图</p>
+</li>
+<li><p>密度函数图（函数做y，取值做x）</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0%E5%9B%BE.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B0%E5%9B%BE.png"></p>
+</li>
+<li><p>累积分布图（累计值做y，取值做x）</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83%E5%9B%BE.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E7%B4%AF%E7%A7%AF%E5%88%86%E5%B8%83%E5%9B%BE.png"></p>
+</li>
+</ol>
+<p>条件分布</p>
+<ol>
+<li><p>条件分位数图</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E5%88%86%E4%BD%8D%E6%95%B0%E5%9B%BE.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E5%88%86%E4%BD%8D%E6%95%B0%E5%9B%BE.png"></p>
+</li>
+<li><p>条件箱形图</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E7%AE%B1%E5%BD%A2%E5%9B%BE.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E6%9D%A1%E4%BB%B6%E7%AE%B1%E5%BD%A2%E5%9B%BE.png"></p>
+</li>
+<li><p>茎叶图</p>
+<p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E8%8C%8E%E5%8F%B6%E5%9B%BE.png" alt="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/%E8%8C%8E%E5%8F%B6%E5%9B%BE.png"></p>
+</li>
+</ol>
+<h2 id="比较和推理"><a href="#比较和推理" class="headerlink" title="比较和推理"></a>比较和推理</h2><p>技能分数（Skill scores）</p>
+<ol>
+<li>技能分数是对相对表现的一种衡量标准</li>
+<li>测量超过标准的改进百分比</li>
+<li>正向导向（越大越好）</li>
+<li>标准的选择很重要</li>
+</ol>
+<p>通用技能分数定义：</p>
+<p>$\frac {M - M_{ref}}{M_{perf} - M_{ref}}$</p>
+<p>M是对预测的验证度量</p>
+<p>$M_{ref}$是衡量参考预测的指标</p>
+<p>$M_{perf}$是对完美预测的衡量标准</p>
+<h3 id="参考类型"><a href="#参考类型" class="headerlink" title="参考类型"></a>参考类型</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>例子</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random<br>随机</td>
+<td>Equitable Threat Score<br>（公平的威胁得分）</td>
+<td>很好理解的统计基准<br>没有物理意义</td>
+</tr>
+<tr>
+<td>Persistence<br>持续</td>
+<td>Constructed skill score<br>构建的技能分数</td>
+<td>可预测性的度量（当持久性是一个糟糕的预测时，可预测性很低）<br>显示运行 NWP 模型的附加值</td>
+</tr>
+<tr>
+<td>Sample climate<br>样品气候</td>
+<td>Constructed skill score<br>构建的技能分数</td>
+<td>比持久性更进一步，即平滑<br>由于政权依赖性，保留了可预测性元素</td>
+</tr>
+<tr>
+<td>Long-term climatology <br>长期气候学</td>
+<td>Constructed skill score,extremes<br>构建的技能得分，极端值</td>
+<td>最简单的节拍参考，最流畅<br>对代表性、汇集问题、气候变化趋势的关注</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>应该尽可能地估计分数和测量方法的不确定性！</p>
+<p>不确定性来自于</p>
+<ul>
+<li>抽样变化性</li>
+<li>观察误差</li>
+<li>代表性差异</li>
+<li>其他？</li>
+</ul>
+<p>置信区间和假设检验的方法</p>
+<ul>
+<li><p>参数化（即，取决于一个统计模型）</p>
+</li>
+<li><p>非参数（例如，源自重采样过程，通常称为“引导”）</p>
+</li>
+</ul>
+<h2 id="验证属性"><a href="#验证属性" class="headerlink" title="验证属性"></a>验证属性</h2><p>验证属性度量预测质量的不同方面</p>
+<ul>
+<li>表示应该考虑的一系列特性</li>
+<li>许多可能与预测和观测的联合、条件和边际分布有关</li>
+</ul>
+<p>例子</p>
+<ol>
+<li>偏见<br>(边际分布)</li>
+<li>相关性<br>整体关联（联合分布）</li>
+<li>准确度<br>差异（联合分布）</li>
+<li>校准<br>测量条件偏差（条件分布）</li>
+<li>区别<br>预测区分不同观测值的程度（条件分布）</li>
+</ol>
+<h3 id="验证措施的理想特点"><a href="#验证措施的理想特点" class="headerlink" title="验证措施的理想特点"></a>验证措施的理想特点</h3><p>统计有效性</p>
+<p>特性（概率预测）</p>
+<ol>
+<li>当预测与预测者的最佳判断相一致时，就会达到“最佳”得分</li>
+<li>“对冲”是惩罚</li>
+<li>示例：Brier分数</li>
+</ol>
+<p>公平性</p>
+<ol>
+<li>恒定和随机预测应获得相同的分数<br>示例：Gilbert 技能得分（2x2 案例）； Gerrity 评分</li>
+<li>没有分数达到更严格意义上的这一点<br>例如：大多数分数对偏差、事件频率很敏感</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>所有的预测都应该经过验证——如果有什么东西值得预测，那就值得验证</p>
+</li>
+<li><p>分层和聚合</p>
+<ol>
+<li>聚合可以帮助增加样本大小和统计健壮性，但也可以隐藏性能的重要方面<ol>
+<li>最常见的制度可能主导结果，掩盖了性能的变化</li>
+<li>因此，将结果分层为有意义的同质子组是非常重要的</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>观测场</p>
+<ol>
+<li><p>没有所谓的“真相”！！</p>
+</li>
+<li><p>观察结果通常比模型分析更“真实”（至少它们相对更独立）</p>
+</li>
+<li><p>无论以任何可能的方式，都应该考虑到观测结果的不确定性</p>
+<p>例如，相邻的观测结果彼此匹配得如何？</p>
+</li>
+</ol>
+</li>
+<li><p>4w+h</p>
+<ol>
+<li>who：谁想知道</li>
+<li>what<ol>
+<li>用户关心吗</li>
+<li>我们在评估什么参数吗？它的特征是什么（例如，连续的、概率性的）？</li>
+<li>阈值很重要（如果有的话）？</li>
+<li>预测分辨率是否相关（例如，特定地点、区域平均）？</li>
+<li>obs的特征（例如质量、不确定性）？</li>
+<li>是否有适当的方法？</li>
+</ol>
+</li>
+<li>why：我们需要验证吗？</li>
+<li>how：您是否需要/显示相关结果（例如，分层/聚合）？</li>
+<li>which<ol>
+<li>方法和度量标准是否合适吗？</li>
+<li>需要采用方法（例如，偏差、事件频率、样本量）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>茎状图和叶图：边缘分布和条件分布</p>
+</li>
+</ol>
+<h2 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h2><ol>
+<li><a href="http://r7wiw08xi.hn-bkt.clouddn.com/7th%20International%20Verification%20Methods%20Workshop/tutorial_verification_basics.pdf" target="_blank" rel="noopener">验证基础</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果阅读本文需要付费，你是否愿意为此支付1元？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="Shuwen 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Shuwen 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Shuwen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2022/03/08/21-43-undefined/" title="7th International Verification Methods Workshop">http://yoursite.com/2022/03/08/21-43-undefined/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Verification/" rel="tag"># Verification</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/04/16-29-undefined/" rel="prev" title="FSS_FractionScoreSkill">
+      <i class="fa fa-chevron-left"></i> FSS_FractionScoreSkill
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#验证基础"><span class="nav-number">1.</span> <span class="nav-text">验证基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础验证概念"><span class="nav-number">1.1.</span> <span class="nav-text">基础验证概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是验证？"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是验证？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要验证？"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么要验证？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定验证目标"><span class="nav-number">1.1.3.</span> <span class="nav-text">确定验证目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预测”好”"><span class="nav-number">1.1.4.</span> <span class="nav-text">预测”好”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开展验证研究的基本指南"><span class="nav-number">1.1.5.</span> <span class="nav-text">开展验证研究的基本指南</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测和观测"><span class="nav-number">1.2.</span> <span class="nav-text">预测和观测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预测、观测的类型"><span class="nav-number">1.2.1.</span> <span class="nav-text">预测、观测的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配预测和观测结果"><span class="nav-number">1.2.2.</span> <span class="nav-text">匹配预测和观测结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观测特征及其影响"><span class="nav-number">1.3.</span> <span class="nav-text">观测特征及其影响</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#观测并不完美！"><span class="nav-number">1.3.1.</span> <span class="nav-text">观测并不完美！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观察误差的影响"><span class="nav-number">1.3.2.</span> <span class="nav-text">观察误差的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#供验证的统计依据"><span class="nav-number">1.4.</span> <span class="nav-text">供验证的统计依据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#验证的统计依据"><span class="nav-number">1.4.1.</span> <span class="nav-text">验证的统计依据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概率"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">基本概率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联合概率"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">联合概率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件概率"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">条件概率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布的图形化表示"><span class="nav-number">1.4.2.</span> <span class="nav-text">分布的图形化表示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较和推理"><span class="nav-number">1.5.</span> <span class="nav-text">比较和推理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考类型"><span class="nav-number">1.5.1.</span> <span class="nav-text">参考类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证属性"><span class="nav-number">1.6.</span> <span class="nav-text">验证属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#验证措施的理想特点"><span class="nav-number">1.6.1.</span> <span class="nav-text">验证措施的理想特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件下载"><span class="nav-number">1.8.</span> <span class="nav-text">文件下载</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shuwen"
+      src="/images/shuwen.jpg">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">做有意思的事，有意思地做事</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/warm-winter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;warm-winter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://kaaass.net/" title="https:&#x2F;&#x2F;kaaass.net&#x2F;" rel="noopener" target="_blank">KAAAsS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://xuanxuanblingbling.github.io/" title="https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;" rel="noopener" target="_blank">Clang裁缝店</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+		  本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
