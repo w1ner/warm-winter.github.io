@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/shuwen.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/shuwen.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用情况 通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc  下载glibc源码123git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git cd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译debug版本的glibc">
+<meta property="og:url" content="http://yoursite.com/2021/02/18/09-35-Shuwen/index.html">
+<meta property="og:site_name" content="Shuwen&#39;s blog">
+<meta property="og:description" content="使用情况 通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc  下载glibc源码123git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git cd">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-18T01:35:19.000Z">
+<meta property="article:modified_time" content="2021-05-11T12:00:59.039Z">
+<meta property="article:author" content="Shuwen">
+<meta property="article:tag" content="基础知识">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/02/18/09-35-Shuwen/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>编译debug版本的glibc | Shuwen's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Shuwen's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">生活 & 学习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/09-35-Shuwen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编译debug版本的glibc
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-18 09:35:19" itemprop="dateCreated datePublished" datetime="2021-02-18T09:35:19+08:00">2021-02-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-11 20:00:59" itemprop="dateModified" datetime="2021-05-11T20:00:59+08:00">2021-05-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h2><ol>
+<li>通常系统中的共享库均为release版本，去除了符号表等调试信息，为了调试方便，需要准备一份debug版本的glibc</li>
+<li>CTF比赛中二进制程序所需的libc版本与本地系统的版本不同，为了程序在本地正常运行，需要配置合适的libc</li>
+</ol>
+<h2 id="下载glibc源码"><a href="#下载glibc源码" class="headerlink" title="下载glibc源码"></a>下载glibc源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git:&#x2F;&#x2F;sourceware.org&#x2F;git&#x2F;glibc.git </span><br><span class="line">cd glibc</span><br><span class="line">git checkout glibc-2.27</span><br></pre></td></tr></table></figure>
+<h2 id="编译glibc源码"><a href="#编译glibc源码" class="headerlink" title="编译glibc源码"></a>编译glibc源码</h2><h3 id="编译64位"><a href="#编译64位" class="headerlink" title="编译64位"></a>编译64位</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br><span class="line">..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.27 --enable-debug&#x3D;yes</span><br><span class="line">make -j4</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="编译32位"><a href="#编译32位" class="headerlink" title="编译32位"></a>编译32位</h3><h4 id="安装i686所需包"><a href="#安装i686所需包" class="headerlink" title="安装i686所需包"></a>安装i686所需包</h4><blockquote>
+<p><a href="https://0xffff.one/d/337" target="_blank" rel="noopener">参考</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install binutils-i686-gnu </span><br><span class="line">sudo apt install gcc-i686-linux-gnu </span><br><span class="line">sudo apt install binutils-i686-gnu-dbg </span><br><span class="line">sudo apt install g++-i686-linux-gnu</span><br><span class="line">#sudo apt install g++</span><br><span class="line">#sudo apt install gcc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果报错，换一个源即可</p>
+<p><a href="https://www.jianshu.com/p/a15c2d3b54dd" target="_blank" rel="noopener">参考</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;apt</span><br><span class="line">subl sources.list</span><br><span class="line">#将如下内容拷贝进去</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># deb cdrom:[Debian GNU&#x2F;Linux 7.0 _Kali_ - Official Snapshot i386 LIVE&#x2F;INSTALL $</span><br><span class="line"></span><br><span class="line"># deb cdrom:[Debian GNU&#x2F;Linux 7.0 _Kali_ - Official Snapshot i386 LIVE&#x2F;INSTALL $</span><br><span class="line"></span><br><span class="line">## Security updates</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F; &#x2F;kali main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F; &#x2F;wheezy main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali-dev main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali-dev main&#x2F;debian-installer</span><br><span class="line"></span><br><span class="line">deb-src http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali-dev main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali main&#x2F;debian-installer</span><br><span class="line"></span><br><span class="line">deb-src http:&#x2F;&#x2F;http.kali.org&#x2F;kali kali main contrib non-free</span><br><span class="line"></span><br><span class="line">deb http:&#x2F;&#x2F;security.kali.org&#x2F;kali-security kali&#x2F;updates main contrib non-free</span><br><span class="line"></span><br><span class="line">deb-src http:&#x2F;&#x2F;security.kali.org&#x2F;kali-security kali&#x2F;updates main contrib non-fr$</span><br></pre></td></tr></table></figure>
+<h3 id="下载32位"><a href="#下载32位" class="headerlink" title="下载32位"></a>下载32位</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> #..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.23_32 --enable-debug&#x3D;yes --host&#x3D;i686-linux-gnu --build&#x3D;i686-linux-gnu CC&#x3D;&quot;gcc -m32&quot; CXX&#x3D;&quot;g++ m32&quot; CFLAGS&#x3D;&quot;-O2 -march&#x3D;i686&quot; CXXFLAGS&#x3D;&quot;-O2 -march&#x3D;i686&quot;</span><br><span class="line">#上为原书所写，但使用报错，后发现下面改方法好用 </span><br><span class="line">CC&#x3D;&quot;gcc -m32&quot; CXX&#x3D;&quot;g++ -m32&quot; \             </span><br><span class="line">        CFLAGS&#x3D;&quot;-g -g3 -ggdb -gdwarf-4 -Og -Wno-error -fno-stack-protector&quot; \</span><br><span class="line">        CXXFLAGS&#x3D;&quot;-g -g3 -ggdb -gdwarf-4 -Og -Wno-error -fno-stack-protector&quot; \</span><br><span class="line">        ..&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;glibc-2.23_32 --host&#x3D;i686-linux-gnu --disable-werror</span><br></pre></td></tr></table></figure>
+<h4 id="编译-amp-链接"><a href="#编译-amp-链接" class="headerlink" title="编译 &amp; 链接"></a>编译 &amp; 链接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h2 id="使用该libc运行其他已编译的程序"><a href="#使用该libc运行其他已编译的程序" class="headerlink" title="使用该libc运行其他已编译的程序"></a>使用该libc运行其他已编译的程序</h2><h3 id="替换二进制文件的编译器路径"><a href="#替换二进制文件的编译器路径" class="headerlink" title="替换二进制文件的编译器路径"></a>替换二进制文件的编译器路径</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#change_ld.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change_ld</span><span class="params">(binary, ld,output)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> binary <span class="keyword">or</span> <span class="keyword">not</span> ld <span class="keyword">or</span> <span class="keyword">not</span> output:</span><br><span class="line">	log.failure(<span class="string">"Try 'python change_ld.py -h for more information.'"</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	</span><br><span class="line">    binary = ELF(binary)</span><br><span class="line">    <span class="keyword">for</span> segment <span class="keyword">in</span> binary.segments:</span><br><span class="line">        <span class="keyword">if</span> segment.header[<span class="string">'p_type'</span>] == <span class="string">'PT_INTERP'</span>:</span><br><span class="line">            size = segment.header[<span class="string">'p_memsz'</span>]</span><br><span class="line">            addr = segment.header[<span class="string">'p_paddr'</span>]</span><br><span class="line">            data = segment.data()</span><br><span class="line">            <span class="keyword">if</span> size &lt;= len(ld):</span><br><span class="line">                log.failure(<span class="string">"Failed to change PT_INTERP from &#123;&#125; to &#123;&#125;"</span>.format(data, ld))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            binary.write(addr,<span class="string">"/lib64/ld-glibc-&#123;&#125;"</span>.format(ld).ljust(size,<span class="string">'\0'</span>))</span><br><span class="line">         </span><br><span class="line">            <span class="keyword">if</span> os.access(output, os.F_OK): </span><br><span class="line">                os.remove(output)</span><br><span class="line">            binary.save(output)    </span><br><span class="line">            os.chmod(output, <span class="number">0b111000000</span>) <span class="comment">#rwx------</span></span><br><span class="line">    success(<span class="string">"PT_INTERP has changed from &#123;&#125; to &#123;&#125;. Using temp file &#123;&#125;"</span>.format(data, ld, output)) </span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(description=<span class="string">'Force to use assigned new ld.so by changing the binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-b'</span>,dest=<span class="string">"binary"</span>,help=<span class="string">'input binary'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-l'</span>,dest=<span class="string">"ld"</span>,help=<span class="string">'ld.so version'</span>)</span><br><span class="line">parser.add_argument(<span class="string">'-o'</span>,dest=<span class="string">"output"</span>,help=<span class="string">'outputfile'</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">change_ld(args.binary,args.ld,args.output)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s &#x2F;usr&#x2F;local&#x2F;glibc-2.27&#x2F;lib&#x2F;ld-2.27.so &#x2F;lib64&#x2F;ld-glibc-2.27</span><br><span class="line">python change_ld.py -b 二进制文件 -l 2.27 -o 输出文件名</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_tear </span><br><span class="line">tcache_tear: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br><span class="line"></span><br><span class="line">#成功</span><br><span class="line">winter@ubuntu:~&#x2F;tw$ file tcache_debug </span><br><span class="line">tcache_debug: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-glibc-2.27, for GNU&#x2F;Linux 3.2.0, BuildID[sha1]&#x3D;a273b72984b37439fd6e9a64e86d1c2131948f32, stripped</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = process([<span class="string">"/home/winter/ff/ld-2.32.so"</span>, <span class="string">"./ff"</span>],</span><br><span class="line">            env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/home/winter/ff/libc.so.6"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>主要参考《CTF竞赛权威指南（pwn篇）》5.1.3中内容</p>
+<p>在做2.27的pwn题，tcache的机制总是失败，double free，，，这样修改后就可以用了。</p>
+<h2 id="glibc下载"><a href="#glibc下载" class="headerlink" title="glibc下载"></a>glibc下载</h2><p><a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc/</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Q：如果阅读本文需要付费，你是否愿意为此支付1元？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpg" alt="Shuwen 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Shuwen 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Shuwen
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/02/18/09-35-Shuwen/" title="编译debug版本的glibc">http://yoursite.com/2021/02/18/09-35-Shuwen/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/30/11-42-Shuwen/" rel="prev" title="漏洞基础知识">
+      <i class="fa fa-chevron-left"></i> 漏洞基础知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/25/18-40-Shuwen/" rel="next" title="pwnable.tw(9-16题)">
+      pwnable.tw(9-16题) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用情况"><span class="nav-number">1.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载glibc源码"><span class="nav-number">2.</span> <span class="nav-text">下载glibc源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译glibc源码"><span class="nav-number">3.</span> <span class="nav-text">编译glibc源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译64位"><span class="nav-number">3.1.</span> <span class="nav-text">编译64位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译32位"><span class="nav-number">3.2.</span> <span class="nav-text">编译32位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装i686所需包"><span class="nav-number">3.2.1.</span> <span class="nav-text">安装i686所需包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载32位"><span class="nav-number">3.3.</span> <span class="nav-text">下载32位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译-amp-链接"><span class="nav-number">3.3.1.</span> <span class="nav-text">编译 &amp; 链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用该libc运行其他已编译的程序"><span class="nav-number">4.</span> <span class="nav-text">使用该libc运行其他已编译的程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#替换二进制文件的编译器路径"><span class="nav-number">4.1.</span> <span class="nav-text">替换二进制文件的编译器路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#glibc下载"><span class="nav-number">6.</span> <span class="nav-text">glibc下载</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Shuwen"
+      src="/images/shuwen.jpg">
+  <p class="site-author-name" itemprop="name">Shuwen</p>
+  <div class="site-description" itemprop="description">做有意思的事，有意思地做事</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/warm-winter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;warm-winter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://kaaass.net/" title="https:&#x2F;&#x2F;kaaass.net&#x2F;" rel="noopener" target="_blank">KAAAsS</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://xuanxuanblingbling.github.io/" title="https:&#x2F;&#x2F;xuanxuanblingbling.github.io&#x2F;" rel="noopener" target="_blank">Clang裁缝店</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuwen</span>
+</div>
+	<div class="powered-by">
+		<i class="fa fa-user-md"></i>
+		<span id="busuanzi_container_site_uv">
+		  本站访客数:<span id="busuanzi_value_site_uv"></span>
+		</span>
+	</div>
+
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

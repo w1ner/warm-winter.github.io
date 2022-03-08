@@ -153,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/30/16-30-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/30/16-30-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -167,7 +167,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/30/16-30-undefined/" class="post-title-link" itemprop="url">软件安装</a>
+            <a href="/2021/04/30/16-30-Shuwen/" class="post-title-link" itemprop="url">软件安装</a>
         </h2>
 
         <div class="post-meta">
@@ -274,7 +274,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/27/23-47-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/27/23-47-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -288,7 +288,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/27/23-47-undefined/" class="post-title-link" itemprop="url">gyctf_2020_force</a>
+            <a href="/2021/04/27/23-47-Shuwen/" class="post-title-link" itemprop="url">gyctf_2020_force</a>
         </h2>
 
         <div class="post-meta">
@@ -327,12 +327,12 @@
 <p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
 </blockquote>
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>堆体，，，只有一个功能（puts函数没有用）</p>
-<p><img src="/2021/04/27/23-47-undefined/image-20210427211531288.png" alt="image-20210427211531288"></p>
+<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211531288.png" alt="image-20210427211531288"></p>
 <p>对于add</p>
 <blockquote>
 <p>分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆溢出</p>
 </blockquote>
-<p><img src="/2021/04/27/23-47-undefined/image-20210427211635840.png" alt="image-20210427211635840"></p>
+<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211635840.png" alt="image-20210427211635840"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于题目是保护全开，所以不能覆盖got表</p>
 <p>方法：</p>
 <ol>
@@ -432,7 +432,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/23-34-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/23-34-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -446,7 +446,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/25/23-34-undefined/" class="post-title-link" itemprop="url">wdb_2018_2nd_easyfmt详解</a>
+            <a href="/2021/04/25/23-34-Shuwen/" class="post-title-link" itemprop="url">wdb_2018_2nd_easyfmt详解</a>
         </h2>
 
         <div class="post-meta">
@@ -486,7 +486,7 @@
 <p>参考：<a href="[wdb_2018_2nd_easyfmt](https://www.cnblogs.com/luoleqi/p/13498183.html">wdb_2018_2nd_easyfmt</a>)</p>
 </blockquote>
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>程序流程非常简单，可以一直进行格式化字符串漏洞。</p>
-<p><img src="/2021/04/25/23-34-undefined/image-20210425225434398.png" alt="image-20210425225434398"></p>
+<p><img src="/2021/04/25/23-34-Shuwen/image-20210425225434398.png" alt="image-20210425225434398"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><ol>
 <li>首先通过格式化字符串泄露栈信息</li>
 <li>通过格式化字符串修改printf_got表为system（one_gadget本地打通了，远程没有，，）</li>
@@ -495,7 +495,7 @@
 <h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="0-查看基本信息"><a href="#0-查看基本信息" class="headerlink" title="0.查看基本信息"></a>0.查看基本信息</h4><p>32位程序，只开了nx</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;buu$ file wdb_2018_2nd_easyfmt </span><br><span class="line">wdb_2018_2nd_easyfmt: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib&#x2F;ld-linux.so.2, for GNU&#x2F;Linux 2.6.32, BuildID[sha1]&#x3D;f86851c3576d0aabf0b0b2310d835d0f6e660eb8, not stripped</span><br><span class="line">winter@ubuntu:~&#x2F;buu$ checksec wdb_2018_2nd_easyfmt </span><br><span class="line">[*] &#39;&#x2F;home&#x2F;winter&#x2F;buu&#x2F;wdb_2018_2nd_easyfmt&#39;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure>
 <p>格式化字符串，偏移为6</p>
-<p><img src="/2021/04/25/23-34-undefined/image-20210425233348293.png" alt="image-20210425233348293"></p>
+<p><img src="/2021/04/25/23-34-Shuwen/image-20210425233348293.png" alt="image-20210425233348293"></p>
 <h4 id="1-泄露信息"><a href="#1-泄露信息" class="headerlink" title="1.泄露信息"></a>1.泄露信息</h4><h5 id="方法一：栈上数据"><a href="#方法一：栈上数据" class="headerlink" title="方法一：栈上数据"></a>方法一：栈上数据</h5><blockquote>
 <p>可以直接查看栈上的信息进行泄露</p>
 </blockquote>
@@ -534,7 +534,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/15-11-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/15-11-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -548,7 +548,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/25/15-11-undefined/" class="post-title-link" itemprop="url">axb_2019_heap详解</a>
+            <a href="/2021/04/25/15-11-Shuwen/" class="post-title-link" itemprop="url">axb_2019_heap详解</a>
         </h2>
 
         <div class="post-meta">
@@ -621,7 +621,7 @@
 <h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="1-格式化字符串"><a href="#1-格式化字符串" class="headerlink" title="1.格式化字符串"></a>1.格式化字符串</h4><blockquote>
 <p>计算偏移：直接算或者用工具 =&gt; 得到偏移为7</p>
 </blockquote>
-<p><img src="/2021/04/25/15-11-undefined/image-20210425142716133.png" alt="image-20210425142716133"></p>
+<p><img src="/2021/04/25/15-11-Shuwen/image-20210425142716133.png" alt="image-20210425142716133"></p>
 <blockquote>
 <p>执行到<code>printf(&amp;format);</code></p>
 </blockquote>
@@ -697,7 +697,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/00-17-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/25/00-17-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -711,7 +711,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/25/00-17-undefined/" class="post-title-link" itemprop="url">npuctf_2020_easyheap详解</a>
+            <a href="/2021/04/25/00-17-Shuwen/" class="post-title-link" itemprop="url">npuctf_2020_easyheap详解</a>
         </h2>
 
         <div class="post-meta">
@@ -841,7 +841,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/24/21-36-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/24/21-36-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -855,7 +855,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/24/21-36-undefined/" class="post-title-link" itemprop="url">hitcontraining_bamboobox</a>
+            <a href="/2021/04/24/21-36-Shuwen/" class="post-title-link" itemprop="url">hitcontraining_bamboobox</a>
         </h2>
 
         <div class="post-meta">
@@ -904,8 +904,8 @@
 <p>所以，如果有溢出能控制top chunk size，就可以修改其为-1（0xffffffff最大值），然后malloc(负数)可以向上申请，malloc(正数)</p>
 </blockquote>
 <h3 id="题目流程"><a href="#题目流程" class="headerlink" title="题目流程"></a>题目流程</h3><p>程序一开始申请0x10的块，存放hello_message和goodbye_message的指针，而且最后在功能5中会调用goodbye_message。</p>
-<p><img src="/2021/04/24/21-36-undefined/image-20210424211521894.png" alt="image-20210424211521894"></p>
-<p><img src="/2021/04/24/21-36-undefined/image-20210424211735644.png" alt="image-20210424211735644"></p>
+<p><img src="/2021/04/24/21-36-Shuwen/image-20210424211521894.png" alt="image-20210424211521894"></p>
+<p><img src="/2021/04/24/21-36-Shuwen/image-20210424211735644.png" alt="image-20210424211735644"></p>
 <p>所以，可以通过house of force修改top chunk size，然后将top chunk申请到v3里，修改v3的指针为后门函数magic的地址，然后即可get flag。</p>
 <h3 id="详细过程"><a href="#详细过程" class="headerlink" title="详细过程"></a>详细过程</h3><h4 id="1-申请一个chunk"><a href="#1-申请一个chunk" class="headerlink" title="1.申请一个chunk"></a>1.申请一个chunk</h4><blockquote>
 <p>为了不跟v3的大小0x10撞，选择0x30的大小。</p>
@@ -964,7 +964,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/20/23-26-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/20/23-26-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -978,7 +978,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/20/23-26-undefined/" class="post-title-link" itemprop="url">hitcon_2014_stkof详解</a>
+            <a href="/2021/04/20/23-26-Shuwen/" class="post-title-link" itemprop="url">hitcon_2014_stkof详解</a>
         </h2>
 
         <div class="post-meta">
@@ -1139,7 +1139,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/19/23-55-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/19/23-55-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1153,7 +1153,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/19/23-55-undefined/" class="post-title-link" itemprop="url">0ctf_2017_babyheap详解</a>
+            <a href="/2021/04/19/23-55-Shuwen/" class="post-title-link" itemprop="url">0ctf_2017_babyheap详解</a>
         </h2>
 
         <div class="post-meta">
@@ -1310,7 +1310,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/14-41-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/14-41-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1324,7 +1324,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/18/14-41-undefined/" class="post-title-link" itemprop="url">算法之数据结构篇</a>
+            <a href="/2021/04/18/14-41-Shuwen/" class="post-title-link" itemprop="url">算法之数据结构篇</a>
         </h2>
 
         <div class="post-meta">
@@ -1389,7 +1389,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/08-32-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/08-32-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1403,7 +1403,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/18/08-32-undefined/" class="post-title-link" itemprop="url">西南科技大学2021届新生赛</a>
+            <a href="/2021/04/18/08-32-Shuwen/" class="post-title-link" itemprop="url">西南科技大学2021届新生赛</a>
         </h2>
 
         <div class="post-meta">
@@ -1506,7 +1506,7 @@
 </ol>
 <blockquote>
 <p>高级，，，这种方法又称作桶排。</p>
-<p><img src="/2021/04/18/08-32-undefined/image-20210321212749117.png" alt="image-20210321212749117"></p>
+<p><img src="/2021/04/18/08-32-Shuwen/image-20210321212749117.png" alt="image-20210321212749117"></p>
 </blockquote>
 <h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">101</span>];<span class="comment">//因为输入的数最大为100，用一个100大小的空间即可</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;<span class="comment">//测试数据的写法</span></span><br><span class="line">        <span class="keyword">int</span> n;<span class="comment">//数组长度</span></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="keyword">sizeof</span>(a));<span class="comment">//必须置0,避免影响其他轮数的计算</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;<span class="comment">//输入n组数据</span></span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            a[x]++;<span class="comment">//用下标表示数字，用数组表示有几个。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span> ; ++i) &#123;</span><br><span class="line">            ans += a[i] * a[i*<span class="number">2</span>];<span class="comment">//好想法。。。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="D-圆的交点"><a href="#D-圆的交点" class="headerlink" title="D 圆的交点"></a>D 圆的交点</h2><blockquote>
@@ -1516,7 +1516,7 @@
 <ol>
 <li>相邻的交点</li>
 </ol>
-<p><img src="/2021/04/18/08-32-undefined/image-20210322142735301.png" alt="image-20210322142735301"></p>
+<p><img src="/2021/04/18/08-32-Shuwen/image-20210322142735301.png" alt="image-20210322142735301"></p>
 <p>两两相交，交点有两个</p>
 <p>组合方式计算：</p>
 <p>a.一排横着两两相交：a种</p>
@@ -1526,13 +1526,13 @@
 <p>故此情况共有交点:<code>2*[a*(b+1)+b*(a+1)]</code></p>
 <hr>
 <p>2.斜对面</p>
-<p><img src="/2021/04/18/08-32-undefined/image-20210322143100339.png" alt="image-20210322143100339"></p>
+<p><img src="/2021/04/18/08-32-Shuwen/image-20210322143100339.png" alt="image-20210322143100339"></p>
 <p>这种情况，交点都在圆心处，，</p>
 <hr>
 <ol>
 <li>相切</li>
 </ol>
-<p><img src="/2021/04/18/08-32-undefined/image-20210322143132384.png" alt="image-20210322143132384"></p>
+<p><img src="/2021/04/18/08-32-Shuwen/image-20210322143132384.png" alt="image-20210322143132384"></p>
 <p>交点也都在圆心处，，，</p>
 <p>所以，所有的圆心都是交点，也就是(a+1)*(b+1)，也就是所有圆的个数</p>
 <hr>
@@ -1601,9 +1601,9 @@
 <p>规律很好找，主要是大数麻烦，当时用java的BigInteger做出来的，，，</p>
 <p>思路巧妙地进行化简以及dp的思路</p>
 </blockquote>
-<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><img src="/2021/04/18/08-32-undefined/image-20210323164718581.png" alt="image-20210323164718581"></p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><img src="/2021/04/18/08-32-Shuwen/image-20210323164718581.png" alt="image-20210323164718581"></p>
 <p>最后这步的化简是根据分数的取模得到的</p>
-<p><img src="/2021/04/18/08-32-undefined/image-20210323164754408.png" alt="image-20210323164754408"></p>
+<p><img src="/2021/04/18/08-32-Shuwen/image-20210323164754408.png" alt="image-20210323164754408"></p>
 <p><code>i层的和 = i-1层的和 + i*(2*i-1)</code></p>
 <h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">1e6</span>; ++i) &#123;</span><br><span class="line">        a[i] = (a[i<span class="number">-1</span>] + i*(<span class="number">2</span>*i<span class="number">-1</span>))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a[n]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="G-小凡做蛋糕"><a href="#G-小凡做蛋糕" class="headerlink" title="G 小凡做蛋糕"></a>G 小凡做蛋糕</h2>

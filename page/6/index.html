@@ -153,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/01-17-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/01-17-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -167,7 +167,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/22/01-17-undefined/" class="post-title-link" itemprop="url">embedded(未完成)</a>
+            <a href="/2020/10/22/01-17-Shuwen/" class="post-title-link" itemprop="url">embedded(未完成)</a>
         </h2>
 
         <div class="post-meta">
@@ -215,16 +215,16 @@
 <p>ping通</p>
 <p>linux：python -m SimpleHTTPServer</p>
 <p>qemu：wget  12.0.0.2:8000/embedded_heap</p>
-<p><img src="/2020/10/22/01-17-undefined/image-20200831110650474.png" alt="image-20200831110650474"></p>
+<p><img src="/2020/10/22/01-17-Shuwen/image-20200831110650474.png" alt="image-20200831110650474"></p>
 <h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>将两个so.0文件放到/lib文件下（注意：是根目录，，，）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mv libuClibc-0.9.33.2.so libc.so.0</span><br><span class="line">$ mv ld-uClibc-0.9.33.2.so ld-uClibc.so.0</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/10/22/01-17-undefined/image-20200831191612015.png" alt="image-20200831191612015"></p>
+<p><img src="/2020/10/22/01-17-Shuwen/image-20200831191612015.png" alt="image-20200831191612015"></p>
 <p>qemu-mips  -L ./ ./embedded_heap</p>
 <p>也可以直接<code>./embedded_heap</code></p>
 <p>【可以使用的原因可能是因为binutils的存在用编译器自动转换了】</p>
 <p><strong>注意</strong></p>
 <p>还要修改lib文件下链接文件的权限</p>
-<p><img src="/2020/10/22/01-17-undefined/image-20200831191636914.png" alt="image-20200831191636914"></p>
+<p><img src="/2020/10/22/01-17-Shuwen/image-20200831191636914.png" alt="image-20200831191636914"></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/" target="_blank" rel="noopener">https://e3pem.github.io/2019/08/26/0ctf-2019/embedded_heap/</a></p>
 <p><a href="https://zybuluo.com/H4l0/note/1633971" target="_blank" rel="noopener">https://zybuluo.com/H4l0/note/1633971</a></p>
 <hr>
@@ -248,7 +248,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/01-08-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/01-08-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -262,7 +262,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/22/01-08-undefined/" class="post-title-link" itemprop="url">固件iot基础</a>
+            <a href="/2020/10/22/01-08-Shuwen/" class="post-title-link" itemprop="url">固件iot基础</a>
         </h2>
 
         <div class="post-meta">
@@ -306,7 +306,7 @@
 <h3 id="一、固件安全概述"><a href="#一、固件安全概述" class="headerlink" title="一、固件安全概述"></a>一、固件安全概述</h3><p>​    固件指设备内部保存的<strong>设备 “驱动程序”</strong>，通过固件，操作系统才能按照标准的设备驱动实现特定机器的运行动作。固件是担任着一个系统最基础最底层工作的软件。</p>
 <p>​    在硬件设备中，固件就是硬件设备的灵魂，因为一些硬件设备除了固件以外没有其它软件组成，因此固件也就决定着硬件设备的功能及性能。</p>
 <h4 id="固件结构特点"><a href="#固件结构特点" class="headerlink" title="固件结构特点"></a>固件结构特点</h4><p>iot 设备固件一般由 bootloader、kernel、rootfs 几部分组成。</p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200829170912807.png" alt="image-20200829170912807"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200829170912807.png" alt="image-20200829170912807"></p>
 <h3 id="二、固件模拟概述"><a href="#二、固件模拟概述" class="headerlink" title="二、固件模拟概述"></a>二、固件模拟概述</h3><p>iot 设备固件属于嵌入式固件的一种，无法直接运行在 x86 架构上。<br>需要借助一些模拟器来进行模拟，一般选择 qemu 模拟器。</p>
 <h4 id="vmware-和-qemu-的区别"><a href="#vmware-和-qemu-的区别" class="headerlink" title="vmware 和 qemu 的区别"></a>vmware 和 qemu 的区别</h4><p>vmware 和 qemu都是虚拟机软件，他们的区别如下：</p>
 <ul>
@@ -323,12 +323,12 @@
 <li>用户模式（user mode）：qemu 可以在当前CPU上执行被编译为支持其他CPU的程序（例如：qemu 可以在 x86 机器上执行一个ARM二进制可执行程序）。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~$ qemu-arm -L .&#x2F; .&#x2F;.&#x2F;usr&#x2F;bin&#x2F;tddp</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/10/22/01-08-undefined/image-20200829174231769.png" alt="image-20200829174231769"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200829174231769.png" alt="image-20200829174231769"></p>
 <ul>
 <li>系统模式（system mode）：qemu 能模拟整个电脑系统，包括中央处理器及其他周边设备。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;squashfs-root# chroot . sh</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/10/22/01-08-undefined/image-20200829174236510.png" alt="image-20200829174236510"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200829174236510.png" alt="image-20200829174236510"></p>
 <h3 id="三、MISP-PWN-amp-ARM-PWN"><a href="#三、MISP-PWN-amp-ARM-PWN" class="headerlink" title="三、MISP PWN &amp; ARM PWN"></a>三、MISP PWN &amp; ARM PWN</h3><h4 id="1）ctf-中的-mips-pwn"><a href="#1）ctf-中的-mips-pwn" class="headerlink" title="1）ctf 中的 mips pwn"></a>1）ctf 中的 mips pwn</h4><h5 id="（a）2020-De1ctf-pppd-（CVE-2020-8597）"><a href="#（a）2020-De1ctf-pppd-（CVE-2020-8597）" class="headerlink" title="（a）2020 De1ctf - pppd （CVE-2020-8597）"></a>（a）2020 De1ctf - pppd （CVE-2020-8597）</h5><p>考点：</p>
 <ol>
 <li>nday cve 漏洞分析和利用；</li>
@@ -337,11 +337,11 @@
 <p>文件：<code>vmlinux</code>、<code>rootfs.img</code>、<code>qemu</code>的启动脚本<code>start.sh</code>。</p>
 <p>漏洞点：</p>
 <p>在 <a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#0" target="_blank" rel="noopener">eap_request</a>和<a href="https://github.com/paulusmack/ppp/blob/ppp-2.4.7/pppd/eap.c#L1719" target="_blank" rel="noopener">eap_response</a>函数中，<code>rhostname</code>是在栈中分配的256字节长的缓冲区。在<code>EAPT_MD5CHAP</code>分支中，由于<a href="https://github.com/paulusmack/ppp/commit/8d7970b8f3db727fe798b65f3377fe6787575426" target="_blank" rel="noopener">不正确的大小检查</a>，主机名大于256个字节长将被允许被复制到<code>rhostname</code>，从而导致堆栈溢出。</p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200830121124694.png" alt="image-20200830121124694"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200830121124694.png" alt="image-20200830121124694"></p>
 <p>操作步骤：</p>
 <p>（1）用<code>cpio</code>解包<code>rootfs.img</code> 。</p>
 <p>在chall目录下创建rootfs文件夹：<code>mkdir rootfs</code></p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200830121439048.png" alt="image-20200830121439048"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200830121439048.png" alt="image-20200830121439048"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ cpio -idvm &lt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
 <p>（2）编辑<code>etc/inittab</code></p>
 <p>找到对应相同的注释，把下面的覆盖过去即可。</p>
@@ -353,7 +353,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd rootfs</span><br><span class="line">$ find . | cpio -H newc -o &gt; ..&#x2F;rootfs.img</span><br></pre></td></tr></table></figure>
 <p>（6）运行</p>
 <p><code>./start.sh</code></p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200830122145171.png" alt="image-20200830122145171"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200830122145171.png" alt="image-20200830122145171"></p>
 <p>打开一个新的窗口，使用<code>gdb</code>启动并连接远程<code>pppd</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">winter@ubuntu:~&#x2F;hws_zongjie&#x2F;pppd&#x2F;attachment&#x2F;docker&#x2F;chall$ gdb-multiarch -ex &#39;set architecture mips&#39;   \</span><br><span class="line">               -ex &#39;target remote :1234&#39;     \</span><br><span class="line">               -ex &#39;file rootfs&#x2F;pppd&#39;        \</span><br><span class="line">               -ex &#39;break *0x42F9A8&#39;         \</span><br><span class="line">               -ex &#39;continue&#39;</span><br></pre></td></tr></table></figure>
 <p>再打开一个新的窗口</p>
@@ -371,7 +371,7 @@
 <p>（4）在本地机器运行patched <code>pppd</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;pppd-payload noauth local defaultroute debug nodetach &#x2F;dev&#x2F;pts&#x2F;1 user admin password 1234568</span><br></pre></td></tr></table></figure>
 <p>不久，远程<code>pppd</code>崩溃并出现分段错误。</p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200830154226602.png" alt="image-20200830154226602"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200830154226602.png" alt="image-20200830154226602"></p>
 <p>获取flag：</p>
 <p>方法一：</p>
 <p>执行<code>./exp.sh</code>，wireshark单独捕捉流量，然后直接搜flag</p>
@@ -391,7 +391,7 @@
 <li>uClibc 堆管理机制。 </li>
 </ol>
 <h4 id="2）ctf-中的-arm-pwn"><a href="#2）ctf-中的-arm-pwn" class="headerlink" title="2）ctf 中的 arm pwn"></a>2）ctf 中的 arm pwn</h4><h3 id="四、固件中常见安全漏洞"><a href="#四、固件中常见安全漏洞" class="headerlink" title="四、固件中常见安全漏洞"></a>四、固件中常见安全漏洞</h3><h4 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h4><p>栈溢出是在IOT设备固件中非常常见的一类的漏洞，当溢出的长度足以控制栈上的返回地址时，很容易造成任意代码执行的风险。</p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200830015127901.png" alt="image-20200830015127901"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200830015127901.png" alt="image-20200830015127901"></p>
 <p>DLINK DIR-815 路由器前台栈溢出</p>
 <h4 id="命令执行-命令注入"><a href="#命令执行-命令注入" class="headerlink" title="命令执行 / 命令注入"></a>命令执行 / 命令注入</h4><p>命令注入在IOT设备固件同样非常普遍，且利用简单，注入点通常运行的服务都是root权限。</p>
 <ul>
@@ -411,7 +411,7 @@
 <h3 id="cpio的解包与打包："><a href="#cpio的解包与打包：" class="headerlink" title="cpio的解包与打包："></a>cpio的解包与打包：</h3><p>cpio -idvm &lt; <strong>../rootfs.img</strong><br>find . | cpio -H newc -o &gt; <strong>../initrd.cpio</strong></p>
 <h3 id="squashfs解包与打包："><a href="#squashfs解包与打包：" class="headerlink" title="squashfs解包与打包："></a>squashfs解包与打包：</h3><p>unsquashfs  openwrt.squashfs<br>mksquashfs squashfs-root-0 1.squashfs -comp xz</p>
 <h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><p>这种文件系统的打包与解包使用mount挂载</p>
-<p><img src="/2020/10/22/01-08-undefined/image-20200829204006754.png" alt="image-20200829204006754"></p>
+<p><img src="/2020/10/22/01-08-Shuwen/image-20200829204006754.png" alt="image-20200829204006754"></p>
 <p>可以把cpio,squashfs,ext4理解成一个压缩包，都可以用<strong>binwalk解包</strong>，但是打包的方式是不同的</p>
 <p>这些东西其实就是文件系统，不仅仅保存文件内容，还保存这文件的元数据（名字，修改时间，作者啥啥的）</p>
 
@@ -433,7 +433,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/00-32-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/00-32-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -447,7 +447,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/22/00-32-undefined/" class="post-title-link" itemprop="url">ret2usr</a>
+            <a href="/2020/10/22/00-32-Shuwen/" class="post-title-link" itemprop="url">ret2usr</a>
         </h2>
 
         <div class="post-meta">
@@ -502,13 +502,13 @@
 <h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>调试，<code>startvm.sh</code>末尾加上</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-gdb tcp::1234 -S</span><br></pre></td></tr></table></figure>
 <p>【注：上一行后面还要加上’ \ ‘，不然的话，远程调试可能端口没开，连不上】</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903111140398.png" alt="image-20200903111140398"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903111140398.png" alt="image-20200903111140398"></p>
 <h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h4 id="ret2usr（level1）"><a href="#ret2usr（level1）" class="headerlink" title="ret2usr（level1）"></a>ret2usr（level1）</h4><p>说明：参考<code>Linux Kernel Pwn 初探</code>,主要加上具体的一些细节</p>
 <h5 id="查找prepare-kernel-cred和commit-creds的地址"><a href="#查找prepare-kernel-cred和commit-creds的地址" class="headerlink" title="查找prepare_kernel_cred和commit_creds的地址"></a>查找prepare_kernel_cred和commit_creds的地址</h5><pre><code> $ grep prepare_kernel_cred  /proc/kallsyms 
  $ grep commit_creds  /proc/kallsyms 
-</code></pre><p><img src="/2020/10/22/00-32-undefined/image-20200903105056015.png" alt="image-20200903105056015"></p>
+</code></pre><p><img src="/2020/10/22/00-32-Shuwen/image-20200903105056015.png" alt="image-20200903105056015"></p>
 <p>但是直接执行，地址都是0x0，需要root权限。</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903105223481.png" alt="image-20200903105223481"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903105223481.png" alt="image-20200903105223481"></p>
 <p>方法：修改suid</p>
 <p>（1）创建一个文件夹</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir myimage</span><br><span class="line">$ cd myimage</span><br></pre></td></tr></table></figure>
@@ -517,13 +517,13 @@
 <p>（3）修改suid</p>
 <p>进入etc/init.d/rcS，将1000修改为0</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">level1&#x2F;myimage$ gedit etc&#x2F;init.d&#x2F;rcS</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903110009863.png" alt="image-20200903110009863"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903110009863.png" alt="image-20200903110009863"></p>
 <p>（4）重新打包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">level1&#x2F;myimage$ find . | cpio -H newc -o &gt; ..&#x2F;initramfs.cpio</span><br><span class="line">level1&#x2F;myimage$ cd ..</span><br></pre></td></tr></table></figure>
 <p>（5）再次执行两条命令即可</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903110203208.png" alt="image-20200903110203208"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903110203208.png" alt="image-20200903110203208"></p>
 <p>已经是root权限了</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903110251793.png" alt="image-20200903110251793"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903110251793.png" alt="image-20200903110251793"></p>
 <p><code>prepare_kernel_cred</code>的地址为<code>0xffffffff810b9d80</code></p>
 <p><code>commit_creds</code>的地址为<code>0xffffffff810b99d0</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F; # grep prepare_kernel_cred  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a620 T prepare_kernel_cred</span><br><span class="line">ffffffff81b72650 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81b89b07 r __kstrtab_prepare_kernel_cred</span><br><span class="line">&#x2F; # grep commit_creds  &#x2F;proc&#x2F;kallsyms </span><br><span class="line">ffffffff8109a250 T commit_creds</span><br><span class="line">ffffffff81b69b00 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81b89b43 r __kstrtab_commit_creds</span><br><span class="line">&#x2F; # cat &#x2F;proc&#x2F;modules </span><br><span class="line">rootme 1616 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">.&#x2F;sys&#x2F;module&#x2F;rootme</span><br><span class="line">.&#x2F;proc&#x2F;rootme</span><br></pre></td></tr></table></figure>
@@ -535,15 +535,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;pwn # cat &#x2F;proc&#x2F;modules </span><br><span class="line">baby 16384 0 - Live 0xffffffffc0002000 (POE)</span><br></pre></td></tr></table></figure>
 <h5 id="调试内核"><a href="#调试内核" class="headerlink" title="调试内核"></a>调试内核</h5><p>（1）编辑startvm.sh，端口可以修改</p>
 <p>0x7ffd958d7e08</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200905004851358.png" alt="image-20200905004851358"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200905004851358.png" alt="image-20200905004851358"></p>
 <p>（2）执行<code>./startvm.sh</code></p>
 <p>（3）打开新窗口，在<code>level1</code>目录下执行<code>gdb exp</code></p>
 <p>（4）远程连接，<code>target remote :1234</code></p>
 <p>（5）下断点（ida里面的地址+基地址），继续执行</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200905103517562.png" alt="image-20200905103517562"></p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200905103116021.png" alt="image-20200905103116021"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200905103517562.png" alt="image-20200905103517562"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200905103116021.png" alt="image-20200905103116021"></p>
 <p>（6）在原来的窗口，执行exp</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200905103146690.png" alt="image-20200905103146690"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200905103146690.png" alt="image-20200905103146690"></p>
 <p>（7）接着，就可以正常调试了</p>
 <h5 id="执行exp步骤"><a href="#执行exp步骤" class="headerlink" title="执行exp步骤"></a>执行exp步骤</h5><p>（1）编译exp.c</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gcc exp.c -o exp -w -static -fPIC</span><br><span class="line">cd myimage&#x2F;</span><br></pre></td></tr></table></figure>
@@ -553,17 +553,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp exp myimage&#x2F;</span><br></pre></td></tr></table></figure>
 <p>（4）重新打包，执行./startvm.sh</p>
 <p>exp已在/目录下了</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903111831663.png" alt="image-20200903111831663"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903111831663.png" alt="image-20200903111831663"></p>
 <h5 id="疑惑的0x88和0x80"><a href="#疑惑的0x88和0x80" class="headerlink" title="疑惑的0x88和0x80"></a>疑惑的0x88和0x80</h5><p>一开始，说将<code>0x100</code>的用户数据拷贝到内核栈上，高度只有<code>0x88</code>，后面又说实际上缓冲区距离<code>rbp</code>是<code>0x80</code>，有点迷。</p>
 <p>一开始的0x88，指的是初始化的时候。</p>
 <p>但是程序初始化的时候，有个压栈操作，所以少减了一个8</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200903112746033.png" alt="image-20200903112746033"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200903112746033.png" alt="image-20200903112746033"></p>
 <h5 id="程序执行流程"><a href="#程序执行流程" class="headerlink" title="程序执行流程"></a>程序执行流程</h5><p>init_module是内核加载模块的时候调用的</p>
 <p>开始的时候（内核加载模块）：调用init_module</p>
 <p>中间的时候：</p>
 <p>我们调用ioctl调用了sub_0函数</p>
 <p>ioctl的参数就是sub_0的参数</p>
-<p><img src="/2020/10/22/00-32-undefined/image-20200905120014834.png" alt="image-20200905120014834"></p>
+<p><img src="/2020/10/22/00-32-Shuwen/image-20200905120014834.png" alt="image-20200905120014834"></p>
 <p><code>return (signed int)copy_from_user(&amp;v4, v2, 256LL);</code></p>
 <p>我们通过buf覆盖栈上的返回地址，执行v2中copy过去的templine函数，获得shell</p>
 <p>结束的时候：cleanup_module</p>
@@ -586,7 +586,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/11/16-35-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/11/16-35-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -600,7 +600,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/11/16-35-undefined/" class="post-title-link" itemprop="url">v8环境搭建</a>
+            <a href="/2020/10/11/16-35-Shuwen/" class="post-title-link" itemprop="url">v8环境搭建</a>
         </h2>
 
         <div class="post-meta">
@@ -681,19 +681,19 @@
 </blockquote>
 <p>我使用的是狗云，进来，“创建景点云服务器”，我一开始用的10G的硬盘，编译的时候发现太小了，然后只好销毁重来一个（这个只要三个工作日内，支持销毁退款）</p>
 <p>操作系统选择这个：CentOS 7 BBR，ubuntu 18我也用了，但还是出问题了</p>
-<p><img src="/2020/10/11/16-35-undefined/image-20201010130803778.png" alt="image-20201010130803778"></p>
+<p><img src="/2020/10/11/16-35-Shuwen/image-20201010130803778.png" alt="image-20201010130803778"></p>
 <p>然后进入“我的经典云服务器”，启动，用xshell远程连过去</p>
-<p><img src="/2020/10/11/16-35-undefined/image-20201010131058668.png" alt="image-20201010131058668"></p>
+<p><img src="/2020/10/11/16-35-Shuwen/image-20201010131058668.png" alt="image-20201010131058668"></p>
 <h3 id="环境搭建-1"><a href="#环境搭建-1" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="fetch源码"><a href="#fetch源码" class="headerlink" title="fetch源码"></a>fetch源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo yum groupinstall &quot;Development Tools&quot;  </span><br><span class="line">sudo yum install -y git gdb bzip2 wget</span><br><span class="line">cd ~</span><br><span class="line">git clone https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;chromium&#x2F;tools&#x2F;depot_tools.git</span><br><span class="line">export PATH&#x3D;&#96;pwd&#96;&#x2F;depot_tools:&quot;$PATH&quot;</span><br><span class="line">mkdir v8</span><br><span class="line">cd v8</span><br><span class="line">fetch v8</span><br><span class="line">cd ~&#x2F;v8&#x2F;v8</span><br><span class="line">git reset --hard 6dc88c191f5ecc5389dc26efa3ca0907faef3598(2019-starctf这道入门题)</span><br><span class="line">gclient sync</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.release(这个真的很慢，要耐心)</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.release # Release version</span><br><span class="line">.&#x2F;tools&#x2F;dev&#x2F;v8gen.py x64.debug</span><br><span class="line">ninja -C .&#x2F;out.gn&#x2F;x64.debug # Debug version</span><br></pre></td></tr></table></figure>
 <h5 id="release版本和debug版本"><a href="#release版本和debug版本" class="headerlink" title="release版本和debug版本"></a>release版本和debug版本</h5><p>上面的12-15行中，12-13两行下载的是release版本，14-15行下载的是debug版本。release版本可以正常运行，但是有些调试信息不能用，如job命令，执行起来的时候，也会告诉我们，没有调试的符号。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pwndbg: loaded 186 commands. Type pwndbg [filter] for a list.</span><br><span class="line">pwndbg: created $rebase, $ida gdb functions (can be used with print&#x2F;break)</span><br><span class="line">Reading symbols from .&#x2F;d8...(no debugging symbols found)...done.</span><br></pre></td></tr></table></figure>
 <p>debug就是调试版本，可以输入更多的调试信息。虽然debug看着好，但是，，，后面有点问题，，，两个都下过来就好。</p>
-<p><img src="/2020/10/11/16-35-undefined/image-20201015161210557.png" alt="image-20201015161210557"></p>
+<p><img src="/2020/10/11/16-35-Shuwen/image-20201015161210557.png" alt="image-20201015161210557"></p>
 <p>下过来之后，是这样的。</p>
 <p>我们进入x64.debug就可以调试状态下运行d8。。同理release</p>
 <h4 id="搭建ftp服务器"><a href="#搭建ftp服务器" class="headerlink" title="搭建ftp服务器"></a>搭建ftp服务器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">tar -czvf v8.tar v8</span><br><span class="line">sudo yum install vsftpd -y</span><br><span class="line">systemctl start vsftpd.service(在CentOS7和它之前，启动vsftpd服务的指令是 service vsftpd start，之后要使用新指令)</span><br><span class="line">sudo netstat -nltp | grep 21</span><br><span class="line">cp v8.tar &#x2F;var&#x2F;ftp&#x2F;</span><br></pre></td></tr></table></figure>
 <p>然后，浏览器就可以访问到了，点击下载即可。</p>
-<p><img src="/2020/10/11/16-35-undefined/image-20201011095616016.png" alt="image-20201011095616016"></p>
+<p><img src="/2020/10/11/16-35-Shuwen/image-20201011095616016.png" alt="image-20201011095616016"></p>
 <p>哇哇哇哇，感天动地，终于搞定了。</p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>实例程序(test.js)：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1.1</span>, <span class="number">2.2</span>, <span class="number">3.3</span>];</span><br><span class="line"><span class="keyword">var</span> c = [a, b];</span><br><span class="line">%DebugPrint(a);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第一次调试</span></span><br><span class="line">%DebugPrint(b);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第二次调试</span></span><br><span class="line">%DebugPrint(c);</span><br><span class="line">%SystemBreak();  <span class="comment">//触发第三次调试</span></span><br></pre></td></tr></table></figure>
@@ -720,7 +720,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/10/22-34-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/10/22-34-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -734,7 +734,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/10/10/22-34-undefined/" class="post-title-link" itemprop="url">C++知识补充</a>
+            <a href="/2020/10/10/22-34-Shuwen/" class="post-title-link" itemprop="url">C++知识补充</a>
         </h2>
 
         <div class="post-meta">
@@ -767,7 +767,7 @@
       
           <h2 id="后置返回类型"><a href="#后置返回类型" class="headerlink" title="后置返回类型"></a>后置返回类型</h2><blockquote>
 <p>遇到的情况：看着这三行，貌似懂又貌似不懂的样子，问了下，还真的没见过TAT</p>
-<p><img src="/2020/10/10/22-34-undefined/image-20201010222238876.png" alt="image-20201010222238876"></p>
+<p><img src="/2020/10/10/22-34-Shuwen/image-20201010222238876.png" alt="image-20201010222238876"></p>
 </blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtual auto name() const -&gt; std::string = 0;</span><br></pre></td></tr></table></figure>
 <ul>
@@ -801,7 +801,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/07/10-04-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/07/10-04-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -815,7 +815,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/07/10-04-undefined/" class="post-title-link" itemprop="url">beginner</a>
+            <a href="/2020/09/07/10-04-Shuwen/" class="post-title-link" itemprop="url">beginner</a>
         </h2>
 
         <div class="post-meta">
@@ -859,11 +859,11 @@
 <p>ELF二进制文件，64位，x86-64架构，LSB说明是小端的（MSB是大端的）</p>
 <h4 id="执行文件"><a href="#执行文件" class="headerlink" title="执行文件"></a>执行文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">winter@winter-ubuntu16:~&#x2F;googlectf&#x2F;reverse-beginner$ .&#x2F;a.out </span><br><span class="line">Flag: winter</span><br><span class="line">FAILURE</span><br></pre></td></tr></table></figure>
 <p>一个输入点，判断对错</p>
-<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/10-04-undefined/image-20200905153614666.png" alt="image-20200905153614666"></p>
+<h4 id="查看字符串"><a href="#查看字符串" class="headerlink" title="查看字符串"></a>查看字符串</h4><p><img src="/2020/09/07/10-04-Shuwen/image-20200905153614666.png" alt="image-20200905153614666"></p>
 <p>给定的字符串里面有CTF{，很可能是flag的一部分</p>
-<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/10-04-undefined/image-20200905160629829.png" alt="image-20200905160629829"></p>
+<h4 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h4><p><img src="/2020/09/07/10-04-Shuwen/image-20200905160629829.png" alt="image-20200905160629829"></p>
 <p><code>__isoc99_scanf(&quot;%15s&quot;, &amp;v5);</code>规定了最多输入15个字符，flag很有可能就是15个。</p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200905160714290.png" alt="image-20200905160714290"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200905160714290.png" alt="image-20200905160714290"></p>
 <h4 id="simd指令"><a href="#simd指令" class="headerlink" title="simd指令"></a>simd指令</h4><p>全称single instruction multiple data，即单指令多数据运算</p>
 <p>其目的就在于帮助CPU实现数据并行，提高运算效率。</p>
 <h5 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h5><p>选取源寄存器的任意字节重新排布到目的寄存器。</p>
@@ -871,16 +871,16 @@
 <p>网上可以搜到它的伪代码描述</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char a[16]; &#x2F;&#x2F; input a</span><br><span class="line">　　char b[16]; &#x2F;&#x2F; input b</span><br><span class="line">　　char r[16]; &#x2F;&#x2F; output r</span><br><span class="line"> </span><br><span class="line">　　for (i&#x3D;0; i &lt; 16; i++)</span><br><span class="line">   　　r[i] &#x3D; (b[i] &lt; 0) ? 0 : a[b[i] % 16];</span><br></pre></td></tr></table></figure>
 <p><a href="https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html" target="_blank" rel="noopener">https://www.cnblogs.com/celerychen/archive/2013/03/29/2989254.html</a></p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200905162233511.png" alt="image-20200905162233511"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200905162233511.png" alt="image-20200905162233511"></p>
 <p><code>13 12 10 08 04 15 03 14 09 11 05 01 07 06 02</code></p>
 <p>假设我们输入的值存放在a[16]数组里面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">索引:  1     2     3     4     5     6     7     8     9     10     11     12     13     14     15 </span><br><span class="line">目的：a[13] a[12] a[10] a[08] a[04] a[15] a[03] a[14] a[09] a[11]  a[05]  a[01]  a[07]   a[06]  a[02]</span><br></pre></td></tr></table></figure>
 <h5 id="add32"><a href="#add32" class="headerlink" title="add32"></a>add32</h5><p>每32位（4个字节）做整形加法运算，但是进位不会从一个4字节的包传输到另一个：</p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200905162639108.png" alt="image-20200905162639108"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200905162639108.png" alt="image-20200905162639108"></p>
 <h5 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h5><p>做异或操作</p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200905162718446.png" alt="image-20200905162718446"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200905162718446.png" alt="image-20200905162718446"></p>
 <p>因为程序是小端的，所以实际要倒过来，可以通过右键array变过来。</p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200906230824340.png" alt="image-20200906230824340"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200906230824340.png" alt="image-20200906230824340"></p>
 <h4 id="拼凑flag"><a href="#拼凑flag" class="headerlink" title="拼凑flag"></a>拼凑flag</h4><p>假设前四个字符就是CTF{，我们根据以上规则进行实验。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shuffle &#x3D; [2, 6, 7, 1, 5, 0xB, 9, 0xE, 3, 0xF, 4, 8, 0xA, 0xC,0xD, 0]</span><br></pre></td></tr></table></figure>
 <p>根据shuffle的规则，打乱顺序后的字符串如下</p>
@@ -895,7 +895,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x4D + ADD[5] &#x3D; 0x4D + 0xDE &#x3D; 0x12B</span><br><span class="line">0x2B ^ XOR[5] &#x3D; 0x2B ^ 0x1A &#x3D; 0x31 &#x3D;&gt; flag[5] &#x3D; &#39;1&#39;</span><br><span class="line">CTF&#123; _ 1 _ _ f _ _ M _ _ &#125;\0</span><br></pre></td></tr></table></figure>
 <p>这里发生了进位，需要将进位添加到add[6]里面去</p>
 <p>其他的也一样。</p>
-<p><img src="/2020/09/07/10-04-undefined/image-20200906235018243.png" alt="image-20200906235018243"></p>
+<p><img src="/2020/09/07/10-04-Shuwen/image-20200906235018243.png" alt="image-20200906235018243"></p>
 <p>出现单个数字的，说明进位到了什么索引。</p>
 <p>分别add[6]、add[7]、add[8]都发生了进位，但是add[6]加上进位是在第六位计算之前，所以没事。add[8]是add[7]进位，add[7]在四字节分割中是第二个四字节的末尾，所以他的进位无法添加到下一个有效字节，不用管它。</p>
 <p>所以，最后只有add[7]在结束后都需要重新计算。</p>
@@ -926,7 +926,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/04-05-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/04-05-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -940,7 +940,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/24/04-05-undefined/" class="post-title-link" itemprop="url">bomblab</a>
+            <a href="/2020/07/24/04-05-Shuwen/" class="post-title-link" itemprop="url">bomblab</a>
         </h2>
 
         <div class="post-meta">
@@ -983,12 +983,12 @@
 <p>通过分析可得，当<code>rdi</code>、<code>rsi</code>两个寄存器中地址对应的字符串内容，相等时，返回0，否则，返回1</p>
 <p>综上：</p>
 <p>当输入的字符串的内容和<code>0x402400</code>地址中的内容相等，即可通过。</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200722183034318.png" alt="image-20200722183034318"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200722183034318.png" alt="image-20200722183034318"></p>
 <p>Border relations with Canada have never been better.</p>
 <h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">0000000000400efc &lt;phase_2&gt;:</span><br><span class="line">  400efc:	55                   	push   %rbp</span><br><span class="line">  400efd:	53                   	push   %rbx</span><br><span class="line">  400efe:	48 83 ec 28          	sub    $0x28,%rsp</span><br><span class="line">  </span><br><span class="line">  400f02:	48 89 e6             	mov    %rsp,%rsi					#当前栈顶备份rsi</span><br><span class="line">  400f05:	e8 52 05 00 00       	callq  40145c &lt;read_six_numbers&gt;	#主要是判断是否输入了六个数</span><br><span class="line">  400f0a:	83 3c 24 01          	cmpl   $0x1,(%rsp)					#栈顶数据必须是1</span><br><span class="line">  400f0e:	74 20                	je     400f30 &lt;phase_2+0x34&gt;		#如果相等，rbx&#x3D;rsp+0x4；rbp&#x3D;rsp+0x18，否则，爆炸</span><br><span class="line">																		#rbp指向最后一个数字的位置,rbx指向rsp下面一个单元</span><br><span class="line">  400f10:	e8 25 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f15:	eb 19                	jmp    400f30 &lt;phase_2+0x34&gt;</span><br><span class="line">  400f17:	8b 43 fc             	mov    -0x4(%rbx),%eax				#eax初始化是rsp栈顶的数据</span><br><span class="line">  400f1a:	01 c0                	add    %eax,%eax					#eax×2</span><br><span class="line">  400f1c:	39 03                	cmp    %eax,(%rbx)					#eax和rbx的值比较</span><br><span class="line">																		#(也就是下一个单元的数据和上一个单元比较)</span><br><span class="line">  400f1e:	74 05                	je     400f25 &lt;phase_2+0x29&gt;		</span><br><span class="line">																		#如果相等，rbx+0x4，否则，爆炸</span><br><span class="line">  400f20:	e8 15 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f25:	48 83 c3 04          	add    $0x4,%rbx					rbx和rbp比较，rbx和rbp如果不相等(没走完6个)，继续循环</span><br><span class="line">  400f29:	48 39 eb             	cmp    %rbp,%rbx</span><br><span class="line">  400f2c:	75 e9                	jne    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f2e:	eb 0c                	jmp    400f3c &lt;phase_2+0x40&gt;		#rbx和rbp比较如果想等，结束</span><br><span class="line">  400f30:	48 8d 5c 24 04       	lea    0x4(%rsp),%rbx				#rbx(来判断的指针)，从rsp下面第一个数开始走			</span><br><span class="line">  400f35:	48 8d 6c 24 18       	lea    0x18(%rsp),%rbp		</span><br><span class="line">  400f3a:	eb db                	jmp    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f3c:	48 83 c4 28          	add    $0x28,%rsp					#六个走完，就结束了</span><br><span class="line">  400f40:	5b                   	pop    %rbx</span><br><span class="line">  400f41:	5d                   	pop    %rbp</span><br><span class="line">  400f42:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>所以，phase_2函数做的，就是将栈中的前六个单元的数据，相邻两个比较，如果2×上面单元地址 = 下面单元地址，才不会爆炸，又因为第一个是1（esp的值），六个，所以可以得到：</p>
 <p>栈内情况如下</p>
-<p> <img src="/2020/07/24/04-05-undefined/image-20200722234727371.png" alt="image-20200722234727371"></p>
+<p> <img src="/2020/07/24/04-05-Shuwen/image-20200722234727371.png" alt="image-20200722234727371"></p>
 <p>对于<code>read_six_numbers</code>函数，主要看一下几行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">40148a:	e8 61 f7 ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;		#输入h函数</span><br><span class="line">40148f:	83 f8 05             	cmp    $0x5,%eax					   #eax存放输入的参数个数，说明至少六个才行（eax返回6）</span><br><span class="line">401492:	7f 05                	jg     401499 &lt;read_six_numbers+0x3d&gt;	#JG： 大于转移指令。</span><br><span class="line">401494:	e8 a1 ff ff ff       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">401499:	48 83 c4 18          	add    $0x18,%rsp						#小于0x5，顺利退出</span><br><span class="line">40149d:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>将参数压栈的操作</p>
@@ -1001,15 +1001,15 @@
 <p>对于sscanf函数，原型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int sscanf(const char* str,const char* format,...);</span><br></pre></td></tr></table></figure>
 <p>在这里，<code>esi</code>里面存放的是format的内容，<code>[esp+4]</code>、<code>[esp+0xc]</code>里面分别是第一第二个参数</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200723015133883.png" alt="image-20200723015133883"></p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200723020444125.png" alt="image-20200723020444125"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200723015133883.png" alt="image-20200723015133883"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200723020444125.png" alt="image-20200723020444125"></p>
 <p>根据format和这两条语句，可以知道，参数为2。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数		#至少要输入两个参数</span><br></pre></td></tr></table></figure>
 <p>下面到了重点，也就是switch语句。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax</span><br></pre></td></tr></table></figure>
 <p>到内存中查看0x402470和0x402478</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200723020928192.png" alt="image-20200723020928192"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200723020928192.png" alt="image-20200723020928192"></p>
 <p><code>0x402470</code>是当rax=0时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x402470</code>,当rax=1时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x400fb9</code>，一次类推，只要eax属于（0，0xx7），就有它对应的解</p>
 <ul>
 <li>0    0xcf            207</li>
@@ -1023,7 +1023,7 @@
 </ul>
 <p>共有八组解，都可以使用</p>
 <p>另外，如果不想奋斗看汇编，其实，可以ida里面看伪代码，分分钟秒杀</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200723021624745.png" alt="image-20200723021624745"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200723021624745.png" alt="image-20200723021624745"></p>
 <h3 id="第四阶段"><a href="#第四阶段" class="headerlink" title="第四阶段"></a>第四阶段</h3><p>读懂程序，就可以简单绕过了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">000000000040100c &lt;phase_4&gt;:</span><br><span class="line">  40100c:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  401010:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx</span><br><span class="line">  401015:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx</span><br><span class="line">  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi</span><br><span class="line">  40101f:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  401024:	e8 c7 fb ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  401029:	83 f8 02             	cmp    $0x2,%eax						#参数必须是两个</span><br><span class="line">  40102c:	75 07                	jne    401035 &lt;phase_4+0x29&gt;</span><br><span class="line">  40102e:	83 7c 24 08 0e       	cmpl   $0xe,0x8(%rsp)					#第一个参数必须小于等于0xe</span><br><span class="line">  401033:	76 05                	jbe    40103a &lt;phase_4+0x2e&gt;			</span><br><span class="line">  401035:	e8 00 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40103a:	ba 0e 00 00 00       	mov    $0xe,%edx						#edx &#x3D; 0xe</span><br><span class="line">  40103f:	be 00 00 00 00       	mov    $0x0,%esi						#esi &#x3D; 0x0</span><br><span class="line">  401044:	8b 7c 24 08          	mov    0x8(%rsp),%edi					#edi &#x3D; rsp+0x8</span><br><span class="line">  401048:	e8 81 ff ff ff       	callq  400fce &lt;func4&gt;					#func4</span><br><span class="line">  40104d:	85 c0                	test   %eax,%eax						#eax必须等于0</span><br><span class="line">  40104f:	75 07                	jne    401058 &lt;phase_4+0x4c&gt;			</span><br><span class="line">  401051:	83 7c 24 0c 00       	cmpl   $0x0,0xc(%rsp)					#rsp + 0xc 要等于 0x0</span><br><span class="line">  401056:	74 05                	je     40105d &lt;phase_4+0x51&gt;</span><br><span class="line">  401058:	e8 dd 03 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40105d:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  401061:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>这个函数中，得到的消息有，参数必须是两个，其中，第一个不确定，在经过<code>fun4函数</code>后，<code>eax</code>返回值要是0，第二个参数必须是0。</p>
@@ -1038,23 +1038,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi			#esi &#x3D; 0x40245e &quot;flyers&quot;</span><br><span class="line"></span><br><span class="line">4010b8:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi			#rdi &#x3D; (rsp + 0x10)</span><br><span class="line">4010bd:	e8 76 02 00 00       	callq  401338 &lt;strings_not_equal&gt; #rdi和rsi</span><br><span class="line">4010c2:	85 c0                	test   %eax,%eax				</span><br><span class="line">4010c4:	74 13                	je     4010d9 &lt;phase_5+0x77&gt;	#字符串必须一样</span><br></pre></td></tr></table></figure>
 <p>然后将那个地址的字符，放入<code>rdi</code>中，进行字符串比较，要求和内存单元<code>0x40245e</code>里面的一样，也就是字符串<code>&quot;flyers&quot;</code></p>
 <p>综上，所以，我们需要的偏移，在对应上面的字符串<code>maduiersnfotvby</code>上找，是9、15、14、5、6、7，也就是我们输入的六个可见字符，他们的低4位需要对应以上数，对应ascii码表，可以区数字部分的，0对应0x30，刚好。</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200723212445995.png" alt="image-20200723212445995"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200723212445995.png" alt="image-20200723212445995"></p>
 <p>所以，也就是9?&gt;567</p>
 <h3 id="第六阶段"><a href="#第六阶段" class="headerlink" title="第六阶段"></a>第六阶段</h3><p>由于最后一个有点复杂，直接在ida里进行分析</p>
 <p>主要分为五个小节</p>
 <p>第一小节，判断输入数据的合法性</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724034848651.png" alt="image-20200724034848651"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724034848651.png" alt="image-20200724034848651"></p>
 <p>结论：需要输入的数据[1,6]，且两两互不相等</p>
 <p>第二小节，对输入的数据进行小小变换操作</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724035019549.png" alt="image-20200724035019549"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035019549.png" alt="image-20200724035019549"></p>
 <p>结论：原来输入的数据，变成了<code>7-原数据</code></p>
 <p>第三小节，将node链表根据输入重新排列到新的地方</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724035051039.png" alt="image-20200724035051039"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035051039.png" alt="image-20200724035051039"></p>
 <p>因为语句<code>v6 = (int *)*((_QWORD *)v6 + 1);</code>中， <code>+1</code>通过转换加的是qword数据，根据下面图可以，<code>+1</code>后便是下一个node的地址。</p>
 <p>因为每次取出输入变换的数据<code>v8</code>，取链上node，一直取，直到走了<code>v8</code>步才停下，赋给了<code>v17..</code>这里的数据</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724035203891.png" alt="image-20200724035203891"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035203891.png" alt="image-20200724035203891"></p>
 <p>第五小节，判断链上的数据，是否递减排列</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724035304948.png" alt="image-20200724035304948"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035304948.png" alt="image-20200724035304948"></p>
 <p>node上数据</p>
 <ul>
 <li>1 0x14c</li>
@@ -1074,7 +1074,7 @@
 <p>7 0</p>
 <p>9?&gt;567</p>
 <p>4 3 2 1 6 5</p>
-<p><img src="/2020/07/24/04-05-undefined/image-20200724040224131.png" alt="image-20200724040224131"></p>
+<p><img src="/2020/07/24/04-05-Shuwen/image-20200724040224131.png" alt="image-20200724040224131"></p>
 
       
     </div>
@@ -1094,7 +1094,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/18-52-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/18-52-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1108,7 +1108,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/23/18-52-undefined/" class="post-title-link" itemprop="url">datalab</a>
+            <a href="/2020/07/23/18-52-Shuwen/" class="post-title-link" itemprop="url">datalab</a>
         </h2>
 
         <div class="post-meta">
@@ -1140,7 +1140,7 @@
 
       
           <h4 id="1-bitXor"><a href="#1-bitXor" class="headerlink" title="1.bitXor"></a>1.bitXor</h4><p>用～（取补）和&amp;实现异或操作</p>
-<p><img src="/2020/07/23/18-52-undefined/image-20200720182358141.png" alt="image-20200720182358141"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/image-20200720182358141.png" alt="image-20200720182358141"></p>
 <h4 id="2-tmin"><a href="#2-tmin" class="headerlink" title="2.tmin"></a>2.tmin</h4><p>两字节补码的最小数</p>
 <p>0111 1111 1111 1111 1111 1111 1111 1111 最大的，～x + 1，取负，负数比正数小一个</p>
 <p>1000 0000 0000 0000 0000 0000 0000 0000 == 0x80000000 </p>
@@ -1185,11 +1185,11 @@
 <li>区别规格化数和非规格化数</li>
 </ul>
 <p>单精度浮点内部</p>
-<p><img src="/2020/07/23/18-52-undefined/image-20200720214424119.png" alt="image-20200720214424119"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/image-20200720214424119.png" alt="image-20200720214424119"></p>
 <p>NaN</p>
-<p><img src="/2020/07/23/18-52-undefined/image-20200720214532080.png" alt="image-20200720214532080"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/image-20200720214532080.png" alt="image-20200720214532080"></p>
 <p>正负无穷</p>
-<p><img src="/2020/07/23/18-52-undefined/winter-blog\source\_posts\datalab\11.png" alt="11"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/winter-blog\source\_posts\datalab\11.png" alt="11"></p>
 <h4 id="12-floatFloat2Int"><a href="#12-floatFloat2Int" class="headerlink" title="12.floatFloat2Int"></a>12.floatFloat2Int</h4><p>参数的类型是unsigned，是浮点数的机器数，将其转换为该浮点数转换的int值。</p>
 <p>情况：</p>
 <ul>
@@ -1210,10 +1210,10 @@
 <p>23是因为，阶码部分，就是尾数（23位）前面，有个默认的1</p>
 <p>E = x;</p>
 <p>0 | bios + E | 23个0</p>
-<p><img src="/2020/07/23/18-52-undefined/winter-blog\source\_posts\datalab\13.1.png" alt="13.1"></p>
-<p><img src="/2020/07/23/18-52-undefined/winter-blog\source\_posts\datalab\13.2.png" alt="13.2"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/winter-blog\source\_posts\datalab\13.1.png" alt="13.1"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/winter-blog\source\_posts\datalab\13.2.png" alt="13.2"></p>
 <hr>
-<p><img src="/2020/07/23/18-52-undefined/image-20200720222037585.png" alt="image-20200720222037585"></p>
+<p><img src="/2020/07/23/18-52-Shuwen/image-20200720222037585.png" alt="image-20200720222037585"></p>
 
       
     </div>
@@ -1233,7 +1233,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/18-38-undefined/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/18-38-Shuwen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/shuwen.jpg">
@@ -1247,7 +1247,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/07/23/18-38-undefined/" class="post-title-link" itemprop="url">winter</a>
+            <a href="/2020/07/23/18-38-Shuwen/" class="post-title-link" itemprop="url">winter</a>
         </h2>
 
         <div class="post-meta">
