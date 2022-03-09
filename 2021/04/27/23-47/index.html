@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="前言 搞得我想吐，，，总是出现奇奇怪怪的问题，sendline和send为什么返回的地址不一样，，， 没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force  程序流程堆体，，，只有一个功能（puts函数没有用）  对于add  分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211531288.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211635840.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47/image-20210427211531288.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/27/23-47/image-20210427211635840.png">
 <meta property="article:published_time" content="2021-04-27T15:47:06.000Z">
 <meta property="article:modified_time" content="2021-04-27T15:55:44.586Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="house of force">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/04/27/23-47-Shuwen/image-20210427211531288.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/27/23-47/image-20210427211531288.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/04/27/23-47/">
 
@@ -212,12 +212,12 @@
 <p>没想到居然是去年高校战役的题，好吧，当时还做了下这个比赛，不过没弄这道题，发现还是一个比较常规的题，house of force</p>
 </blockquote>
 <h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p>堆体，，，只有一个功能（puts函数没有用）</p>
-<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211531288.png" alt="image-20210427211531288"></p>
+<p><img src="/2021/04/27/23-47/image-20210427211531288.png" alt="image-20210427211531288"></p>
 <p>对于add</p>
 <blockquote>
 <p>分配任意大小的chunk，但是固定读入数据0x50大小，所以如果申请的大小小于0x50，就存在堆溢出</p>
 </blockquote>
-<p><img src="/2021/04/27/23-47-Shuwen/image-20210427211635840.png" alt="image-20210427211635840"></p>
+<p><img src="/2021/04/27/23-47/image-20210427211635840.png" alt="image-20210427211635840"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>由于题目是保护全开，所以不能覆盖got表</p>
 <p>方法：</p>
 <ol>

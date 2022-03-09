@@ -27,25 +27,25 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="总共六个阶段 任务是，运行时，有六个阶段，每个阶段输入一个字符串，如果输入错误，炸弹爆炸。这次给的文件不全，所以，需要看汇编了解程序。 导出汇编代码：unix&gt; objdump -d &gt; obj.txt 第一阶段1234567#main这块关于第一阶段的代码400e32:	e8 67 06 00 00       	callq  40149e &lt;read_line&gt;400e">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200722183034318.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200722234727371.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200723015133883.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200723020444125.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200723020928192.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200723021624745.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200723212445995.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724034848651.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724035019549.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724035051039.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724035203891.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724035304948.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200724040224131.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200722183034318.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200722234727371.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200723015133883.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200723020444125.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200723020928192.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200723021624745.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200723212445995.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724034848651.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724035019549.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724035051039.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724035203891.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724035304948.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/04-05/image-20200724040224131.png">
 <meta property="article:published_time" content="2020-07-23T20:05:11.000Z">
 <meta property="article:modified_time" content="2021-04-20T08:59:16.970Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="csapp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/24/04-05-Shuwen/image-20200722183034318.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/24/04-05/image-20200722183034318.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/24/04-05/">
 
@@ -227,12 +227,12 @@
 <p>通过分析可得，当<code>rdi</code>、<code>rsi</code>两个寄存器中地址对应的字符串内容，相等时，返回0，否则，返回1</p>
 <p>综上：</p>
 <p>当输入的字符串的内容和<code>0x402400</code>地址中的内容相等，即可通过。</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200722183034318.png" alt="image-20200722183034318"></p>
+<p><img src="/2020/07/24/04-05/image-20200722183034318.png" alt="image-20200722183034318"></p>
 <p>Border relations with Canada have never been better.</p>
 <h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">0000000000400efc &lt;phase_2&gt;:</span><br><span class="line">  400efc:	55                   	push   %rbp</span><br><span class="line">  400efd:	53                   	push   %rbx</span><br><span class="line">  400efe:	48 83 ec 28          	sub    $0x28,%rsp</span><br><span class="line">  </span><br><span class="line">  400f02:	48 89 e6             	mov    %rsp,%rsi					#当前栈顶备份rsi</span><br><span class="line">  400f05:	e8 52 05 00 00       	callq  40145c &lt;read_six_numbers&gt;	#主要是判断是否输入了六个数</span><br><span class="line">  400f0a:	83 3c 24 01          	cmpl   $0x1,(%rsp)					#栈顶数据必须是1</span><br><span class="line">  400f0e:	74 20                	je     400f30 &lt;phase_2+0x34&gt;		#如果相等，rbx&#x3D;rsp+0x4；rbp&#x3D;rsp+0x18，否则，爆炸</span><br><span class="line">																		#rbp指向最后一个数字的位置,rbx指向rsp下面一个单元</span><br><span class="line">  400f10:	e8 25 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f15:	eb 19                	jmp    400f30 &lt;phase_2+0x34&gt;</span><br><span class="line">  400f17:	8b 43 fc             	mov    -0x4(%rbx),%eax				#eax初始化是rsp栈顶的数据</span><br><span class="line">  400f1a:	01 c0                	add    %eax,%eax					#eax×2</span><br><span class="line">  400f1c:	39 03                	cmp    %eax,(%rbx)					#eax和rbx的值比较</span><br><span class="line">																		#(也就是下一个单元的数据和上一个单元比较)</span><br><span class="line">  400f1e:	74 05                	je     400f25 &lt;phase_2+0x29&gt;		</span><br><span class="line">																		#如果相等，rbx+0x4，否则，爆炸</span><br><span class="line">  400f20:	e8 15 05 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  400f25:	48 83 c3 04          	add    $0x4,%rbx					rbx和rbp比较，rbx和rbp如果不相等(没走完6个)，继续循环</span><br><span class="line">  400f29:	48 39 eb             	cmp    %rbp,%rbx</span><br><span class="line">  400f2c:	75 e9                	jne    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f2e:	eb 0c                	jmp    400f3c &lt;phase_2+0x40&gt;		#rbx和rbp比较如果想等，结束</span><br><span class="line">  400f30:	48 8d 5c 24 04       	lea    0x4(%rsp),%rbx				#rbx(来判断的指针)，从rsp下面第一个数开始走			</span><br><span class="line">  400f35:	48 8d 6c 24 18       	lea    0x18(%rsp),%rbp		</span><br><span class="line">  400f3a:	eb db                	jmp    400f17 &lt;phase_2+0x1b&gt;</span><br><span class="line">  400f3c:	48 83 c4 28          	add    $0x28,%rsp					#六个走完，就结束了</span><br><span class="line">  400f40:	5b                   	pop    %rbx</span><br><span class="line">  400f41:	5d                   	pop    %rbp</span><br><span class="line">  400f42:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>所以，phase_2函数做的，就是将栈中的前六个单元的数据，相邻两个比较，如果2×上面单元地址 = 下面单元地址，才不会爆炸，又因为第一个是1（esp的值），六个，所以可以得到：</p>
 <p>栈内情况如下</p>
-<p> <img src="/2020/07/24/04-05-Shuwen/image-20200722234727371.png" alt="image-20200722234727371"></p>
+<p> <img src="/2020/07/24/04-05/image-20200722234727371.png" alt="image-20200722234727371"></p>
 <p>对于<code>read_six_numbers</code>函数，主要看一下几行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">40148a:	e8 61 f7 ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;		#输入h函数</span><br><span class="line">40148f:	83 f8 05             	cmp    $0x5,%eax					   #eax存放输入的参数个数，说明至少六个才行（eax返回6）</span><br><span class="line">401492:	7f 05                	jg     401499 &lt;read_six_numbers+0x3d&gt;	#JG： 大于转移指令。</span><br><span class="line">401494:	e8 a1 ff ff ff       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">401499:	48 83 c4 18          	add    $0x18,%rsp						#小于0x5，顺利退出</span><br><span class="line">40149d:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>将参数压栈的操作</p>
@@ -245,15 +245,15 @@
 <p>对于sscanf函数，原型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int sscanf(const char* str,const char* format,...);</span><br></pre></td></tr></table></figure>
 <p>在这里，<code>esi</code>里面存放的是format的内容，<code>[esp+4]</code>、<code>[esp+0xc]</code>里面分别是第一第二个参数</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200723015133883.png" alt="image-20200723015133883"></p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200723020444125.png" alt="image-20200723020444125"></p>
+<p><img src="/2020/07/24/04-05/image-20200723015133883.png" alt="image-20200723015133883"></p>
+<p><img src="/2020/07/24/04-05/image-20200723020444125.png" alt="image-20200723020444125"></p>
 <p>根据format和这两条语句，可以知道，参数为2。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">400f60:	83 f8 01             	cmp    $0x1,%eax						</span><br><span class="line">400f63:	7f 05                	jg     400f6a &lt;phase_3+0x27&gt;			#至少要输入两个参数		#至少要输入两个参数</span><br></pre></td></tr></table></figure>
 <p>下面到了重点，也就是switch语句。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)				#switch结构</span><br><span class="line">400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax						#eax &#x3D; 0xcf 	207</span><br><span class="line">400f81:	eb 3b                	jmp    400fbe &lt;phase_3+0x7b&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">400fb9:	b8 37 01 00 00       	mov    $0x137,%eax</span><br><span class="line">400fbe:	3b 44 24 0c          	cmp    0xc(%rsp),%eax</span><br></pre></td></tr></table></figure>
 <p>到内存中查看0x402470和0x402478</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200723020928192.png" alt="image-20200723020928192"></p>
+<p><img src="/2020/07/24/04-05/image-20200723020928192.png" alt="image-20200723020928192"></p>
 <p><code>0x402470</code>是当rax=0时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x402470</code>,当rax=1时，<code>jmpq   *0x402470(,%rax,8)</code>调转到地址<code>0x400fb9</code>，一次类推，只要eax属于（0，0xx7），就有它对应的解</p>
 <ul>
 <li>0    0xcf            207</li>
@@ -267,7 +267,7 @@
 </ul>
 <p>共有八组解，都可以使用</p>
 <p>另外，如果不想奋斗看汇编，其实，可以ida里面看伪代码，分分钟秒杀</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200723021624745.png" alt="image-20200723021624745"></p>
+<p><img src="/2020/07/24/04-05/image-20200723021624745.png" alt="image-20200723021624745"></p>
 <h3 id="第四阶段"><a href="#第四阶段" class="headerlink" title="第四阶段"></a>第四阶段</h3><p>读懂程序，就可以简单绕过了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">000000000040100c &lt;phase_4&gt;:</span><br><span class="line">  40100c:	48 83 ec 18          	sub    $0x18,%rsp						</span><br><span class="line">  401010:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx</span><br><span class="line">  401015:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx</span><br><span class="line">  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi</span><br><span class="line">  40101f:	b8 00 00 00 00       	mov    $0x0,%eax</span><br><span class="line">  401024:	e8 c7 fb ff ff       	callq  400bf0 &lt;__isoc99_sscanf@plt&gt;</span><br><span class="line">  401029:	83 f8 02             	cmp    $0x2,%eax						#参数必须是两个</span><br><span class="line">  40102c:	75 07                	jne    401035 &lt;phase_4+0x29&gt;</span><br><span class="line">  40102e:	83 7c 24 08 0e       	cmpl   $0xe,0x8(%rsp)					#第一个参数必须小于等于0xe</span><br><span class="line">  401033:	76 05                	jbe    40103a &lt;phase_4+0x2e&gt;			</span><br><span class="line">  401035:	e8 00 04 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40103a:	ba 0e 00 00 00       	mov    $0xe,%edx						#edx &#x3D; 0xe</span><br><span class="line">  40103f:	be 00 00 00 00       	mov    $0x0,%esi						#esi &#x3D; 0x0</span><br><span class="line">  401044:	8b 7c 24 08          	mov    0x8(%rsp),%edi					#edi &#x3D; rsp+0x8</span><br><span class="line">  401048:	e8 81 ff ff ff       	callq  400fce &lt;func4&gt;					#func4</span><br><span class="line">  40104d:	85 c0                	test   %eax,%eax						#eax必须等于0</span><br><span class="line">  40104f:	75 07                	jne    401058 &lt;phase_4+0x4c&gt;			</span><br><span class="line">  401051:	83 7c 24 0c 00       	cmpl   $0x0,0xc(%rsp)					#rsp + 0xc 要等于 0x0</span><br><span class="line">  401056:	74 05                	je     40105d &lt;phase_4+0x51&gt;</span><br><span class="line">  401058:	e8 dd 03 00 00       	callq  40143a &lt;explode_bomb&gt;</span><br><span class="line">  40105d:	48 83 c4 18          	add    $0x18,%rsp</span><br><span class="line">  401061:	c3                   	retq</span><br></pre></td></tr></table></figure>
 <p>这个函数中，得到的消息有，参数必须是两个，其中，第一个不确定，在经过<code>fun4函数</code>后，<code>eax</code>返回值要是0，第二个参数必须是0。</p>
@@ -282,23 +282,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi			#esi &#x3D; 0x40245e &quot;flyers&quot;</span><br><span class="line"></span><br><span class="line">4010b8:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi			#rdi &#x3D; (rsp + 0x10)</span><br><span class="line">4010bd:	e8 76 02 00 00       	callq  401338 &lt;strings_not_equal&gt; #rdi和rsi</span><br><span class="line">4010c2:	85 c0                	test   %eax,%eax				</span><br><span class="line">4010c4:	74 13                	je     4010d9 &lt;phase_5+0x77&gt;	#字符串必须一样</span><br></pre></td></tr></table></figure>
 <p>然后将那个地址的字符，放入<code>rdi</code>中，进行字符串比较，要求和内存单元<code>0x40245e</code>里面的一样，也就是字符串<code>&quot;flyers&quot;</code></p>
 <p>综上，所以，我们需要的偏移，在对应上面的字符串<code>maduiersnfotvby</code>上找，是9、15、14、5、6、7，也就是我们输入的六个可见字符，他们的低4位需要对应以上数，对应ascii码表，可以区数字部分的，0对应0x30，刚好。</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200723212445995.png" alt="image-20200723212445995"></p>
+<p><img src="/2020/07/24/04-05/image-20200723212445995.png" alt="image-20200723212445995"></p>
 <p>所以，也就是9?&gt;567</p>
 <h3 id="第六阶段"><a href="#第六阶段" class="headerlink" title="第六阶段"></a>第六阶段</h3><p>由于最后一个有点复杂，直接在ida里进行分析</p>
 <p>主要分为五个小节</p>
 <p>第一小节，判断输入数据的合法性</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724034848651.png" alt="image-20200724034848651"></p>
+<p><img src="/2020/07/24/04-05/image-20200724034848651.png" alt="image-20200724034848651"></p>
 <p>结论：需要输入的数据[1,6]，且两两互不相等</p>
 <p>第二小节，对输入的数据进行小小变换操作</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035019549.png" alt="image-20200724035019549"></p>
+<p><img src="/2020/07/24/04-05/image-20200724035019549.png" alt="image-20200724035019549"></p>
 <p>结论：原来输入的数据，变成了<code>7-原数据</code></p>
 <p>第三小节，将node链表根据输入重新排列到新的地方</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035051039.png" alt="image-20200724035051039"></p>
+<p><img src="/2020/07/24/04-05/image-20200724035051039.png" alt="image-20200724035051039"></p>
 <p>因为语句<code>v6 = (int *)*((_QWORD *)v6 + 1);</code>中， <code>+1</code>通过转换加的是qword数据，根据下面图可以，<code>+1</code>后便是下一个node的地址。</p>
 <p>因为每次取出输入变换的数据<code>v8</code>，取链上node，一直取，直到走了<code>v8</code>步才停下，赋给了<code>v17..</code>这里的数据</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035203891.png" alt="image-20200724035203891"></p>
+<p><img src="/2020/07/24/04-05/image-20200724035203891.png" alt="image-20200724035203891"></p>
 <p>第五小节，判断链上的数据，是否递减排列</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724035304948.png" alt="image-20200724035304948"></p>
+<p><img src="/2020/07/24/04-05/image-20200724035304948.png" alt="image-20200724035304948"></p>
 <p>node上数据</p>
 <ul>
 <li>1 0x14c</li>
@@ -318,7 +318,7 @@
 <p>7 0</p>
 <p>9?&gt;567</p>
 <p>4 3 2 1 6 5</p>
-<p><img src="/2020/07/24/04-05-Shuwen/image-20200724040224131.png" alt="image-20200724040224131"></p>
+<p><img src="/2020/07/24/04-05/image-20200724040224131.png" alt="image-20200724040224131"></p>
 
     </div>
 

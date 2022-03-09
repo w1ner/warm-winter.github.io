@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="前言 第二次选拔赛，，，，看这个成绩，，，，战况糟糕，，，只做出来了简单题，，， 秉持着什么比赛尽量复现一遍，，，，故今晚就干这个了。。。        ——2021.3.20 题解参考：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;discuss&#x2F;blogs?tagId&#x3D;140529 题目地址：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;12478  A 暗">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210321212749117.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210322142735301.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210322143100339.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210322143132384.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210323164718581.png">
-<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210323164754408.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210321212749117.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210322142735301.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210322143100339.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210322143132384.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210323164718581.png">
+<meta property="og:image" content="http://yoursite.com/2021/04/18/08-32/image-20210323164754408.png">
 <meta property="article:published_time" content="2021-04-18T00:32:52.000Z">
 <meta property="article:modified_time" content="2021-08-07T16:49:00.039Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="西南科技大学新生赛">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/04/18/08-32-Shuwen/image-20210321212749117.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/04/18/08-32/image-20210321212749117.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/04/18/08-32/">
 
@@ -280,7 +280,7 @@
 </ol>
 <blockquote>
 <p>高级，，，这种方法又称作桶排。</p>
-<p><img src="/2021/04/18/08-32-Shuwen/image-20210321212749117.png" alt="image-20210321212749117"></p>
+<p><img src="/2021/04/18/08-32/image-20210321212749117.png" alt="image-20210321212749117"></p>
 </blockquote>
 <h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">101</span>];<span class="comment">//因为输入的数最大为100，用一个100大小的空间即可</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;<span class="comment">//测试数据的写法</span></span><br><span class="line">        <span class="keyword">int</span> n;<span class="comment">//数组长度</span></span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="keyword">sizeof</span>(a));<span class="comment">//必须置0,避免影响其他轮数的计算</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;<span class="comment">//输入n组数据</span></span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span>&gt;&gt;x;</span><br><span class="line">            a[x]++;<span class="comment">//用下标表示数字，用数组表示有几个。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span> ; ++i) &#123;</span><br><span class="line">            ans += a[i] * a[i*<span class="number">2</span>];<span class="comment">//好想法。。。</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="D-圆的交点"><a href="#D-圆的交点" class="headerlink" title="D 圆的交点"></a>D 圆的交点</h2><blockquote>
@@ -290,7 +290,7 @@
 <ol>
 <li>相邻的交点</li>
 </ol>
-<p><img src="/2021/04/18/08-32-Shuwen/image-20210322142735301.png" alt="image-20210322142735301"></p>
+<p><img src="/2021/04/18/08-32/image-20210322142735301.png" alt="image-20210322142735301"></p>
 <p>两两相交，交点有两个</p>
 <p>组合方式计算：</p>
 <p>a.一排横着两两相交：a种</p>
@@ -300,13 +300,13 @@
 <p>故此情况共有交点:<code>2*[a*(b+1)+b*(a+1)]</code></p>
 <hr>
 <p>2.斜对面</p>
-<p><img src="/2021/04/18/08-32-Shuwen/image-20210322143100339.png" alt="image-20210322143100339"></p>
+<p><img src="/2021/04/18/08-32/image-20210322143100339.png" alt="image-20210322143100339"></p>
 <p>这种情况，交点都在圆心处，，</p>
 <hr>
 <ol>
 <li>相切</li>
 </ol>
-<p><img src="/2021/04/18/08-32-Shuwen/image-20210322143132384.png" alt="image-20210322143132384"></p>
+<p><img src="/2021/04/18/08-32/image-20210322143132384.png" alt="image-20210322143132384"></p>
 <p>交点也都在圆心处，，，</p>
 <p>所以，所有的圆心都是交点，也就是(a+1)*(b+1)，也就是所有圆的个数</p>
 <hr>
@@ -375,9 +375,9 @@
 <p>规律很好找，主要是大数麻烦，当时用java的BigInteger做出来的，，，</p>
 <p>思路巧妙地进行化简以及dp的思路</p>
 </blockquote>
-<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><img src="/2021/04/18/08-32-Shuwen/image-20210323164718581.png" alt="image-20210323164718581"></p>
+<h3 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h3><p><img src="/2021/04/18/08-32/image-20210323164718581.png" alt="image-20210323164718581"></p>
 <p>最后这步的化简是根据分数的取模得到的</p>
-<p><img src="/2021/04/18/08-32-Shuwen/image-20210323164754408.png" alt="image-20210323164754408"></p>
+<p><img src="/2021/04/18/08-32/image-20210323164754408.png" alt="image-20210323164754408"></p>
 <p><code>i层的和 = i-1层的和 + i*(2*i-1)</code></p>
 <h3 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;t;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">1e6</span>; ++i) &#123;</span><br><span class="line">        a[i] = (a[i<span class="number">-1</span>] + i*(<span class="number">2</span>*i<span class="number">-1</span>))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;a[n]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="G-小凡做蛋糕"><a href="#G-小凡做蛋糕" class="headerlink" title="G 小凡做蛋糕"></a>G 小凡做蛋糕</h2>

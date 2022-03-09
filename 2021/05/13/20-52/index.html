@@ -27,21 +27,21 @@
 <meta property="og:site_name" content="Shuwen&#39;s blog">
 <meta property="og:description" content="fruitpie 思路挺简单的  程序流程 基本上分为四部分。  输入要分配的chunk大小，打印chunk地址 输入与分配chunk的偏移，往该地址中输入0x10数据。 malloc(0xA0) &#x3D;&gt; 很明显是要覆盖__malloc_hook close(1) &#x3D;&gt; 关闭输出，所以要重定向（本地就不需要了）    漏洞利用 根据程序的四个功能，一步步来做   给定chunk大小并打印">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210428214311968.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513201026622.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513201127385.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513194930539.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195209948.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195310404.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195431863.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195449902.png">
-<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513202435970.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210428214311968.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513201026622.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513201127385.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513194930539.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195209948.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195310404.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195431863.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513195449902.png">
+<meta property="og:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210513202435970.png">
 <meta property="article:published_time" content="2021-05-13T12:52:48.000Z">
 <meta property="article:modified_time" content="2021-05-13T12:53:51.300Z">
 <meta property="article:author" content="Shuwen">
 <meta property="article:tag" content="dasctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/05/13/20-52-Shuwen/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210428214311968.png">
+<meta name="twitter:image" content="http://yoursite.com/2021/05/13/20-52/Users/YCNN/AppData/Roaming/Typora/typora-user-images/image-20210428214311968.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/05/13/20-52/">
 
@@ -226,7 +226,7 @@
 <li>close(1) =&gt; 关闭输出，所以要重定向（本地就不需要了）</li>
 </ol>
 </blockquote>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210428214311968.png" alt="image-20210428214311968"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210428214311968.png" alt="image-20210428214311968"></p>
 <h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><blockquote>
 <p>根据程序的四个功能，一步步来做</p>
 </blockquote>
@@ -292,17 +292,17 @@
 <li>隐藏功能edit：根据idx，修改内容，但是存在off by one</li>
 </ol>
 <h4 id="puts地址"><a href="#puts地址" class="headerlink" title="puts地址"></a>puts地址</h4><p>ida反汇编并没有看到这个地址，汇编里面可以清楚看到</p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513201026622.png" alt="image-20210513201026622"></p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513201127385.png" alt="image-20210513201127385"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513201026622.png" alt="image-20210513201026622"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513201127385.png" alt="image-20210513201127385"></p>
 <h4 id="隐藏edit功能"><a href="#隐藏edit功能" class="headerlink" title="隐藏edit功能"></a>隐藏edit功能</h4><p>main函数反汇编并不好看，直接汇编更加清楚</p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513194930539.png" alt="image-20210513194930539"></p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195209948.png" alt="image-20210513195209948"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513194930539.png" alt="image-20210513194930539"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195209948.png" alt="image-20210513195209948"></p>
 <h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><h4 id="off-by-one"><a href="#off-by-one" class="headerlink" title="off by one"></a>off by one</h4><h5 id="分析程序"><a href="#分析程序" class="headerlink" title="分析程序"></a>分析程序</h5><p>在输入函数中，将最后两位置零</p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195310404.png" alt="image-20210513195310404"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195310404.png" alt="image-20210513195310404"></p>
 <p>add函数中，没有off by one</p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195431863.png" alt="image-20210513195431863"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195431863.png" alt="image-20210513195431863"></p>
 <p>edit函数中，存在off by one</p>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195449902.png" alt="image-20210513195449902"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513195449902.png" alt="image-20210513195449902"></p>
 <h5 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h5><p>分配程序，利用off by one，可以将size中代表前面是否释放的1位置零，使得上一个chunk被认为释放，并进行unlink操作。</p>
 <p>例如：分配四个块：</p>
 <ul>
@@ -353,7 +353,7 @@
 <p> 此时已经造成堆块重叠了。</p>
 <p> chunk1、chunk2与合并后的chunk重叠，并且合并后的chunk在unsortedbin中</p>
 </blockquote>
-<p><img src="/2021/05/13/20-52-Shuwen/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513202435970.png" alt="image-20210513202435970"></p>
+<p><img src="/2021/05/13/20-52/Users\YCNN\AppData\Roaming\Typora\typora-user-images\image-20210513202435970.png" alt="image-20210513202435970"></p>
 <h4 id="6-释放chunk-bk"><a href="#6-释放chunk-bk" class="headerlink" title="6.释放chunk bk"></a>6.释放chunk bk</h4><p>释放chunk2和chunk4，tcache是先进先出</p>
 <ul>
 <li>释放chunk2、chunk4</li>
