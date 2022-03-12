@@ -233,10 +233,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-09 21:46:00 / 修改时间：21:50:52" itemprop="dateCreated datePublished" datetime="2022-03-09T21:46:00+08:00">2022-03-09</time>
+              <time title="创建时间：2022-03-09 21:46:00" itemprop="dateCreated datePublished" datetime="2022-03-09T21:46:00+08:00">2022-03-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-12 19:12:58" itemprop="dateModified" datetime="2022-03-12T19:12:58+08:00">2022-03-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -258,8 +264,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>跨时空尺度的预测验证方法</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="为什么要验证？"><a href="#为什么要验证？" class="headerlink" title="为什么要验证？"></a>为什么要验证？</h3><h3 id="预测和验证的种类"><a href="#预测和验证的种类" class="headerlink" title="预测和验证的种类"></a>预测和验证的种类</h3><h3 id="怎样使预测变好？"><a href="#怎样使预测变好？" class="headerlink" title="怎样使预测变好？"></a>怎样使预测变好？</h3><h3 id="预测质量-vs-预测值"><a href="#预测质量-vs-预测值" class="headerlink" title="预测质量 vs 预测值"></a>预测质量 vs 预测值</h3><h3 id="什么是“事实”"><a href="#什么是“事实”" class="headerlink" title="什么是“事实”"></a>什么是“事实”</h3><h3 id="验证结果的有效性"><a href="#验证结果的有效性" class="headerlink" title="验证结果的有效性"></a>验证结果的有效性</h3><h3 id="汇集-vs-分层-结果"><a href="#汇集-vs-分层-结果" class="headerlink" title="汇集 vs 分层 结果"></a>汇集 vs 分层 结果</h3><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="标准验证方法"><a href="#标准验证方法" class="headerlink" title="标准验证方法"></a>标准验证方法</h3><h4 id="二分（是-否）预测法"><a href="#二分（是-否）预测法" class="headerlink" title="二分（是/否）预测法"></a>二分（是/否）预测法</h4><h4 id="多类别预测法"><a href="#多类别预测法" class="headerlink" title="多类别预测法"></a>多类别预测法</h4><h4 id="连续变量预测法"><a href="#连续变量预测法" class="headerlink" title="连续变量预测法"></a>连续变量预测法</h4><h4 id="概率预测法"><a href="#概率预测法" class="headerlink" title="概率预测法"></a>概率预测法</h4><h3 id="科学或诊断验证方法"><a href="#科学或诊断验证方法" class="headerlink" title="科学或诊断验证方法"></a>科学或诊断验证方法</h3><h4 id="空间预测法"><a href="#空间预测法" class="headerlink" title="空间预测法"></a>空间预测法</h4><h4 id="概率预测法，包括集合预测系统"><a href="#概率预测法，包括集合预测系统" class="headerlink" title="概率预测法，包括集合预测系统"></a>概率预测法，包括集合预测系统</h4><h4 id="针对罕见事件的方法"><a href="#针对罕见事件的方法" class="headerlink" title="针对罕见事件的方法"></a>针对罕见事件的方法</h4><h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><h2 id="样本预测数据集"><a href="#样本预测数据集" class="headerlink" title="样本预测数据集"></a>样本预测数据集</h2><h3 id="芬利龙卷风预报"><a href="#芬利龙卷风预报" class="headerlink" title="芬利龙卷风预报"></a>芬利龙卷风预报</h3><h3 id="降水预报概率"><a href="#降水预报概率" class="headerlink" title="降水预报概率"></a>降水预报概率</h3><p>链接：<a href="https://cawcr.gov.au/projects/verification/#Contributors_to_this_site" target="_blank" rel="noopener">https://cawcr.gov.au/projects/verification/#Contributors_to_this_site</a></p>
+          <blockquote>
+<p>跨时空尺度的预测验证方法</p>
+</blockquote>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="什么是预测验证？"><a href="#什么是预测验证？" class="headerlink" title="什么是预测验证？"></a>什么是预测验证？</h3><ul>
+<li><strong>预测</strong>：对<strong>未来状态</strong>（天气、股票市场价格等）的预测</li>
+<li><strong>预测验证</strong>：<strong>评估</strong>预测质量的过程。</li>
+</ul>
+<p>比较或验证 -&gt; <strong>预测</strong>  &amp; <strong>实际</strong>发生的相应观察结果（或对真实结果的某种良好估计）</p>
+<p>验证结果</p>
+<ul>
+<li><strong>定性</strong>的（“它看起来对吗？”）</li>
+<li><strong>定量</strong>的（“它有多准确？”）。 </li>
+</ul>
+<p>无论哪种情况，它都应该为您提供有关<strong>预测误差性质</strong>的信息。 </p>
+<h3 id="为什么要验证？"><a href="#为什么要验证？" class="headerlink" title="为什么要验证？"></a>为什么要验证？</h3><p>需要验证预测的<strong>三个</strong>最重要的原因是：</p>
+<ol>
+<li><p>监控预测<strong>质量</strong> - 预测的<strong>准确性</strong>如何？随着时间的推移，它们是否会有所改善？</p>
+</li>
+<li><p><strong>提高</strong>预测<strong>质量</strong> - 变得更好的第一步是发现你做错了什么。</p>
+</li>
+<li><p><strong>比较</strong>不同预测系统的质量 - 一个预测系统在<strong>多大程度</strong>上比另一个预测系统提供更好的预测，以及该系统在<strong>哪些方面</strong>更好？ </p>
+</li>
+</ol>
+<h3 id="预测和验证的种类"><a href="#预测和验证的种类" class="headerlink" title="预测和验证的种类"></a>预测和验证的种类</h3><h3 id="怎样使预测变好？"><a href="#怎样使预测变好？" class="headerlink" title="怎样使预测变好？"></a>怎样使预测变好？</h3><h3 id="预测质量-vs-预测值"><a href="#预测质量-vs-预测值" class="headerlink" title="预测质量 vs 预测值"></a>预测质量 vs 预测值</h3><h3 id="什么是“事实”"><a href="#什么是“事实”" class="headerlink" title="什么是“事实”"></a>什么是“事实”</h3><h3 id="验证结果的有效性"><a href="#验证结果的有效性" class="headerlink" title="验证结果的有效性"></a>验证结果的有效性</h3><h3 id="汇集-vs-分层-结果"><a href="#汇集-vs-分层-结果" class="headerlink" title="汇集 vs 分层 结果"></a>汇集 vs 分层 结果</h3><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="标准验证方法"><a href="#标准验证方法" class="headerlink" title="标准验证方法"></a>标准验证方法</h3><h4 id="二分（是-否）预测法"><a href="#二分（是-否）预测法" class="headerlink" title="二分（是/否）预测法"></a>二分（是/否）预测法</h4><h4 id="多类别预测法"><a href="#多类别预测法" class="headerlink" title="多类别预测法"></a>多类别预测法</h4><h4 id="连续变量预测法"><a href="#连续变量预测法" class="headerlink" title="连续变量预测法"></a>连续变量预测法</h4><h4 id="概率预测法"><a href="#概率预测法" class="headerlink" title="概率预测法"></a>概率预测法</h4><h3 id="科学或诊断验证方法"><a href="#科学或诊断验证方法" class="headerlink" title="科学或诊断验证方法"></a>科学或诊断验证方法</h3><h4 id="空间预测法"><a href="#空间预测法" class="headerlink" title="空间预测法"></a>空间预测法</h4><h4 id="概率预测法，包括集合预测系统"><a href="#概率预测法，包括集合预测系统" class="headerlink" title="概率预测法，包括集合预测系统"></a>概率预测法，包括集合预测系统</h4><h4 id="针对罕见事件的方法"><a href="#针对罕见事件的方法" class="headerlink" title="针对罕见事件的方法"></a>针对罕见事件的方法</h4><h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><h2 id="样本预测数据集"><a href="#样本预测数据集" class="headerlink" title="样本预测数据集"></a>样本预测数据集</h2><h3 id="芬利龙卷风预报"><a href="#芬利龙卷风预报" class="headerlink" title="芬利龙卷风预报"></a>芬利龙卷风预报</h3><h3 id="降水预报概率"><a href="#降水预报概率" class="headerlink" title="降水预报概率"></a>降水预报概率</h3><p>链接：<a href="https://cawcr.gov.au/projects/verification/#Contributors_to_this_site" target="_blank" rel="noopener">https://cawcr.gov.au/projects/verification/#Contributors_to_this_site</a></p>
 
       
     </div>
