@@ -153,6 +153,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/07/16-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/07/16-20/" class="post-title-link" itemprop="url">pwn出题环境搭建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 16:20:02" itemprop="dateCreated datePublished" datetime="2020-11-07T16:20:02+08:00">2020-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-08 16:57:01" itemprop="dateModified" datetime="2021-07-08T16:57:01+08:00">2021-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>周六有个校赛，要出题目和搭建环境，记录下一些有用的东西</p>
+</blockquote>
+<p>GCC编译中几种保护打开和关闭的参数：<a href="https://blog.csdn.net/lonyliu/article/details/90341012" target="_blank" rel="noopener">https://blog.csdn.net/lonyliu/article/details/90341012</a></p>
+<ul>
+<li>NX：<code>-z execstack</code> / <code>-z noexecstack</code> (关闭 / 开启)  不让执行栈上的数据，于是JMP ESP就不能用了</li>
+<li>Canary：<code>-fno-stack-protector</code> /<code>-fstack-protector</code> / <code>-fstack-protector-all</code> (关闭 / 开启 / 全开启) 栈里插入cookie信息</li>
+<li>PIE：<code>-no-pie</code> / <code>-pie</code> (关闭 / 开启)  地址随机化，另外打开后会有<em>get_pc_thunk</em></li>
+<li>RELRO：<code>-z norelro</code> / <code>-z lazy</code> / <code>-z now</code> (关闭 / 部分开启 / 完全开启) 对GOT表具有写权限</li>
+</ul>
+<p><code>gcc 文件名.c -o 文件 -z execstack -fno-stack-protector -no-pie -z norelro</code></p>
+<p>如何安全快速地部署多道 ctf pwn 比赛题目：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MjM5MTYxNjQxOA==&amp;mid=2652848854&amp;idx=1&amp;sn=ff537cc73e76e1ab058bd36cb76749a0&amp;chksm=bd593e1b8a2eb70d41627a1d04c1abec2c071f28c2649ddd9e313c4eda854ca4a26db20a1985&amp;mpshare=1&amp;scene=1&amp;srcid=1011dGXhepYahcla33btEWte#rd</a></p>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com | bash -s docker --mirror Aliyun</span><br><span class="line">或者</span><br><span class="line">curl -sSL https:&#x2F;&#x2F;get.daocloud.io&#x2F;docker | sh</span><br></pre></td></tr></table></figure>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker save &lt;ImageID&gt; &gt; gzip xxx.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images</span><br></pre></td></tr></table></figure>
+<h3 id="查看容器"><a href="#查看容器" class="headerlink" title="查看容器"></a>查看容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rm &lt;containerID&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rmi &lt;imageID&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="暂停运行"><a href="#暂停运行" class="headerlink" title="暂停运行"></a>暂停运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker stop &lt;containerID&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="安装ssh服务"><a href="#安装ssh服务" class="headerlink" title="安装ssh服务"></a>安装ssh服务</h3><blockquote>
+<p><a href="https://blog.csdn.net/weixin_30701521/article/details/101810109" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30701521/article/details/101810109</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install openssh-client</span><br><span class="line">apt-get install openssh-server</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;ssh start</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/23/17-42/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1522,86 +1618,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/18-38/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shuwen.jpg">
-      <meta itemprop="name" content="Shuwen">
-      <meta itemprop="description" content="做有意思的事，有意思地做事">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shuwen's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/23/18-38/" class="post-title-link" itemprop="url">winter</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-23 18:38:17" itemprop="dateCreated datePublished" datetime="2020-07-23T18:38:17+08:00">2020-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-27 17:09:49" itemprop="dateModified" datetime="2021-04-27T17:09:49+08:00">2021-04-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>who am i</p>
-<p>hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-<hr>
-<h3 id="添加目录"><a href="#添加目录" class="headerlink" title="添加目录"></a>添加目录</h3><blockquote>
-<p>发现可以添加目录，还以为没有呢</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">toc: true</span><br></pre></td></tr></table></figure>
-<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><blockquote>
-<p>做题，发现别人博客没贴附件可太难受了，所以接下来会把附件都贴一下。</p>
-</blockquote>
-<p><code>[名字](对应文章目录下的文件名)</code></p>
-<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;glibc-2.23&#x2F;lib&#x2F;libc-2.23.so</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;glibc-2.23&#x2F;lib&#x2F;ld-2.23.so</span><br><span class="line">&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1669,7 +1689,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
