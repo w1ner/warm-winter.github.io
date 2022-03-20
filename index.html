@@ -184,7 +184,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 16:15:37" itemprop="dateModified" datetime="2022-03-20T16:15:37+08:00">2022-03-20</time>
+                <time title="修改时间：2022-03-20 16:17:46" itemprop="dateModified" datetime="2022-03-20T16:17:46+08:00">2022-03-20</time>
               </span>
 
           
@@ -198,42 +198,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h2><ol>
-<li>认真研读《题目论证书》，明确了《基于深度感知的降水区域相似度量》题目的具体要求：首先分析给定的降水预报产品，并做数据预处理；接着提取降水区域并建模表示；然后查阅当前该领域主要的雨区相似度量方法并实现；最后利用深度感知得到新的雨区相似度量，将两种方法的雨区相似度量作为具有高层语义的优化目标和损失函数改进原有的基于深度学习的降水订正模型。</li>
-<li>阅读参考文献，了解到了本课题的目的以及发展现状：本课题主要是为了降水预报后，改进预报模型，进行降水订正，从而提高预报的精准度。当前气象领域的雨区相似度量方法主要分为传统的检验方法和较新的空间检验方法，传统的检验方法主要为TS评分，空间检验技术主要包括邻域法（FSS）、尺度分离法、属性判别法（SAL）、形变评估法（CRA）四种。</li>
-<li>完成开题报告的前两部分。</li>
-</ol>
-<h2 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h2><ol>
-<li>阅读SAL方法原文：HEINI WERNLI 2008年的《SAL—A Novel Quality Measure for the Verification of QuantitativePrecipitation Forecasts》，理解SAL原理，SAL方法主要通过三个分量，分别从场结构、降水强度和场位置偏差对预测结果进行评价。</li>
-<li><p>实现SAL代码：</p>
-<ol>
-<li><p>使用python进行编程</p>
-</li>
-<li><p>阈值的设定，效果是大于阈值的格点才会被定为降水主体成员（降水体：降水主体内（各不连续的小降水区域）每个连续的小区域），只有降水主体成员才参与上述S、L2的运算</p>
-<ul>
-<li>S表示Structure 结构，提供预测场和观测场有关其大小和形状的信息，正值 -&gt; 表示模拟的降水对象太大或太平，负值 -&gt; 表示对象太尖锐或太小；</li>
-<li>A表示Amplitude （振幅）降水强度，正值 -&gt; 表示对总降水量的估计过高，负值 -&gt; 表示对总降水量的估计过低；</li>
-<li>L表示Location位置，提供预测场和观测场位置偏差信息，分为L1、L2两部分，L1表示预报场与观测场质心之间的归一化距离。（两个场质心之间的距离），L2是总降水场的质心与观测和预报的个别降水对象的归一化距离之差（每个降水对象到质心的距离）。</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="第三周"><a href="#第三周" class="headerlink" title="第三周"></a>第三周</h2><ol>
-<li>学习深度学习框架，主要根据书籍《动手学深度学习》以及对应的代码进行了解和掌握，进度到了第四章多层感知机，学习了包括线性模型、损失函数、随机梯度下降等基础知识以及实现线性回归、softmax回归等基础模型。</li>
-<li>阅读FSS方法原文：ROBERTS 2006 年的《Scale-Selective Verification of Rainfall Accumulations from High-Resolution Forecasts of Convective Events》，理解FSS原理，FSS方法主要考察不同尺度内降水发生概率。</li>
-<li>实现FSS代码：<ul>
-<li>主要分为两步：<ul>
-<li>Brier评分的变形：比较预报与观测的降水频率 FBS (Fraction Brier Score)</li>
-<li>方差技巧评分：获取正定的（特征值均为正）评分</li>
-</ul>
-</li>
-<li>范围（0 - 1）其中，0 ：完全不匹配、1：完美匹配</li>
-<li>特点：领域尺度增加 -&gt; FSS评分增大</li>
-</ul>
-</li>
-</ol>
-
+          The article has been encrypted, please enter your password to view.<br>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/13/14-30/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
