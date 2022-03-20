@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="The article has been encrypted, please enter your password to view.">
+  <meta name="description" content="第一周 认真研读《题目论证书》，明确了《基于深度感知的降水区域相似度量》题目的具体要求：首先分析给定的降水预报产品，并做数据预处理；接着提取降水区域并建模表示；然后查阅当前该领域主要的雨区相似度量方法并实现；最后利用深度感知得到新的雨区相似度量，将两种方法的雨区相似度量作为具有高层语义的优化目标和损失函数改进原有的基于深度学习的降水订正模型。 阅读参考文献，了解到了本课题的目的以及发展现状：本课题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="毕设周报">
 <meta property="og:url" content="http://yoursite.com/2022/03/13/14-30/index.html">
 <meta property="og:site_name" content="Shuwen&#39;s blog">
-<meta property="og:description" content="The article has been encrypted, please enter your password to view.">
+<meta property="og:description" content="第一周 认真研读《题目论证书》，明确了《基于深度感知的降水区域相似度量》题目的具体要求：首先分析给定的降水预报产品，并做数据预处理；接着提取降水区域并建模表示；然后查阅当前该领域主要的雨区相似度量方法并实现；最后利用深度感知得到新的雨区相似度量，将两种方法的雨区相似度量作为具有高层语义的优化目标和损失函数改进原有的基于深度学习的降水订正模型。 阅读参考文献，了解到了本课题的目的以及发展现状：本课题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T06:30:00.000Z">
-<meta property="article:modified_time" content="2022-03-13T06:44:10.070Z">
+<meta property="article:modified_time" content="2022-03-20T08:15:37.593Z">
 <meta property="article:author" content="Shuwen">
 <meta name="twitter:card" content="summary">
 
@@ -178,10 +178,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-03-13 14:30:00 / 修改时间：14:44:10" itemprop="dateCreated datePublished" datetime="2022-03-13T14:30:00+08:00">2022-03-13</time>
+              <time title="创建时间：2022-03-13 14:30:00" itemprop="dateCreated datePublished" datetime="2022-03-13T14:30:00+08:00">2022-03-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 16:15:37" itemprop="dateModified" datetime="2022-03-20T16:15:37+08:00">2022-03-20</time>
+              </span>
 
           
 
@@ -194,7 +200,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">Please enter the password to read the blog.</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>
+        <h2 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h2><ol>
+<li>认真研读《题目论证书》，明确了《基于深度感知的降水区域相似度量》题目的具体要求：首先分析给定的降水预报产品，并做数据预处理；接着提取降水区域并建模表示；然后查阅当前该领域主要的雨区相似度量方法并实现；最后利用深度感知得到新的雨区相似度量，将两种方法的雨区相似度量作为具有高层语义的优化目标和损失函数改进原有的基于深度学习的降水订正模型。</li>
+<li>阅读参考文献，了解到了本课题的目的以及发展现状：本课题主要是为了降水预报后，改进预报模型，进行降水订正，从而提高预报的精准度。当前气象领域的雨区相似度量方法主要分为传统的检验方法和较新的空间检验方法，传统的检验方法主要为TS评分，空间检验技术主要包括邻域法（FSS）、尺度分离法、属性判别法（SAL）、形变评估法（CRA）四种。</li>
+<li>完成开题报告的前两部分。</li>
+</ol>
+<h2 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h2><ol>
+<li>阅读SAL方法原文：HEINI WERNLI 2008年的《SAL—A Novel Quality Measure for the Verification of QuantitativePrecipitation Forecasts》，理解SAL原理，SAL方法主要通过三个分量，分别从场结构、降水强度和场位置偏差对预测结果进行评价。</li>
+<li><p>实现SAL代码：</p>
+<ol>
+<li><p>使用python进行编程</p>
+</li>
+<li><p>阈值的设定，效果是大于阈值的格点才会被定为降水主体成员（降水体：降水主体内（各不连续的小降水区域）每个连续的小区域），只有降水主体成员才参与上述S、L2的运算</p>
+<ul>
+<li>S表示Structure 结构，提供预测场和观测场有关其大小和形状的信息，正值 -&gt; 表示模拟的降水对象太大或太平，负值 -&gt; 表示对象太尖锐或太小；</li>
+<li>A表示Amplitude （振幅）降水强度，正值 -&gt; 表示对总降水量的估计过高，负值 -&gt; 表示对总降水量的估计过低；</li>
+<li>L表示Location位置，提供预测场和观测场位置偏差信息，分为L1、L2两部分，L1表示预报场与观测场质心之间的归一化距离。（两个场质心之间的距离），L2是总降水场的质心与观测和预报的个别降水对象的归一化距离之差（每个降水对象到质心的距离）。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="第三周"><a href="#第三周" class="headerlink" title="第三周"></a>第三周</h2><ol>
+<li>学习深度学习框架，主要根据书籍《动手学深度学习》以及对应的代码进行了解和掌握，进度到了第四章多层感知机，学习了包括线性模型、损失函数、随机梯度下降等基础知识以及实现线性回归、softmax回归等基础模型。</li>
+<li>阅读FSS方法原文：ROBERTS 2006 年的《Scale-Selective Verification of Rainfall Accumulations from High-Resolution Forecasts of Convective Events》，理解FSS原理，FSS方法主要考察不同尺度内降水发生概率。</li>
+<li>实现FSS代码：<ul>
+<li>主要分为两步：<ul>
+<li>Brier评分的变形：比较预报与观测的降水频率 FBS (Fraction Brier Score)</li>
+<li>方差技巧评分：获取正定的（特征值均为正）评分</li>
+</ul>
+</li>
+<li>范围（0 - 1）其中，0 ：完全不匹配、1：完美匹配</li>
+<li>特点：领域尺度增加 -&gt; FSS评分增大</li>
+</ul>
+</li>
+</ol>
+
     </div>
 
     
@@ -308,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#encrypt-message"><span class="nav-number">1.</span> <span class="nav-text">Please enter the password to read the blog.</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一周"><span class="nav-number">1.</span> <span class="nav-text">第一周</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二周"><span class="nav-number">2.</span> <span class="nav-text">第二周</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三周"><span class="nav-number">3.</span> <span class="nav-text">第三周</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
