@@ -178,7 +178,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-25 21:47:27 / 修改时间：21:49:57" itemprop="dateCreated datePublished" datetime="2022-03-25T21:47:27+08:00">2022-03-25</time>
+              <time title="创建时间：2022-03-25 21:47:27 / 修改时间：22:08:03" itemprop="dateCreated datePublished" datetime="2022-03-25T21:47:27+08:00">2022-03-25</time>
             </span>
 
           
@@ -194,7 +194,7 @@
       
           <ol>
 <li>博客集成音乐播放器</li>
-<li>gitbook 电子书</li>
+<li>gitbook 电子书<br> <a href="https://blog.csdn.net/xiongjiamu/article/details/84566936" target="_blank" rel="noopener">https://blog.csdn.net/xiongjiamu/article/details/84566936</a></li>
 </ol>
 
       
@@ -408,7 +408,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-15 20:57:35" itemprop="dateModified" datetime="2022-03-15T20:57:35+08:00">2022-03-15</time>
+                <time title="修改时间：2022-03-26 21:37:24" itemprop="dateModified" datetime="2022-03-26T21:37:24+08:00">2022-03-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -602,25 +602,74 @@
 <p>从列联表中的元素计算出大量种类繁多的分类统计数据，以描述预测性能的特定方面。我们将用一个(编造的)例子来说明这些统计数据。假设一年的官方每日降雨预报和观测产生了以下列联表:</p>
 <p><img src="http://r7wiw08xi.hn-bkt.clouddn.com/Forecast%20Verification%20methods%20Across%20Time%20and%20Space%20Scales%20/%E5%88%97%E8%81%94%E8%A1%A8_%E6%95%B0%E6%8D%AE.jpg" alt="http://r7wiw08xi.hn-bkt.clouddn.com/Forecast%20Verification%20methods%20Across%20Time%20and%20Space%20Scales%20/%E5%88%97%E8%81%94%E8%A1%A8_%E6%95%B0%E6%8D%AE.jpg"></p>
 <p>可以从yes/no列联表中计算的分类统计如下所示。有时这些分数以括号中显示的替代名称来表示。</p>
-<p>精度(分数正确) - $Accuracy = \frac{hits \ + \ correct \ negatives}{total}$</p>
-<p>他回答了这样一个问题：总体而言，这些预测有多少是正确的?</p>
+<hr>
+<p><strong>精度(分数正确)</strong> - $Accuracy = \frac{hits \ + \ correct \ negatives}{total}$</p>
 <ul>
+<li>回答了以下问题：总体而言，这些预测有多少是正确的?</li>
 <li>取值范围：0 ~ 1。完美的分数：1。</li>
 <li>特点：简单、直观。</li>
 </ul>
 <p>可能会引起误解，因为它严重<strong>受最常见类别影响</strong>，在罕见天气的情况下，通常是“无事件”。</p>
 <p>在上面的例子中，Accuracy =(82 + 222) / 365 = 0.83，表明83%的预测是正确的。</p>
 <hr>
-<p>偏差得分(频率偏差)-$BIAS = \frac{hits \ + \ false \ alarms}     {hits \ + \ misses}$</p>
-<p>回答以下问题:“是”事件的预测频率与观察到的“是”事件的观测频率相比如何?</p>
+<p><strong>偏差得分(频率偏差)</strong> - $BIAS = \frac{hits \ + \ false \ alarms}     {hits \ + \ misses}$</p>
 <ul>
-<li><p>范围：0到∞。完美的分数：1。</p>
-</li>
-<li><p>特征：测量预测事件的频率与观测事件的频率的比率。表示预测系统是否倾向于低预测(BIAS<1)或高预测(BIAS>1)事件。不测量预报与观测结果的对应程度，只测量<strong>相对频率</strong>。</1)或高预测(BIAS></p>
+<li>回答了以下问题：“是”事件的预测频率与观察到的“是”事件的观测频率相比如何?</li>
+<li>范围：0到∞。完美的分数：1。</li>
+<li>特征：测量预测事件的频率与观测事件的频率的比率。<ul>
+<li>表示预测系统是否倾向于低预测(BIAS<1)或高预测(BIAS>1)事件。</1)或高预测(BIAS></li>
+<li>不测量预报与观测结果的对应程度，只测量<strong>相对频率</strong>。</li>
+</ul>
 </li>
 </ul>
 <p>在上例中，BIAS =(82+38) / (82+23) = 1.14，表明雨频有轻微超预报。</p>
-<h4 id="多类别预测法"><a href="#多类别预测法" class="headerlink" title="多类别预测法"></a>多类别预测法</h4><h4 id="连续变量预测法"><a href="#连续变量预测法" class="headerlink" title="连续变量预测法"></a>连续变量预测法</h4><h4 id="概率预测法"><a href="#概率预测法" class="headerlink" title="概率预测法"></a>概率预测法</h4><h3 id="科学或诊断验证方法"><a href="#科学或诊断验证方法" class="headerlink" title="科学或诊断验证方法"></a>科学或诊断验证方法</h3><h4 id="空间预测法"><a href="#空间预测法" class="headerlink" title="空间预测法"></a>空间预测法</h4><h4 id="概率预测法，包括集合预测系统"><a href="#概率预测法，包括集合预测系统" class="headerlink" title="概率预测法，包括集合预测系统"></a>概率预测法，包括集合预测系统</h4><h4 id="针对罕见事件的方法"><a href="#针对罕见事件的方法" class="headerlink" title="针对罕见事件的方法"></a>针对罕见事件的方法</h4><h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><h2 id="样本预测数据集"><a href="#样本预测数据集" class="headerlink" title="样本预测数据集"></a>样本预测数据集</h2><h3 id="芬利龙卷风预报"><a href="#芬利龙卷风预报" class="headerlink" title="芬利龙卷风预报"></a>芬利龙卷风预报</h3><h3 id="降水预报概率"><a href="#降水预报概率" class="headerlink" title="降水预报概率"></a>降水预报概率</h3><p>链接：<a href="https://cawcr.gov.au/projects/verification" target="_blank" rel="noopener">https://cawcr.gov.au/projects/verification</a></p>
+<hr>
+<p><strong>检测概率(命中率)</strong> - $POD = \frac{hits}{hits \ + \ misses}$ (也记作H)</p>
+<ul>
+<li>回答了以下问题：观测到的“是”事件中有多少是被正确预测的?</li>
+<li>取值范围:0 ~ 1。完美的分数:1</li>
+<li>特征：<ul>
+<li>对<strong>命中敏感</strong>，但忽略错误警报。</li>
+<li>对气候频率非常敏感的事件。对罕见事件很有帮助。</li>
+<li>可以通过发布更多“是”的预测来人为地提高点击率。</li>
+<li>应与误报率(FAR)结合使用。</li>
+<li>相对工作特性(Relative Operating Characteristic, ROC)被广泛应用于概率预测中，POD也是其重要组成部分。</li>
+</ul>
+</li>
+</ul>
+<p>在上例中，POD = 82 /(82+23) = 0.78，表明观测到的降雨事件中约有3/4的yes是正确预测的。</p>
+<hr>
+<p><strong>误报率</strong> - $FAR = \frac{false alarms}{hits \ + \ false alarms}$</p>
+<ul>
+<li>回答了以下问题： 预测“是”的比例是多少，但事件实际上没有发生（即，是误报）？</li>
+<li>取值范围:0 ~ 1。完美的分数:1</li>
+<li>特点：<ul>
+<li>对误报敏感，但忽略漏报。</li>
+<li>对事件的气候频率非常敏感。 </li>
+<li>应该与检测概率结合使用（POD）。</li>
+</ul>
+</li>
+</ul>
+<p>在上面的例子中， FAR = 38 / (82+38) = 0.32，表明在大约 1/3 的预报降雨事件中， 没有观察到下雨。 </p>
+<hr>
+<p><strong>误检概率（false alarm rate）</strong> - $POFD = \frac{false alarms}{correct negatives \ + \ false alarms}$ （也表示为 F ）</p>
+<ul>
+<li>回答以下问题： 观察到的“否”占多大比例，但事件被错误地预测为“是”？</li>
+<li>取值范围:0 ~ 1。完美的分数:1</li>
+<li>特点： <ul>
+<li>对误报敏感，但忽略漏报。 </li>
+<li>可以通过发布更少的“是”预测来人为地改进以减少误报的数量。</li>
+<li>不经常报告确定性预测，但是是相对操作特征 (ROC) 广泛用于概率预测。</li>
+</ul>
+</li>
+</ul>
+<p>在上面的例子中， POFD = 38 / (222+38) = 0.15，表明对于观测到的“无雨”事件的 15% 预测不正确。 </p>
+<hr>
+<blockquote>
+<p>待更新。。。  太多了，而且不太重要。。。</p>
+</blockquote>
+<h4 id="多类别预测法"><a href="#多类别预测法" class="headerlink" title="多类别预测法"></a>多类别预测法</h4><p>验证多类别预测的方法也从列联表开始，列联表显示各种箱子中预测和观测的频率。它类似于分类的散点图。</p>
+<h4 id="连续变量预测法"><a href="#连续变量预测法" class="headerlink" title="连续变量预测法"></a>连续变量预测法</h4><h4 id="概率预测法"><a href="#概率预测法" class="headerlink" title="概率预测法"></a>概率预测法</h4><h3 id="科学或诊断验证方法"><a href="#科学或诊断验证方法" class="headerlink" title="科学或诊断验证方法"></a>科学或诊断验证方法</h3><h4 id="空间预测法"><a href="#空间预测法" class="headerlink" title="空间预测法"></a>空间预测法</h4><h4 id="概率预测法，包括集合预测系统"><a href="#概率预测法，包括集合预测系统" class="headerlink" title="概率预测法，包括集合预测系统"></a>概率预测法，包括集合预测系统</h4><h4 id="针对罕见事件的方法"><a href="#针对罕见事件的方法" class="headerlink" title="针对罕见事件的方法"></a>针对罕见事件的方法</h4><h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><h2 id="样本预测数据集"><a href="#样本预测数据集" class="headerlink" title="样本预测数据集"></a>样本预测数据集</h2><h3 id="芬利龙卷风预报"><a href="#芬利龙卷风预报" class="headerlink" title="芬利龙卷风预报"></a>芬利龙卷风预报</h3><h3 id="降水预报概率"><a href="#降水预报概率" class="headerlink" title="降水预报概率"></a>降水预报概率</h3><p>链接：<a href="https://cawcr.gov.au/projects/verification" target="_blank" rel="noopener">https://cawcr.gov.au/projects/verification</a></p>
 
       
     </div>
