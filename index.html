@@ -153,6 +153,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/12/23-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shuwen.jpg">
+      <meta itemprop="name" content="Shuwen">
+      <meta itemprop="description" content="做有意思的事，有意思地做事">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shuwen's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/12/23-08/" class="post-title-link" itemprop="url">空间预测检验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-12 23:08:44" itemprop="dateCreated datePublished" datetime="2022-04-12T23:08:44+08:00">2022-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-13 22:16:35" itemprop="dateModified" datetime="2022-04-13T22:16:35+08:00">2022-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a href="https://rdrr.io/cran/SpatialVx/man/SpatialVx-package.html" target="_blank" rel="noopener">SpatialVx-package: Spatial Forecast Verification </a></p>
+</blockquote>
+<h2 id="过滤方法"><a href="#过滤方法" class="headerlink" title="过滤方法"></a>过滤方法</h2><ol>
+<li><p>领域方法：</p>
+<p> 邻域方法通常将<strong>卷积核平滑器</strong>应用于验证集中的一个或两个字段，然后应用传统分数。 Ebert (2008, 2009)</p>
+</li>
+<li><p>尺度分离方法：</p>
+<blockquote>
+<p>带通滤波器：允许特定频段的波通过同时屏蔽其他频段的设备。</p>
+</blockquote>
+<p> 尺度分离是指将<strong>带通滤波器</strong>（和/或进行多分辨率分析，MRA）应用于验证集的想法。通常，技能是按比例评估的。然而，也应用了其他技术。例如，在应用传统统计之前对字段进行去噪，使用变异函数，或应用基于变异函数的统计测试（最后这些与尺度分离思想的精神不太相似，但至少有些相关）。<br> Briggs和Levine (1997)中提出的小波方法具有一定的功能性。特别是，要在应用传统的验证统计数据之前简单地对字段进行降噪，<br> Casati等人(2004年)介绍的强度标度技术和Casati (2010年)提出的技术的新发展<br> 虽然不是严格意义上的“尺度分离”方法，但结构函数(变异函数是其特例)在分析不同分离距离的场的意义上是相同的，并且这些“尺度”是彼此分离的(即分数不一定随着尺度的增加而提高或降低)。<br> 也有对这些函数的微小修改(对fields函数的微小修改)来计算Harris等人(2001)的结构函数。</p>
+</li>
+</ol>
+<h2 id="移位方法"><a href="#移位方法" class="headerlink" title="移位方法"></a>移位方法</h2><p>在 Gilleland 等人 (2009) 中，该类别分为两种主要类型，即场变形和基于特征。前者将二进制图像测量/度量与场变形技术集中在一起，因为二值图像测量告知了两个场（跨整个场）的空间范围或模式之间的“相似性”（或不相似性）。在这里，它们被进一步分解为仅产生单个（或小向量）度量或度量（位置度量）的那些，以及具有移动网格点位置以更好地匹配字段的机制的那些空间上（场变形）。</p>
+<ol>
+<li>基于距离和空间对齐的汇总措施：</li>
+</ol>
+<p>Gilleland (2020) 引入了一种新的空间对齐汇总度量，该度量介于零和一之间，一个代表完美匹配，零代表不匹配。有一个用户可选择的参数/参数确定测量值向零下降的速率。另外两个汇总度量也包含强度信息。<br>除了上述新测度之外，还包括较早的知名测度，包括：Hausdorff 度量、partial-Hausdorff 度量、FQI (Venugopal et al., 2005)、Baddeley’s delta metric (Baddeley, 1992; Gilleland, 2011; Schwedler et al., 2011), metrV (Zhu et al., 2011)，以及在 Baddeley, 1992 中描述的定位性能测量：平均误差距离、均方误差距离和 Pratt’s Figure of<br>Merit (FOM)。<br>图像矩可以提供有关位置误差的有用信息，并在基于特征的方法中使用，特别是 MODE，因为它们给出了图像（或特征）的质心，以及方向角，以及其他有用的属性。</p>
+<ol>
+<li>场变形</li>
+</ol>
+<p>这些函数执行 Marzban 和 Sandgathe (2010) 中描述的分析，并且基于 Lucas 和 Kanade (1981) 的工作。<br>可以使用rigider 函数来估计刚性变换。要使用指定的参数（x 和 y 平移和/或旋转）简单地对场（或特征）进行刚性变换，可以使用刚性变换函数。对于这些可能会导致变换不能完全落在网格点上的函数，函数 Fint2d 可用于从最近的网格点进行插值</p>
+<ol>
+<li>基于特征的方法：</li>
+</ol>
+<p>这些方法有时也称为基于对象的方法（此包中使用术语“特征”以区别于 R 对象），并且与基于对象的图像分析 (OBIA) 中使用的技术有许多相似之处，这是一种相对主要由于地球观测传感器和 GIS 科学的进步而出现的新研究领域（Blaschke 等人，2008 年）。它试图识别一个字段中的各个特征，然后逐个特征地分析这些字段。除了位置特定的错误信息之外，这可能还涉及强度错误信息。此外，可以使用命中、未命中和误报的新定义找到列联表验证统计信息（正确的否定更难以评估，但也可以完成）。</p>
+<p>目前，有执行 Davis 等人介绍的分析的功能。 (2006,2009)，包括 Gilleland 等人 (2008) 的合并/匹配算法，以及 Wernli 等人 (2008, 2009) 的 SAL 技术。复合分析的一些功能（Nachamkin，2004）是通过将单个特征放置到相对网格上来提供的，以便每个特征共享相同的质心。形状分析部分由识别边界点的函数支持（Micheas 等人 2007；Lack 等人 2010）。<br>增加了 Marzban 和 Sandgathe（2006；2008）的聚类分析方法。</p>
+<ol>
+<li>几何特征的措施:<br>也许这个子标题中的措施最好被描述为 2c 的一部分。它们当然在该领域很有用，但 AghaKouchak 等人也为整个领域提出了建议。 （2011）；尽管在 MODE 等中已经应用了类似的措施。 AghaKouchak 等人介绍的措施。 (2011) 可在此处获得：连通性指数 (Cindex)、形状指数 (Sindex) 和面积指数 (Aindex)：</li>
+</ol>
+<h2 id="空间（和-或时空）场的统计推断："><a href="#空间（和-或时空）场的统计推断：" class="headerlink" title="空间（和/或时空）场的统计推断："></a>空间（和/或时空）场的统计推断：</h2><p>除了Gilleland et al.(2009)分类的方法外，还有用于两个空间域之间比较的函数。Elmore等人(2006)详细介绍的场显著性方法也需要时间维度，它涉及在每个网格点(或位置)单独使用圆形块引导(CBB)算法(通常针对平均误差)，以确定网格点的显著性(零假设的平均误差为零)，然后用半参数蒙特卡罗方法即Livezey和Chen(1983)确定场的意义<br>Hering和Genton(2011)提出的空间预测比较检验(spatial prediction comparison test, SPCT)。计算损失函数的支持函数包括:绝对误差(abserrloss)、平方误差(sqerrloss)和相关技能(corrskill)，以及Gilleland(2013)中引入的距离图损失函数(distmaploss)。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Mesinger(2008)中引入的偏置校正TS和ETS(或TS dHdA和ETS dHdA)<br>在Lakshmanan和Kain(2010)中引入的二维高斯混合模型(GMM)方法</p>
+<p>通过S1和ACC函数可以得到S1评分和ACC异常相关性(anomaly correlation，简称ACC)。<br>有关这些统计数据的更多信息，请参阅<strong>Brown等人(2012)</strong> 和Thompson和Carter(1972)。<br>还包括Willmott等人(2007)的地理框图函数。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/25/21-47/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -184,7 +282,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-12 13:40:34" itemprop="dateModified" datetime="2022-04-12T13:40:34+08:00">2022-04-12</time>
+                <time title="修改时间：2022-04-12 21:39:25" itemprop="dateModified" datetime="2022-04-12T21:39:25+08:00">2022-04-12</time>
               </span>
 
           
@@ -198,9 +296,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
+          <h3 id="折腾事项"><a href="#折腾事项" class="headerlink" title="折腾事项"></a>折腾事项</h3><ol>
 <li>博客集成音乐播放器</li>
 <li>gitbook 电子书<br> <a href="https://blog.csdn.net/xiongjiamu/article/details/84566936" target="_blank" rel="noopener">https://blog.csdn.net/xiongjiamu/article/details/84566936</a></li>
+</ol>
+<h3 id="学习事项"><a href="#学习事项" class="headerlink" title="学习事项"></a>学习事项</h3><ol>
+<li>latex</li>
+<li>endnotes</li>
 </ol>
 
       
@@ -342,7 +444,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-10 19:40:39" itemprop="dateModified" datetime="2022-04-10T19:40:39+08:00">2022-04-10</time>
+                <time title="修改时间：2022-04-17 15:24:26" itemprop="dateModified" datetime="2022-04-17T15:24:26+08:00">2022-04-17</time>
               </span>
 
           
@@ -1838,94 +1940,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/08/18-44/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shuwen.jpg">
-      <meta itemprop="name" content="Shuwen">
-      <meta itemprop="description" content="做有意思的事，有意思地做事">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shuwen's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/08/18-44/" class="post-title-link" itemprop="url">rsa算法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-08 18:44:43 / 修改时间：18:53:07" itemprop="dateCreated datePublished" datetime="2021-10-08T18:44:43+08:00">2021-10-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>久闻大名，ctf的密码学题目，easyRSA</p>
-<p>因为实验里面需要加密解密，就看了下这个使用最为广泛的非对称加密算法。</p>
-</blockquote>
-<ul>
-<li><a href="https://www.bilibili.com/video/BV14y4y1272w?from=search&amp;seid=10798640508792660489&amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频1</a></li>
-<li><a href="https://www.bilibili.com/video/BV1kE411h7ui?from=search&amp;seid=10798640508792660489&amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频2</a></li>
-<li><a href="https://www.bilibili.com/video/BV1sZ4y1H7WC?from=search&amp;seid=10798640508792660489&amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener">视频3</a></li>
-</ul>
-<p>加密的宏观上：为了能让Bob安全的给Alice发送消息。</p>
-<p>首先Alice生成公钥和私钥（对应锁和钥匙），然后Alice将锁给Bob，那么Bob用锁给信息加密后，将加密后的东西还给Alice，Alice用钥匙解密即可拿到Bob的信息。但是其他人虽然能看到锁，但是无法解密，因为没有钥匙。</p>
-<p><img src="/2021/10/08/18-44/image-20210910190119327.png" alt="image-20210910190119327"></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>模运算是单向运算</p>
-<p>有e容易求c，但是有c难求e</p>
-<p><img src="/2021/10/08/18-44/image-20210910190422813.png" alt="image-20210910190422813"></p>
-<p>加密解密过程：e和N是给大家都能看到，但是d是Alice持有的钥匙，只有Alice能计算的</p>
-<p><img src="/2021/10/08/18-44/image-20210910190457576.png" alt="image-20210910190457576"></p>
-<p>mod的模数e和余数c是互质的，所以上面吧m^e带入下面的c得到下面公式</p>
-<p><img src="/2021/10/08/18-44/image-20210910191513110.png" alt="image-20210910191513110"></p>
-<h3 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h3><p>定理</p>
-<p><img src="/2021/10/08/18-44/image-20210910190649163.png" alt="image-20210910190649163"></p>
-<p>所以建立式子</p>
-<p><img src="/2021/10/08/18-44/image-20210910190538216.png" alt="image-20210910190538216"></p>
-<p><img src="/2021/10/08/18-44/image-20210910191715034.png" alt="image-20210910191715034"></p>
-<p><img src="/2021/10/08/18-44/image-20210910191737898.png" alt="image-20210910191737898"></p>
-<p>所以，取两个质数，p*q=n</p>
-<p>其他人来说：已知n，但φ(n)难以求解</p>
-<p>拥有私钥p、q的人来说：p和q因为是质数很好求容易求得</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">φ(n)&#x3D;φ(p)*φ(q)&#x3D;(p-1)*(q-1)</span><br></pre></td></tr></table></figure>
-<p>就可以求得d，成功解出答案</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1997,7 +2011,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
